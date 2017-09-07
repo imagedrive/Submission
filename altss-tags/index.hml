@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta lang="" property="dc:language" content="en">
+<style>
+    /*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+    
+    .hljs {
+      display: block;
+      overflow-x: auto;
+      padding: 0.5em;
+      color: #333;
+      background: #f8f8f8;
+    }
+    
+    .hljs-comment,
+    .hljs-quote {
+      color: #998;
+      font-style: italic;
+    }
+    
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-subst {
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .hljs-number,
+    .hljs-literal,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag .hljs-attr {
+      color: #008080;
+    }
+    
+    .hljs-string,
+    .hljs-doctag {
+      color: #d14;
+    }
+    
+    .hljs-title,
+    .hljs-section,
+    .hljs-selector-id {
+      color: #900;
+      font-weight: bold;
+    }
+    
+    .hljs-subst {
+      font-weight: normal;
+    }
+    
+    .hljs-type,
+    .hljs-class .hljs-title {
+      color: #458;
+      font-weight: bold;
+    }
+    
+    .hljs-tag,
+    .hljs-name,
+    .hljs-attribute {
+      color: #000080;
+      font-weight: normal;
+    }
+    
+    .hljs-regexp,
+    .hljs-link {
+      color: #009926;
+    }
+    
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #990073;
+    }
+    
+    .hljs-built_in,
+    .hljs-builtin-name {
+      color: #0086b3;
+    }
+    
+    .hljs-meta {
+      color: #999;
+      font-weight: bold;
+    }
+    
+    .hljs-deletion {
+      background: #fdd;
+    }
+    
+    .hljs-addition {
+      background: #dfd;
+    }
+    
+    .hljs-emphasis {
+      font-style: italic;
+    }
+    
+    .hljs-strong {
+      font-weight: bold;
+    }
+</style>
+<style>
+    /* --- ISSUES/NOTES --- */
+    
+    div.issue-title,
+    div.note-title,
+    div.ednote-title,
+    div.warning-title {
+      padding-right: 1em;
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+    
+    div.issue-title {
+      color: #e05252;
+    }
+    
+    div.note-title,
+    div.ednote-title {
+      color: #2b2;
+    }
+    
+    div.warning-title {
+      color: #f22;
+    }
+    
+    div.issue-title span,
+    div.note-title span,
+    div.ednote-title span,
+    div.warning-title span {
+      text-transform: uppercase;
+    }
+    
+    div.note,
+    div.issue,
+    div.ednote,
+    div.warning {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    
+    .note>p:first-child,
+    .ednote>p:first-child,
+    .issue>p:first-child,
+    .warning>p:first-child {
+      margin-top: 0
+    }
+    
+    .issue,
+    .note,
+    .ednote,
+    .warning {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+    }
+    
+    div.issue,
+    div.note,
+    div.ednote,
+    div.warning {
+      padding: 1em 1.2em 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+    
+    span.note,
+    span.ednote,
+    span.issue,
+    span.warning {
+      padding: .1em .5em .15em;
+    }
+    
+    .issue {
+      border-color: #e05252;
+      background: #fbe9e9;
+    }
+    
+    .note,
+    .ednote {
+      border-color: #52e052;
+      background: #e9fbe9;
+    }
+    
+    .warning {
+      border-color: #f11;
+      border-width: .2em;
+      border-style: solid;
+      background: #fbe9e9;
+    }
+    
+    .warning-title:before {
+      content: "⚠";
+      /*U+26A0 WARNING SIGN*/
+      font-size: 3em;
+      float: left;
+      height: 100%;
+      padding-right: .3em;
+      vertical-align: top;
+      margin-top: -0.5em;
+    }
+    
+    li.task-list-item {
+      list-style: none;
+    }
+    
+    input.task-list-item-checkbox {
+      margin: 0 0.35em 0.25em -1.6em;
+      vertical-align: middle;
+    }
+</style>
+<style id="respec-mainstyle">
+    /*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+    /* Override code highlighter background */
+    
+    .hljs {
+      background: transparent !important;
+    }
+    /* --- INLINES --- */
+    
+    em.rfc2119 {
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-style: normal;
+      color: #900;
+    }
+    
+    h1 acronym,
+    h2 acronym,
+    h3 acronym,
+    h4 acronym,
+    h5 acronym,
+    h6 acronym,
+    a acronym,
+    h1 abbr,
+    h2 abbr,
+    h3 abbr,
+    h4 abbr,
+    h5 abbr,
+    h6 abbr,
+    a abbr {
+      border: none;
+    }
+    
+    dfn {
+      font-weight: bold;
+    }
+    
+    a.internalDFN {
+      color: inherit;
+      border-bottom: 1px solid #99c;
+      text-decoration: none;
+    }
+    
+    a.externalDFN {
+      color: inherit;
+      border-bottom: 1px dotted #ccc;
+      text-decoration: none;
+    }
+    
+    a.bibref {
+      text-decoration: none;
+    }
+    
+    cite .bibref {
+      font-style: normal;
+    }
+    
+    code {
+      color: #C83500;
+    }
+    
+    th code {
+      color: inherit;
+    }
+    /* --- TOC --- */
+    
+    .toc a,
+    .tof a {
+      text-decoration: none;
+    }
+    
+    a .secno,
+    a .figno {
+      color: #000;
+    }
+    
+    ul.tof,
+    ol.tof {
+      list-style: none outside none;
+    }
+    
+    .caption {
+      margin-top: 0.5em;
+      font-style: italic;
+    }
+    /* --- TABLE --- */
+    
+    table.simple {
+      border-spacing: 0;
+      border-collapse: collapse;
+      border-bottom: 3px solid #005a9c;
+    }
+    
+    .simple th {
+      background: #005a9c;
+      color: #fff;
+      padding: 3px 5px;
+      text-align: left;
+    }
+    
+    .simple th[scope="row"] {
+      background: inherit;
+      color: inherit;
+      border-top: 1px solid #ddd;
+    }
+    
+    .simple td {
+      padding: 3px 10px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .simple tr:nth-child(even) {
+      background: #f0f6ff;
+    }
+    /* --- DL --- */
+    
+    .section dd>p:first-child {
+      margin-top: 0;
+    }
+    
+    .section dd>p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .section dd {
+      margin-bottom: 1em;
+    }
+    
+    .section dl.attrs dd,
+    .section dl.eldef dd {
+      margin-bottom: 0;
+    }
+    
+    .respec-hidden {
+      display: none;
+    }
+    
+    #respec-ui {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 202px;
+      text-align: right;
+    }
+    
+    #respec-pill,
+    .respec-info-button {
+      background: #fff;
+      height: 2.5em;
+      color: rgb(120, 120, 120);
+      border: 1px solid #ccc;
+      box-shadow: 1px 1px 8px 0 rgba(100, 100, 100, .5);
+    }
+    
+    .respec-info-button {
+      border: none;
+      border-radius: 2em;
+      margin-right: 1em;
+      min-width: 3.5em;
+    }
+    
+    #respec-pill:disabled {
+      margin: 10px auto;
+      font-size: 2.8px;
+      position: relative;
+      text-indent: -9999em;
+      border-top: 1.1em solid rgba(40, 40, 40, 0.2);
+      border-right: 1.1em solid rgba(40, 40, 40, 0.2);
+      border-bottom: 1.1em solid rgba(40, 40, 40, 0.2);
+      border-left: 1.1em solid #ffffff;
+      transform: translateZ(0);
+      animation: respec-spin 1.1s infinite linear;
+      box-shadow: none;
+    }
+    
+    #respec-pill:disabled,
+    #respec-pill:disabled:after {
+      border-radius: 50%;
+      width: 10em;
+      height: 10em;
+    }
+    
+    @keyframes respec-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    #respec-pill:hover,
+    #respec-pill:focus {
+      color: rgb(0, 0, 0);
+      transition: color .2s
+    }
+    
+    #respec-menu {
+      font-family: sans-serif;
+      background: #fff;
+      box-shadow: 1px 1px 8px 0 rgba(100, 100, 100, .5);
+      width: 200px;
+      display: none;
+      text-align: left;
+      margin-top: 5px;
+      font-size: .8em;
+    }
+    
+    .respec-save-button {
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      display: block;
+      width: 100%;
+      color: #000;
+      text-decoration: none;
+      text-align: center;
+      font-size: inherit;
+    }
+    
+    #respec-ui button:focus,
+    #respec-pill:focus,
+    .respec-option:focus {
+      outline: 0;
+      outline-style: none;
+    }
+    
+    #respec-ui button.respec-pill-error {
+      background-color: red;
+      color: white;
+    }
+    
+    #respec-ui button.respec-pill-warning {
+      background-color: orange;
+      color: white;
+    }
+    
+    #respec-menu button.respec-option {
+      background: white;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: inherit;
+      padding: 1.2em 1.2em;
+    }
+    
+    #respec-menu button.respec-option:hover {
+      background-color: #eeeeee;
+    }
+    
+    .respec-cmd-icon {
+      padding-right: .5em;
+    }
+    
+    #respec-ui button.respec-option:last-child {
+      border: none;
+      border-radius: inherit;
+    }
+    
+    .respec-offending-element {
+      display: inline-block;
+      position: relative;
+      background: url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x;
+    }
+    
+    @media print {
+      .removeOnSave {
+        display: none;
+      }
+    }
+</style>
+<title>Alternate Style Tags 1.1 日本語訳</title>
+<!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+<script id="initialUserConfig" type="application/json">
+    {
+      "specStatus": "Member-SUBM",
+      "editors": [
+      {
+        "name": "Elika J. Etemad",
+        "company": "Invited Expert"
+      }],
+      "processVersion": 2015,
+      "shortName": "altss-tags",
+      "noRecTrack": true
+    }
+</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-Member-SUBM">
+<meta name="generator" content="ReSpec 8.7.1">
+<link rel="stylesheet" type="text/css" href="../css/translation-memo-2016.css"/>
+</head>
+<body class="h-entry" role="document" id="respecDocument">
+<div class="translation-attention">
+<p>この文書は「<a href="https://www.w3.org/Submission/2017/SUBM-altss-tags-20170125/">Alternate Style Tags</a>」の日本語訳である。最新の文書は <a href="https://www.w3.org/Submission/altss-tags/">https://www.w3.org/Submission/altss-tags/</a> である。原文もしくは完全な情報は、<a href="https://www.w3.org/Submission/2017/SUBM-altss-tags-20170125/">Alternate Style Tags</a> を参照されたい。</p>
+<p>この日本語訳は参考である。公式な文書ではなく、翻訳・解釈の正確性を保証していない。</p>
+<dl>
+<dt>公開日:</dt>
+<dd>2016年7月6日</dd>
+<dt>修正日:</dt>
+<dd>2017年9月7日</dd>
+<dt>翻訳者:</dt>
+<dd>Wataru Yoshimura</dd>
+</dl>
+</div>
+<div class="head" role="contentinfo" id="respecHeader">
+<p><a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a> <a href="https://www.w3.org/Submission/"> <img height="48" width="211" alt="W3C Member Submission" src="https://www.w3.org/Icons/member_subm"></a></p>
+<h1 class="title p-name" id="title" property="dcterms:title">Alternate Style Tags 1.1</h1>
+<h2 id="w3c-member-submission-25-january-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Member Submission <time property="dcterms:issued" class="dt-published" datetime="2017-01-25">2017年1月25日</time></h2>
+<dl>
+<dt>この版：</dt>
+<dd><a class="u-url" href="https://www.w3.org/Submission/2017/SUBM-altss-tags-20170125/">https://www.w3.org/Submission/2017/SUBM-altss-tags-20170125/</a></dd>
+<dt>最新の公開版：</dt>
+<dd><a href="https://www.w3.org/Submission/altss-tags/">https://www.w3.org/Submission/altss-tags/</a></dd>
+<dt>Editor:</dt>
+<dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Elika J. Etemad</span>, Invited Expert</span> <span property="rdf:rest" resource="rdf:nil"></span></dd>
+</dl>
+<p class="copyright">Copyright © 2017 <span class="notetoeditor"></span>. This document is available under the <a href="http://www.w3.org/Consortium/Legal/copyright-documents">W3C Document License</a>. See the <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">W3C Intellectual Rights Notice and Legal Disclaimers</a> for additional information.</p>
+<hr title="Separator for header">
+</div>
+<section id="abstract" class="introductory" property="dc:abstract">
+<h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">要約</span></h2>
+<p>Alternate Style Tags は、マイクロフォーマットを使用して代替スタイル シートにタグ付けするパターンを定義する。</p>
+</section>
+<section id="sotd" class="introductory">
+<h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">このドキュメントのステータス</span></h2>
+<p><em>このセクションは、発行時点におけるこのドキュメントのステータスについて説明する。他のドキュメントは、このドキュメントより優先されるだろう。現在の <abbr title="World Wide Web Consortium">W3C</abbr> 発行物のリストは、https://www.w3.org/TR/ の <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> テクニカル レポート インデックス</a>にある。</em></p>
+<p>このドキュメントを発行することで、<abbr title="World Wide Web Consortium">W3C</abbr> は、<a href="https://www.w3.org/Submission/2017/SUBM-epub31-20170125/">サブミッション メンバー</a>が議論のために <abbr title="World Wide Web Consortium">W3C</abbr> へ正式な提案リクエストを行ったことを承認する。<abbr title="World Wide Web Consortium">W3C</abbr> がこのドキュメントを発行したことは、<abbr title="World Wide Web Consortium">W3C</abbr> によってその内容の承認、または <abbr title="World Wide Web Consortium">W3C</abbr> がそれによって扱われる問題に何らかのリソースを割り当てている、または持っていることを示していない。このドキュメントは、公認の <abbr title="World Wide Web Consortium">W3C</abbr> グループの成果物ではなく、<a href="https://www.w3.org/Consortium/Process"><abbr title="World Wide Web Consortium">W3C</abbr> プロセス</a>への潜在的なインプットとして発行された。<a href="https://www.w3.org/Submission/2017/02/Comment/"><abbr title="World Wide Web Consortium">W3C</abbr> チーム コメント</a>は、このメンバー サブミッションと共に合同で発行されている。<abbr title="World Wide Web Consortium">W3C</abbr> サイトで承認されたメンバー サブミッションを発行することは、<a href="https://www.w3.org/Consortium/Prospectus/Joining"><abbr title="World Wide Web Consortium">W3C</abbr> メンバーシップ</a>の利点のひとつである。<a href="https://www.w3.org/Consortium/Patent-Policy-20040205/#sec-submissions"><abbr title="World Wide Web Consortium">W3C</abbr> 特許ポリシーのセクション 3.3</a> のメンバー サブミッションに関連する要件を参照されたい。完全な<a href="https://www.w3.org/Submission">承認された <abbr title="World Wide Web Consortium">W3C</abbr> メンバー サブミッションのリスト</a>を参照されたい。</p>
+</section>
+<nav id="toc" role="directory">
+<h2 class="introductory" id="table-of-contents" resource="#table-of-contents"><span property="xhv:role" resource="xhv:heading">目次</span></h2>
+<ol class="toc">
+<li class="tocline"><a href="#intro" class="tocxref"><span class="secno">1. </span>前置き</a></li>
+<li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">2. </span>適合性</a></li>
+<li class="tocline"><a href="#style-sets" class="tocxref"><span class="secno">3. </span>&nbsp;&nbsp;スタイル セット</a></li>
+<li class="tocline"><a href="#style-tag" class="tocxref"><span class="secno">4. </span>&nbsp;&nbsp;タグ付きスタイル セット</a></li>
+<li class="tocline"><a href="#app-vertical-text-style-set-tags" class="tocxref"><span class="secno">A. </span>&nbsp;&nbsp;補足&nbsp;A.&nbsp;縦組みテキストのスタイル セット タグ</a></li>
+<li class="tocline"><a href="#app-night-version-style-set-tags" class="tocxref"><span class="secno">B. </span>&nbsp;&nbsp;補足&nbsp;B.&nbsp;夜間視のスタイル セット タグ</a></li>
+<li class="tocline"><a href="#app-acknowledgements" class="tocxref"><span class="secno">C. </span>&nbsp;&nbsp;Appendix&nbsp;C.&nbsp;謝辞</a></li>
+<li class="tocline"><a href="#references" class="tocxref"><span class="secno">D. </span>&nbsp;&nbsp;参照・参考</a>
+<ol class="toc">
+<li class="tocline"><a href="#normative-refs" class="tocxref"><span class="secno">D.1 </span>規定の参照</a></li>
+<li class="tocline"><a href="#informative-refs" class="tocxref"><span class="secno">D.2 </span>規定ではない参照</a></li>
+</ol>
+</li>
+</ol>
+</nav>
+<section id="intro" class="chapter informative" typeof="bibo:Chapter" resource="#intro" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-intro" resource="#h-intro"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>前置き</span></h2>
+<p><em>このセクションは規定ではない。</em></p>
+<p>このモジュールは、マイクロフォーマットを使用して代替スタイル シートのタグ付するためのパターンを定義している。それは、ブラウザ UI へフックすることができる標準化されたクラスを定義するために使用できる。サンプルの使用例は、日本の電子書籍リーダーで縦横レイアウトを切り替え、自動的に高いコントラストのスタイルの選択や他のアクセシビリティの懸念を包含する。</p>
+<p><a class="biblioref" href="#refHTML4" title="HTML 4.01 Specification">HTML 4.0</a> は、<code class="markup">link</code> 要素を使用して、外部スタイル シートのリンクを定義する。一般的にスタイル シートは無条件にリンクされるけれども、HTML 4 はまた、読者が表示を変更するために使用できるスタイル シートの相互排他的なセットである<span class="emphasis"><em>代替スタイル セット</em></span>と名付けられたものを定義する。</p>
+<p>今まで、ほとんどの <a class="biblioref" href="#refHTML" title="HTML">[<abbr class="abbrev">HTML</abbr>]</a> ユーザー エージェントは、意義のある方法で代替スタイルを公開しなかった。しかしながら、代替スタイルは、自分の好みやアクセシビリティの必要性にドキュメントの変更をユーザーに許可するとても簡単な方法である。</p>
+<p>この仕様は、標準化された class 名でスタイル シートをタグ付けるためのマークアップのパターンを<span class="emphasis"><em>スタイル タグ</em></span>を定義する HTML <code class="markup">link</code> 要素（<a class="biblioref" href="#refHTML" title="HTML">[<abbr class="abbrev">HTML</abbr>]</a> で導入されたが、非常に長いために多くのユーザー エージェントでサポートしている）の <code class="markup">class</code> 属性を利用する。これらのクラス名は、このようなタグ付けされたスタイル セットへの特別な UI アクセスを提供するために UA によって利用することができる。</p>
+<p>この提案の元々の動機は、日本の電子書籍リーダーで横組みと縦組みを切り替えるための標準的なコントロールを提供することで、この使用方法は、<a class="xref" href="#app-vertical-text-style-set-tags" title="Appendix&nbsp;A.&nbsp;Vertical Text Style Set Tags">補足&nbsp;A <em>縦組みテキストのスタイル セット タグ</em></a>で扱われている。</p>
+</section>
+<section class="chapter" id="conformance" typeof="bibo:Chapter" resource="#conformance" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-conformance" resource="#h-conformance"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>適合性</span></h2>
+<p>規定ではないとしてマークされたセクションだけでなく、この仕様の全てのオーサリング ガイドライン、図、例および注釈は規定ではない。この仕様の他の全ては規定である。</p>
+<p id="respecRFC2119">キーワード、<em class="rfc2119" title="MAY">MAY</em>、<em class="rfc2119" title="MUST">MUST</em>、<em class="rfc2119" title="MUST NOT">MUST NOT</em>、<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>、<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>、<em class="rfc2119" title="REQUIRED">REQUIRED</em>、<em class="rfc2119" title="SHALL">SHALL</em>、<em class="rfc2119" title="SHALL NOT">SHALL NOT</em>、<em class="rfc2119" title="SHOULD">SHOULD</em>、<em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> は、[<cite><a class="bibref" href="#refRFC2119">RFC2119</a></cite>] の記述に従って解釈される。</p>
+<h2 id="conformance-1">&nbsp;&nbsp;適合性</h2>
+<p>UA が一方的に製作者のスタイル シートをオフにしている場合は、この仕様は適用されないことに注意されたい。（この機能は、HTML と CSS によって要求されている。）この場合、もちろん、すべてのスタイル シートは無視される。</p>
+<p><a class="biblioref" href="#refCSSOM" title="CSSOM">[<abbr class="abbrev">CSSOM</abbr>]</a> は、指定されたスタイル シートを有効にするか無効にするかどうかを制御するための、より低レベルのコントロールを持ち、CSSOM をスクリプト化することで、ここで定義されている挙動を変更してもよい（<em class="rfc2119" title="MAY">MAY</em>）。</p>
+<div class="note">
+<div class="note-title marker" aria-level="3" role="heading" id="h-note1"><span>Note</span></div>
+<div class="" id="note-cssom">
+<p>この仕様の将来の版では、<a class="biblioref" href="#refCSSOM" title="CSSOM">[<abbr class="abbrev">CSSOM</abbr>]</a> でエラーの取り扱い規則やインタラクションを定義するであろう。</p>
+</div>
+</div>
+<p>この文書内のキーワード、<em class="rfc2119" title="MUST">MUST</em>、<em class="rfc2119" title="MUST NOT">MUST NOT</em>、<em class="rfc2119" title="REQUIRED">REQUIRED</em>、<em class="rfc2119" title="SHALL">SHALL</em>、<em class="rfc2119" title="SHALL NOT">SHALL NOT</em>、<em class="rfc2119" title="SHOULD">SHOULD</em>、<em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em>、<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>、<em class="rfc2119" title="MAY">MAY</em>、<em class="rfc2119" title="OPTIONAL">OPTIONAL</em> は、<a class="biblioref" href="#refRFC2119" title="Key words for use in RFCs to Indicate Requirement Levels (RFC 2119)">[<abbr class="abbrev">RFC2119</abbr>]</a> の記述に従って解釈される。</p>
+<p>この仕様のすべてのセクションと付録は規定である。但し"このセクションは有益な情報である"という参考情報状態ラベルで識別される箇所を除く。セクションと補足への参考情報状態の適用は、含まれるすべての子コンテンツおよびサブセクションに適用される。</p>
+<p>この仕様のすべての例は規定ではない。</p>
+</section>
+<section id="style-sets" class="chapter informative" typeof="bibo:Chapter" resource="#style-sets" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-style-sets" resource="#h-style-sets"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>&nbsp;&nbsp;スタイル セット</span></h2>
+<p><em>このセクションは規定ではない。</em></p>
+<p><span class="emphasis"><em>これは、専門用語を少々変更することで、HTML の宣言的な代替スタイル シート メカニズムの有益な概要である。</em></span></p>
+<p>HTML 4 は、リンクのメカニズムでスタイル シートの二つの型、固定スタイル シート（persistent style sheet）と代替スタイル シート（alternate style sheet）、を定義する。</p>
+<p><span class="emphasis"><em>固定スタイル シート</em></span>は、代替スタイル シートが有効かどうかに関わらず、常に有効である。固定スタイル シートは、それを取り込む <code class="markup">link</code> 要素または <code class="markup">style</code> 要素の <code class="markup">title</code> 属性を省略することによって指示される。</p>
+<p><span class="emphasis"><em>代替スタイル シート</em></span>は、代替セットの一部であり、そのセットの一部として有効または無効にできる。代替スタイル シートは、それを取り込む <code class="markup">link</code> または <code class="markup">style</code> の <code class="markup">title</code> 属性に空でない値をセットすることで指示される。<span class="emphasis"><em>固定スタイル シートのセット</em></span>（次を参照）に属しているスタイル シートを除き、代替スタイル シートは、<span class="property">stylesheet</span> 値に追加する <code class="markup">rel</code> 属性値に <span class="property">alternate</span> 値を持つ必要がある。</p>
+<p>HTML は、指定された代替スタイル セットで、単一に複数の<span class="emphasis"><em>代替スタイル シート</em></span>のグルーピングを許可する。同じ <code class="markup">title</code> 値を持つすべての代替スタイル シートは、同じスタイル セットに属する。</p>
+<p>製作者は、代替スタイル セットが、そのコンポーネントの代替スタイル シートそれぞれの <code class="markup">rel</code> 属性の <span class="property">alternate</span> 値を省略することで<span class="emphasis"><em>優先</em></span>するかどうかを指示することができる。優先するスタイル セットが定義されていないとき、初期設定の優先するスタイル セットは、代替スタイル シートが含まれていない名前のないセットである。</p>
+<p>初期設定では、最初の優先スタイルが読み込まれる。製作者は、<a class="biblioref" href="#refHTML4" title="HTML 4.01 Specification">[<abbr class="abbrev">HTML401</abbr>]</a> で定義された <span class="property">Default-Style</span> メタまたは HTTP ヘッダーでこの挙動を上書きできる。</p>
+</section>
+<section class="chapter" id="style-tag" typeof="bibo:Chapter" resource="#style-tag" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-style-tag" resource="#h-style-tag"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>&nbsp;&nbsp;タグ付きスタイル セット</span></h2>
+<p>スタイル シートは、それを取り込み、<code class="markup">link</code> または <code class="markup">style</code> 要素の <code class="markup">class</code> 属性にタグ名を追加することによって認識することができる。<span class="emphasis"><em>標準のスタイル タグ</em></span>（この仕様を参照する仕様で定義されたもの）でタグ付けされたスタイル シートは、スタイル タグの定義に記載されている機能を<span class="emphasis"><em>実装</em></span>していることを示している。代替スタイル シートと固定スタイル シートの両方は、この方法でタグ付けしてもよい（<em class="rfc2119" title="MAY">MAY</em>）。</p>
+<p>スタイル シートは、タグ付けされたそのコンポーネントのスタイル シートのうちのいづれかで認識することができる。タグ付けされたスタイル セットは、それがスタイル タグの定義に記載された機能を<span class="emphasis"><em>提供</em></span>していることを示している。</p>
+<p>標準のタグを使用している製作者は、標準タグの同じセットでスタイル セット内のすべての代替スタイル シートにタグを付けるべきである（<em class="rfc2119" title="SHOULD">SHOULD</em>）。</p>
+<div class="note">
+<div class="note-title marker" aria-level="3" role="heading" id="h-note2"><span>Note</span></div>
+<div class="" id="note-disabling-tagged-style-sheets">
+<p>この仕様の将来のバージョンは、スタイル セット内のタグ付けされたスタイル シートを選択的に無効にすることを UA に許可するかもしれない。従って、同時に有効化もしくは無効化にする必要のあるすべての代替スタイル シートは、標準的なタグと同じセットを持つ必要がある。</p>
+</div>
+</div>
+<p>スタイル セット内の二つのスタイル シートが相互排他的なタグで認識されるとき、両方のタグは無視される。</p>
+<p>スタイル タグを定義した仕様は、特定のタグが、タグ付けされていないスタイル セットの初期設定であると想定されていると示してもよい（<em class="rfc2119" title="MAY">MAY</em>）。</p>
+</section>
+<section class="appendix" id="app-vertical-text-style-set-tags" typeof="bibo:Chapter" resource="#app-vertical-text-style-set-tags" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-app-vertical-text-style-set-tags" resource="#h-app-vertical-text-style-set-tags"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>&nbsp;&nbsp;補足&nbsp;A.&nbsp;縦組みテキストのスタイル セットタグ</span></h2>
+<p>次のスタイル セットタグは、この附録で定義されている：</p>
+<dl class="variablelist">
+<dt class="varlistentry"><span class="term"><span class="property">horizontal</span></span></dt>
+<dd>
+<p>このスタイル セットは、主にテキストの横組みの表現を提供する。このタグは、<span class="property">vertical</span> と相互排他的である。</p>
+</dd>
+<dt class="varlistentry"><span class="term"><span class="property">vertical</span></span></dt>
+<dd>
+<p>このスタイル セットは、主にテキストの縦組みの表現を提供する。このタグは、<span class="property">horizontal</span> と相互排他的である。</p>
+</dd>
+</dl>
+<p> UA は、タグ付けされていないスタイル セットを <span class="property">horizontal</span> もしくは <span class="property">vertical</span> のどちらかと推測してもよく（<em class="rfc2119" title="MAY">MAY</em>）、代わりにこのようなスタイル セットに不確定な状態を指定してもよい（<em class="rfc2119" title="MAY">MAY</em>）。</p>
+<h2 id="examples">例</h2>
+<p>次の例は、XHTML 構文を使用している。HTML 構文を使用するときは、単純にタグ内の <code class="literal">&gt;</code> 前のスラッシュを削除する。</p>
+<div class="example" id="ex.1">
+<p>次の例は、製作者が、主にドキュメントの横組み表示用のスタイルシートを提供している。</p>
+<pre class="synopsis hljs javascript">   &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"horizontal.css"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"horizontal"</span>/&gt;</pre>
+<p> UA は、横組みバージョンのみを提供されていることを認識し、もし必要なら縦組みスタイルを合成するであろう。</p>
+</div>
+<div class="example" id="ex.2">
+<p>次の例では、製作者は、ドキュメントの主に縦組みテキスト表現のためにスタイル シートを提供する。</p>
+<pre class="synopsis hljs javascript">   &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"vertical.css"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"vertical"</span>/&gt;</pre>
+<p> UA は、縦組みバージョンのみを提供されていることを認識し、もし必要なら横組みスタイルを合成するであろう。</p>
+</div>
+<div class="example" id="ex.3">
+<p>次の例では、製作者は、ドキュメントの横組みテキストと縦組みテキスト表現の両方のためにスタイル シートを提供する。</p>
+<pre class="synopsis hljs javascript">  &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"horizontal.css"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"horizontal"</span> title=<span class="hljs-string">"横組"</span>/&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"alternate stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"vertical.css"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"vertical"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"縦組"</span>/&gt;</span></span></pre>
+<p><span class="property">rel</span> 属性の <span class="property">alternate</span> 値はマークされた二つ目のスタイル セットのみなので、著者は、ユーザーの上書きがない場合に、横組みスタイル セットを優先することを示し、初期設定として使用されるべきである。</p>
+</div>
+<div class="example" id="ex.4">
+<p>次の例では、製作者は、ドキュメントの横組みテキストと縦組みテキスト表現の両方のためにスタイル シートを提供する。</p>
+<pre class="synopsis hljs javascript">  &lt;link rel=<span class="hljs-string">"alternate stylesheet"</span> href=<span class="hljs-string">"horizontal.css"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"horizontal"</span> title=<span class="hljs-string">"横組"</span>/&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"vertical.css"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"vertical"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"縦組"</span>/&gt;</span></span></pre>
+<p><code class="markup">rel</code> 属性の <span class="property">alternate</span> 値はマークされたひとつ目のスタイル セットのみなので、著者は、ユーザーの上書きがない場合に、縦組みスタイル セットを優先することを示し、初期設定として使用されるべきである。</p>
+</div>
+<div class="example" id="ex.5">
+<p>次の例では、著者は、ドキュメントの横組みテキストと縦組みテキスト表現の両方のためにスタイル シートを提供する。</p>
+<pre class="synopsis hljs javascript">  &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"horizontal.css"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"horizontal"</span> title=<span class="hljs-string">"横組"</span>/&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"vertical.css"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"vertical"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"縦組"</span>/&gt;</span></span></pre>
+<p> どちらの <code class="markup">rel</code> 属性も <span class="property">alternate</span> 値がマークされているので、両方は製作者によって優先された表現である。横組みの表現が最初に提供されているので、逆にユーザー優先権がない場合は、初期設定として使用されるであろう。</p>
+</div>
+</section>
+<section class="appendix" id="app-night-version-style-set-tags" typeof="bibo:Chapter" resource="#app-night-version-style-set-tags" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-app-night-version-style-set-tags" resource="#h-app-night-version-style-set-tags"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>&nbsp;&nbsp;補足&nbsp;B.&nbsp;夜間視のスタイル セットタグ</span></h2>
+<p>次のスタイル タグは、この補足で定義される。</p>
+<dl class="variablelist">
+<dt class="varlistentry"><span class="term"><span class="property">day</span></span></dt>
+<dd>
+<p>このスタイル セットは、昼間に使用する（明るい背景、暗いテキスト）ために適したカラースキームを提供する。このタグは、<span class="property">night</span> と相互排他的である。</p>
+</dd>
+<dt class="varlistentry"><span class="term"><span class="property">night</span></span></dt>
+<dd>
+<p>このスタイル セットは、夜間に使用する（暗い背景、明るいテキスト）ために適したカラースキームを提供する。このタグは、<span class="property">day</span> と相互排他的である。</p>
+</dd>
+</dl>
+<h2 id="examples-1">例</h2>
+<div class="example" id="ex.b.1">
+<p>次の例では、製作者は、ドキュメントの昼間と夜間視の両方のためにスタイル シートを提供する横組みテキストと縦組みテキスト表現の両方が利用可能だが、横組み表現が優先である。</p>
+<pre class="synopsis hljs xquery">  &lt;link rel=<span class="hljs-string">"alternate stylesheet"</span> href=<span class="hljs-string">"vertical.css"</span> class=<span class="hljs-string">"vertical"</span> title=<span class="hljs-string">"Vertical Day"</span>
+  &lt;link rel=<span class="hljs-string">"alternate stylesheet"</span> href=<span class="hljs-string">"day.css"</span>      class=<span class="hljs-string">"day"</span>      title=<span class="hljs-string">"Vertical Day"</span>/&gt;
+  &lt;link rel=<span class="hljs-string">"alternate stylesheet"</span> href=<span class="hljs-string">"vertical.css"</span> class=<span class="hljs-string">"vertical"</span> title=<span class="hljs-string">"Vertical Night"</span>/&gt;
+  &lt;link rel=<span class="hljs-string">"alternate stylesheet"</span> href=<span class="hljs-string">"night.css"</span>    class=<span class="hljs-string">"night"</span>    title=<span class="hljs-string">"Vertical Night"</span>/&gt;
+  &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"horizontal.css"</span> class=<span class="hljs-string">"horizontal"</span> title=<span class="hljs-string">"Horizontal Day"</span>/&gt;
+  &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"day.css"</span>        class=<span class="hljs-string">"day"</span>        title=<span class="hljs-string">"Horizontal Day"</span>/&gt;
+  &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"horizontal.css"</span> class=<span class="hljs-string">"horizontal"</span> title=<span class="hljs-string">"Horizontal Night"</span>/&gt;
+  &lt;link rel=<span class="hljs-string">"stylesheet"</span> href=<span class="hljs-string">"night.css"</span>      class=<span class="hljs-string">"night"</span>      title=<span class="hljs-string">"Horizontal Night"</span>/&gt;</pre>
+<p>優先されるスタイル セットのうち、昼間視用が最初にリストアップされ、他に優先するものがないとき初期値として読み込まれる。</p>
+</div>
+
+<div class="example" id="ex.b.2">
+<p>同じ効果は、@inport 文を使用してより少ないリンクタグで作成することができる。</p>
+<pre class="synopsis hljs xml">  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"alternate stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"vertical-day.css"</span>   <span class="hljs-attr">class</span>=<span class="hljs-string">"vertical day"</span>   <span class="hljs-attr">title</span>=<span class="hljs-string">"Vertical Day"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"alternate stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"vertical-night.css"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"vertical night"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Vertical Night"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"horizontal-day.css"</span>   <span class="hljs-attr">class</span>=<span class="hljs-string">"horizontal day"</span>   <span class="hljs-attr">title</span>=<span class="hljs-string">"Horizontal Day"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"horizontal-night.css"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"horizontal night"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Horizontal Night"</span>/&gt;</span></pre>
+<p>vertical-day.css</p>
+<pre class="synopsis hljs css">  @<span class="hljs-keyword">import</span> <span class="hljs-string">"vertical.css"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"day.css"</span>;</pre>
+<p>vertical-night.css</p>
+<pre class="synopsis hljs css">  @<span class="hljs-keyword">import</span> <span class="hljs-string">"vertical.css"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"night.css"</span>;</pre>
+<p>horizontal-day.css</p>
+<pre class="synopsis hljs css">  @<span class="hljs-keyword">import</span> <span class="hljs-string">"horizontal.css"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"day.css"</span>;</pre>
+<p>vertical-night.css</p>
+<pre class="synopsis hljs css">  @<span class="hljs-keyword">import</span> <span class="hljs-string">"horizontal.css"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"night.css"</span>;</pre>
+</div>
+</section>
+<section class="appendix" id="app-acknowledgements" typeof="bibo:Chapter" resource="#app-acknowledgements" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-app-acknowledgements" resource="#h-app-acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">C. </span>&nbsp;&nbsp;補足&nbsp;C.&nbsp;謝辞</span></h2>
+<p>このドラフトは、<a class="ulink" href="https://www.w3.org/Style/CSS/Group" target="_top"><abbr title="World Wide Web Consortium">W3C</abbr> CSS Working Group</a> と <a class="ulink" href="http://www.idpf.org/epub/30/spec/epub30-overview.html#sec-contributors-30" target="_top">IDPF EPUB Working Group</a> から生じ、<a class="ulink" href="http://annevankesteren.nl" target="_top">Anne van Kesteren</a> 氏の特別な提案なしには存在しないであろう。</p>
+</section>
+<section lang="en" class="bibliography" id="references" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart">
+<!--OddPage-->
+<h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>&nbsp;&nbsp;参照・参考</span></h2>
+<section class="bibliodiv" id="normative-refs" typeof="bibo:Chapter" resource="#normative-refs" property="bibo:hasPart">
+<h3 id="h-normative-refs" resource="#h-normative-refs"><span property="xhv:role" resource="xhv:heading"><span class="secno">D.1 </span>参照文献</span></h3>
+<div class="biblioentry" id="refHTML">
+<p>[<abbr class="abbrev">HTML</abbr>] <span class="title"><em>
+<a class="ulink" href="https://www.w3.org/TR/html/" target="_top">HTML</a>
+</em>. </span>
+</p>
+</div>
+<div class="biblioentry" id="refHTML4">
+<p>[<abbr class="abbrev">HTML401</abbr>] <span class="title"><em>
+<a class="ulink" href="https://www.w3.org/TR/html401/" target="_top">HTML 4.01 Specification</a>
+</em>. </span>
+<span class="author">Dave Raggett, et al. </span>
+<span class="date">24 December 1999. </span>
+</p>
+</div>
+<div class="biblioentry" id="refRFC2119">
+<p>[<abbr class="abbrev">RFC2119</abbr>] <span class="title"><em>
+<a class="ulink" href="http://tools.ietf.org/html/rfc2119" target="_top">Key words for use in RFCs to
+            Indicate Requirement Levels</a> (RFC 2119) </em>. </span>
+<span class="date">March 1997. </span>
+</p>
+</div>
+</section>
+<section class="bibliodiv" id="informative-refs" typeof="bibo:Chapter" resource="#informative-refs" property="bibo:hasPart">
+<h3 id="h-informative-refs" resource="#h-informative-refs"><span property="xhv:role" resource="xhv:heading"><span class="secno">D.2 </span>参考文献</span></h3>
+<div class="biblioentry" id="refCSSOM">
+<p>[<abbr class="abbrev">CSSOM</abbr>] <span class="title"><em>
+<a class="ulink" href="https://drafts.csswg.org/cssom/" target="_top">CSSOM</a>
+</em>. </span>
+<span class="author">Anne van Kesteren. </span>
+</p>
+</div>
+</section>
+</section>
+<p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
+<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+</body>
+</html>
