@@ -528,7 +528,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <dt>公開日:</dt>
 <dd>2016年6月13日</dd>
 <dt>修正日:</dt>
-<dd>2017年9月1日</dd>
+<dd>2017年12月25日</dd>
 <dt>翻訳者:</dt>
 <dd>Wataru Yoshimura</dd>
 </dl>
@@ -1288,6 +1288,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="phrase"><a class="glossterm" href="/Submission/2017/SUBM-epub31-20170125/#gloss-content-document-epub" target="_top">EPUB コンテンツ ドキュメント</a></span>を参照している<span class="phrase"><a class="glossterm" href="/Submission/2017/SUBM-epub31-20170125/#gloss-manifest" target="_top">マニフェスト</a></span> <span class="phrase"><a class="ulink" href="/Submission/2017/SUBM-epub-packages-20170125/#elemdef-package-item" target="_top"><code class="markup">item</code> 要素</a> <a class="biblioref" href="#refPackages3" title="EPUB Packages 3.1">[<abbr class="abbrev">Packages 3.1</abbr>]</a></span> は、<span class="phrase"><a class="ulink" href="/Submission/2017/SUBM-epub-packages-20170125/#attrdef-item-media-overlay" target="_top"><code class="markup">media-overlay</code> 属性</a></span>を介してメディア オーバーレイを指定してもよい（<em class="rfc2119" title="MAY">MAY</em>）。属性は、対応するメディア オーバーレイ ドキュメントのマニフェスト <code class="markup">item</code> の ID <a class="biblioref" href="#refXML" title="Extensible Markup Language (XML) 1.0 (Fifth Edition)">[<abbr class="abbrev">XML</abbr>]</a> を参照しなければならない（<em class="rfc2119" title="MUST">MUST</em>）。
 </p>
 <p>メディア オーバーレイ ドキュメントのためのマニフェスト項目は、メディア タイプ <code class="media-type">application/smil+xml</code> を持たなければならない（<em class="rfc2119" title="MUST">MUST</em>）。</p>
+
+<p>EPUB コンテンツ ドキュメントの持続時間は、そのマニフェスト <code class="markup">item</code> の <span class="phrase"><a class="ulink" href="/Submission/2017/SUBM-epub-packages-20170125/#attrdef-item-duration" target="_top"><code class="markup">duration</code> 属性</a> <a class="biblioref" href="#refPackages3" title="EPUB Packages 3.1">[<abbr class="abbrev">Packages 3.1</abbr>]</a></span> に指定されなければならない（<em class="rfc2119" title="MUST">MUST</em>）。</p>
 
 <div class="example">
 <p>次の例では、パッケージ ドキュメントのマニフェストにメディア オーバーレイを包含する方法を示している。</p>
