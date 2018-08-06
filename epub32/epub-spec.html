@@ -65,12 +65,58 @@
 <section id="abstract">
 <p>EPUB® 3 は、デジタル出版物やドキュメントのための、配信と交換形式を定義する。EPUB フォーマットは、単一コンテナで配信するために体系化と意味論的に強化された Web コンテンツ（HTML、CSS、SVG や他のリソースを含む）のパッケージングとエンコーディングの手段を提供する。この仕様は、規格の第2番目のメジャー リビジョンを示している。</p>
 <p>EPUB 3 は、デジタルの本（電子書籍）の形式として広く採用され、このリビジョンは、複雑なレイアウト、リッチメディアと双方向性、グローバルなタイポグラフィの機能を含む、出版物が要求する幅広い範囲をサポートするために、フォーマットの能力を向上させ続けている。EPUB 3 フォーマットの期待は、本、雑誌、学術書、専門書や科学的な出版を含むコンテンツの幅広い範囲のために利用されるということである。</p>
-<p>EPUB 3 は、事実上モジュール化されており、コア機能と規格の機能を定義する仕様群で構成されている。この仕様は、規格への主なエントリ ポイントを表すが、<a href="#sec-epub-specs">仕様</a>に記載されている仕様は EPUB 3 の全てである。これらの仕様を横断して定義された<a href="#index">主な概念と定義へのインデックス</a>は、この仕様の最後で提供される。</p>
+<p>EPUB 3 は、事実上モジュール化されており、コア機能と規格の機能を定義する仕様群で構成されている。この仕様は、規格への主なエントリ ポイントを表すが、<a href="#sec-intro-epub-specs">仕様</a>に記載されている仕様は EPUB 3 の全てである。これらの仕様を横断して定義された<a href="#index">主な概念と定義へのインデックス</a>は、この仕様の最後で提供される。</p>
 <p>規定ではない [[EPUB3Overview]] は、EPUB 3 への一般的な紹介を提供する。以前のリビジョンからの技術的な変更点の一覧は、規定ではない [[EPUB32Changes]] でも利用できる。</p>
 </section>
 <section id="sotd"></section>
 <section id="sec-introduction">
 <h1>まえがき</h1>
+<section id="sec-intro-epub-specs">
+<h2>仕様</h2>
+<p>EPUB 3 規格は、サブ仕様のファミリーを横断して定義されたコア機能と機能性を持つ性質のモジュールである。</p>
+<p>この仕様は、ファミリーの中で最上位の仕様を表している。これは、（規格のプロダクトである）<a>EPUB 出版物</a>と（EPUB 出版物を消費し、読者にその内容を提示するアプリケーションである）<a>EPUB リーディング システム</a>のための適合性要件が含まれている。</p>
+<p>完全な EPUB 3 の他の仕様は、次の通りである。</p>
+<ul>
+<li>
+<p><a href="epub-packages.html">EPUB Packages</a> [[!Packages32]] — コンテンツの各<a>レンディション</a>のための要件を定義。</p>
+</li>
+<li>
+<p><a href="epub-contentdocs.html">EPUB Content Documents</a> [[!ContentDocs32]] — EPUB 出版物のコンテキストで使用する XHTML、SVG と CSS のプロファイルを定義。</p>
+</li>
+<li>
+<p><a href="epub-mediaoverlays.html">EPUB Media Overlays</a> [[!MediaOverlays32]] — 形式とテキストと音声の同期のための処理モデルを定義。</p>
+</li>
+<li>
+<p><a href="epub-ocf.html">EPUB Open Container Format (OCF)</a> <a class="biblioref" href="#refOCF30">[<abbr class="abbrev">OCF 3.1</abbr>]</a> — 関連するリソースの集合を単一のファイル（ZIP）の <a>EPUB コンテナ</a>にカプセル化するためのファイル形式と処理モデルを定義。</p>
+</li>
+<li>
+<p><a href="http://www.idpf.org/epub/latest/accessibility">EPUB Accessibility</a> [[!EPUBAccessibility]] — EPUB 出版物のアクセシビリティ適合性と発見のメタデータ要件を定義。</p>
+</li>
+</ul>
+<p>これらの仕様は、EPUB 3 に関連しているように広く認められている正式なリストであり、規格の一部として関連する機能を含んでいる。新しい機能もまた拡張仕様の開発を通じて定期的に追加される。この仕様で正式に認められていないが、規格のためにコアのリビジョンの外側で定義されている特徴と機能は、<a>製作者</a>とリーディング システムの開発者によって使用するために利用可能である。</p>
+</section>
+<section id="sec-intro-spec-org" class="informative">
+<h2>組織</h2>
+<p>このセクションでは、<a>EPUB 出版物</a>として定義する中心的な成果物を通じて EPUB 仕様の組織をレビューする。</p>
+<p>EPUB 出版物は、<a>EPUB パッケージ</a>と呼ばれるものによって表示されるそれぞれのコンテンツのひとつ以上の<a>レンディション</a>で構成されている。EPUB パッケージは、コンテンツを読むために必要な全てのリソースで構成されている。これらの間で重要なファイルは、（例えば、本棚に表示するタイトルと著者名、コンテンツが固定レイアウトなのか、あるいはリフローすることが可能かどうかなどのレンダリングのメタデータも同様に）読者に EPUB 出版物を提示する<a>リーディング システム</a>によって使用される全てのメタデータを包含する<a>パッケージ ドキュメント</a>である。リソースの完全なマニフェストもまた提供し、読者がコンテンツを介して進むにつれてドキュメントをレンダリングするための配列を記載する<a>スパイン</a>を包含する。</p>
+<p>EPUB パッケージは、<a>EPUB ナビゲーション ドキュメント</a>と呼ばれる他の主要なファイルも包含する。このドキュメントは、読者が迅速かつ容易にコンテンツを移動できる、例えば目次のような、重要なナビゲーション機能を提供する。</p>
+<p>EPUB パッケージの要件は、[[Packages32]] で定義されている。</p>
+<p>EPUB 出版物のリソースは、ファイル拡張子 <code>.epub</code> の ZIP ベースのアーカイブ内で配布のためにひとまとめにされる。ZIP アーカイブ準拠なので、EPUB 出版物は多くのソフトウェアプログラムによって解凍でき、生産と消費の両方を単純にすることができる。</p>
+<p>コンテナ フォーマットは、ZIP 圧縮されたコンテンツが EPUB 出版物であることを決定する手段（<code>mimetype</code> ファイル）だけでなく、有益なリソースの普遍的な名前のディレクトリも提供する（<code>/META-INF</code>）。これらリソース間のキーになるのは、利用可能なパッケージ ドキュメントをリーディング システムに指示する <code>container.xml</code> である。</p>
+<p>コンテナ フォーマットは、[[OCF32]] で定義されている。</p>
+<figure>
+<figcaption>
+<p>次の例は、EPUB フォーマットの構造を視覚的に表している。</p>
+</figcaption>
+<object data="images/epub.svg" width="350">
+<img src="images/epub.png" width="350" alt="" />
+</object>
+</figure>
+<p>EPUB 出版物の構造と格納容器は、フォーマットの半分で、残りの半分は、読者に表示されるコンテンツである。このコンテンツは、オープン Web フォーマット上に構築され、<a data-lt="XHTML コンテンツ ドキュメント">XHTML</a> と <a data-lt="SVG コンテンツ ドキュメント">SVG</a> の二種類を供給されている。<a>EPUB コンテンツ ドキュメント</a>と呼ばれ、典型的にこれらのドキュメントは、例えば、画像、音声やビデオクリップ、スクリプトやスタイルシートなど、適切なレンダリングのために必要となる多くの追加リソースを参照する。</p>
+<p>EPUB コンテンツ ドキュメントの製作のための規則と要件に関する詳細情報は、[[ContentDocs32]] で提供され、アクセシビリティの要件は、[[EPUBAccessibility]] で定義されている。</p>
+<p><a>メディア オーバーレイ ドキュメント</a>は、 EPUB コンテンツ ドキュメントを補完する。これらは、録音済みの音声を持つ EPUB コンテンツ ドキュメント内のテキストを同期させるための宣言型マークアップを提供する。効果は、ナレーションされているように、テキストがハイライトされる読み上げの体験を作る機能である。メディア オーバーレイ ドキュメントは、[[MediaOverlays32]] で定義されている。</p>
+<p>概念的には単純であるが、EPUB 出版物は、ここで提示されるように、ZIP パッケージ内の HTML ページや依存資産の単純な集積以上のものである。このドキュメントの次のセクションは、読書体験を高めるのに提供する EPUB 出版物の主要な特徴と機能性に関する追加の情報は、参照仕様から入手可能であり、EPUB 3 の機能のより一般的な導入は、規定の [[EPUB3Overview]] で提供される。</p>
+</section>
 <section id="sec-terminology">
 <h2>用語</h2>
 <p>次の用語は、EPUB 3 の固有である。どこで使用するにしても、大文字で始める。</p>
@@ -210,55 +256,6 @@
 </section>
 <section id="conformance"></section>
 </section>
-<section id="sec-epub-org">
-<h1>組織</h1>
-<section id="sec-epub-specs">
-<h2>仕様</h2>
-<p>EPUB 3 規格は、サブ仕様のファミリーを横断して定義されたコア機能と機能性を持つ性質のモジュールである。</p>
-<p>この仕様は、ファミリーの中で最上位の仕様を表している。これは、（規格のプロダクトである）<a>EPUB 出版物</a>と（EPUB 出版物を消費し、読者にその内容を提示するアプリケーションである）<a>EPUB リーディング システム</a>のための適合性要件が含まれている。</p>
-<p>完全な EPUB 3 の他の仕様は、次の通りである。</p>
-<ul>
-<li>
-<p><a href="epub-packages.html">EPUB Packages</a> [[!Packages32]] — コンテンツの各<a>レンディション</a>のための要件を定義。</p>
-</li>
-<li>
-<p><a href="epub-contentdocs.html">EPUB Content Documents</a> [[!ContentDocs32]] — EPUB 出版物のコンテキストで使用する XHTML、SVG と CSS のプロファイルを定義。</p>
-</li>
-<li>
-<p><a href="epub-mediaoverlays.html">EPUB Media Overlays</a> [[!MediaOverlays32]] — 形式とテキストと音声の同期のための処理モデルを定義。</p>
-</li>
-<li>
-<p><a href="epub-ocf.html">EPUB Open Container Format (OCF)</a> <a class="biblioref" href="#refOCF30">[<abbr class="abbrev">OCF 3.1</abbr>]</a> — 関連するリソースの集合を単一のファイル（ZIP）の <a>EPUB コンテナ</a>にカプセル化するためのファイル形式と処理モデルを定義。</p>
-</li>
-<li>
-<p><a href="http://www.idpf.org/epub/latest/accessibility">EPUB Accessibility</a> [[!EPUBAccessibility]] — EPUB 出版物のアクセシビリティ適合性と発見のメタデータ要件を定義。</p>
-</li>
-</ul>
-<p>これらの仕様は、EPUB 3 に関連しているように広く認められている正式なリストであり、規格の一部として関連する機能を含んでいる。新しい機能もまた拡張仕様の開発を通じて定期的に追加される。この仕様で正式に認められていないが、規格のためにコアのリビジョンの外側で定義されている特徴と機能は、<a>製作者</a>とリーディング システムの開発者によって使用するために利用可能である。</p>
-</section>
-<section id="sec-epub-roadmap" class="informative">
-<h2>要約</h2>
-<p>このセクションでは、<a>EPUB 出版物</a>として定義する中心的な成果物を通じて EPUB 仕様の組織をレビューする。</p>
-<p>EPUB 出版物は、<a>EPUB パッケージ</a>と呼ばれるものによって表示されるそれぞれのコンテンツのひとつ以上の<a>レンディション</a>で構成されている。EPUB パッケージは、コンテンツを読むために必要な全てのリソースで構成されている。これらの間で重要なファイルは、（例えば、本棚に表示するタイトルと著者名、コンテンツが固定レイアウトなのか、あるいはリフローすることが可能かどうかなどのレンダリングのメタデータも同様に）読者に EPUB 出版物を提示する<a>リーディング システム</a>によって使用される全てのメタデータを包含する<a>パッケージ ドキュメント</a>である。リソースの完全なマニフェストもまた提供し、読者がコンテンツを介して進むにつれてドキュメントをレンダリングするための配列を記載する<a>スパイン</a>を包含する。</p>
-<p>EPUB パッケージは、<a>EPUB ナビゲーション ドキュメント</a>と呼ばれる他の主要なファイルも包含する。このドキュメントは、読者が迅速かつ容易にコンテンツを移動できる、例えば目次のような、重要なナビゲーション機能を提供する。</p>
-<p>EPUB パッケージの要件は、[[Packages32]] で定義されている。</p>
-<p>EPUB 出版物のリソースは、ファイル拡張子 <code>.epub</code> の ZIP ベースのアーカイブ内で配布のためにひとまとめにされる。ZIP アーカイブ準拠なので、EPUB 出版物は多くのソフトウェアプログラムによって解凍でき、生産と消費の両方を単純にすることができる。</p>
-<p>コンテナ フォーマットは、ZIP 圧縮されたコンテンツが EPUB 出版物であることを決定する手段（<code>mimetype</code> ファイル）だけでなく、有益なリソースの普遍的な名前のディレクトリも提供する（<code>/META-INF</code>）。これらリソース間のキーになるのは、利用可能なパッケージ ドキュメントをリーディング システムに指示する <code>container.xml</code> である。</p>
-<p>コンテナ フォーマットは、[[OCF32]] で定義されている。</p>
-<figure>
-<figcaption>
-<p>次の例は、EPUB フォーマットの構造を視覚的に表している。</p>
-</figcaption>
-<object data="images/epub.svg" width="350">
-<img src="images/epub.png" width="350" alt="" />
-</object>
-</figure>
-<p>EPUB 出版物の構造と格納容器は、フォーマットの半分で、残りの半分は、読者に表示されるコンテンツである。このコンテンツは、オープン Web フォーマット上に構築され、<a data-lt="XHTML コンテンツ ドキュメント">XHTML</a> と <a data-lt="SVG コンテンツ ドキュメント">SVG</a> の二種類を供給されている。<a>EPUB コンテンツ ドキュメント</a>と呼ばれ、典型的にこれらのドキュメントは、例えば、画像、音声やビデオクリップ、スクリプトやスタイルシートなど、適切なレンダリングのために必要となる多くの追加リソースを参照する。</p>
-<p>EPUB コンテンツ ドキュメントの製作のための規則と要件に関する詳細情報は、[[ContentDocs32]] で提供され、アクセシビリティの要件は、[[EPUBAccessibility]] で定義されている。</p>
-<p><a>メディア オーバーレイ ドキュメント</a>は、 EPUB コンテンツ ドキュメントを補完する。これらは、録音済みの音声を持つ EPUB コンテンツ ドキュメント内のテキストを同期させるための宣言型マークアップを提供する。効果は、ナレーションされているように、テキストがハイライトされる読み上げの体験を作る機能である。メディア オーバーレイ ドキュメントは、[[MediaOverlays32]] で定義されている。</p>
-<p>概念的には単純であるが、EPUB 出版物は、ここで提示されるように、ZIP パッケージ内の HTML ページや依存資産の単純な集積以上のものである。このドキュメントの次のセクションは、読書体験を高めるのに提供する EPUB 出版物の主要な特徴と機能性に関する追加の情報は、参照仕様から入手可能であり、EPUB 3 の機能のより一般的な導入は、規定の [[EPUB3Overview]] で提供される。</p>
-</section>
-</section>
 <section id="sec-epub-conf">
 <h1>適合性</h1>
 <section id="sec-epub-pub-conf">
@@ -287,7 +284,8 @@
 <p><a>EPUB リーディング システム</a>は次の条件を全て満たさなければならない（MUST）。</p>
 <dl class="conformance-list">
 <dt id="sec-epub-rs-conf-epub3">EPUB 3 の処理</dt>
-<dd><p id="confreq-rs-epub3-ocf">[[!OCF32]] で規定されているように <a>EPUB コンテナ</a>を処理しなければならない（MUST）。</p>
+<dd>
+<p id="confreq-rs-epub3-ocf">[[!OCF32]] で規定されているように <a>EPUB コンテナ</a>を処理しなければならない（MUST）。</p>
 <p id="confreq-rs-epub3-package">[[!Packages32]] で定義されているように、<a>EPUB パッケージ</a>を処理しなければならない（MUST）。</p>
 <p id="confreq-rs-epub3-cmt">全ての<a>コア メディア タイプ リソース</a>をサポートしなければならない（MUST）。</p>
 <p id="confreq-rs-foreign"><a>管理外リソース</a>タイプの任意のセットをサポートしてもよい（MAY）、そして<a href="#sec-foreign-restrictions">管理外リソース</a>で定義されているように、サポートされていない管理外リソースのためのフォールバックを処理しなければならない（MUST）。</p>
@@ -302,21 +300,20 @@
 </dd>
 <dt id="sec-epub-rs-conf-a11y">アクセシビリティ</dt>
 <dd>
-<p id="confreq-rs-a11y">
-[[!EPUBAccessibility]] にあるリーディング システムのアクセシビリティ要件を満たすべきである（SHOULD）。
-</p>
+<p id="confreq-rs-a11y">[[!EPUBAccessibility]] にあるリーディング システムのアクセシビリティ要件を満たすべきである（SHOULD）。</p>
 </dd>
 <dt id="sec-epub-rs-conf-backward">後方互換性</dt>
 <dd>
 <p id="confreq-rs-backward-epub">バージョンが「<code>3.0</code>」よりも低い EPUB 出版物の処理を試みなければならない（MUST）。</p>
-<p id="confreq-rs-backward-conf">
-古いバージョン番号の EPUB 出版物は、常に、それぞれの仕様に従って処理をしない限り、意図したような完全にレンダリングをしないだろう。リーディング システムは、この仕様で定義されているような EPUB 出版物をサポートするべきである（SHOULD）。</p>
+<p id="confreq-rs-backward-conf">古いバージョン番号の EPUB 出版物は、常に、それぞれの仕様に従って処理をしない限り、意図したような完全にレンダリングをしないだろう。リーディング システムは、この仕様で定義されているような EPUB 出版物をサポートするべきである（SHOULD）。</p>
 </dd>
 <dt id="sec-epub-rs-conf-forward">前方互換性</dt>
-<dd><p id="confreq-rs-forward-epubn">パッケージ ドキュメントの <code>version</code> 属性がバージョン「<code>3.0</code>」以上を指定されているどんな EPUB 出版物の指定されたレンディションでも処理しようと試みるべきである（SHOULD）。</p>
+<dd>
+<p id="confreq-rs-forward-epubn">パッケージ ドキュメントの <code>version</code> 属性がバージョン「<code>3.0</code>」以上を指定されているどんな EPUB 出版物の指定されたレンディションでも処理しようと試みるべきである（SHOULD）。</p>
 </dd>
 <dt id="sec-epub-rs-conf-xml">XML の処理</dt>
-<dd><p id="confreq-rs-xml-nval"><a href="https://www.w3.org/TR/2008/REC-xml-20081126/#proc-types">適合性を検証しない処理</a> [[!XML]] でなければならない（MUST）。</p>
+<dd>
+<p id="confreq-rs-xml-nval"><a href="https://www.w3.org/TR/2008/REC-xml-20081126/#proc-types">適合性を検証しない処理</a> [[!XML]] でなければならない（MUST）。</p>
 <p id="confreq-rs-xml-ns">[[!XML-NAMES]] に定義されているような、<a href="https://www.w3.org/TR/2009/REC-XML-NAMES-20091208/#ProcessorConformance">適合性の処理</a>をしなければならない（MUST）。</p>
 <p id="confreq-rs-xml-base">[[!XMLBase]] に定義されているような、適合性の適用をしなければならない（MUST）。</p>
 </dd>
@@ -397,7 +394,7 @@
 </td>
 <td>
 <a href="epub-contentdocs.html#sec-xhtml">XHTML コンテンツ ドキュメント</a> [[!ContentDocs32]] </td>
-<td><a href="https://www.w3.org/TR/html/xhtml.html#xhtml">XHTML 構文</a> [[!HTML]] を使用する <a class="glossterm" href="#dfn-xhtml-content-document">XHTML コンテンツ ドキュメント</a>。</td>
+<td><a href="https://www.w3.org/TR/html/xhtml.html#xhtml">XHTML 構文</a> [[!HTML]] を使用する <a href="#dfn-xhtml-content-document">XHTML コンテンツ ドキュメント</a>。</td>
 </tr>
 <tr>
 <td id="cmt-js">
@@ -496,12 +493,14 @@
 <p id="confreq-cmt"><a>管理外リソース</a>が、スパインに包含されるか、または、EPUB コンテンツ ドキュメントにネイティブ形式で直接レンダリングされるとき、コア メディア タイプのフォールバックは、包含されなければならない（MUST）。フォールバックは、次の二つのいずれかの形式を取る。</p>
 <ul>
 <li>
-<p>固有のフォールバック メカニズムは、（例えば、ひとつ以上のメディア タイプを提供したり、メディア タイプをレンダリングできないときに代替の埋め込まれたメッセージを表示する能力のように）フォーマットに基いて提供される。それらの要素が提供する固有のフォールバック機能については [[!HTML]] と [[!SVG]] 仕様を参照されたい。</p>
+<p>固有のフォールバック メカニズムは、（例えば、ひとつ以上のメディア タイプを提供したり、メディア タイプをレンダリングできないときに代替の埋め込まれたメッセージを表示する能力のように）フォーマットに基いて提供される。</p>
 </li>
 <li>
-<p><a href="epub-packages.html#sec-foreign-restrictions-manifest">マニフェスト フォールバック</a> [[!Packages32]] は、コア メディア タイプ リソースへのフォールバック チェインを作る<a>パッケージ ドキュメント</a>の機能である。それらは、<a href="epub-packages.html#sec-spine-elem">スパイン</a> [[!Packages32]] 内と（例えば、[[!HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-img-element"><code>img</code></a> 要素など）固有のフォールバック機能が利用できないとき、管理外リソースのフォールバックを作るために使用される。</p>
+<p><a href="epub-packages.html#sec-foreign-restrictions-manifest">マニフェスト フォールバック</a> [[!Packages32]] </p>
 </li>
 </ul>
+<p>マニフェスト フォールバックは、コア メディア タイプ リソースへのフォールバック チェインを作る<a>パッケージ ドキュメント</a>の機能である。それらは、<a href="epub-packages.html#sec-spine-elem">スパイン</a> [[!Packages32]] 内と（例えば、[[!HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-img-element"><code>img</code></a> 要素など）固有のフォールバック機能が利用できないとき、管理外リソースのフォールバックを作るために使用される。</p>
+<p>それらの要素が提供する固有のフォールバック機能については [[!HTML]] と [[!SVG]] 仕様を参照されたい。</p>
 </section>
 </section>
 <section id="sec-resource-locations">
@@ -534,7 +533,7 @@
 <p>指定されたリソースが<a>コア メディア タイプ リソース</a>または<a>管理外リソース</a>であるかどうか関係なく出版物リソースの配置については、上記のルールが適用される。</p>
 </div>
 <div class="note">
-<p><a>EPUB 出版物</a>で<a>リモート リソース</a>の取り込みは、<a>マニフェスト</a> <a href="epub-packages.html#sec-item-elem"><code>item</code> 要素</a> [[Packages32]] の <a href="epub-packages.html#remote-resources"><code>remote-resources</code> プロパティ</a> を介して指示される。</p>
+<p><a>EPUB 出版物</a>でリモート リソースの取り込みは、<a>マニフェスト</a> <a href="epub-packages.html#sec-item-elem"><code>item</code> 要素</a> [[Packages32]] の <a href="epub-packages.html#remote-resources"><code>remote-resources</code> プロパティ</a> を介して指示される。</p>
 </div>
 </section>
 <section id="sec-xml-constraints">
@@ -617,7 +616,7 @@
 </ul>
 </li>
 <li id="idx-core">
-<p><a href="#sec-epub-specs">主要な仕様</a></p>
+<p><a href="#sec-intro-epub-specs">主要な仕様</a></p>
 </li>
 <li id="idx-css">
 <p><a href="epub-contentdocs.html#sec-css">CSS スタイル シート</a> [[ContentDocs32]]</p>
