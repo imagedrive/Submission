@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>EPUB 3.2 Changes 日本語訳</title>
+<script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/confreq-permalinks.js" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/copyright.js" class="remove"></script>
+<link href="https://w3c.github.io/publ-epub-revision/epub32/spec/common/css/common.css" rel="stylesheet" type="text/css" />
+<script class="remove">
+          var respecConfig = {
+              wg: "EPUB 3 Community Group",
+              wgURI: "https://www.w3.org/community/epub3/",
+              wgPublicList: "public-epub3",
+              specStatus: "CG-DRAFT",
+              noRecTrack: true,
+              shortName: "epub-ocf",
+              prevRecURI: "https://www.idpf.org/epub/31/spec/epub-changes-20170105.html",
+              edDraftURI: "https://w3c.github.io/publ-epub-revision/epub32/spec/epub-changes.html",
+              copyrightStart: "1999",
+              editors: [{
+                      name: "Matt Garrish",
+                      company: "DAISY Consortium",
+                      companyURL: "http://daisy.org"
+                  },{
+                      name: "Dave Cramer",
+                      company: "Hachette Book Group",
+                      companyURL: "http://hachettebookgroup.com"
+                  }],
+              processVersion: 2017,
+              includePermalinks: true,
+              permalinkEdge:     true,
+              permalinkHide:     false,
+              diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+  github:			 {
+  repoURL: "https://github.com/w3c/publ-epub-revision",
+  branch: "master"
+  },
+              localBiblio: biblio,
+              preProcess: [fixDefinitionCrossrefs, addConformanceLinks],
+              postProcess: [fixCopyright]
+          };
+</script>
+</head>
+<body>
+<section id="abstract">
+<p>このドキュメントは、重要な変更と追加を強調し、EPUB® 3 仕様の二番目のマイナー リビジョンで行った変更を説明する。</p>
+</section>
+<section id="sotd"></section>
+<section id="sec-introduction">
+<h1>前置き</h1>
+<p>EPUB は XML や Web 規格に基づいたデジタル出版物の交換や配信形式である。EPUB 出版物は、電子書籍、雑誌、出版物のその他の形式を表現し、オンラインやオフラインで消費するために配布することができる Web コンテンツの信頼性の高いパッケージと考えることができる。</p>
+<p>EPUB 3.2 は、EPUB 3.0.1 と EPUB 3.1 継承を熟慮した上での、EPUB 3 仕様のマイナー リビジョンである。EPUB 3.1 は、広く採用されておらず、コミュニティ グループは、EPUB 3.1 での多くの変更を維持しながら、EPUB 3.0.1 との強力な後方互換性を持つ EPUB 3.2 を作成する決定をした（特定のバージョンの EPUB は、古いバージョンに適合している EPUB 出版物が、新しいバージョンに適合している場合にのみ、古いバージョンと強力な後方互換性があると言われている）。全ての適合している EPUB 3.0.1 ファイルは、適合した EPUB 3.2 ファイルとなるであろう。</p>
+<p>このドキュメントは、読者が、どのように EPUB 3.0.1 をこの新しいバージョンへ更新する前に、EPUB 3.1 をレビューする必要がないように、EPUB 3.0.1 移行の EPUB における全ての変更を説明する。</p>
+<p>このドキュメントは規定ではない。EPUB 3 の正確な情報は <a href="epub-spec.html#sec-intro-epub-specs">EPUB 仕様</a>を参照されたい。</p>
+<p>特に指定のない限り、ここで使用される用語は、<a href="epub-spec.html#sec-terminology">用語</a> [[EPUB32]] で定義された意味を持つ。</p>
+</section>
+<section id="overview">
+<h1>要約</h1>
+<p>全ての適合する EPUB 3.0.1 ファイルは、適合する EPUB 3.2 ファイルなので、現時点で、EPUB 3 出版物の製作者は、何も変更する必要はない。EPUB 3.2 は、いくつかのオプションが提供されており、コンテンツ製作者は、EPUB アクセシビリティ ガイドラインに従うことを正式に推奨する。</p>
+<p>EPUB 3.2 における最大の変更は、HTML、CSS 及び SVG のコア ウェブ仕様との関連性である。これまで EPUB は、特定の日付バージョンの HTML 又は CSS を指していた。現在、EPUB 3.2 は、W3C で定義される HTML、CSS 及び SVG の最新バージョンを正式にサポートする。これらのバージョンは、徐々に進化し、EPUB は、ウェブの最新の状態を維持する。</p>
+<p>他の注意すべき変更は、WOFF 2.0 及び SFNT フォントがコア メディア タイプになったことである。EPUB 3.2 は、例えば、<code>bindings</code>、<code>epub:trigger</code> 及び <code>epub:switch.</code> など、いくつかの古い機能を非推奨（deprecate）にした。</section>
+<section id="sec-reorg">
+<h1>仕様の再編成</h1>
+<p>EPUB 標準の読解と参照を簡単にするために、仕様の主な再編成に着手した。最大の変更点として、新しい包括的な <a href="epub-spec.html">EPUB 仕様</a>は、エントリへの主なポイントとして導入された。[[Publications301]] で定義された以前の EPUB 出版物およびリーディング システムの要件は、<a href="epub-spec.html#sec-publication-resources">出版物リソース</a>に関するセクションがあったように、この新しいトップレベルの仕様に移動した。全ての<a href="epub-spec.html#sec-terminology">共通用語</a>は、同様に、共通の参照点を提供するために、このトップレベルの仕様に集めた。<a href="epub-spec.html#index">主要な概念のインデックス</a>と用語は、様々なサブ仕様のナビゲーションを支援するために追加さた。</p>
+<p>[[Publications301]] は、パッケージ ドキュメントを介してコンテンツのレンディションを定義していることを反映するために、より適した <a href="epub-packages.html">EPUB Packages 3.2</a> [[Packages32]] にリネームした。EPUB ナビゲーション ドキュメントの定義は、EPUB コンテンツ ドキュメントの一般的な機能ではなく、パッケージの中心的な構成要素であるとして、パッケージ仕様のために [[ContentDocs301]] から移動した。以前、この仕様で定義されていたプロパティの定義は、外部の語彙へ移動した。</p>
+<p>[[MediaOverlays32]] は、埋め込まれるプロパティの定義が別々の語彙として移動されたが、その他の点では構造的な変化はない。</p>
+<p>[[ContentDocs32]] は、EPUB ナビゲーション ドキュメントの定義の除去を別とすれば、主に表面的な変更がなされた。いくつかのセクションは、一意のドキュメント タイプではなく、（例えば、セクション「スクリプト コンテンツ ドキュメント」は、「スクリプト」に変更された）コンテンツ ドキュメントを強化する方法を反映するために改名されたが、それ以外のセクションの配置は大きく変更していない。</p>
+<p>[[OCF32]] は、同様に、いくつかのマイナーな編集と構造上のクリーンアップがなされたが、セクションの追加または削除はない。</p>
+</section>
+<section id="sec-epub32">
+<h1>EPUB 3.2</h1>
+<div class="note">
+<p>EPUB 3.2 で取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3ASpec-EPUB32+is%3Aclosed">EPUB 3.1 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</div>
+<p class="issue"> GitHub には、EPUB31 ラベルがないと思われるので、上記の検索では 3.2 の時間枠の問題のみが返される。</p>
+<section id="sec-epub32-a11y">
+<h2>アクセシビリティ サポート</h2>
+<p>EPUB 3.2 は、全ての EPUB 出版物が、新しい EPUB Accessibility 仕様 [[EPUBAccessibility]] に適合する勧告を包含する。アクセシビリティ仕様は、コンテンツ内の [[WCAG20]] サポートと一緒に、発見のメタデータの包含のための勧告を行う。</p>
+<p>EPUB リーディング システムはまた、[[EPUBAccessibility]] の要件を満たすことを推奨する。</p>
+</section>
+<section id="sec-epub32-cmt">
+<h2>新しいコア メディア タイプ</h2>
+<p>EPUB 3.2 は、コア メディア タイプ [[EPUB32]] として <a href="epub-spec.html#cmt-woff2">WOFF 2.0</a> と <a href="epub-spec.html#cmt-sfnt">SFNT</a> フォント フォーマットを追加した。</p>
+</section>
+<section id="sec-epub32-fallbacks">
+<h2>管理外リソース フォールバックの明確化</h2>
+<p>EPUB 3.2 は、スパインではなく、EPUB コンテンツ ドキュメントに埋め込まれていない場合は、管理外リソースが<span class="phrase"><a href="epub-spec.html#sec-foreign-restrictions">フォールバックを必要としない</a></span>という更なる明確化を追加した。</p>
+<p>この変更は、特に利点、不要なフォールバックなしにスクリプトによって使用するためのデータファイルを製作者が包含することができる。</p>
+</section>
+<section id="sec-epub32-res">
+<h2>リモートでホストされるリソース</h2>
+<p>EPUB 3.2 は、スクリプトによって使用されるフォントとリソースが <a href="epub-spec.html#sec-resource-locations">EPUB コンテナの外側でホストされる</a>ことを許可する。</p>
+</section>
+<section id="sec-epub32-cfi">
+<h2>リンクのための EPUBCFI サポートの廃止</h2>
+<p>EPUB 3.2 は、ハイパーリンクするために EPUB Canonical Fragment Identifiers [[EPUB-CFI]] をサポートするリーディング システムへの要求は取り除かれた（<a href="http://www.idpf.org/epub/301/spec/epub-publications.html#confreq-rs-cfi">EPUB 3.0.1 EPUBCFI の要件</a>を参照）。</p>
+</section>
+<section id="sec-epub32-deprecated">
+<h2>非サポート機能の新しい表記</h2>
+<p>EPUB 3.2 は、非推奨（deprecated）の定義を<a href="epub-spec.html#sec-overview-unsupported">更新</a>し、「置き換え（superseded）」を廃止し、後方互換性のみを目的とした「レガシー」機能の概念を追加する。</p>
+</section>
+</section>
+<section id="sec-pkg">
+<h1>Packages 3.2</h1>
+<div class="note">
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-Packages+is%3Aclosed"> 3.1 リビジョン</a>と<a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-Packages+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Packages 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</div>
+<section id="sec-pkg-metadata-changes">
+<h2>パッケージ メタデータの変更</h2>
+<p>EPUB 3.2 は、パッケージ メタデータを次のように変更する。</p>
+<ul>
+<li><code>epubsc</code> は、もはや予約済みの接頭辞ではない。</li>
+<li>メタデータの語彙は、外部のレジストリから仕様自身に移された。</li>
+<li><code>display-seq</code> 属性は、非推奨（deprecated）となった。優先順位は、ドキュメントの順序に従うべきである。</li>
+<li><code>rendition:spread</code> 属性の <code>portrait</code> 値は、非推奨（deprecated）となった。</li>
+<li>ひとつ以上の <code>alternate-script</code> プロパティは、他の <code>meta</code> 要素に紐付けることができる。</li>
+</ul>
+</section>
+<section id="sec-pkg-linked-records">
+<h2>リンクされたメタデータ レコード</h2>
+<p>EPUB 3.2 は、パッケージ ドキュメントの <code>metadata</code> 要素に直接包含されている情報の上に<a href="epub-packages.html#sec-link-elem">リンクされたレコードに書誌情報に優先し</a>、リンクされたレコードの優先順位もまた変更する。</p>
+<div class="note">
+<p>リモートのレコードを取得するためのプロトコルは、最新ドラフトの補足で開発中であった。その作業は削除され、別のドキュメントで継続されるであろう。</p>
+</div>
+</section>
+<section id="sec-pkg-bindings">
+<h2><code>bindings</code> 要素の非推奨（deprecation）</h2>
+<p>EPUB 3.2 は、object 要素（<a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-bindings-elem">EPUB 3.0.1 <code>bindings</code></a> を参照）に埋め込まれた管理外リソースのために代替のスクリプト化したフォールバックを提供するパッケージ ドキュメント内で bindings の使用を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする。</p>
+<p>[[HTML]] <code>object</code> 要素<a href="epub-contentdocs.html#sec-xhtml-fallbacks">固有のフォールバック メカニズム</a>（埋め込みコンテンツ）は、コア メディア タイプのフォールバックを提供するために使用できる。</p>
+</section>
+</section>
+<section id="sec-cdoc">
+<h1>Content Documents 3.2</h1>
+<div class="note">
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-ContentDocs+is%3Aclosed">3.1 リビジョン</a>とthe <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-ContentDocs+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Content Documents 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</div>
+<section id="sec-cdoc-undated">
+<h2>HTML と SVG への日付なし参照</h2>
+<p>EPUB 3.0.1 は、それらの特定のバージョンに仕様を結びつけるため、HTML 5.0 と SVG 1.1 のために日付付きの参照を使用していた。このモデルでは、新しいリビジョンが、HTML や SVG のバージョンを導入するのにそれぞれの時間を必要とした。</p>
+<p>EPUB 3.2 が、これら仕様における最新の推奨バージョンと共に最新に保たれていることを保証するために、日付付きの参照は、EPUB 3.2 において日付なし参照に置き換えられた。この変更は、HTML と SVG の新しい推奨バージョンが公開されると、それらがすぐに EPUB 出版物での使用に有効であることを意味する。</p>
+<p>詳細の情報は、<a href="epub-contentdocs.html#sec-overview-relations-html">HTML との関連性</a>と <a href="epub-contentdocs.html#sec-overview-relations-svg">SVG との関連性</a>を見よ。</p>
+</section>
+<section id="sec-cdoc-css">
+<h2>CSS リファレンスに伴う EPUB スタイル シートの置き換え</h2>
+<p>EPUB 3.2 は、EPUB スタイル シート プロファイルを削除する。その代わりに、より一般的な <span class="phrase"><a href="epub-contentdocs.html#sec-css">CSS のサポート要件</a></span>が定義される。</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: disc; ">
+<li>
+<p>CSS のサポートは、視覚的なリーディング システムのために必要である。</p>
+</li>
+<li>
+<p>CSS プロファイルよりはむしろ、EPUB 3.2 は、CSS ワーキング グループ スナップショットから CSS の「公式な定義」を使用する。</p>
+</li>
+<li>
+<p><code>position: fixed</code> の使用の制約は削除された。</p>
+</li>
+<li>
+<p><code>position: absolute</code> の使用の制約は削除された。</p>
+</li>
+<li>
+<p>CSS Speech から全ての <code>-epub-</code> プリフィックス付きプロパティは、実装の少なさから削除された。</p>
+</li>
+<li>
+<p><code>-epub-ruby-position</code> プロパティは削除された。</p>
+</li>
+<li>
+<p><code>-epub-text-combine-horizontal</code> プロパティは削除された。</p>
+</li>
+<li>
+<p><code>-epub-fullsize-kana</code> プロパティは削除された。</p>
+</li>
+<li>
+<p><code>-epub-text-emphasis</code> ショートハンド プロパティは削除された。</p>
+</li>
+<li>
+<p><span class="property">-epub-text-orientation</span> の <code>use-glyph-orientation</code> と <code>sideways-left</code> 値は削除された。</p>
+</li>
+</ul>
+</div>
+</section>
+<section id="sec-cdoc-css-priority">
+<h2>製作者とユーザースタイルの優先順位付け</h2>
+<p>EPUB 3.2 は、リーディング システムが、<a href="epub-contentdocs.html#confreq-css-rs-html-default">リーディング システムの適合性要件</a>の追加と<a href="epub-contentdocs.html#sec-css-rs-overrides">スタイルを上書きするサブセクション</a>を介して、ユーザー エージェント スタイルの上に、製作者とユーザーのスタイルの選択を優先するべきガイダンスを追加した。</p>
+</section>
+<section id="alternate-style-tags">
+<h2>Alternate Style Tags の廃止</h2>
+<p>EPUB 3.2 は、もはや Alternate Style Tags を言及しない。このメカニズムは、class 属性を使用するため、これは、既存のコンテンツの有効性に影響を与えない。</p>
+</section>
+<section id="structural-semantics">
+<h2>許可された <code>epub:type</code> の値</h2>
+<p>EPUB 3.2 は、<code>epub:type</code> 属性で使用される EPUB Structural Semantics Vocabulary の一部ではない接頭辞のない値を許可する。</p>
+</section>
+<section id="sec-cdoc-scripting">
+<h2>スクリプトサポートの明確化</h2>
+<p>EPUB 3.2 は、<a href="epub-contentdocs.html#sec-scripted-content">スクリプトのサポート</a>を次のように変更する。</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: disc; ">
+<li>
+<p>コンテナ制約のスクリプトは、（<code>embed</code> と <code>object</code> は削除され）[[HTML]] <code>iframe</code> 要素に限られる。</p>
+</li>
+<li>
+<p>リーディング システムは、コンテナ制約のスクリプトをサポートするべきである（スクリプトまわりのセキュリティとプライバシーの懸念のために「must」から弱めた）。</p>
+</li>
+<li>
+<p>リーディング システムは、固定レイアウトドキュメント内のスパイン レベルのスクリプトと <a href="epub-packages.html#flow"><span class="property">rendition:flow</span> プロパティ</a>で定義された「scrolled-doc」と「scrolled-continuous」インターフェイスをサポートするべきである。</p>
+</li>
+<li>
+<p>リーディング システムがリフロー可能なドキュメントでスパイン レベルのスクリプトをサポートする場合、「scrolled-doc」インターフェイスをサポートしなければならなず、「scrolled-continuous」インターフェイスをサポートするべきである。</p>
+</li>
+</ul>
+</div>
+</section>
+<section id="sec-cdoc-switch">
+<h2><code>switch</code> 要素の非推奨（deprecation）</h2>
+<p>EPUB 3.2 は、コンテンツの条件付き表示のために <code>switch</code> 要素の使用を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする（<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-content-switch">EPUB 3.0.1 <code>switch</code> 要素</a>を参照）。</p>
+<p>その代わり、製作者に、<a href="epub-contentdocs.html#sec-xhtml-mathml-alt">MathML <code>altimg</code> 属性</a>の使用における既存のガイドラインが向けられた。</p>
+</section>
+<section id="sec-cdoc-trigger">
+<h2><code>trigger</code> 要素の非推奨（deprecation）</h2>
+<p>EPUB 3.2 は、音声と動画コンテンツのコントロールを宣言するための <code>trigger</code> 要素の包含を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする（<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-epub-trigger">EPUB 3.0.1 trigger 要素</a>を参照）。</p>
+<p>製作者は、[[HTML]] <code>audio</code> と <code>video</code> 要素によって提供されるネイティブなコントロールを使用することが推奨される。</p>
+</section>
+<section id="sec-cdoc-rso">
+<h2>epubReadingSystem オブジェクトの明確化</h2>
+<p><a href="epub-contentdocs.html#app-ers-idl">IDL 定義</a>に、<a href="epub-contentdocs.html#app-epubReadingSystem"><code>epubReadingSystem</code> オブジェクト</a>が追加された。</p>
+<p>ネストされたコンテクストを包含している、異なるスクリプト コンテクスト内に、オブジェクトを<a href="epub-contentdocs.html#app-ers-desc">利用できるようにするための要件</a>もまた明確化された。</p>
+</section>
+</section>
+<section id="sec-ocf">
+<h1>Open Container Format (OCF) 3.2</h1>
+<div class="note">
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-OCF+is%3Aclosed">3.1 リビジョン</a>と<a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-OCF+is%3Aclosed">3.2 リビジョン</a>で取り上げられた OCF 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</div>
+<section id="sec-ocf-enc">
+<h2>暗号化</h2>
+<p><a href="epub-ocf.html#sec-enc-compression">暗号化と圧縮の順序</a>が明確化された。新しいルールは、リソースのサイズを減少させることが適切でないとき、圧縮が必要でないことを明確にする。新しい <code>Compression</code> 要素は、リソースが圧縮後かそれともオリジナルのバイトサイズかを示すために <code>encryption.xml</code> スキーマのために追加された。</p>
+</section>
+</section>
+<section id="sec-mo">
+<h1>メディア オーバーレイ</h1>
+<div class="note">
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.1 リビジョン</a>と<a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.2 リビジョン</a>で取り上げられたメディア オーバレイ 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</div>
+<section>
+<h2><code>duration</code> 属性の廃止</h2>
+<p>@refines を非推奨にしたために、3.1 で追加された <code>duration</code> 属性を廃止した。しかし、3.2 は @refines を復元し、3.1 は実装されなかったので、<code>duration</code> は必要ない。</p>
+</section>
+</section>
+<section id="sec-a11y">
+<h1>EPUB Accessibility</h1>
+<p>EPUB 3.2 リビジョンは、EPUB 出版物をアクセシブルであり発見可能にする方法の詳細として、[[EPUBAccessibility]] 仕様を導入する。この仕様は、[[WCAG20]] の作業を活用し、EPUB 出版物のための要件もまた追加している。これは、要件を満たすためのベスト プラクティスを記述した、規定ではない <a class="biblioref" href="#refA11YTech" title="EPUB Accessibility Techniques">[<abbr class="abbrev">EPUB Accessibility Techniques</abbr>]</a> ドキュメントが添付されている。</p>
+<p>この仕様は、EPUB の古いバージョンに利用できるよう設計されている。EPUB 3.0.1 または 2.0.1 がアクセシブルかどうかを確認するために製作者によってすぐ使用することができる。</p>
+</section>
+<section id="sec-cfi">
+<h1>EPUB Canonical Fragment Identifiers</h1>
+<p>EPUB 3.0.1 から取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-CFI+is%3Aclosed">EPUB Canonical Fragment Identifiers 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</section>
+<section id="sec-altss">
+<h1>Alternate Style Tags</h1>
+<p>Alternate Style Tags 仕様は、もはや EPUB 3.2 から参照されない。</p>
+</section>
+</body>
+</html>
