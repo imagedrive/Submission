@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8"/>
-<title>EPUB 3 Overview 日本語訳</title>
+<title>EPUB 3 Overview 日本語訳（2018年9月26日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -140,7 +140,7 @@
 </section>
 <section id="sec-scripting">
 <h2>スクリプト</h2>
-<p>EPUB は、実行されるプログラムではなく、操作することのできるデータとして、<em>宣言</em>されたコンテンツの取り扱いに務めるが、[[HTML]] や [[SVG]] に定義されているようなスクリプトをサポートする（詳細な情報は、<a href="epub-contentdocs.html#sec-scripted-content">スクリプト</a> [[ContentDocs32]] を参照されたい）。</p>
+<p>EPUB は、実行されるプログラムではなく、操作することのできるデータとして、<em>宣言</em>されたコンテンツの取り扱いに務めるが、[[HTML]] や [[SVG2]] に定義されているようなスクリプトをサポートする（詳細な情報は、<a href="epub-contentdocs.html#sec-scripted-content">スクリプト</a> [[ContentDocs32]] を参照されたい）。</p>
 <p>それに注意することは重要であるが、リーディング システムのスクリプトのサポートは任意であり、セキュリティ上の理由から無効にしてもよい。</p>
 <p>製作者らはまた、EPUB 出版物のスクリプトは、Web ブラウザのスクリプトとは異なるセキュリティの考慮事項を引き起こすことができることを意識する必要がある。たとえば、一般的に同一生成元ポリシーは、ユーザーのローカルシステムにダウンロードされたコンテンツに適用されない。そのために、スクリプトは、<a href="epub-contentdocs.html#sec-scripted-content-content-reqs">スクリプト コンテンツ ドキュメント - コンテンツの適合性</a> [[ContentDocs32]] に記載されているものよりも、制約されたコンテクストのコンテナに制限されることが強く推奨されている。</p>
 <p>言い換えれば、コンテンツが全てのリーディング システム間を横断できず、アクセシビリティとコンテンツの再利用性に障壁を作る可能性が増大するので、それがユーザーエクスペリエンスに不可欠である場合に、スクリプトの制限を考慮されたい。</p>
@@ -258,32 +258,17 @@
 </section>
 <section id="epub301">
 <h3>EPUB 3.0.1: 2014</h3>
-<p>The EPUB 3.0.1 revision was undertaken in 2013-14. Although introducing mostly minor fixes and
-updates, it did see the integration of Fixed Layout Documents, which give Authors greater control
-over presentation when a reflowable EPUB is not suitable for the content. [[Publications301]]
-[[ContentDocs301]] [[OCF301]] [[MediaOverlays301]] [[EPUB301Changes]]</p>
+<p>The EPUB 3.0.1 revision was undertaken in 2013-14. Although introducing mostly minor fixes and updates, it did see the integration of Fixed Layout Documents, which give Authors greater control over presentation when a reflowable EPUB is not suitable for the content. [[Publications301]] [[ContentDocs301]] [[OCF301]] [[MediaOverlays301]] [[EPUB301Changes]]</p>
 </section>
 <section id="epub31">
 <h3>EPUB 3.1: 2017</h3>
-<p>EPUB 3.1 was the first minor revision of EPUB 3. The goal of this revision was to better align EPUB 3
-with current Web standards. References to important standards were made undated, meaning that
-whenever they are updated they are legal to use in EPUB 3 content (e.g., the latest version of HTML
-is always valid to use; a revision of EPUB is not needed). The use of CSS was also clarified, and
-the use of EPUB-specific properties reduced.</p>
-<p>Many EPUB-specific features were also removed from the standard, in particular content switching,
-triggers, and bindings. This change necessitated a new Package Document version number.[[EPUB31]]
-[[Packages31]] [[ContentDocs31]] [[OCF31]] [[MediaOverlays31]] [[EPUB31Changes]]</p>
+<p>EPUB 3.1 was the first minor revision of EPUB 3. The goal of this revision was to better align EPUB 3 with current Web standards. References to important standards were made undated, meaning that whenever they are updated they are legal to use in EPUB 3 content (e.g., the latest version of HTML is always valid to use; a revision of EPUB is not needed). The use of CSS was also clarified, and the use of EPUB-specific properties reduced.</p>
+<p>Many EPUB-specific features were also removed from the standard, in particular content switching, triggers, and bindings. This change necessitated a new Package Document version number.[[EPUB31]] [[Packages31]] [[ContentDocs31]] [[OCF31]] [[MediaOverlays31]] [[EPUB31Changes]]</p>
 </section>
 
 <section id="epub32">
 <h3>EPUB 3.2: 2018</h3>
-<p>EPUB 3.2 was undertaken shortly after EPUB 3.1 in order to restore compatibility of content to EPUB
-3. The change of version number introduced in EPUB 3.1 meant that authors, vendors and reading
-system developers would have to produce, distribute and consume two versions of EPUB content, but
-the costs of this change outweighed the benefits of the new version. EPUB 3.2 instead keeps all the
-best parts of EPUB 3.1, but returns and deprecates the removed elements so that a new version number
-is not necessary in the Package Document. [[EPUB32]] [[Packages32]] [[ContentDocs32]] [[OCF32]]
-[[MediaOverlays32]] [[EPUB32Changes]]</p>
+<p>EPUB 3.2 was undertaken shortly after EPUB 3.1 in order to restore compatibility of content to EPUB 3. The change of version number introduced in EPUB 3.1 meant that authors, vendors and reading system developers would have to produce, distribute and consume two versions of EPUB content, but the costs of this change outweighed the benefits of the new version. EPUB 3.2 instead keeps all the best parts of EPUB 3.1, but returns and deprecates the removed elements so that a new version number is not necessary in the Package Document. [[EPUB32]] [[Packages32]] [[ContentDocs32]] [[OCF32]] [[MediaOverlays32]] [[EPUB32Changes]]</p>
 </section>
 </section>
 </body>
