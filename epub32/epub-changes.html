@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB 3.2 Changes 日本語訳</title>
+<title>EPUB 3.2 Changes 日本語訳（2018年9月25日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -61,7 +61,8 @@
 <h1>要約</h1>
 <p>全ての適合する EPUB 3.0.1 ファイルは、適合する EPUB 3.2 ファイルなので、現時点で、EPUB 3 出版物の製作者は、何も変更する必要はない。EPUB 3.2 は、いくつかのオプションが提供されており、コンテンツ製作者は、EPUB アクセシビリティ ガイドラインに従うことを正式に推奨する。</p>
 <p>EPUB 3.2 における最大の変更は、HTML、CSS 及び SVG のコア ウェブ仕様との関連性である。これまで EPUB は、特定の日付バージョンの HTML 又は CSS を指していた。現在、EPUB 3.2 は、W3C で定義される HTML、CSS 及び SVG の最新バージョンを正式にサポートする。これらのバージョンは、徐々に進化し、EPUB は、ウェブの最新の状態を維持する。</p>
-<p>他の注意すべき変更は、WOFF 2.0 及び SFNT フォントがコア メディア タイプになったことである。EPUB 3.2 は、例えば、<code>bindings</code>、<code>epub:trigger</code> 及び <code>epub:switch.</code> など、いくつかの古い機能を非推奨（deprecate）にした。</section>
+<p>他の注意すべき変更は、WOFF 2.0 及び SFNT フォントがコア メディア タイプ リソースになったことである。EPUB 3.2 は、例えば、<code>bindings</code>、<code>epub:trigger</code> 及び <code>epub:switch.</code> など、いくつかの古い機能を非推奨（deprecate）にした。</p>
+</section>
 <section id="sec-reorg">
 <h1>仕様の再編成</h1>
 <p>EPUB 標準の読解と参照を簡単にするために、仕様の主な再編成に着手した。最大の変更点として、新しい包括的な <a href="epub-spec.html">EPUB 仕様</a>は、エントリへの主なポイントとして導入された。[[Publications301]] で定義された以前の EPUB 出版物およびリーディング システムの要件は、<a href="epub-spec.html#sec-publication-resources">出版物リソース</a>に関するセクションがあったように、この新しいトップレベルの仕様に移動した。全ての<a href="epub-spec.html#sec-terminology">共通用語</a>は、同様に、共通の参照点を提供するために、このトップレベルの仕様に集めた。<a href="epub-spec.html#index">主要な概念のインデックス</a>と用語は、様々なサブ仕様のナビゲーションを支援するために追加さた。</p>
@@ -73,17 +74,16 @@
 <section id="sec-epub32">
 <h1>EPUB 3.2</h1>
 <div class="note">
-<p>EPUB 3.2 で取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3ASpec-EPUB32+is%3Aclosed">EPUB 3.1 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p>EPUB 3.2 で取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3ASpec-EPUB32+is%3Aclosed">EPUB 3.0.1 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
-<p class="issue"> GitHub には、EPUB31 ラベルがないと思われるので、上記の検索では 3.2 の時間枠の問題のみが返される。</p>
 <section id="sec-epub32-a11y">
 <h2>アクセシビリティ サポート</h2>
 <p>EPUB 3.2 は、全ての EPUB 出版物が、新しい EPUB Accessibility 仕様 [[EPUBAccessibility]] に適合する勧告を包含する。アクセシビリティ仕様は、コンテンツ内の [[WCAG20]] サポートと一緒に、発見のメタデータの包含のための勧告を行う。</p>
 <p>EPUB リーディング システムはまた、[[EPUBAccessibility]] の要件を満たすことを推奨する。</p>
 </section>
 <section id="sec-epub32-cmt">
-<h2>新しいコア メディア タイプ</h2>
-<p>EPUB 3.2 は、コア メディア タイプ [[EPUB32]] として <a href="epub-spec.html#cmt-woff2">WOFF 2.0</a> と <a href="epub-spec.html#cmt-sfnt">SFNT</a> フォント フォーマットを追加した。</p>
+<h2>新しいコア メディア タイプ リソース</h2>
+<p>EPUB 3.2 は、コア メディア タイプ リソース [[EPUB32]] として <a href="epub-spec.html#cmt-woff2">WOFF 2.0</a> と <a href="epub-spec.html#cmt-sfnt">SFNT</a> フォント フォーマットを追加した。</p>
 </section>
 <section id="sec-epub32-fallbacks">
 <h2>管理外リソース フォールバックの明確化</h2>
@@ -106,7 +106,7 @@
 <section id="sec-pkg">
 <h1>Packages 3.2</h1>
 <div class="note">
-<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-Packages+is%3Aclosed"> 3.1 リビジョン</a>と<a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-Packages+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Packages 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-Packages+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Packages 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
 <section id="sec-pkg-metadata-changes">
 <h2>パッケージ メタデータの変更</h2>
@@ -129,13 +129,13 @@
 <section id="sec-pkg-bindings">
 <h2><code>bindings</code> 要素の非推奨（deprecation）</h2>
 <p>EPUB 3.2 は、object 要素（<a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-bindings-elem">EPUB 3.0.1 <code>bindings</code></a> を参照）に埋め込まれた管理外リソースのために代替のスクリプト化したフォールバックを提供するパッケージ ドキュメント内で bindings の使用を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする。</p>
-<p>[[HTML]] <code>object</code> 要素<a href="epub-contentdocs.html#sec-xhtml-fallbacks">固有のフォールバック メカニズム</a>（埋め込みコンテンツ）は、コア メディア タイプのフォールバックを提供するために使用できる。</p>
+<p>[[HTML]] <code>object</code> 要素<a href="epub-contentdocs.html#sec-xhtml-fallbacks">固有のフォールバック メカニズム</a>（埋め込みコンテンツ）は、フォールバックのコア メディア タイプ リソースを提供するために使用できる。</p>
 </section>
 </section>
 <section id="sec-cdoc">
 <h1>Content Documents 3.2</h1>
 <div class="note">
-<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-ContentDocs+is%3Aclosed">3.1 リビジョン</a>とthe <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-ContentDocs+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Content Documents 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-ContentDocs+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Content Documents 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
 <section id="sec-cdoc-undated">
 <h2>HTML と SVG への日付なし参照</h2>
@@ -191,7 +191,7 @@
 </section>
 <section id="structural-semantics">
 <h2>許可された <code>epub:type</code> の値</h2>
-<p>EPUB 3.2 は、<code>epub:type</code> 属性で使用される EPUB Structural Semantics Vocabulary の一部ではない接頭辞のない値を許可する。</p>
+<p>EPUB 3.2 は、<code>epub:type</code> 属性で使用される EPUB Structural Semantics Vocabulary [[EPUB-SSV]] の一部ではない接頭辞のない値を許可する。</p>
 </section>
 <section id="sec-cdoc-scripting">
 <h2>スクリプトサポートの明確化</h2>
@@ -232,7 +232,7 @@
 <section id="sec-ocf">
 <h1>Open Container Format (OCF) 3.2</h1>
 <div class="note">
-<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-OCF+is%3Aclosed">3.1 リビジョン</a>と<a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-OCF+is%3Aclosed">3.2 リビジョン</a>で取り上げられた OCF 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-OCF+is%3Aclosed">3.2 リビジョン</a>で取り上げられた OCF 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
 <section id="sec-ocf-enc">
 <h2>暗号化</h2>
@@ -242,7 +242,7 @@
 <section id="sec-mo">
 <h1>メディア オーバーレイ</h1>
 <div class="note">
-<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.1 リビジョン</a>と<a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.2%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.2 リビジョン</a>で取り上げられたメディア オーバレイ 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.2 リビジョン</a>で取り上げられたメディア オーバレイ 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
 <section>
 <h2><code>duration</code> 属性の廃止</h2>
@@ -256,7 +256,7 @@
 </section>
 <section id="sec-cfi">
 <h1>EPUB Canonical Fragment Identifiers</h1>
-<p>EPUB 3.0.1 から取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+milestone%3A%22EPUB+3.1%22+label%3ASpec-CFI+is%3Aclosed">EPUB Canonical Fragment Identifiers 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p>EPUB 3.0.1 から取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-CFI+is%3Aclosed">EPUB Canonical Fragment Identifiers 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </section>
 <section id="sec-altss">
 <h1>Alternate Style Tags</h1>
