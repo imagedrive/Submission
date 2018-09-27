@@ -1,0 +1,747 @@
+<section id="app-meta-property-vocab" class="appendix vocab">
+<h1>メタ プロパティの語彙</h1>
+
+<section id="meta-property-vocab-overview">
+<h2>概要</h2>
+
+<section id="meta-property-vocab-about" class="informative">
+<h3>語彙について</h3>
+
+<p>この語彙のプロパティは、<a href="#sec-meta-elem"><code>meta</code> 要素</a>の <code>property</code> 属性で使用できる。</p>
+</section>
+
+<section id="meta-property-vocab-ref">
+<h3>参照</h3>
+
+<p>プリフィックスのないプロパティは、ベース IRI <code>http://idpf.org/epub/vocab/package/meta/#</code> を使用して参照可能である。</p>
+</section>
+</section>
+<section id="sec-meta-property-values">
+<h2>メタデータ <code>meta</code> プロパティ</h2>
+
+<p>次の表は、<a href="#sec-meta-elem"><code>meta</code> 要素</a>の <code>property</code> 属性で使用するプロパティを定義する。</p>
+
+<p>「拡張」フィールドで特に指示がない限り、のこのセクションで定義されたpropertiesは、<a href="#subexpression">部分式（subexpression）</a>を定義するために使用される。言い換えると、このセクションで定義されているプロパティを伝える <code><a href="#elemdef-meta">meta</a></code> 要素は、拡張されたリソース又は表現を参照する <code><a href="#attrdef-refines">refines</a></code> 属性を持たなければならない（）。</p>
+
+<p>各プロパティの定義で、<strong>許容された値</strong>フィールドは、（[[!XMLSCHEMA-2]] データタイプを使用する）値の期待された型を示し、<strong>個数</strong>フィールドは、プロパティを他のプロパティに紐づけても良い（MAY）回数を示し、<strong>拡張できる対象</strong>フィールドは、紐づけても良い（MAY）プロパティを示す。</p>
+
+<section id="sec-alternate-script">
+<h3>alternate-script</h3>
+
+<table id="alternate-script">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>alternate-script</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>alternate-script</code> プロパティは、<code>xml:lang</code> 属性によって識別される言語とスクリプト内の関連するプロパティ値の代替表現を提供する。</p>
+<p>このプロパティは、国際化目的のために <code>creator</code> と <code>title</code> プロパティに、典型的に付けられる。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>すべてのプロパティ</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、英語の著者名及び日本語の代替表現を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:creator id="creator">Haruki Murakami&lt;/dc:creator>
+    &lt;meta refines="#creator" property="alternate-script" xml:lang="ja">村上 春樹&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-authority">
+<h3>authority</h3>
+
+<table id="authority">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>authority</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>authority</code> プロパティは、参照された要素の値が引き出されるシステム又はスキームを示している。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<ul>
+<li>
+<p><a href="http://idpf.org/epub/registries/authorities/">reserved authority value</a> [[!AuthorityRegistry]] （大文字と小文字を区別しない）、または、</p>
+</li>
+<li>
+<p>スキームを識別する絶対 IRI [[!RFC3987]]。IRI は、スキームに関する詳細情報を提供するリソースを参照するべきである（SHOULD）。</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<code>subject</code>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、BISAC サブジェクトの見出しを示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:subject id="subject01"&gt;FICTION / Occult &amp;amp; Supernatural&lt;/dc:subject&gt;
+    &lt;meta refines="#subject01" property="authority">BISAC&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-belongs-to-collection">
+<h3>belongs-to-collection</h3>
+
+<table id="belongs-to-collection">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>belongs-to-collection</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>belongs-to-collection</code> プロパティは、EPUB 出版物が属するコレクションの名前を識別する。EPUB 出版物は、ひとつ以上のコレクションを識別しても良い（MAY）。</p>
+<p>あるコレクションが、他のコレクションのメンバーであることを識別するために <a href="#attrdef-refines"><code>refines</code> 属性</a>を使用してそれらのプロパティを連鎖させることも可能である。</p>
+<p>リーディング システムが、コレクションを体系化し、（例えば、無関係なコレクションが、似たような名前を共有するかもしれないし、コレクションの異なるエディションがリリースされるかもしれないなど）名前の衝突を避けるために、識別子は、コレクションのインスタンスに一意な識別子を提供するべきである（SHOULD）。<code>dcterms:identifier</code> プロパティは、この識別子を伝えなければならない。</p>
+<p>コレクションは、<a href="#collection-type"><code>collection-type</code></a> プロパティを紐付けることによって、その性質をより詳細に定義しても良い（MAY）。</p>
+<p>コレクション内にある EPUB 出版物の位置は、<a href="#group-position"><code>group-position</code> プロパティ</a>を紐付けることによって、提供しても良い（MAY）。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>EPUB 出版物に適用され、それ自体の他のインスタンスを改良することができる。</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、出版物が、ハリー ポッターの書籍セットに属していることを示している。</p>
+<pre>&lt;metadata&gt;
+    …
+    &lt;meta property="belongs-to-collection" id="c02"&gt;Harry Potter&lt;/meta&gt;
+    &lt;meta refines="#c02" property="collection-type"&gt;set&lt;/meta&gt;
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-collection-type">
+<h3>collection-type</h3>
+
+<table id="collection-type">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>collection-type</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>collection-type</code> プロパティは、コレクションの形式又は性質を示している。</p>
+<p><code>collection-type</code> 値が、コードのリスト又は他の形式の一覧表から引き出される時、<a href="#attrdef-scheme"><code>scheme</code> 属性</a>は、そのソースを識別するために紐付けるべきである（SHOULD）。</p>
+<p>スキームが特定されていない時、リーディング システムは、次のコレクション型の値を認識するべきである（SHOULD）。</p>
+<dl>
+<dt>
+<code>series</code>
+</dt>
+<dd>
+<p>グループとして形式的に識別された一連の関連作品で、典型的に上限がなく、時間の経過と共に個別に発行される。</p>
+</dd>
+<dt>
+<code>set</code>
+</dt>
+<dd>
+<p>ひとつの知的なユニットを同時に構成する有限の作品コレクションで、典型的に同時に発行され、ユニットとして販売できる。</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<a href="#belongs-to-collection"><code>belongs-to-collection</code></a>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、出版物が、The New French Cuisine Masters シリーズに属することを示している。</p>
+<pre>&lt;metadata>
+    …
+    &lt;meta property="belongs-to-collection" id="c01"&gt;
+        The New French Cuisine Masters
+    &lt;/meta&gt;
+    &lt;meta refines="#c01" property="collection-type"&gt;series&lt;/meta&gt;
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-display-seq">
+<h3>display-seq (Deprecated)</h3>
+
+<table id="display-seq">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>display-seq</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>display-seq</code> は、（例えば、複数の <code>title</code> をレンダリングする順番を識別するためになど）同じメタデータ プロパティに関連する現在のプロパティを表示する数値的な位置を識別する。</p>
+<p><strong><code>display-seq</code> プロパティの使用は、非推奨（deprecated）である。</strong>優先順位は、EPUB パッケージ ドキュメントのドキュメント順に出現順に基づいて、セット内の要素に与えられる（すなわち、ドキュメント順の最初の要素は、最も優先度が高い）。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:unsignedInt</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>全てのプロパティ</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-file-as">
+<h3>file-as</h3>
+
+<table id="file-as">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>file-as</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>file-as</code> プロパティは、ソートに関連するプロパティの正規化された形式を提供する。</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>全てのプロパティ</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p/>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:creator id="creator01">Lewis Carroll&lt;/dc:creator>
+    &lt;meta refines="#creator01" property="file-as">Carroll, Lewis&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-group-position">
+<h3>group-position</h3>
+
+<table id="group-position">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>group-position</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>group-position</code> プロパティは、EPUB 出版物が、（全て EPUB 出版物かそれともそうでないか）同じグループに属する他の作品と比較して順序づけられる数値的な位置を識別する。</p>
+<p><code>group-position</code> プロパティは、グループを確立する任意のメタデータ プロパティに紐付けることができるが、典型的に、<a href="#belongs-to-collection"><code>belongs-to-collection</code> プロパティ</a>に関連付けられる。</p>
+<p>EPUB 出版物は、複数のグループに属することができる。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>ひとつの <code>xsd:unsignedInt</code> 又は少数で区切られた一連の数字（例：<code>1</code> や <code>2.2.1</code>）。</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>全てのプロパティ</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、出版物が、指輪物語のセットの2番目であることを示している。</p>
+<pre>&lt;metadata>
+    …
+    &lt;meta property="belongs-to-collection" id="c01"&gt;
+        The Lord of the Rings
+    &lt;/meta&gt;
+    &lt;meta refines="#c01" property="collection-type"&gt;set&lt;/meta&gt;
+    &lt;meta refines="#c01" property="group-position"&gt;2&lt;/meta&gt;
+    …
+&lt;/metadata></pre>
+</aside>
+<aside class="example">
+<p>The following example uses a decimal-separated value for <code>group-position</code>,
+				in this case volume 98, issue 4 of a periodical.</p>
+<pre>&lt;metadata&gt;
+    …
+    &lt;meta property="belongs-to-collection" id="cygnus-x-1">Physical Review D&lt;/meta>
+    &lt;meta refines="#cygnus-x-1" property="collection-type">series&lt;/meta>
+    &lt;meta refines="#cygnus-x-1" property="group-position">98.4&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-identifier-type">
+<h3>identifier-type</h3>
+
+<table id="identifier-type">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>identifier-type</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>identifier-type</code> プロパティは、<code>identifier</code> の形式又は性質を示す。</p>
+<p><code>identifier-type</code> 値が、コードのリスト又は他の形式の一覧表から引き出される時、<a href="#attrdef-scheme"><code>scheme</code> 属性</a>は、そのソースを識別するために紐付けるべきである（SHOULD）。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<code>identifier</code>、<code>source</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="note">アクセシブルなページ ナビゲーションを提供する方法についての情報は [[EPUBAccessibilityTechniques]] を見よ。</p>
+<aside class="example">
+<p>次の例は、識別子が、ONIX コード リスト 5 の数値を使用する ISBN 示す方法の例である。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:identifier id="isbn-id">urn:isbn:9780101010101&lt;/dc:identifier>
+    &lt;meta refines="#isbn-id" property="identifier-type" scheme="onix:codelist5">15&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-meta-auth">
+<h3>meta-auth（非推奨）</h3>
+
+<table id="meta-auth">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>meta-auth</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>meta-auth</code> プロパティは、パッケージ メタデータのインスタンスに責任のある、関係者又は権限を識別する。</p>
+<p>
+<strong><code>meta-auth</code> プロパティの仕様は、非推奨（deprecated）である。</strong>
+</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>全てのプロパティ</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-role">
+<h3>role</h3>
+
+<table id="role">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>role</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>role</code> プロパティは、（例えば、人物が、作品の著者や編集者など）<code>creator</code> 又は <code>contributor</code> によって行われる作品の性質を説明する。</p>
+<p><code>role</code> 値が、コードのリスト又は他の形式の一覧表から引き出される時、<a href="#attrdef-scheme"><code>scheme</code> 属性</a>は、そのソースを識別するために紐付けるべきである（SHOULD）。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<code>contributor</code>、<code>creator</code>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、作品の著者とイラストレーターを区別するために、MARC Relators vocabulary を使用している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:creator id="creator01">Lewis Carroll&lt;/dc:creator>
+    &lt;meta refines="#creator01" property="role" scheme="marc:relators">aut&lt;/meta>
+    
+    &lt;dc:creator id="creator02">John Tenniel&lt;/dc:creator>
+    &lt;meta refines="#creator02" property="role" scheme="marc:relators">ill&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-source-of">
+<h3>source-of</h3>
+
+<table id="source-of">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>source-of</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>source-of</code> プロパティは、EPUB 出版物の特定のレンディションが保持している、適合するソースのリソースの固有の面を示す。</p>
+<p>この仕様は、参照される <code>dc:source</code> 要素が、コンテンツに定義された <a href="http://www.idpf.org/epub/vocab/structure/#pagebreak"><code>pagebreak</code> プロパティ</a>のソースであることを示す <code>pagination</code> 値を定義する。この値は、ページネーションが包含される及び底本が分かっているときはいつでも、設定されるべきである（SHOULD）。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>pagination</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<code>dc:source</code>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、派生元になる底本のソース ISBN 識別子と一緒に EPUB 出版物の ISBN 識別子を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:identifier id="isbn-id">urn:isbn:9780101010101&lt;/dc:identifier>
+    &lt;meta refines="#isbn-id" property="identifier-type" scheme="onix:codelist5">15&lt;/meta>
+    
+    &lt;dc:source id="src-id">urn:isbn:9780375704024&lt;/dc:source>
+    &lt;meta refines="#src-id" property="identifier-type" scheme="onix:codelist5">15&lt;/meta>
+    &lt;meta refines="#src-id" property="source-of">pagination&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-term">
+<h3>term</h3>
+
+<table id="term">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>term</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>term</code> プロパティは、主題のコードを提供する。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<code>subject</code>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、主題の見出しの BISAC コードを示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:subject id="subject01"&gt;FICTION / Occult &amp;amp; Supernatural&lt;/dc:subject&gt;
+    &lt;meta refines="#subject01" property="authority">BISAC&lt;/meta>
+    &lt;meta refines="#subject01" property="term">FIC024000&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="sec-title-type">
+<h3>title-type</h3>
+
+<table id="title-type">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>title-type</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>title-type</code> プロパティは、<code>title</code> の形式又は性質を示す。</p>
+<p><code>title-type</code> 値が、コードのリスト又は他の形式の一覧表から引き出される時、<a href="#attrdef-scheme"><code>scheme</code> 属性</a>は、そのソースを識別するために紐付けるべきである（SHOULD）。スキームが特定されていない時、リーディング システムは、次のタイトル型の値を認識するべきである（<span class="rfc2119">should</span>）：<code>main</code>、<code>subtitle</code>、<code class="value">short</code>、<code>collection</code>、<code class="value">edition</code> 及び <code>expanded</code>。</p>
+</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>zero or one</code>
+</td>
+</tr>
+<tr>
+<th>拡張できる対象：</th>
+<td>
+<code>title</code>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="example">
+<p>次の例は、異なるタイトル型を識別する方法を示している。</p>
+
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:title id="t1">A Dictionary of Modern English Usage&lt;/dc:title>
+    &lt;meta refines="#t1" property="title-type">main&lt;/meta>
+    
+    &lt;dc:title id="t2">First Edition&lt;/dc:title>
+    &lt;meta refines="#t2" property="title-type">edition&lt;/meta>
+    
+    &lt;dc:title id="t3">Fowler's&lt;/dc:title>
+    &lt;meta refines="#t3" property="title-type">short&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+<aside class="example">
+<p>次の例は、複合的なタイトルの「The Great Cookbooks of the World: Mon premier guide de cuisson, un Mémoire. The New French Cuisine Masters, Volume Two. Special Anniversary Edition」を分類する方法を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    &lt;dc:title id="t1" xml:lang="fr">Mon premier guide de cuisson, un Mémoire&lt;/dc:title>
+    &lt;meta refines="#t1" property="title-type">main&lt;/meta>
+    &lt;meta refines="#t1" property="display-seq">2&lt;/meta>
+    
+    &lt;dc:title id="t2">The Great Cookbooks of the World&lt;/dc:title>
+    &lt;meta refines="#t2" property="title-type">collection&lt;/meta>
+    &lt;meta refines="#t2" property="display-seq">1&lt;/meta>
+    
+    &lt;dc:title id="t3">The New French Cuisine Masters&lt;/dc:title>
+    &lt;meta refines="#t3" property="title-type">collection&lt;/meta>
+    &lt;meta refines="#t3" property="display-seq">3&lt;/meta>
+    
+    &lt;dc:title id="t4">Special Anniversary Edition&lt;/dc:title>
+    &lt;meta refines="#t4" property="title-type">edition&lt;/meta>
+    &lt;meta refines="#t4" property="display-seq">4&lt;/meta>
+    
+    &lt;dc:title id="t5">The Great Cookbooks of the World: 
+        Mon premier guide de cuisson, un Mémoire. 
+        The New French Cuisine Masters, Volume Two. 
+        Special Anniversary Edition&lt;/dc:title>
+    &lt;meta refines="#t5" property="title-type">expanded&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+</section>
+
+<section id="examples">
+<h3>例</h3>
+
+<aside class="example">
+<p>次の例は、レンディションに含まれる洗練されたメタデータの典型的なセットを表している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    
+    &lt;dc:identifier id="pub-id">urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809&lt;/dc:identifier>
+    &lt;meta refines="#pub-id" property="identifier-type" scheme="xsd:string">uuid&lt;/meta>
+    
+    &lt;dc:identifier id="isbn-id">urn:isbn:9780101010101&lt;/dc:identifier>
+    &lt;meta refines="#isbn-id" property="identifier-type" scheme="onix:codelist5">15&lt;/meta>
+    
+    &lt;dc:source id="src-id">urn:isbn:9780375704024&lt;/dc:source>
+    &lt;meta refines="#src-id" property="identifier-type" scheme="onix:codelist5">15&lt;/meta>
+    
+    &lt;dc:title id="title">Norwegian Wood&lt;/dc:title>
+    &lt;meta refines="#title" property="title-type">main&lt;/meta>
+    
+    &lt;dc:language>en&lt;/dc:language>
+    
+    &lt;dc:creator id="creator">Haruki Murakami&lt;/dc:creator>
+    &lt;meta refines="#creator" property="role" scheme="marc:relators" id="role">aut&lt;/meta>
+    &lt;meta refines="#creator" property="alternate-script" xml:lang="ja">村上 春樹&lt;/meta>
+    &lt;meta refines="#creator" property="file-as">Murakami, Haruki&lt;/meta>
+    
+    &lt;meta property="dcterms:modified">2011-01-01T12:00:00Z&lt;/meta>
+    
+&lt;/metadata></pre>
+</aside>
+</section>
+</section>
+</section>

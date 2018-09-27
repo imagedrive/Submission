@@ -1,0 +1,79 @@
+<section id="app-itemref-properties-vocab" class="appendix vocab">
+<h1>Spine Properties Vocabulary</h1>
+
+<section id="itemref-properties-vocab-overview">
+<h2>概要</h2>
+
+<section id="itemref-properties-vocab-about" class="informative">
+<h3>語彙について</h3>
+
+<p>この語彙のプロパティは、スパイン <a href="#sec-itemref-elem"><code>itemref</code> 要素</a>の <code>properties</code> 属性で利用可能である。</p>
+</section>
+
+<section id="itemref-properties-vocab-ref">
+<h3>参照</h3>
+
+<p>プロパティは、ベース IRI <code>http://idpf.org/epub/vocab/package/itemref/#</code> を使用して参照可能である。</p>
+</section>
+</section>
+
+<section id="sec-itemref-property-values">
+<h2>Spine <code>itemref</code> Properties</h2>
+
+<p>次の表は、<a href="#sec-itemref-elem"><code>itemref</code> 要素</a>の <a href="#attrdef-itemref-properties"><code>properties</code> 属性</a> [[!Packages]] で使用するためのプロパティを定義している。</p>
+
+<section id="sec-page-spread-left">
+<h3>page-spread-left</h3>
+
+<table id="page-spread-left">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>page-spread-left</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>page-spread-left</code> プロパティは、関連する <code>item</code> 要素の <a href="epub-spec.html#dfn-epub-content-document">EPUB コンテンツ ドキュメント</a>の最初のページが、2 ページの見開きの左側であることを示す。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-page-spread-right">
+<h3>page-spread-right</h3>
+
+<table id="page-spread-right">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>page-spread-right</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>page-spread-right</code> プロパティは、関連する <code>item</code> 要素の <a href="epub-spec.html#dfn-epub-content-document">EPUB コンテンツ ドキュメント</a>の最初のページが、2 ページの見開きの右側であることを示す。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="examples-itemref-properties">
+<h3>例</h3>
+
+<figure class="example" id="example-itemref-multicol">
+<figcaption>次の例は、地図の 2 ページの見開きが <code>spine</code> でどのように表示されるかを示している。</figcaption>
+<pre class="synopsis">&lt;spine&gt;&#xD;
+	&lt;itemref idref="title"/&gt;&#xD;
+	&lt;itemref idref="ps-1-l" properties="page-spread-left"/&gt;&#xD;
+	&lt;itemref idref="ps-1-r" properties="page-spread-right"/&gt;&#xD;
+	&lt;itemref idref="toc"/&gt;&#xD;
+	…&#xD;
+&lt;/spine&gt;</pre>
+</figure>
+</section>
+</section>
+</section>
+

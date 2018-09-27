@@ -1,0 +1,239 @@
+<section id="app-item-properties-vocab" class="appendix vocab">
+<h1>Manifest Properties Vocabulary</h1>
+
+<section id="elemdef-opf-meta-overview">
+<h2>概要</h2>
+
+<section id="item-properties-vocab-about" class="informative">
+<h3>語彙について</h3>
+
+<p>この語彙にあるプロパティは、マニフェスト <a href="#sec-item-elem"><code>item</code> 要素</a>の <code>properties</code> 属性で利用可能である。</p>
+</section>
+
+<section id="item-properties-vocab-ref">
+<h3>参照</h3>
+
+<p>プリフィックスのないプロパティは、ベース IRI <code>http://idpf.org/epub/vocab/package/item/#</code> を使用して参照可能である。</p>
+</section>
+</section>
+<section id="sec-item-property-values">
+<h2>Manifest <code>item</code> Properties</h2>
+
+<p>次の表は、<code>manifest</code> <a href="#sec-item-elem">item 要素</a>の <a href="#attrdef-item-properties">properties 属性</a>で使用するプロパティを定義する。</p>
+
+<p><strong>適用</strong>フィールドは、特定のプロパティを指定しても良い（MAY）出版物リソース種類を示し、<strong>個数</strong>フィールドは、プロパティが、パッケージ ドキュメントのスコープ内で表示されなければならない（MUST）回数を示し、<strong>使用例</strong>フィールドは、使用条件を示す。</p>
+
+<section id="sec-cover-image">
+<h3>cover-image</h3>
+
+<table id="cover-image">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>cover-image</code></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>cover-image</code> プロパティは、記述された出版物リソースが、出版物のカバー画像であることを示す。</td>
+</tr>
+<tr>
+<th>適用：</th>
+<td>全ての<a href="epub-spec.html#tbl-core-media-types">ラスター画像及びベクター画像の種類</a> [[!EPUB32]]</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>0 又は 1</code></td>
+</tr>
+<tr>
+<th>使用例：</th>
+<td>省略可能</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-mathml">
+<h3>mathml</h3>
+
+<table id="mathml">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>mathml</code></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>mathml</code> プロパティは、記述された出版物リソースが、複数の MathML マークアップのインスタンスを含んでいることを示す。</td>
+</tr>
+<tr>
+<th>適用：</th>
+<td><a href="epub-spec.html#dfn-epub-content-document">EPUB コンテンツ ドキュメント</a></td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>0個以上</code></td>
+</tr>
+<tr>
+<th>使用例：</th>
+<td>記述に指定された基準が満たされている場合にのみ、設定しなければならない（MUST）。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-nav">
+<h3>nav</h3>
+
+<table id="nav">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>nav</code></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>nav</code> プロパティは、記述された出版物リソースが、特定の<a href="epub-spec.html#dfn-rendition">レンディション</a>の <a href="epub-spec.html#dfn-epub-navigation-document">EPUB ナビゲーション ドキュメント</a>を構成していることを示す。</td>
+</tr>
+<tr>
+<th>適用：</th>
+<td><a href="epub-spec.html#dfn-epub-navigation-document">EPUB ナビゲーション ドキュメント</a></td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>必ず1つ</code></td>
+</tr>
+<tr>
+<th>使用例：</th>
+<td>必須</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-remote-resources">
+<h3>remote-resources</h3>
+
+<table id="remote-resources">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>remote-resources</code></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>remote-resources</code> プロパティは、記述された出版物リソースが、<a href="epub-spec.html#dfn-epub-container">EPUB コンテナ</a>の外部に配置された他の出版物リソースへのひとつ以上の内部参照を含んでいることを示す。</p>
+<p>詳細情報は、<a href="epub-spec.html#sec-resource-locations">出版物リソースの位置</a> [[!EPUB32]] を参照されたい。</p>
+</td>
+</tr>
+<tr>
+<th>適用：</th>
+<td>（例えば、<a href="epub-spec.html#dfn-xhtml-content-document">XHTML コンテンツ ドキュメント</a>、<a href="epub-spec.html#dfn-svg-content-document">SVG コンテンツ ドキュメント</a>、CSS スタイル シート及び<a href="epub-spec.html#dfn-media-overlay-document">メディア オーバーレイ ドキュメント</a>など）内部参照の可能性がある全ての出版物リソース。</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>0個以上</code></td>
+</tr>
+<tr>
+<th>使用例：</th>
+<td>記述に指定された基準が満たされている場合にのみ、設定しなければならない（MUST）。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-scripted">
+<h3>scripted</h3>
+
+<table id="scripted">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>scripted</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>scripted</code> プロパティは、記述された出版物リソースが、<a href="epub-spec.html#dfn-scripted-content-document">スクリプト コンテンツ ドキュメント</a>であることを示す（つまり、スクリプト コンテンツ及び/又は HTML フォーム要素を含む）。</td>
+</tr>
+<tr>
+<th>適用：</th>
+<td><a href="epub-spec.html#dfn-epub-content-document">EPUB コンテンツ ドキュメント</a></td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>0個以上</code></td>
+</tr>
+<tr>
+<th>使用例：</th>
+<td>記述に指定された基準が満たされている場合にのみ、設定しなければならない（MUST）。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-svg">
+<h3>svg</h3>
+
+<table id="svg">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>svg</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>svg</code> プロパティは、記述された出版物リソースが、ひとつ以上の SVG マークアップのインスタンスを埋め込んでいることを示す。</p>
+<p>このプロパティは、SVG マークアップが、リソースに直接包含されている時に設定しなければならず（MUST）、リソースから参照されている時に設定しても良い（MAY）（つまり、[[HTML] <code>img</code>、<code>object</code> 又は <code>iframe</code> 要素）。</p>
+</td>
+</tr>
+<tr>
+<th>適用：</th>
+<td><a href="epub-spec.html#dfn-xhtml-content-document">XHTML コンテンツ ドキュメント</a>、値は、<a href="epub-spec.html#dfn-svg-content-document">SVG コンテンツ ドキュメント</a>として暗黙的である。</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>0個以上</code></td>
+</tr>
+<tr>
+<th>使用例：</th>
+<td>記述に指定された基準が満たされている場合にのみ、設定しなければならない（MUST）。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="manifest-item-properties-recursive">
+<h3>使用例</h3>
+
+<p><code>mathml</code>、<code>remote-resources</code> 及び <code>scripted</code> プロパティは、<code>item</code> によって参照されるリソースが、個別の定義に一致するときはいつでも、指定しなければならない（MUST）。これらのプロパティは、（例えば、HTML <code>iframe</code> 要素を介してなど）リソース内に包含するコンテンツには再帰的に適用されない。例えば、非スクリプトの XHTML コンテンツ ドキュメントが、スクリプト コンテンツ ドキュメントに埋め込まれる場合、埋め込まれたドキュメントのマニフェスト <code>item</code> の <code>properties</code> 属性のみが、<code>scripted</code> 値を持つだろう。</p>
+</section>
+
+<section id="examples-item-properties">
+<h3>例</h3>
+
+<figure class="example" id="example-item-properties-nav">
+<figcaption>次の例は、<a href="epub-spec.html#dfn-epub-navigation-document">EPUB ナビゲーション ドキュメント</a>を表す <code>manifest</code> <a href="#sec-item-elem"><code>item</code> 要素</a>を示している。</figcaption>
+<pre class="synopsis">&lt;item properties="nav" id="c1" href="c1.xhtml" media-type="application/xhtml+xml" /&gt;&#xD;
+</pre>
+</figure>
+
+<figure class="example" id="example-item-properties-cover-image">
+<figcaption>次の例は、カバー画像を表す <code>manifest</code> <code>item</code> 要素を示している。</figcaption>
+<pre class="synopsis">&lt;item properties="cover-image" id="ci" href="cover.svg" media-type="image/svg+xml" /&gt;&#xD;
+</pre>
+</figure>
+
+<figure class="example" id="example-item-properties-scripted-mathml">
+<figcaption>次の例は、埋め込まれた MathML も含む<a href="epub-spec.html#dfn-scripted-content-document">スクリプト コンテンツ ドキュメント</a>を表す <code>manifest</code> <code>item</code> 要素を示している。</figcaption>
+<pre class="synopsis">&lt;item properties="scripted mathml" id="c2" href="c2.xhtml" media-type="application/xhtml+xml" /&gt;&#xD;
+</pre>
+</figure>
+</section>
+</section>
+</section>
+

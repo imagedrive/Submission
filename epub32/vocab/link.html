@@ -1,0 +1,276 @@
+<section id="app-link-vocab" class="appendix vocab">
+<h1>Metadata Link Vocabulary</h1>
+
+<section id="link-vocab-overview">
+<h2>概要</h2>
+
+<section id="link-vocab-about" class="informative">
+<h3>語彙について</h3>
+
+<p>この語彙内のプロパティは、メタデータの <a href="#sec-link-elem"><code>link</code> 要素</a>における <code>rel</code> と <code>properties</code> 属性で利用可能である。</p>
+</section>
+
+<section id="link-vocab-ref">
+<h3>参照</h3>
+
+<p>プリフィックスのない<a href="#sec-link-properties">リンク プロパティ</a>は、ベース IRI <code>http://idpf.org/epub/vocab/package/link/#</code> を使用して参照可能である。</p>
+</section>
+</section>
+
+<section id="sec-link-rel">
+<h2>Link Relationships</h2>
+
+<p>次の値は、<a href="#attrdef-href"><code>href</code> 属性</a>で参照されたリソースの関連性を確立するために <code>link</code> 要素の <a href="#attrdef-link-rel"><code>rel</code> 属性</a>で使用できる。</p>
+
+<section id="sec-acquire">
+<h3>acquire</h3>
+
+<table id="acquire">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>acquire</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>acquire</code> キーワードは、何処で <a href="epub-spec.html#dfn-epub-publication">EPUB 出版物</a>の完全なバージョンが入手できるのかを識別するために <a href="http://www.idpf.org/epub/previews">EPUB Previews</a> と共に使用される。</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;link rel="acquire" href="http://example.org/book/9781448103706"
+								media-type="text/html"/&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-alternate">
+<h3>alternate</h3>
+
+<table id="alternate">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>alternate</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p><code>alternate</code> キーワードは、リンク用の <a href="https://www.w3.org/TR/html/links.html#link-type-alternate">HTML における <code>alternate</code> キーワード</a>のサブセットである。それは次のように異なる。</p>
+<ul>
+<li>他のキーワードと組み合わせることができない。</li>
+<li>代替のリンクが、パッケージ ドキュメントのメタデータに包含されている場合、それは、<code>media-type</code> 属性に指定された形式で、パッケージ ドキュメントの代替表現を識別する。</li>
+<li>代替のリンクが、<a href="#sec-collection-elem"><code>collection</code> 要素</a>のメタデータ [[!Packages]] に包含されている場合、それは、<code>media-type</code> 属性に指定された形式で、<code>collection</code> の代替表現を識別する。</li>
+<li>リーディング システムは、代替リンクのハイパーリンクを生成する必要はない。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;link rel="alternate" href="package.json"
+								media-type="application/json-ld"/&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-marc21xml-record">
+<h3>marc21xml-record</h3>
+
+<table id="marc2xml-record">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>marc21xml-record</code> <span class="status deprecated">[DEPRECATED]</span></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>marc21xml-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-link-media-type"><code>media-type</code> 属性</a> [[!Packages]] の値「<code>application/marcxml+xml</code>」を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-mods-record">
+<h3>mods-record</h3>
+
+<table id="mods-record">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>mods-record</code> <span class="status deprecated">[DEPRECATED]</span></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>mods-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-link-media-type"><code>media-type</code> 属性</a> [[!Packages]] の値「<code>application/mods+xml</code>」を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-onix-record">
+<h3>onix-record</h3>
+
+<table id="onix-record">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>onix-record</code> <span class="status deprecated">[DEPRECATED]</span></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>onix-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-properties">プロパティの属性</a> [[!Packages]] の値 <a href="#onix"><code>onix</code></a> を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-record">
+<h3>record</h3>
+
+<table id="record">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>record</code></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>
+<p>参照されたリソースがメタデータ レコードであることを示す。</p>
+<p>このキーワードが特定されている時、レコードのメディア タイプは、<a href="#attrdef-link-media-type"><code>media-type</code> 属性</a> [[!Packages]] で識別される。</p>
+<p>通常のリンクされたメタデータ レコードについては、<a href="http://www.idpf.org/epub/guides/linked-records/">EPUB Linked Metadata Guide</a> を参照されたい。</p>
+<p>レコードの形式が、メディア タイプから識別できない場合、<a href="#sec-link-properties">識別子のプロパティ</a>は、<a href="#attrdef-properties"><code>properties</code> 属性</a> [[!Packages]] で割り当てることができる。</p>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;link rel="record" href="book/52.atom"
+								media-type="application/atom+xml;type=entry;profile=opds-catalog"/&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-xml-signature">
+<h3>xml-signature</h3>
+
+<table id="xml-signature">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>xml-signature</code> <span class="status deprecated">[DEPRECATED]</span></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>xml-signature</code> キーワードの使用は、非推奨（deprecated）である。これは、他のリンク方法によって置き換えられない。XML signatures の識別は、EPUB の将来のバージョンで対処されるだろう。</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-xmp-record">
+<h3>xmp-record</h3>
+
+<table id="xml-record">
+<tbody>
+<tr>
+<th>名前：</th>
+<td><code>xmp-record</code> <span class="status deprecated">[DEPRECATED]</span></td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>xmp-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-properties">プロパティ属性</a>の値 <a href="#xmp"><code>xmp</code></a> を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+<section id="sec-link-properties">
+<h2>Link Properties</h2>
+
+<p>次の値は、参照されたリソースが表すレコードの形式を確立するために、<a href="#sec-link-elem"><code>link</code> 要素</a>の <code>properties</code> 属性で使用できる。これらの値は、メディア タイプによって一意に識別できないレコードの形式のために提供される。</p>
+
+<section id="sec-onix">
+<h3>onix</h3>
+
+<table id="onix">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>onix</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>onix</code> プロパティは、参照されたリソースが、ONIX レコード [[!ONIX]] であることを示す。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;link rel="record" href="pub/meta/nor-wood-onix.xml" media-type="application/xml"
+								properties="onix"/&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-xmp">
+<h3>xmp</h3>
+
+<table id="xmp">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>xmp</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td><code>xmp</code> プロパティは、参照されたリソースが、XMP レコード [[!XMP]] であることを示す。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;link rel="record" href="pub/meta/nor-wood-xmp.xml media-type="application/xml"
+								properties="xmp"/&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
