@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>EPUB Packages 3.2 日本語版（2018年9月25日版）</title>
+<script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
+<script src="common/js/biblio.js" class="remove"></script>
+<script src="common/js/dfn-crossref.js" class="remove"></script>
+<script src="common/js/confreq-permalinks.js" class="remove"></script>
+<script src="common/js/copyright.js" class="remove"></script>
+<link href="common/css/common.css" rel="stylesheet" type="text/css" />
+<script class="remove">
+          var respecConfig = {
+              wg: "EPUB 3 Community Group",
+              wgURI: "https://www.w3.org/community/epub3/",
+              wgPublicList: "public-epub3",
+              specStatus: "CG-DRAFT",
+              noRecTrack: true,
+              shortName: "epub-packages",
+              prevRecURI: "https://www.idpf.org/epub/31/spec/epub-packages-20170105.html",
+              edDraftURI: "https://w3c.github.io/publ-epub-revision/epub32/spec/epub-packages.html",
+              copyrightStart: "1999",
+              editors: [
+                  {
+                      name: "Matt Garrish",
+                      company: "DAISY Consortium",
+                      companyURL: "https://www.daisy.org"
+                  },
+                  {
+                      name: "Dave Cramer",
+                      company: "Hachette Book Group",
+                      companyURL: "https://www.hachettebookgroup.com"
+                  }
+              ],
+              formerEditors: [
+                  {
+                      name: "Markus Gylling",
+                      company: "International Digital Publishing Forum (IDPF)",
+                      companyURL: "https://www.idpf.org"
+                  },
+                  {
+                      name: "William McCoy",
+                      company: "International Digital Publishing Forum (IDPF)",
+                      companyURL: "https://www.idpf.org"
+                  }
+              ],
+              processVersion: 2017,
+              includePermalinks: true,
+              permalinkEdge:     true,
+              permalinkHide:     false,
+              diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+			  github:			 {
+				  repoURL: "https://github.com/w3c/publ-epub-revision",
+				  branch: "master"
+			  },
+              localBiblio: biblio,
+              preProcess: [fixDefinitionCrossrefs, addConformanceLinks],
+              postProcess: [fixCopyright]
+          };
+</script>
+</head>
+<body>
+<section id="abstract">
+<p>この仕様は、セマンティクスと <a data-lt="EPUB Package">EPUB® パッケージ</a>の適合必要条件を定める。各パッケージは、<a>EPUB 出版物</a>の<a>レンディション</a>を表現し、<a>出版物リソース</a>に関連させる方法の要件のセットとレンディションのコンテンツを表現している<a>パッケージ ドキュメント</a>によって定義される。</p>
+<p>この仕様は、例えば目次など、ナビテーションの支援を提供する <a>EPUB コンテンツ ドキュメント</a>の機械および人間の可読性に特化した <a>EPUB ナビゲーション ドキュメント</a>もまた定義する。</p>
+<p>この仕様は、[[EPUB32]] を構成する<a href="epub-spec.html#sec-intro-epub-specs">仕様群</a>のひとつであり、EPUB 3 は XML や Web 規格に基づいたデジタル出版物の交換や配信形式である。この仕様は EPUB 3 を構成する以下の他の仕様と共に読み、理解することになっている。</p>
+<p>この仕様と前身の多くの相違については [[EPUB32Changes]] を参照されたい。</p>
+</section>
+<section id="sotd"></section>
+<section id="sec-introduction">
+<h1>Introduction</h1>
+<section id="sec-terminology">
+<h2>用語</h2>
+<p>EPUB 3 固有の意味を持つ用語は、このドキュメント（例えば、「製作者」、「リーディング システム」）に利用できる。これらの<a href="epub-spec.html#sec-terminology">用語と定義</a>の完全なリストは、[[!EPUB32]] で提供されている。</p>
+<p>セクションにある用語の最初のインスタンスのみが、その定義にリンクされる。</p>
+</section>
+<section id="conformance"></section>
+<section id="sec-overview-pfx">
+<h2>プリフィックス マッピング</h2>
+<p>便宜上、次の<a href="#sec-metadata-reserved-prefixes">予約済みのプリフィックス マッピング</a>は、この仕様で使用されている。</p>
+<table class="mapping">
+<tr>
+<th>プリフィックス</th>
+<th>URI</th>
+</tr>
+<tr>
+<td><code>dcterms</code></td>
+<td><code>http://purl.org/dc/terms/</code></td>
+</tr>
+<tr>
+<td><code>opf</code></td>
+<td><code>http://www.idpf.org/2007/opf</code></td>
+</tr>
+<tr>
+<td><code>rendition</code></td>
+<td><code>http://www.idpf.org/vocab/rendition/#</code></td>
+</tr>
+</table>
+</section>
+</section>
+<section id="sec-conformance">
+<h1>適合性</h1>
+<section id="sec-package-conformance">
+<h2>パッケージの適合性</h2>
+<p>適合する <a>EPUB パッケージ</a>は次の条件を全て満たさなければならない（MUST）。</p>
+<dl class="conformance-list">
+<dt id="sec-package-conformance-packagedoc">パッケージ ドキュメント</dt>
+<dd><p id="confreq-package"><a href="#sec-package-content-conf">パッケージ ドキュメント — コンテンツの適合性</a>で定義されているコンテンツの要件に適合しなければならなず（MUST）、ただひとつの<a>パッケージ ドキュメント</a>が含まれなければならない（MUST）。</p></dd>
+<dt id="sec-epub-rendition-content-conformance-all">出版物リソース</dt>
+<dd><p id="confreq-rendition-manifest">パッケージに関連する全ての<a>出版物リソース</a>は（<a href="#sec-manifest-elem">マニフェスト</a>で定義されているような）パッケージ ドキュメントに記載しなければならない（MUST）。</p></dd>
+<dt id="sec-package-conformance-nav">EPUB ナビゲーション ドキュメント</dt>
+<dd><p id="confreq-nav-occur">正確にひとつの <a>EPUB ナビゲーション ドキュメント</a>を含まなければならず（MUST）、<a href="#sec-package-nav-content-conf">EPUB ナビゲーション ドキュメント — コンテンツの適合性</a>に定義されているコンテンツの要件に準拠しなければならない（MUST）。</p></dd>
+<dt id="sec-package-conformance-contentdocs">コンテンツ ドキュメント</dt>
+<dd><p id="confreq-cd">ひとつ以上の <a>EPUB コンテンツ ドキュメント</a>を含まなければならず（MUST）、それぞれが、[[!ContentDocs32]] に定義されているコンテンツの要件に準拠しなければならない（MUST）。</p></dd>
+<dt id="sec-package-conformance-css">CSS スタイル シート</dt>
+<dd><p id="confreq-css">ゼロ個以上の CSS スタイル シートを含んでもよく（MAY）、それぞれが、<a href="epub-contentdocs.html#sec-css-content-conf">CSS スタイル シート — コンテンツの適合性</a> [[!ContentDocs32]] に定義されているコンテンツの要件に準拠しなければならない（MUST）。</p></dd>
+<dt id="sec-package-conformance-pls">発音辞書</dt>
+<dd><p id="confreq-pls">ゼロ個以上の PLS ドキュメントを含んでもよく（MAY）、それぞれが、<a href="epub-contentdocs.html#sec-pls-conf-content">PLS ドキュメント — コンテンツの適合性</a> [[!ContentDocs32]] に定義されているコンテンツの要件に準拠しなければならない（MUST）。</p></dd>
+<dt id="sec-package-conformance-media-overlays">メディア オーバーレイ ドキュメント</dt>
+<dd><p id="confreq-mo">ゼロ個以上の<a>メディア オーバーレイ ドキュメント</a>を含んでもよく（MAY）、それぞれが、[[!MediaOverlays32]] に定義されているコンテンツの要件に準拠しなければならない（MUST）。</p></dd>
+<dt id="sec-package-conformance-additional">追加リソース</dt>
+<dd><p id="confreq-additional">上に挙げたものに加えて、ゼロ個以上の<a>出版物リソース</a>を含んでもよく（MAY）、それぞれが、<a href="epub-spec.html#sec-epub-pub-conformance-all">出版物リソース</a> [[!EPUB32]] の要件に順守しなければならない（MUST）。</p></dd>
+</dl>
+</section>
+<section id="sec-package-rs-conformance">
+<h2>リーディング システムの適合性</h2>
+<p><a>EPUB リーディング システム</a>は、次の条件を全て満たさなければならない（MUST）。</p>
+<ul class="conformance-list">
+<li><p id="confreq-rendition-rs-package"><a href="#sec-package-rs-conf">パッケージ ドキュメント — リーディング システムの適合性</a>で定義されている<a>パッケージ ドキュメント</a>を処理し、そしてパッケージ ドキュメントによって表現される全てのプレゼンテーション ロジック（例えば、読み取り順序とフォールバックチェーン、ページ進行方向や固定レイアウト）を尊重しなければならない（MUST）。</p></li>
+<li><p id="confreq-rendition-rs-nav"><a href="#sec-package-nav-rs-conf">EPUB ナビゲーション ドキュメント — リーディング システムの適合性</a>で定義されている <a>EPUB ナビゲーション ドキュメント</a>を処理しなければならない（MUST）。</p></li>
+<li><p id="confreq-rendition-rs-manifest">パッケージ（例えば、<code>META-INF</code> ファイル [[!OCF32]] と EPUB 出版物の他のレンディションの固有リソース）の処理中に、パッケージ ドキュメントに掲載されていない如何なるリソースも使用してはならない（MUST NOT）。</p></li>
+</ul>
+</section>
+</section>
+<section id="sec-package-doc">
+<h1>パッケージ ドキュメント</h1>
+<section id="sec-package-intro" class="informative">
+<h2>まえがき</h2>
+<p><a>パッケージ ドキュメント</a>は、<a>EPUB パッケージ</a>の特定の面に関する情報をそれぞれカプセル化した要素のセットから成り立つ XML ドキュメントである。これらの要素は、メタデータを集約やパッケージを構成する個々のリソースを記述、読む順序と<a>レンディション</a>をレンダリングするために必要な他の情報を提供するために役立つ。</p>
+<p>次のリストはパッケージ ドキュメントで発見される情報をまとめたものである。</p>
+<ul>
+<li><p><a href="#sec-package-metadata">メタデータ</a> — <a>EPUB 出版物</a>の特定のレンディションに適用できるメタデータを包含および/または参照するメカニズム。</p></li>
+<li><p><a href="#sec-manifest-elem">マニフェスト</a> — 特定のレンディションをまとめて構成するリソースの集合を（IRI を通して）識別し、（MIME メディア タイプを通して）記述する。</p></li>
+<li><p><a href="#sec-spine-elem">スパイン</a> — セット内の全ての他のリソースに到達または利用することができ、マニフェストの最上位レベルのリソースへの ID の参照の順序付きシーケンス。スパインは指定されたレンディションの初期設定の読み上げ順序を定義する。</p></li>
+<li><p><a href="#sec-collection-elem">コレクション</a> — パッケージ内にあるサブコンポーネントのカプセル化と識別の方法。</p></li>
+<li><p><a href="#sec-foreign-restrictions-manifest">マニフェスト フォールバック チェーン</a> — コンテンツと等価なものとしてトップレベルのリソースの順序付きリストを定義するためのメカニズム。リーディング システムは、それがレンダリング可能かどうかに基づいてリソースを選択することができる。</p></li>
+</ul>
+</section>
+<section id="sec-package-content-conf">
+<h2>コンテンツの適合性</h2>
+<p><a>パッケージ ドキュメント</a> は、次の条件を全て満たさなければならない（MUST）。</p>
+<dl class="conformance-list">
+<dt id="confreq-package-docprops">ドキュメントのプロパティ</dt>
+<dd><p id="confreq-package-xml"><a href="#sec-xml-constraints">XML 適合性</a> [[!EPUB32]] で定義された XML ドキュメントの適合性の制約を満たさなければならない（MUST）。</p>
+<p id="confreq-package-docprops-schema"><a href="epub-spec.html#app-package-schema">補足 B <em>パッケージ ドキュメント スキーマ</em></a>で定義されているパッケージ ドキュメント スキーマに対して妥当でなければならず、<a href="#sec-package-def">パッケージ ドキュメントの定義</a>で表現される全てのコンテンツの適合性の制約に準拠しなければならない（MUST）。</p></dd>
+<dt id="confreq-package-fileprops">ファイルのプロパティ</dt>
+<dd><p id="confreq-package-fileprops-name">パッケージ ドキュメントのファイル名は、ファイル拡張子の <code class="filename">.opf</code> を使用するべきである（SHOULD）。</p>
+</dl>
+<p id="media-type">パッケージ ドキュメントは、MIME メディア タイプ <code>application/oebps-package+xml</code> [[!RFC4839]] を持っている。</p>
+</section>
+<section id="sec-package-rs-conf">
+<h2>リーディング システムの適合性</h2>
+<p><a>EPUB リーディング システム</a>は、次の条件を全て満たしていなければならない（MUST）。</p>
+<dl class="conformance-list">
+<dt id="confreq-rs-package-base">処理</dt>
+<dd><p id="confreq-rs-package-def"><a href="#sec-package-def">パッケージ ドキュメントの定義</a>で述べられている全てのリーディング システムの適合性の制約に準拠するパッケージ ドキュメントを処理しなければならない（MUST）。</p>
+<p id="confreq-rs-epub3-presentational-meta"><a href="#sec-package-metadata-rendering">パッケージのレンダリング用メタデータ</a>で述べられているとおり、レンダリングのメタデータを処理するべきである（SHOULD）。</p>
+<p id="confreq-rs-epub3-fxl-meta"><a href="#sec-package-metadata-fxl">固定レイアウト プロパティ</a>で述べられているとおり、固定レイアウトのメタデータを処理しなければならない（MUST）。</p>
+<p id="confreq-rs-epub3-fxl-conflicts"><a href="#sec-package-metadata-fxl">固定レイアウト プロパティ</a>で定義されたプロパティのセマンティクスの挙動がそれらと衝突するとき、レイアウトの表現に関連する専用のメタデータプロパティを無視しなければならない（MUST）。</p></dd>
+</dl>
+</section>
+<section id="sec-package-def">
+<h2>パッケージ ドキュメントの定義</h2>
+<p>特に指定のない限り、このセクションで定義されている全ての [[!XML]] 要素の名前空間 <code>http://www.idpf.org/2007/opf</code> [[!XML-NAMES]] である。</p>
+<p>このセクションで定義されている要素が、必須のテキスト コンテンツを持つとき、そのコンテンツは、説明的な記述の要素の値と見なされる。</p>
+<section id="sec-package-elem">
+<h3><code>package</code> 要素</h3>
+<p><code>package</code> 要素は、<a>パッケージ ドキュメント</a>のルート要素であり、<a>EPUB パッケージ</a>の個々の外観を定義する。（一般的な要約は、<a href="#sec-package-intro">まえがき</a>を見よ）</p>
+<dl id="elemdef-opf-package" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>package</code></p></dd>
+<dt>使用法</dt>
+<dd><p><code>package</code> 要素はパッケージ ドキュメントのルート要素である。</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-dir"><code>dir</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-package-prefix"><code>prefix</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-xml-lang"><code>xml:lang</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-package-unique-identifier"><code>unique-identifier</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-package-version"><code>version</code></a> <code>[必須]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>記述順序</p>
+<ul class="nomark">
+<li><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> <code>[正確にひとつ]</code></p></li>
+<li><p><a href="#elemdef-opf-manifest"><code>manifest</code></a> <code>[正確にひとつ]</code></p></li>
+<li><p><a href="#elemdef-opf-spine"><code>spine</code></a> <code>[正確にひとつ]</code></p></li>
+<li>
+<p><a href="#sec-opf2-guide"><code>guide</code></a> <code>[0 又は 1]</code> <a href="epub-spec.html#legacy" class="legacy">（レガシー）</a></p>
+</li>
+<li>
+<p><a href="#sec-opf-bindings"><code>bindings</code></a> <code>[0 又は 1]</code> <a href="epub-spec.html#deprecated" class="deprecated">（非推奨）</a></p>
+</li>
+<li><p><a href="#elemdef-collection"><code>collection</code></a><code>[0個以上]</code></p></li>
+</ul>
+</dd>
+</dl>
+<p id="attrdef-package-version"><code>version</code> 属性は、特定の EPUB パッケージが適合する EPUB 仕様のバージョンを指定する。属性は、このバージョンの仕様に準拠していることを示すための値に「<code>3.0</code>」を持たなければならない（MUST）。</p>
+<p id="attrdef-package-unique-identifier"><code>unique-identifier</code> 属性は、優先度やプライマリの識別子を提供する <a class="codelink" href="#sec-opf-dcidentifier"><code>dc:identifier</code></a> 要素を識別する IDREF [[!XML]] を取る。詳細については<a href="#sec-package-metadata-identifiers">出版物識別子</a>を参照されたい。</p>
+<p id="attrdef-package-prefix"><code>prefix</code> 属性は、<a href="#sec-metadata-reserved-prefixes">この仕様では予約されていない</a>プリフィックスの宣言メカニズムを提供する。詳細については <a href="#sec-prefix-attr"><code>prefix</code> 属性</a>を参照されたい。</p>
+</section>
+<section id="sec-shared-attrs">
+<h3>共通の属性</h3>
+<p>このセクションは、（例えば、二つ以上の要素で許可されているような）共通の属性のための定義を提供する。</p>
+<dl class="variablelist">
+<dt id="attrdef-dir"><code>dir</code></dt>
+<dd>
+<p>含まれる要素とその子孫の内容と属性値の基本テキスト方向を指定する。</p>
+<p>[[!Unicode]] を使用して指定された固有の方向性は、この属性よりも優先される。</p>
+<p>許可された値は <code>ltr</code>（左から右）と <code>rtl</code>（右から左）である。</p>
+<div class="example">
+<pre>&lt;package … dir="ltr"&gt;</pre>
+</div>
+<p><a href="#sec-collection-elem"><code>collection</code></a>、<a href="#sec-opf-dccontributor"><code>dc:contributor</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:coverage</code></a>、<a href="#sec-opf-dccreator"><code>dc:creator</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:description</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:publisher</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:relation</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:rights</code></a>、<a href="#sec-opf-dcsubject"><code>dc:subject</code></a>、<a href="#sec-opf-dctitle"><code>dc:title</code></a>、<a href="#sec-meta-elem"><code>meta</code></a>、<a href="#sec-package-elem"><code>package</code></a> を許可する。</p>
+</dd>
+<dt id="attrdef-href"><span class="term"> <code>href</code></span></dt>
+<dd>
+<p>リソースへの絶対または相対 IRI 参照 [[!RFC3987]]。</p>
+<div class="example">
+<pre>&lt;link rel="record"
+      href="meta/9780000000001.xml" 
+      media-type="application/marc"/&gt;</pre>
+</div>
+<p><a href="#sec-item-elem"><code>item</code></a> と <a href="#sec-link-elem"><code>link</code></a> を許可する。</p>
+</dd>
+<dt id="attrdef-id"><code>id</code></dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+<div class="example">
+<pre>&lt;dc:identifier id="pub-id"&gt;urn:isbn:97800000000001&lt;/dc:identifier&gt;</pre>
+</div>
+<p><a href="#sec-collection-elem"><code>collection</code></a>、<a href="#sec-opf-dccontributor"><code>dc:contributor</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:coverage</code></a>、<a href="#sec-opf-dccreator"><code>dc:creator</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:date</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:description</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:format</code></a>、<a href="#sec-opf-dcidentifier"><code>dc:identifier</code></a>、<a href="#sec-opf-dclanguage"><code>dc:language</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:publisher</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:relation</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:rights</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:source</code></a>、<a href="#sec-opf-dcsubject"><code>dc:subject</code></a>、<a href="#sec-opf-dctitle"><code>dc:title</code></a>、<a href="#sec-opf-dctype"><code>dc:type</code></a>、<a href="#sec-item-elem"><code>item</code></a>、<a href="#sec-itemref-elem"><code>itemref</code></a>、<a href="#sec-link-elem"><code>link</code></a>、<a href="#sec-manifest-elem"><code>manifest</code></a>、<a href="#sec-meta-elem"><code>meta</code></a>、<a href="#sec-package-elem"><code>package</code></a>、<a href="#sec-spine-elem"><code>spine</code></a> を許可する。</p>
+</dd>
+<dt id="attrdef-media-type"><code>media-type</code></dt>
+<dd>
+<p>参照されたリソースの種類と形式を指定するメディア タイプ [[!RFC2046]]。</p>
+<div class="example">
+<pre>&lt;link rel="record"
+      href="http://example.org/meta/12389347?format=xmp"
+      media-type="application/xml"
+      properties="xmp"/&gt;</pre>
+</div>
+<p><a href="#sec-item-elem"><code>item</code></a> と <a href="#sec-link-elem"><code>link</code></a> を許可する。</p>
+</dd>
+<dt id="attrdef-properties"><code>properties</code></dt>
+<dd>
+<p><a href="#sec-property-datatype">プロパティ</a>値のスペースで区切られたリスト。</p>
+<p>属性に使用できる<a href="#sec-metadata-default-vocab">予約された語彙</a>のために各要素の定義を参照されたい。</p>
+<div class="example">
+<pre>&lt;item id="nav" 
+    href="nav.xhtml" 
+    properties="nav"
+    media-type="application/xhtml+xml"/&gt;</pre>
+</div>
+<p><a href="#sec-item-elem"><code>item</code></a> と <a href="#sec-itemref-elem"><code>itemref</code></a>、<a href="#sec-link-elem"><code>link</code></a> を許可する。</p>
+</dd>
+<dt id="attrdef-refines"><code>refines</code></dt>
+<dd>
+<p>要素によって拡張された表現又はリソースの識別子。属性の値は、記述されているリソース又は要素を参照する相対 IRI [[!RFC3987]] でなければならない。</p>
+<p><code>refines</code> 属性は、表現されたメタデータの型に応じて省略可能である（OPTIONAL）。省略された時、要素は、<a href="#primary-expression">初期設定の表現</a>を定義する。</p>
+<p><a href="#sec-link-elem"><code>link</code></a> と <a href="#sec-meta-elem"><code>meta</code></a> を許可する。</p>
+</dd>
+<dt id="attrdef-xml-lang"><code>xml:lang</code></dt>
+<dd>
+<p>[[!XML]] のセクション <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-lang-tag">2.12 Language Identification</a> で定められているように、属性を含んでいる要素やその子孫の内容と属性値で使われる言語を指定する。</p>
+<div class="example">
+<pre>&lt;package … xml:lang="ja"&gt;
+   …
+&lt;/package&gt;</pre>
+</div>
+<p><a href="#sec-collection-elem"><code>collection</code></a>、<a href="#sec-opf-dccontributor"><code>dc:contributor</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:coverage</code></a>、<a href="#sec-opf-dccreator"><code>dc:creator</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:description</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:publisher</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:relation</code></a>、<a href="#sec-opf-dcmes-optional-def"><code>dc:rights</code></a>、<a href="#sec-opf-dcsubject"><code>dc:subject</code></a>、<a href="#sec-opf-dctitle"><code>dc:title</code></a>、<a href="#sec-meta-elem"><code>meta</code></a>、<a href="#sec-package-elem"><code>package</code></a> を許可する。</p>
+</dd>
+</dl>
+</section>
+<section id="sec-pkg-metadata">
+<h3>メタデータ</h3>
+<section id="sec-metadata-elem">
+<h4><code>metadata</code> 要素</h4>
+<p><code>metadata</code> 要素は指定された<a>レンディション</a>のためのメタ情報をカプセル化する。</p>
+<dl id="elemdef-opf-metadata" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>metadata</code></p>
+</dd>
+<dt>使用法</dt>
+<dd><p><a href="#elemdef-opf-package"><code>package</code></a> の必須（REQUIRED）の最初の子。</p>
+</dd>
+<dt>属性</dt>
+<dd><p>なし</p>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>順序なし</p>
+<ul class="nomark">
+<li><p><a class="codelink" href="#elemdef-opf-dcidentifier"><code>dc:identifier</code></a> <code>[ひとつ以上]</code></p></li>
+<li><p><a href="#elemdef-opf-dctitle"><code>dc:title</code></a> <code>[ひとつ以上]</code></p></li>
+<li><p><a href="#elemdef-opf-dclanguage"><code>dc:language</code></a> <code>[ひとつ以上]</code></p></li>
+<li><p><a href="#sec-opf-dcmes-optional"><code>DCMES Optional Elements</code></a> <code>[0個以上]</code></p></li>
+<li><p><a href="#elemdef-meta"><code>meta</code></a> <code>[ひとつ以上]</code></p></li>
+<li>
+<p><a href="#sec-opf2-meta">OPF2 <code>meta</code></a> <code>[0個以上]</code> <a href="epub-spec.html#legacy" class="legacy">（レガシー）</a></p>
+</li>
+<li><p><a href="#elemdef-opf-link"><code>link</code></a> <code>[0個以上]</code></p></li>
+</ul>
+</dd>
+</dl>
+<p>パッケージ ドキュメントの <code>metadata</code> 要素は、二つの主要な機能を持っている。</p>
+<ol type="1">
+<li>
+<p><a>EPUB 出版物</a>の内部カタログに使用し、（例えば、本棚に提示するなど）ユーザーのために利用可能にするリーディング システムのためのメタ情報の最小セットを提供する。</p>
+</li>
+<li>
+<p>レンディションのコンテンツ（例えば、<a href="#sec-package-metadata-fxl">固定レイアウト プロパティ</a>）のレイアウトおよび表示をコントロールするために必要な全てのレンダリングのメタデータへのアクセスを提供する。</p>
+</li>
+</ol>
+<p>パッケージ ドキュメントは、複雑なメタデータをエンコードする機能を提供するように設計されていない。EPUB 出版物に関するより詳細な情報が必要な場合、メタデータ レコードは、（例えば、[[!ONIX]] のように国際規格への適合や特別な目的のために作成されたものへ）<a href="#sec-link-elem"><code>link</code></a> 要素を使用して関連付けることができる。このアプローチは、ネイティブのフォームで処理するためのメタデータを許可し、最小限のパッケージ ドキュメント構造を使用して変換することよって引き起こされる潜在的な問題と情報の損失を回避する。</p>
+<p id="core-metadata-reqs">この理念を踏まえ、パッケージ ドキュメントは、次の最低限のメタデータ要件を持つ。それは、[[!DCTERMS]] <a href="#last-modified-date"><code>modified</code></a> プロパティと共に、[[!DC11]] <a href="#sec-opf-dcidentifier"><code>title</code></a> と <a href="#elemdef-opf-dcidentifier"><code>identifier</code></a>、<a href="#elemdef-opf-dclanguage"><code>language</code></a> 要素を包含しなければならない（MUST）。他の全てのメタデータは、省略可能である（OPTIONAL）。</p>
+<aside class="example">
+<p>次の例は、著者がパッケージ ドキュメントに包含させたメタデータの最小セットを示している。</p>
+<pre>&lt;package … unique-identifier="pub-id"&gt;
+    …
+    &lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+        &lt;dc:identifier id="pub-id"&gt;urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809&lt;/dc:identifier&gt;
+        &lt;dc:title&gt;Norwegian Wood&lt;/dc:title&gt;
+        &lt;dc:language&gt;en&lt;/dc:language&gt;
+        &lt;meta property="dcterms:modified"&gt;2011-01-01T12:00:00Z&lt;/meta&gt;
+    &lt;/metadata&gt;
+    …
+&lt;/package&gt;
+</pre>
+</aside>
+<p><a href="#sec-meta-elem"><code>meta</code></a> 要素は、任意の語彙からメタデータプロパティを含むための汎用的なメカニズムを提供する。典型的に、EPUB 仕様で定義されたメタデータの表現を含めるために使用されるが、任意のメタデータのために使用してもよい（MAY）。</p>
+<div class="note">
+<p>アクセシビリティ メタデータの提案は、[[EPUBAccessibility]] を見よ。</p>
+</div>
+</section>
+<section id="sec-opf-dcmes-required">
+<h4>DCMES 必須の要素</h4>
+<section id="sec-opf-dcidentifier">
+<h5><code>identifier</code> 要素</h5>
+<p>[[!DC11]] <code>identifier</code> 要素には、<abbr title="Universally Unique Identifier">UUID</abbr> や <abbr title="Digital Object Identfier">DOI</abbr>、<abbr title="International Standard Book Number">ISBN</abbr> など、特定の<a>レンディション</a>に関連付けられている識別子が含まれている。</p>
+<dl id="elemdef-opf-dcidentifier" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>dc:identifier</code></p></dd>
+<dt>名前空間</dt>
+<dd><p><code>http://purl.org/dc/elements/1.1/</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の必須（REQUIRED）の子。</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>テキスト</p></dd>
+</dl>
+<p><code>metadata</code> セクションは、レンディションの明確な識別子を含む <code>identifier</code> 要素を包含しなければならない（MUST）。この識別子は <code>package</code> 要素の <a href="#attrdef-package-unique-identifier"><code>unique-identifier</code></a> 属性を経由して<a>一意識別子</a>としてマークされなければならない（MUST）。</p>
+<aside class="example">
+<p>次の例は、EPUB 出版物の一意な <code>identifier</code> 要素を示している。</p>
+<pre>&lt;package … unique-identifier="pub-id"&gt;
+    &lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+        &lt;dc:identifier id="pub-id"&gt;
+            urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809
+        &lt;/dc:identifier&gt;
+        …
+    &lt;/metadata&gt;
+&lt;/package&gt;</pre>
+</aside>
+<p>各レンディションの一意識別子は、異なってもよく（MAY）、レンディションは、追加の識別子の要素を包含してもよい（MAY）。</p>
+<p>同じ EPUB 出版物の異なるバージョンを区別するために、この仕様は、EPUB 出版物のための<a>一意識別子</a>と特定のバージョンを一意に識別する<a>リリース識別子</a>を区別する。</p>
+<p>パッケージ化された EPUB 出版物の特定のバージョンを識別するために、リリース識別子はレンディションの<a href="#last-modified-date">最終更新日時</a>に一意識別子を組み合わせることによって構築することができる。パッケージ識別子のセマンティクスと要件の詳細については<a href="#sec-metadata-elem-identifiers-pid">リリース識別子</a>を参照されたい。</p>
+<aside class="example">
+<p>次の例は、リリース識別子のコンポーネントを示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    &lt;dc:identifier id="pub-id"&gt;
+        urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809
+    &lt;/dc:identifier&gt;
+    &lt;meta property="dcterms:modified"&gt;2016-01-01T00:00:01Z&lt;/meta&gt;
+    …
+&lt;/metadata&gt;</pre>
+</aside>
+<p>レンディションが変更されるたびに、新しい最終更新日時を包含しなければならない（MUST）。</p>
+<p><code>identifier</code> が確立されたシステムに適合しているまたは発行機関によって付与されているかどうかを判断するためにリーディング システムは要素の値を解析することを試みるべきである（SHOULD）。</p>
+<p id="attrdef-identifier-scheme">さらなる正確さを期すため、（例えば、スキームは、値から決定することができなかったり、曖昧な結果を引き起こす場合、）製作者は、リーディング システムの同定を支援するために <a href="#identifier-type"><code>identifier-type</code> プロパティ</a>を付与してもよい（MAY）。包含する時、<code>identifier-type</code> プロパティは、識別子を解析する値よりも優先されるべきである。</p>
+<aside class="example">
+<p>次の例は、識別子を、identifier-type プロパティを使用して DOI として追加でマークする方法を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    &lt;dc:identifier id="pub-id">urn:doi:10.1016/j.iheduc.2008.03.001&lt;/dc:identifier>
+    &lt;meta refines="#pub-id" property="identifier-type" scheme="onix:codelist5">06&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+<p>包含するとき、<code>identifier-type</code> 値は、識別子を解析した値よりも優先するべきである（SHOULD）。この仕様は、識別子のために任意の特定のスキームの使用を要求したり推奨しない。</p>
+<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] で定義されているとおり、要素の値から先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>この仕様は、空白をトリムした後の長さが少なくとも1文字でなければならない（MUST）こと以外は、識別子に追加の制約もしくは要件を課していない。しかし、識別子が完全修飾 URI であるよう、強く推奨する（RECOMMENDED）。</p>
+</section>
+<section id="sec-opf-dctitle">
+<h5><code>title</code> 要素</h5>
+<p>[[!DC11]] <code>title</code> 要素は、<a>EPUB 出版物</a>に指定した名前のインスタンスを表している。</p>
+<dl id="elemdef-opf-dctitle" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>dc:title</code></p></dd>
+<dt>名前空間</dt>
+<dd><p><code>http://purl.org/dc/elements/1.1/</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の必須（REQUIRED）の子。</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-dir"><code>dir</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-xml-lang"><code>xml:lang</code></a> <code>[省略可能]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>テキスト</p></dd>
+</dl>
+<p><code>metadata</code> セクションは、EPUB 出版物のタイトルを含む <code>title</code> 要素を最低でもひとつ包含しなければならない（MUST）。</p>
+<aside class="example">
+<p>次の例は、複数に分割されたタイトルを示す。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    &lt;dc:title&gt;
+        THE LORD OF THE RINGS, Part One: The Fellowship of the Ring
+    &lt;/dc:title&gt;
+    …
+&lt;/metadata&gt;
+</pre>
+</aside>
+<p id="title-order"><a>リーディング システム</a>は、（例えば、ユーザーに提示する最初の）EPUB 出版物の主な書名として、ドキュメント順で最初の <code>title</code> 要素を受け入れなければならない（MUST）。この仕様は、追加の <code>title</code> 要素の処理方法を定義しない。</p>
+<p>各<a>レンディション</a>のタイトルは異なってもよい（MAY）。</p>
+<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] で定義されているとおり、要素の値から先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>この仕様は、空白をトリムした後の長さが最低でも1文字でなければならない（MUST）以外には、タイトルに追加の制約もしくは要件を課していない。</p>
+</section>
+<section id="sec-opf-dclanguage">
+<h5><code>language</code> 要素</h5>
+<p>[[!DC11]] <code>language</code> 要素は、指定された<a>レンディション</a>のコンテンツの言語を指定する。</p>
+<dl id="elemdef-opf-dclanguage" class="elemdef">
+<dt>要素名</dt>
+<dd><p> <code>dc:language</code> </p></dd>
+<dt>名前空間</dt>
+<dd><p><code>http://purl.org/dc/elements/1.1/</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の必須（REQUIRED）の子。繰り返し可能。</p></dd>
+<dt>属性</dt>
+<dd><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></dd>
+<dt>コンテンツモデル</dt>
+<dd><p>テキスト</p></dd>
+</dl>
+<p><code>metadata</code> セクションは、[[!BCP47]] に準拠した値を持つ少なくともひとつの <code>language</code> 要素を包含しなければならない（MUST）。</p>
+<aside class="example">
+<p>次の例は、<a>EPUB 出版物</a>がアメリカ英語であることを示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    …
+    &lt;dc:language&gt;en-US&lt;/dc:language&gt;
+    …
+&lt;/metadata&gt;
+</pre>
+</aside>
+<p>追加の <code>language</code> 要素が多言語の出版物のために含まれてもよいが（MAY）、各要素の値は  [[!BCP47]] に準拠しなければならない（MUST）。ドキュメント順の最初の <code>language</code> 要素は、レンディションの初期設定の言語と見なされる。
+</p>
+<p>各<a>レンディション</a>の言語は異なってもよい（MAY）。</p>
+<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] で定義されているとおり、要素の値の先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+</section>
+</section>
+<section id="sec-opf-dcmes-optional">
+<h4>DCMES 省略可能な要素</h4>
+<section id="sec-opf-dcmes-optional-def">
+<h5>一般的な定義</h5>
+<p><a href="#sec-opf-dcidentifier"><code>identifier</code></a> と <a href="#sec-opf-dclanguage"><code>language</code></a>、<a href="#sec-opf-dctitle"><code>title</code></a> を除き、他の全ての [[!DC11]] 要素は、省略可能（OPTIONAL）として設計された。これらの要素は、次の一般化された定義に適合する。</p>
+<dl class="elemdef">
+<dt>要素名</dt>
+<dd>
+<p><code>contributor</code> | <code>coverage</code> | <code>creator</code> | <code>date</code> | <code>description</code> | <code>format</code> | <code>publisher</code> | <code>relation</code> | <code>rights</code> | <code>source</code> | <code>subject</code> | <code>type</code></p>
+</dd>
+<dt>名前空間</dt>
+<dd>
+<p><code>http://purl.org/dc/elements/1.1/</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p>省略可能（OPTIONAL）な <a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の子。繰り返し可能。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li>
+<p><a href="#attrdef-dir"><code>dir</code></a> <code>[省略可能]</code> – <code>contributor</code> と <code>coverage</code>、<code>creator</code>、<code>description</code>、<code>publisher</code>、<code>relation</code>、<code>rights</code>、<code>subject</code> 上でのみ許可。</p>
+</li>
+<li>
+<p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code> – 全ての要素上で許可。</p>
+</li>
+<li>
+<p><a href="#attrdef-xml-lang"><code>xml:lang</code></a> <code>[省略可能]</code> – <code>contributor</code> と <code>coverage</code>、<code>creator</code>、<code>description</code>、<code>publisher</code>、<code>relation</code>、<code>rights</code>、<code>subject</code> 上でのみ許可。</p>
+</li>
+</ul>
+</dd>
+<dt>コンテンツ モデル</dt>
+<dd>
+<p>テキスト</p>
+</dd>
+</dl>
+<p>各<a>レンディション</a>に対する省略可能（OPTIONAL）な [[!DC11]] メタデータは異なってもよい（MAY）。</p>
+<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] によって定義されているとおり、要素の値から先頭と末尾の全ての空白を削除しなければならない（MUST）。</p>
+<p>全ての省略可能（OPTIONAL）な [[!DC11]] 要素の値は、空白をトリムした後の長さが最低でも1文字なければならない（MUST）。</p>
+<p>この仕様は、次のセクションで注意されているようなことを除き、[[!DC11]] 要素の定義を変更しない。</p>
+</section>
+<section id="sec-opf-dccontributor">
+<h5><code>contributor</code> 要素</h5>
+<p>[[!DC11]] <code>contributor</code> 要素は、EPUB 出版物コンテンツの作成において二次的な役割を果たした個人や組織などの名前を表すために使用される。</p>
+<p><code>contributor</code> 要素のための要件は、他の全ての点において、<a href="#sec-opf-dccreator"><code>creator</code> 要素</a>のものと同じである。</p>
+</section>
+<section id="sec-opf-dccreator">
+<h5><code>creator</code> 要素</h5>
+<p>[[!DC11]] <code>creator</code> 要素は、<a>レンディション</a>のコンテンツを作成するための責任者、組織、等の名前を表している。<a href="#role"><code>role</code> プロパティ</a>は、制作者がコンテンツの制作における働きを示す要素に紐付けることができる。</p>
+<aside class="example">
+<p>次の例は、<a href="http://id.loc.gov/vocabulary/relators.html">MARC relators</a> 用語を使用して著者として制作者を表す方法を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:creator id="creator">Haruki Murakami&lt;/dc:creator>
+    &lt;meta refines="#creator" property="role" scheme="marc:relators" id="role">aut&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+<p>リーディング システムがユーザーにそれを提示できるように、<code>creator</code> 要素に作成者の名前が含まれているべきである（SHOULD）。<a href="#file-as"><code>file-as</code> プロパティ</a>は、名前の正規化された形式を包含するために付けてもよく（MAY）、他の言語又はスクリプトで制作者の名前を表すのは <a href="#alternate-script"><code>alternate-script</code> プロパティ</a>である。</p>
+<aside class="example">
+<p>次の例は、著者名のソートとレンダリングを容易にするために包含する方法を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    …
+    &lt;dc:creator id="creator">Haruki Murakami&lt;/dc:creator>
+    &lt;meta refines="#creator" property="role" scheme="marc:relators" id="role">aut&lt;/meta>
+    &lt;meta refines="#creator" property="alternate-script" xml:lang="ja">村上 春樹&lt;/meta>
+    &lt;meta refines="#creator" property="file-as">Murakami, Haruki&lt;/meta>
+    …
+&lt;/metadata></pre>
+</aside>
+<p>EPUB 出版物が複数の作成者を持つ場合、それぞれが別々の <code>creator</code> 要素に包含するべきである（SHOULD）。</p>
+<p>表示優先度を決定する際に、リーディング システムは、<code>metadata</code> セクション中にある <code>creator</code> 要素のドキュメント順序を使用しなければならず（MUST）、最初に遭遇した <code>creator</code> 要素は、最重要な作成者である。リーディング システムが、ユーザーに作成者のメタデータを公開している場合、（例えば、表示結果による制約がない場合など）可能な限り、<code>metadata</code> セクションに記載されている全ての作成者を包含するべきである（SHOULD）。</p>
+<aside class="example">
+<p>次の例は、主な制作者であるルイス・キャロルが、最初に記載されている。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    …
+    &lt;dc:creator id="creator01"&gt;Lewis Carroll&lt;/dc:creator&gt;
+    &lt;dc:creator id="creator02"&gt;John Tenniel&lt;/dc:creator&gt;
+    …
+&lt;/metadata&gt;
+</pre>
+</aside>
+<p>二次的な貢献者は、<a href="#sec-opf-dccontributor"><code>contributor</code> 要素</a>を使用して表現されるべきである（SHOULD）。</p>
+</section>
+<section id="sec-opf-dcdate">
+<h5><code>date</code> 要素</h5>
+<p>[[!DC11]] <code>date</code> 要素は、<a>EPUB 出版物</a>の刊行日を定義するために使用されなければならない（MUST）。刊行日は、（<a>レンディション</a>が変更された最後の日時である）<a href="#last-modified-date">最終更新日</a>と同じではない。</p>
+<p>日付の文字列は、文字列が人間と機械の両方で可読可能であり、特に W3C Date and Time Formats [[!DateTime]] で表現されるサブセット、[[!ISO8601]] に準拠することを推奨する（RECOMMENDED）。</p>
+<aside class="example">
+<p>次の例は、刊行日が記載されていることを示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    …
+    &lt;dc:date&gt;2000-01-01T00:00:00Z&lt;/dc:date&gt;
+    …
+&lt;/metadata&gt;
+</pre>
+</aside>
+<p>追加の日付は、[[!DCTERMS]] や類似の語彙で利用可能である特別な日付用のプロパティで表現されるべきである（SHOULD）。</p>
+<p>刊行日は、EPUB 出版物の全てのインスタンスに共通でもよいし（MAY）、（たとえば EPUB 出版物はオンデマンドで生成される場合）インスタンス毎に変更されてもよい（MAY）。</p>
+<p>ひとつの <code>date</code> 要素のみ許可されている。</p>
+</section>
+<section id="sec-opf-dcsubject">
+<h5><code>subject</code> 要素</h5>
+<p>[[!DC11]] <code>subject</code> 要素は、EPUB 出版物のサブジェクトを識別する。要素の値は、人間が可読可能な見出し又はラベルとするべきだが（SHOULD）、サブジェクトのタクソノミーが個別の記述的なラベルで提供できない場合、コードの値でもよい（MAY）。</p>
+<p>製作者は、<a href="#authority"><code>authority</code> プロパティ</a>を使用して要素の値が引き出されるシステム又はスキーマを識別してもよい（MAY）。</p>
+<p>スキーマを識別した時、サブジェクトのコードは、<a href="#term"><code>term</code> プロパティ</a>を使用して紐づけなければならない（MUST）。</p>
+<aside class="example">
+<p>次の例は、BISAC コードと見出しを示している。</p>
+<pre>&lt;dc:subject id="subject01"&gt;FICTION / Occult &amp;amp; Supernatural&lt;/dc:subject&gt;
+&lt;meta refines="#subject01" property="authority">BISAC&lt;/meta>
+&lt;meta refines="#subject01" property="term">FIC024000&lt;/meta></pre>
+</aside>
+<aside class="example">
+<p>次の例は、スキーマの IRI の使用を示している。</p>
+<pre>&lt;dc:subject id="sbj01"&gt;Number Theory&lt;/dc:subject&gt;
+&lt;meta refines="#sbj01" property="authority">http://www.ams.org/msc/msc2010.html&lt;/meta>
+&lt;meta refines="#sbj01" property="term">11&lt;/meta></pre>
+</aside>
+<p><code>term</code> プロパティは、スキーマを指定していない <code>subject</code> 要素に紐づけてはならない（MUST NOT）</p>
+<p><code>subject</code> 要素と <code>term</code> プロパティの値は、指定したスキーマが必要する場合のみ、大文字と小文字を区別する。</p>
+</section>
+<section id="sec-opf-dctype">
+<h5><code>type</code> 要素</h5>
+<p>[[!DC11]] <code>type</code> 要素は、指定された EPUB 出版物が特殊な種類（例えば EPUB 形式にパッケージ化された注記や辞書）であることを示すために使用される。</p>
+<p>この要素で使用するための専門的な EPUB 出版物の型の規定ではないレジストリは、[[TypesRegistry]] で管理されている。</p>
+</section>
+</section>
+<section id="sec-meta-elem">
+<h4><code>meta</code> 要素</h4>
+<p><code>meta</code> 要素は、パッケージ メタデータを含める一般的な手段を提供する。</p>
+<dl id="elemdef-meta" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>meta</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の子要素。繰り返し可能</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-dir"><code>dir</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-meta-property"><code>property</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-refines"><code>refines</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-scheme"><code>scheme</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-xml-lang"><code>xml:lang</code></a> <code>[省略可能]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>テキスト</p></dd>
+</dl>
+<p id="attrdef-meta-property">各 <code>meta</code> 要素は、メタデータ表現を定義する。
+<code>property</code> 属性は、表現で作成されているステートメントを定義する<a href="#sec-property-datatype">プロパティ</a>のデータ タイプ値を取り、要素のテキスト コンテンツは、アサーションを表現する。（より詳細な情報は、<a href="#sec-metadata-assoc">語彙の関連付けメカニズム</a>を参照されたい。）</p>
+<p>この仕様は、<code>meta</code> 要素を使用して定義できるメタデータ表現の二つのタイプを定義する。</p>
+<ul>
+<li id="primary-expression"><em>初期設定の表現</em>は、<code>meta</code> 要素で定義された表現が、<a>EPUB 出版物</a>のいくつかの側面を確立するものである。refines 属性が省略された <code>meta</code> 要素は、初期設定の表現で定義される。</li>
+<li><em>副次的な表現</em>は、<code>meta</code> 要素で定義された表現が、<code>refines</code> 属性に参照される表現又はリソースの意味を強化するものである。副次的な表現は、例えば、その持続時間を表現することによって、メディア クリップを改善する、又は人物の役割を定義することによって制作者や貢献者の表現を改善するだろう。</li>
+</ul>
+<p>副次的な表現は、初期設定の表現及びリソースのみを改善するために限定されない。これらは、他の副次的な表現の意味を改善するために使用されてもよく、それによって、情報の繋がりを作り出す。</p>
+<p class="note">全ての [DCMES] 要素は、初期設定の表現を表現し、meta 要素の副次的表現によって改善されることを可能にする。</p>
+<p>この仕様は、property 属性で使用するために <a href="#app-meta-property-vocab">Meta Properties Vocabulary</a> <a href="#sec-metadata-default-vocab">予約</a>する。他の語彙からの用途は、<a href="#sec-prefix-attr">プリフィックス</a>を持っていれば使用されてもよい（MAY）（宣言する必要のないプリフィックスの一覧は<a href="#sec-metadata-reserved-prefixes">予約済みのプリフィックス</a>を参照されたい）。</p>
+<aside class="example">
+<p>次の例は、予約済みのプリフィックスを使用して、さまざまなプロパティ宣言を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    …
+    &lt;meta property="dcterms:modified"&gt;2016-02-29T12:34:56Z&lt;/meta&gt;
+    &lt;meta property="rendition:layout"&gt;pre-paginated&lt;/meta&gt;
+    &lt;meta property="media:active-class"&gt;-epub-media-overlay-active&lt;/meta&gt;
+    …
+&lt;/metadata&gt;
+</pre>
+</aside>
+<p id="attrdef-scheme"><code>scheme</code> 属性は、要素の値が得られるシステムまたはスキームを識別する。属性の値は、スキームを定めるリソースへ解決する<a href="#sec-property-datatype">プロパティ</a>のデータ タイプでなければならない（MUST）。リーディング システムが、<code>scheme</code> 属性の値を認識しない場合、それは文字列として要素の値を扱うべきである（SHOULD）。</p>
+<p>リーディング システムは、認識しない表現を定義する <code>property</code> 属性を含んでいる全ての <code>meta</code> 要素を無視すべきである（SHOULD）。リーディング システムは、未知の表現に遭遇するとき、失敗してはならない（MUST NOT）。</p>
+<p>個々のプロパティが明示的に別の空白の正規化アルゴリズムを定義している場合を除き、リーディング システムは、さらにそれらを処理する前に XML 仕様 [[!XML]] で定義されているとおり、<code>meta</code> 要素の値から全ての先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>全ての <code>meta</code> 要素は空白の正規化後の長さが少なくともひとつ以上の文字の値を表現しなければならない（MUST）。</p>
+</section>
+<section id="sec-link-elem">
+<h4><code>link</code> 要素</h4>
+<p><code>link</code> 要素は、メタデータ レコードのように、指定された<a>レンディション</a>にリソースを関連付けるために使用される。</p>
+<dl id="elemdef-opf-link" class="elemdef">
+<dt>要素名</dt>
+<dd><p> <code>link</code> </p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の子要素。繰り返し可能</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-href"><code>href</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-link-media-type"><code>media-type</code></a> <code>[条件付き必須]</code></p></li>
+<li><p><a href="#attrdef-properties"><code>properties</code></a> <code>[省略可能]</code></p></li>
+<li>
+<p><a href="#attrdef-refines"><code>refines</code></a> <code>[省略可能]</code></p>
+</li>
+<li><p><a href="#attrdef-link-rel"><code>rel</code></a> <code>[必須]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>空</p></dd>
+</dl>
+<p><a href="#sec-metadata-elem"><code>metadata</code> 要素</a>は、0 個以上の <code>link</code> 要素を含めてもよく（MAY）、それぞれが、必須（REQUIRED）の <code>href</code> 属性でリンクされたリソースの位置を特定する。</p>
+<p id="linked-res-manifest">リンクされたリソースは、<a>出版物リソース</a>ではなく、<a href="#sec-manifest-elem">マニフェスト</a>に記載してはならない（MUST NOT）。リンクされたリソースは、マニフェストに記載された出版物リソースに埋め込まれてよいが（MAY）、しかしながら、その場合は、（例えば、<a class="glossterm" href="/Submission/2017/SUBM-epub31-20170125/#gloss-content-document-epub">EPUB コンテンツ ドキュメント</a>が、[[RDFA-CORE]] や [[JSON-LD]] のようにメタデータ レコードをシリアライズ化して含むことができるように）<a href="epub-spec.html#sec-core-media-types">コア メディア タイプの要件</a> [[!EPUB32]] を順守しなければならない（MUST）。</p>
+<aside class="example">
+<p>次の例は、<a>XHTML コンテンツ ドキュメント</a>内にある <code>script</code> 要素に埋め込まれたメタデータ レコードへの参照を示している。埋め込まれたレコードのメディア タイプは、<code>script</code> 要素の <code>type</code> 属性から得られ、<code>link</code> 要素で指定されないことに注意されたい。</p>
+<pre>&lt;metadata&gt;
+    … 
+    &lt;link rel="record"
+          href="front.xhtml#meta-json"
+          media-type="application/xhtml+xml"/&gt;
+    …
+&lt;/metadata&gt;</pre>
+</aside>
+<p id="linked-res-location">リンクされたリソースは、<a data-lt="Local Resource">ローカル</a>または<a data-lt="Remote Resource">リモート</a>に配置してもよいが（MAY）、製作者は、<a>リーディング システム</a>によるリモート リソースの検索が、省略可能（OPTIONAL）であることを認識している必要がある（すなわち、リソースは利用可能でないかもしれない）。</p>
+<p id="attrdef-link-media-type"><a href="#attrdef-media-type"><code>media-type</code></a> 属性は、複数のメディア タイプが、同じ IRI から供給できるように、リンクされたリソースが EPUB コンテナの外側に配置される場合、省略可能（OPTIONAL）である。属性は、全ての<a>ローカル リソース</a>に対して必須（REQUIRED）である。</p>
+<p id="attrdef-link-rel">必須（REQUIRED）の <code>rel</code> 属性は、レンディションを持つリソースの関連性を確立する<a href="#sec-property-datatype">プロパティ</a>値のスペースで区切られたリストを取る。</p>
+<aside class="example">
+<p>次の例は、ローカルの MARC XML レコードに関連付けするために使用される <code>link</code> 要素を示している。</p>
+<pre>&lt;link rel="record"
+      href="meta/9780000000001.xml" 
+      media-type="application/marc"/&gt;</pre>
+</aside>
+<p>リーディング システムは、たとえ、<code>rel</code> 属性に定義された関連性を認識していたとしても、リンクされたリソースを使用したり表示する必要はない。</p>
+<p><code>media-type</code> 属性の値は、常に、（例えば、多くの XML ベース形式は、メディア タイプ「<code>application/xml</code>」を使用する）リンクされたリソースの型を識別するためには十分ではない。そのような一般的なリソースの識別をするリーディング システムを支援するために、<code>properties</code> 属性は、セマンティクスな識別子を加えることができる。</p>
+<aside class="example">
+<p>次の例は、リモートの XMP レコードを識別するために使用される <code>properties</code> 属性を示している。</p>
+<pre>&lt;link rel="record"
+      href="http://example.org/meta/12389347?format=xmp"
+      media-type="application/xml"
+      properties="xmp"/&gt;</pre>
+</aside>
+<p>この仕様によって認められた<a href="#sec-metadata-default-vocab">予約済み</a>の関連性とプロパティの一覧は、<a href="#app-link-vocab">EPUB Metadata Link Vocabulary</a> で定義されている。</p>
+<p><a>製作者</a>は、この仕様で定義された<a href="#attrdef-package-prefix">メタデータ拡張メカニズム</a>を介して、他の語彙から関連性とプロパティを追加してもよい（MAY）。製作者は、独自の<a href="#sec-prefix-attr">プリフィックス</a>を定義することによって新しい値を作ってもよい（MAY）。詳細は、<a href="#sec-metadata-assoc">語彙の関連付けメカニズム</a>を参照されたい。</p>
+<aside class="example">
+<p>次の例は、情報の Web ページを関連付けるために使用される <code>link</code> 要素を示している。<code>foaf</code> は<a href="#sec-metadata-reserved-prefixes">定義済みプリフィックス</a>ではなく、<a href="#attrdef-package-prefix">prefix 属性</a>で宣言する必要があることに注意されたい。</p>
+<pre>&lt;package … prefix="foaf: http://xmlns.com/foaf/spec/"&gt;
+    &lt;metadata&gt;
+        … 
+        &lt;link rel="foaf:homepage"
+              href="http://example.org/book-info/12389347" /&gt;
+        …
+    &lt;/metadata&gt; 
+    …
+&lt;/package&gt;
+</pre>
+</aside>
+<p id="sec-linked-records"><a href="#record">リンクされたメタデータ レコード</a>の場合、リーディング システムは、パッケージ ドキュメントに表れているメタデータの処理をスキップしてはならなず（MUST NOT）、レコードに表れている情報のみを使用する。リンクされたレコードは、リーディング システムで利用可能な情報の強化を意図しており、パッケージのメタデータは、典型的に、重要なレンダリングの情報を含む。リーディング システムは、複数のリンクされたレコードからメタデータをコンパイルしてもよい（MAY）。単一のレコードのみを選択する必要はない。</p>
+<p>パッケージ ドキュメントに表れるメタデータとリンクされたメタデータ レコード間の矛盾や衝突を回避するとき、リーディング システムは、優先順位を確立するために、パッケージ ドキュメントにある <code>link</code> 要素のドキュメント順を使用しなければならない（MUST）。（つまり、最初に遭遇したリンクされたレコード内のメタデータは、最も高い優先順位を持ち、パッケージ ドキュメント内のメタデータは、<code>link</code> 要素が、パッケージ メタデータ要素の前後に発生するかどうかにかかわらず、最低である）</p>
+<aside class="example">
+<p>次の例は、<code>metadata</code> 要素内に発見されるメタデータに比べ、高い優先順位を持つ順番であるところの、ローカルのレコードよりも高い優先順位を持つリモート レコードであることを示している。</p>
+<pre>&lt;metadata&gt;
+    … 
+    &lt;link rel="record"
+          href="http://example.org/onix/12389347"
+          media-type="application/xml"
+          properties="onix" /&gt;
+    
+    &lt;link rel="record"
+          href="meta/meta.jsonld"
+          media-type="application/ld+json" /&gt;
+    …
+&lt;/metadata&gt;</pre>
+</aside>
+<p>リーディング システムは、EPUB 出版物のレイアウトとレンダリングに関係するリンクされたリソースに含まれた全ての指示を無視しなければならない（MUST）。</p>
+<div class="note">
+<p>EPUB 出版物にリンクすることができるメタデータ レコード フォーマットとシリアライゼーションの多様性、そしてそれら間のメタデータプロパティの比較に起因して、この仕様は、リンクされたレコードを処理することをリーディング システムに要求しない。</p>
+</div>
+</section>
+</section>
+<section id="sec-pkg-manifest">
+<h3>マニフェスト</h3>
+<section id="sec-manifest-elem">
+<h4><code>manifest</code> 要素</h4>
+<p><code>manifest</code> 要素は、それぞれが <a class="codelink" href="#sec-item-elem"><code>item</code></a> 要素によって表される、<a>レンディション</a>を構成する<a>出版物リソース</a>の完全なリストを提供する。</p>
+<dl id="elemdef-opf-manifest" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>manifest</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-metadata"><code>metadata</code></a> の次の <a class="codelink" href="#elemdef-opf-package"><code>package</code></a> の必須（REQUIRED）の二番目の子。</p></dd>
+<dt>属性</dt>
+<dd><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></dd>
+<dt>コンテンツモデル</dt>
+<dd><p><a class="codelink" href="#elemdef-package-item"><code>item</code></a> <code>[ひとつ以上]</code></p></dd>
+</dl>
+<div class="note">
+<p>この仕様は国際化されたリソースの命名規則をサポートし、要素と属性は、参照する出版物リソースは IRI をそれらの値として受け入れている。URI のみを受け入れる古いリーディング システムとの互換性のためにリソース名は ASCII 文字セットに制限する必要がある。</p>
+</div>
+</section>
+<section id="sec-item-elem">
+<h4><code>item</code> 要素</h4>
+<p><code>item</code> 要素は、<a>出版物リソース</a>を表している。</p>
+<dl id="elemdef-package-item" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>item</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-manifest"><code>manifest</code></a>の子要素。</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-item-fallback"><code>fallback</code></a> <code>[条件付きで必須]</code></p></li>
+<li><p><a href="#attrdef-href"><code>href</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-item-media-overlay"><code>media-overlay</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-item-media-type"><code>media-type</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-properties"><code>properties</code></a> <code>[省略可能]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>空</p></dd>
+</dl>
+<p><code>manifest</code> の各 <code>item</code> 要素は、<code>href</code> 属性で提供されてる IRI [[!RFC3987]] で<a>出版物リソース</a>を識別する。IRI は、絶対 IRI または相対 IRI でもよい（MAY）。相対 IRI の場合、リーディング システムは絶対 IRI を解決するときに、ベースとしてパッケージ ドキュメントの IRI を使用しなければならない（MUST）。結果として生成された絶対 IRI は <code>manifest</code> のスコープ内で一意でなければならない（MUST）。</p>
+<p id="manifest-inclusion">全ての出版物リソースは、それらが<a data-lt="Local Resource">ローカル</a>または<a>リモート リソース</a>であるかどうかにかかわらず、<code>manifest</code> から参照されなければならない（MUST）。リソースの場所に関するメディアタイプ固有の要件については<a href="epub-spec.html#sec-resource-locations">出版物リソースの配置</a> [[!EPUB32]] を参照されたい。</p>
+<p><code>manifest</code> は自己参照でないことに注意されたい。それは、パッケージ ドキュメント自身の参照を <code>item</code> 要素に包含してはならない（MUST NOT）。</p>
+<p id="attrdef-item-media-type"><code>item</code> 要素で識別される出版物リソースは、<a href="#attrdef-media-type"><code>media-type</code></a> 属性で提供される MIME メディア タイプから推測される該当する仕様に準拠しなければならない（MUST）。<a>コア メディア タイプ リソース</a>は、<a href="epub-spec.html#sec-cmt-supported">Supported Media Types</a> [[!EPUB32]] で指定されたメディア タイプを使用しなければならない（MUST）。</p>
+<p id="attrdef-item-fallback"><code>fallback</code> 属性は、<code>item</code> 要素から参照される出版物リソースのフォールバックを識別する IDREF [[!XML]] を取る。フォールバックは、（例えば、<a>スクリプト コンテンツ ドキュメント</a>に静的な代替を提供するために）コア メディア タイプ リソースに対して提供されてもよい（MAY）。管理外リソースのためのフォールバック要件は、<a href="#sec-foreign-restrictions-manifest">マニフェスト フォールバック</a>に定義されている。</p>
+<p id="attrdef-item-properties">この仕様は、<code>properties</code> 属性に使用するための <a href="#app-item-properties-vocab">EPUB Manifest Properties Vocabulary</a> を<a href="#sec-metadata-default-vocab">予約</a>しない。他の語彙からの用語は、<a href="#sec-prefix-attr">プリフィックス</a>を持っている限り、使用してもよい（MAY）。（宣言の必要がないプリフィックスのリストは<a href="#sec-metadata-reserved-prefixes">予約済みのプリフィックス</a>を参照されたい）</p>
+<p>製作者は、リーディング システムが、設定されたプロパティに応じてレンダリングを最適化してもよい（MAY）ように（つまり、レンダリングの処理を無効にしたりフォールバックに使用するなど）、この属性に各パブリケーション リソースのために利用できる全ての説明を含むメタデータのプロパティを宣言しなければならない（MUST）。リーディング システムは、認識しない全ての記述的なメタデータのプロパティを無視しなければならない（MUST）。</p>
+<p>正確にひとつの <code>item</code> が、<code>nav</code> プロパティを使用して <a>EPUB ナビゲーション ドキュメント</a>として宣言しなければならない（MUST）。</p>
+<p id="attrdef-item-media-overlay"><code>media-overlay</code> 属性は、この <code>item</code> によって記述されたリソースのための<a>メディア オーバーレイ ドキュメント</a>を識別する IDREF [[!XML]] を取る。詳細は<a href="epub-mediaoverlays.html#sec-docs-package">パッケージング</a> [[!MediaOverlays32]] を参照されたい。</p>
+<div class="note">
+<p><code>manifest</code> における <code>item</code> 要素の順序は重要ではない。コンテンツ ドキュメントの提示順序は <a class="codelink" href="#sec-spine-elem"><code>spine</code></a> によって提供される。</p>
+</div>
+<h4>例</h4>
+<div class="example" id="example-manifest-cmt">
+<p>次の例は、<a>コア メディア タイプ リソース</a>のみが含まれている <code>manifest</code> を示している。</p>
+<pre>&lt;manifest&gt;
+    &lt;item id="nav" 
+          href="nav.xhtml" 
+          properties="nav"
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="intro" 
+          href="intro.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="c1" 
+          href="chap1.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="c1-answerkey" 
+          href="chap1-answerkey.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="c2" 
+          href="chap2.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="c2-answerkey" 
+          href="chap2-answerkey.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="c3" 
+          href="chap3.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="c3-answerkey" 
+          href="chap3-answerkey.xhtml" 
+          media-type="application/xhtml+xml"/&gt;    
+    &lt;item id="notes" 
+          href="notes.xhtml" 
+          media-type="application/xhtml+xml"/&gt;
+    &lt;item id="cover" 
+          href="./images/cover.svg" 
+          properties="cover-image"
+          media-type="image/svg+xml"/&gt;
+    &lt;item id="f1" 
+          href="./images/fig1.jpg" 
+          media-type="image/jpeg"/&gt;
+    &lt;item id="f2" 
+          href="./images/fig2.jpg" 
+          media-type="image/jpeg"/&gt;
+    &lt;item id="css" 
+          href="./style/book.css" 
+          media-type="text/css"/&gt;   
+    &lt;item id="pls" 
+          href="./speech/dict.pls" 
+          media-type="application/pls+xml"/&gt;
+&lt;/manifest&gt;
+</pre>
+</div>
+<aside class="example" id="example-manifest-flbk">
+<p>次の例は、二つの<a>管理外リソース</a>の参照およびコンテンツの選択肢を提供する<a href="#sec-foreign-restrictions-manifest">フォールバック チェーン メカニズム</a>のメカニズムを使用している <code>manifest</code> を示している。フォールバック チェーンはコア メディア タイプで終了する。</p>
+<pre>&lt;manifest&gt;
+    &lt;item id="item1" 
+          href="chap1_docbook.xml" 
+          media-type="application/docbook+xml" 
+          fallback="fall1"/&gt;
+    &lt;item id="fall1" 
+          href="chap1.xml" 
+          media-type="application/z3998-auth+xml" 
+          fallback="fall2" /&gt;
+    &lt;item id="fall2" 
+          href="chap1.xhtml" 
+          media-type="application/xhtml+xml"/&gt; 
+    … 
+&lt;/manifest&gt;
+</pre>
+</aside>
+<aside class="example">
+<p>次の例は、マニフェストから参照する必要のある外部の音声ファイルへの参照を示している。（それは出版物リソースなので、音声は、XHTML コンテンツ ドキュメント内にインラインでレンダリングされる）。</p>
+<pre>XHTML:
+&lt;audio src="http://www.example.com/book/audio/ch01.mp4" controls="controls"/&gt;
+
+Manifest:
+&lt;item id="audio01"
+      href="http://www.example.com/book/audio/ch01.mp4"
+      media-type="audio/mp4"/&gt;</pre>
+</aside>
+<aside class="example">
+<p>次の例は、同じ音声ファイルへのリンクを示しているが、この場合、（ハイパーリンクされた外部リソースは、出版物リソースではないので）マニフェストに記載されていない。音声ファイルは、上記のように、（すなわち、出版物リソースとして使用されるところのコンテクストにおいて）製作者が [[!HTML]] 埋め込まれたコンテンツ要素からそれもまた参照される場合、マニフェスト内のみに記載されるかもしれない。</p>
+<pre>XHTML:
+&lt;a href="http://www.example.com/book/audio/ch01.mp4"&gt;Go to audio file&lt;/a&gt;
+
+Manifest:
+No Entry</pre>
+</aside>
+<aside class="example">
+<p>次の例は、音声ファイルのローカル バージョンへのリンクを示している。音声ファイルは、EPUB コンテンツ ドキュメントではないので、EPUB コンテンツ ドキュメントへのフォールバックが必要である（それはまた、<a href="#sec-spine-elem">スパイン</a>に記載されている必要がある）。</p>
+<pre>XHTML:
+&lt;a href="audio/ch01.mp4"&gt;Open Audio File&lt;/a&gt;
+
+Manifest:
+&lt;item id="audio01"
+      href="audio/ch01.mp4"
+      media-type="audio/mp4"
+      fallback="#audio01-xhtml"/&gt;</pre>
+</aside>
+</section>
+<section id="sec-foreign-restrictions-manifest">
+<h4>マニフェスト フォールバック</h4>
+<p>管理外リソースは、固有のフォールバックコンテンツを（例えば、<a>スパイン</a> <a href="#elemdef-spine-itemref"><code>itemref</code></a> 要素からや、<a>XHTML コンテンツ ドキュメント</a>の [[!HTML]] <code>img</code> や <code>iframe</code>、<code>link</code> 要素から、EPUB スタイル シートの <code>@import</code> ルールから直接などから）提供されないコンテクストで参照されてもよいし（MAY）、そのようなケースのときはマニフェスト フォールバックを提供しなければならない（MUST）。</p>
+<p>マニフェスト フォールバックは、出版物リソースを表す<a>マニフェスト</a> <a href="#elemdef-package-item"><code>item</code></a> 要素上の <a href="#attrdef-item-fallback"><code>fallback</code></a> を使用して提供される。<code>fallback</code> 属性の IDREF [[!XML]] 値は、<code>manifest</code> 内の他の <code>item</code> へ解決しなければならない（MUST）。このフォールバック <code>item</code> は、それ自体は別のフォールバックの <code>item</code> を指定してもよい（MAY）。</p>
+<p>指定されたアイテムの <code>fallback</code> 属性から始まり到達できる全ての ID の参照の順序付きリストは、その項目の<em>フォールバック チェーン</em>を表している。フォールバック チェーン内のリソースの順序は、製作者の好みのフォールバックの順序を表している。</p>
+<p>指定された出版物リソースのメディア タイプをサポートしていないリーディング システムは、サポートされていないリソースの代わりに使用する少なくともひとつのサポートされている出版物リソースを識別するまでフォールバック チェーンを辿らなければならない（MUST）。リーディング システムがフォールバック チェーン内の複数の出版物リソースをサポートしている場合、それはそのリソースの特定の<a href="#attrdef-item-properties">プロパティ</a>に基づいて使用するリソースを選択してもよく（MAY）、それ以外の場合は製作者の好みのフォールバックの順序を優先するべきである（SHOULD）。リーディング システムが、フォールバック チェインにある任意のリソースをサポートしていない場合、コンテンツが表示できないことをリーダーに警告しなければならない（MUST）。</p>
+<p>フォールバック チェーンは、必要に応じて、次の要件のいずれかに準拠しなければならない（MUST）。</p>
+<ul>
+<li>
+<p>スパイン <a href="#elemdef-spine-itemref"><code>itemref</code></a> 要素から直接参照される管理外リソースのために、チェーンは、少なくともひとつの <a>EPUB コンテンツ ドキュメント</a>を含まなければならない（MUST）。</p>
+</li>
+<li>
+<p>固有のフォールバックコンテンツが提供されない管理外リソースのために、チェーンは少なくともひとつの<a>コア メディア タイプ リソース</a>を含まなければならない（MUST）。ユーザー エージェントは、すでに遭遇したマニフェスト項目に対し、最初に参照した時点で、フォールバック チェインを終わらせなければならない（MUST）。</p>
+</li>
+</ul>
+<p>フォールバック チェーンは、チェーン内の <code>item</code> 要素に循環参照または自己参照を含んではならない（MUST NOT）。</p>
+<p>フォールバックは EPUB コンテンツ ドキュメントである <a>トップレベル コンテンツ ドキュメント</a>のために提供されてもよい（MAY）。リーディング システムは、指定されたコンテキストでレンダリングするコンテンツ ドキュメントの最適なバージョンを見つけるためにこのようなフォールバックを利用してもよい（MAY）。<a href="epub-contentdocs.html#confreq-cd-scripted-flbk">スクリプト コンテンツのフォールバック</a> [[!ContentDocs32]] を提供する場合が、この機能を利用できる場合の例である。</p>
+</section>
+<section id="sec-opf-bindings">
+<h4><code>bindings</code> 要素（非推奨）</h4>
+<p><code>bindings</code> 要素は、この仕様でサポートされていないメディア タイプのカスタム ハンドラのセットを定義する。その使用は非推奨（<a href="epub-spec.html#deprecated">deprecated</a>）である。</p>
+<p>この要素に関する詳細情報は [[!Publications301]] を参照されたい。</p>
+</section>
+</section>
+<section id="sec-pkg-spine">
+<h3>スパイン</h3>
+<section id="sec-spine-elem">
+<h4><code>spine</code> 要素</h4>
+<p><code>spine</code> 要素は、特定の<a>レンディション</a>におけるデフォルトの読み上げ順序を表す、<a href="#sec-itemref-elem">マニフェスト <code>item</code> 参照</a>の順序付きリストを定義する。</p>
+<dl id="elemdef-opf-spine" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>spine</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-manifest"><code>manifest</code></a> の次に記述される <a class="codelink" href="#elemdef-opf-package"><code>package</code></a> の三番目の必須（REQUIRED）の子要素</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-spine-page-progression-direction"><code>page-progression-direction</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#sec-opf2-ncx"><code>toc</code></a> <code>[省略可能]</code> <a href="epub-spec.html#legacy" class="legacy">（レガシー）</a></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>0個以上の <a class="codelink" href="#elemdef-spine-itemref"><code>itemref</code></a> <code>[ひとつ以上]</code></p></dd>
+</dl>
+<p>リーディング システムは、1）デフォルトの読み上げ順の開始として最初の主要な <code>itemref</code> を認識し、2）<code>spine</code> で指定された順序で連続的に主要な項目のレンダリングを包含する <code>spine</code> で定義された順序でレンディションをレンダリングする手段を提供しなければならない（MUST）。</p>
+<p id="spine-inclusion-req"><code>spine</code> 内の出版物リソースからハイパーリンクされた全ての<a>出版物リソース</a>は、現在のリソースから離れるユーザーが必要とする任意のリンクメカニズムにハイパーリンクが定義されている場合は、それら自身が <code>spine</code> に記載されなければならない（MUST）。一般的なハイパーリンクのメカニズムは、[[!HTML]] <a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"><code>a</code></a> と <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-area-element"><code>area</code></a> 要素の <code>href</code> 属性、（例えば、DOM イベントおよび/またはフォーム要素を使用する）スクリプトのリンクを包含する。ハイパーリンクされたリソースを記載する要件は、再帰的に適用する（すなわち、ハイパーリンクされた出版物リソースからハイパーリンクされた全ての出版物リソースもまた、記載される）。</p>
+<p><a>EPUB ナビゲーション ドキュメント</a>からハイパーリンクされた全ての出版物リソースはまた、ナビゲーション ドキュメント自身が <code>spine</code> に記載されているかどうかに関わらず、<code>spine</code> に記載されなければならない（MUST）。</p>
+<div class="note">
+<p>ハイパーリンクから参照された<a>リモート リソース</a>は、出版物リソースではないので、（例えば、Web ページやリソースなど）スパインに包含する要件の対象ではない。</p>
+</div>
+<p>（例えば、[[!HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-iframe-element"><code>iframe</code></a> 要素を介す）埋め込まれた出版物リソースは、<code>spine</code> に記載する必要はない。</p>
+<p id="attrdef-spine-page-progression-direction"><code>page-progression-direction</code> 属性は、コンテンツ フローの全体の送り方向を設定する。許可された値は <code>ltr</code>（左から右）、<code>rtl</code>（右から左）と <code>default</code> である。<code>default</code> 値が指定されている場合、製作者の望む送り方向を表しておらず、リーディング システムは、レンダリング方向を選ぶことができる。属性が指定されていない場合は、<code>default</code> 値を想定しなければならない（MUST）。この場合、リーディング システムは、最初の <code>language</code> 要素に基づいてデフォルトの <code>page-progression-direction</code> 値を、選択するべきである（SHOULD）。</p>
+<p><code>page-progression-direction</code> 属性はグローバルな流れの方向を定めているが、個々のコンテンツ ドキュメントとコンテンツ ドキュメントの部分は、この設定を（例えば、<code>direction</code> と <code>writing-mode</code> の CSS プロパティを介して）上書きしてもよい（MAY）。リーディング システムは（例えばボタンまたは代替スタイルシートの適用を可能にする設定で）の初期設定の方向を上書きするためのまたメカニズムを提供してもよい（MAY）。</p>
+<p>リーディング システムは、<a href="#layout"><code>pre-paginated</code></a> を持つ XHTML コンテンツ ドキュメントで定義されているページ進行方向を無視しなければならない（MUST）。<code>page-progression-direction</code> 属性は、ある固定レイアウトページから次のページへの流れの方向を定義する。</p>
+<p><a href="epub-spec.html#legacy">レガシー</a>の <code>toc</code> 属性は、<a href="#sec-opf2-ncx">NCX</a> が表すマニフェスト アイテムを識別する IDREF [[!XML]] を取る。</p>
+</section>
+<section id="sec-itemref-elem">
+<h4><code>itemref</code> 要素</h4>
+<p><code>spine</code> の子要素の <code>itemref</code> 要素は、<a>出版物リソース</a>（<a href="#confreq-spine-itemtypes">典型的な</a> <a>EPUB コンテンツ ドキュメント</a>）の順次リストを表している。<code>itemref</code> 要素の順序は、指定された<a>レンディション</a>のデフォルトの読み上げ順序を定義する。</p>
+<dl id="elemdef-spine-itemref" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>itemref</code></p></dd>
+<dt>使用法</dt>
+<dd><p><a class="codelink" href="#elemdef-opf-spine"><code>spine</code></a> の子要素。繰り返し可</p></dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-itemref-idref"><code>idref</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-itemref-linear"><code>linear</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-properties"><code>properties</code></a> <code>[省略可能]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd><p>空</p></dd>
+</dl>
+<p id="attrdef-itemref-idref">各 <code>itemref</code> 要素は、<code>idref</code> 属性の IDREF [[!XML]] を介して、<a>マニフェスト</a>にある一意な <a href="#elemdef-package-item"><code>item</code></a> の ID [[!XML]] を参照しなければならない（MUST）（すなわち、二つ以上の <code>itemref</code> 要素は、同じ <code>item</code> を参照できない）。</p>
+<p id="confreq-spine-itemtypes">参照される各マニフェストの <code>item</code> は、<em><a>コア メディア タイプ リソース</a>または<a>管理外リソース</a>であるかどうか関係なく</em>、a）<a>EPUB コンテンツ ドキュメント</a>または b）<a>出版物リソース</a>の別の型のいずれかでなければならず（MUST）、その<a href="#sec-foreign-restrictions-manifest">フォールバック チェーン</a>の中に EPUB コンテンツ ドキュメントが含まれていなければならない（MUST）。</p>
+<div class="note">
+<p>EPUB 出版物は、<a>EPUB ナビゲーション ドキュメント</a>を<a href="#confreq-nav-occur">包含する必要がある</a>が、それを <code>spine</code> に包含することは必須ではない。</p>
+</div>
+<p id="attrdef-itemref-linear"><code>linear</code> 属性は、参照された <code>item</code> が最初に読む順序の提供や連続的に読まれる（「<code>yes</code>」）コンテンツなのか、重要なコンテンツの強化または増補や順序とは関係なくアクセス（「<code>no</code>」）できる補助的なコンテンツなのかを示す。補助的なコンテンツは、注釈や説明、解答を包含する。</p>
+<p><code>linear</code> 属性は、リーディング システムに、例えば、ポップアップウィンドウに表示されたり、聴覚リーディングで省略されるかもしれない補足的なコンテンツから、ユーザーが標準的に読む順番の一部としてアクセスする必要があるコンテンツを区別することができる。</p>
+<p>EPUB 出版物をレンダリングするとき、リーディング システムは、デフォルトの読み上げ順序に表示されないように非線形コンテンツを抑制しても、EPUB 出版物のコンテンツ全体へユーザーのアクセスを提供するために <code>linear</code> 属性を無視してもよい（MAY）。この仕様は、リーディング システムが使用する何れのモデルも強制しない。リーディング システムはまた、二つのモデルを切り替えるために、ユーザーへオプションを提供をしてもよい（MAY）。</p>
+<p>各レンディションは、<code>linear</code> 属性の値が明示的または暗示的に「<code>yes</code>」に設定されている少なくともひとつの <code>itemref</code> を包含しなければならない（MUST）。<code>linear</code> 属性を省略する <code>itemref</code> は、「<code>yes</code>」値を持つことが想定されている。</p>
+<p>著者は、（例えば、コンテンツや <a href="#sec-package-nav">EPUB ナビゲーション ドキュメント</a>からのハイパーリンクなど）全ての非線型コンテンツにアクセスする方法を提供しなければならない（MUST）。</p>
+<p id="attrdef-itemref-properties">この仕様は、<code>properties</code> 属性で使用するために <a href="#app-itemref-properties-vocab">EPUB Spine Properties Vocabulary</a> を<a href="#sec-metadata-default-vocab">予約</a>する。他の全ての語彙からの用語は、<a href="#sec-prefix-attr">プリフィックス</a>を持っている限り、使用してもよい（MAY）。（宣言の必要がないプリフィックスのリストは<a href="#sec-metadata-reserved-prefixes">予約済みのプリフィックス</a>を参照されたい）</p>
+<p><a href="#app-itemref-properties-vocab">Spine Properties Vocabulary</a> で定義されている全ての利用可能な説明を含むメタデータのプロパティは、宣言するべきである（SHOULD）。</p>
+<p>リーディング システムは、認識しない <code>properties</code> 属性で表現される全てのメタデータ プロパティを無視しなければならない（MUST）。</p>
+<h4>例</h4>
+<aside class="example">
+<p>次の例は、<a href="#example-manifest-cmt">上記のマニフェストの例</a>に対応する <code>spine</code> の要素を示している。</p>
+<pre>&lt;spine page-progression-direction="ltr"&gt;
+    &lt;itemref idref="intro"/&gt;
+    &lt;itemref idref="c1"/&gt;
+    &lt;itemref idref="c1-answerkey" linear="no"/&gt;
+    &lt;itemref idref="c2"/&gt;
+    &lt;itemref idref="c2-answerkey" linear="no"/&gt;
+    &lt;itemref idref="c3"/&gt;
+    &lt;itemref idref="c3-answerkey" linear="no"/&gt;
+    &lt;itemref idref="notes" linear="no"/&gt;
+&lt;/spine&gt;
+</pre>
+</aside>
+</section>
+</section>
+<section id="sec-pkg-collections">
+<h3>コレクション</h3>
+<section id="sec-collection-elem">
+<h4><code>collection</code> 要素</h4>
+<p><code>collection</code> 要素は、リソースの関連したグループを定義する。</p>
+<dl id="elemdef-collection" class="elemdef">
+<dt>要素名</dt>
+<dd><p><code>collection</code></p></dd>
+<dt>使用法</dt>
+<dd>
+<p><code>package</code> の六番目の省略可能（OPTIONAL）な要素。繰り返し可。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<ul class="nomark">
+<li><p><a href="#attrdef-dir"><code>dir</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-id"><code>id</code></a> <code>[省略可能]</code></p></li>
+<li><p><a href="#attrdef-collection-role"><code>role</code></a> <code>[必須]</code></p></li>
+<li><p><a href="#attrdef-lang"><code>xml:lang</code></a> <code>[省略可能]</code></p></li>
+</ul>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>記述順序：<a href="#elemdef-collection-metadata"><code>metadata</code></a> <code>[0 または 1]</code>、(<a href="#elemdef-collection"><code>collection</code></a> <code>[1個以上]</code> または ( <a href="#elemdef-collection"><code>collection</code></a> <code>[0個以上]</code>、<a href="#elemdef-collection-link"><code>link</code></a> <code>[1個以上]</code>))</p>
+</dd>
+</dl>
+<p><code>collection</code> 要素は、リソースを、意味を持つ単位へと再構築される複数の <a>EPUB コンテンツ ドキュメント</a>間に分割された（すなわち、複数のドキュメント間に分割されたインデックス）有効なコンテンツまたは、特殊な処理（すなわち、プレビュー コンテンツ）のために識別されるリソース、指定された<a>レンディション</a>に関する追加情報を表現する集約リソースなど、潜在的な数々の用途のために論理的なグループに整理することを許可する。</p>
+<p>このセクションで定義されているように、<code>collection</code> 要素は、（例えば、EPUB のサブ仕様を介して）特性が引き出されることを目的とされ、そこから一般的なフレームワークを表現する。このような特性は、レンディション内の <code>collection</code> 要素の目的だけでなく、妥当な生産物と用途（以下に表現される一般的なフレームワークと異なる特定の任意の要求）のための全ての要求のために定義しなければならない（MUST）。</p>
+<p id="attrdef-collection-role">各特性は、全ての適合する <code>collection</code> 要素を一意に識別する役割の値を定義しなければならない（MUST）。パッケージ ドキュメントのそれぞれ <code>collection</code> 要素の役割は、<code>role</code> 属性で識別されなければならず（MUST）、値は、ひとつ以上の NMTOKEN [[!XMLSCHEMA-2]] と/または絶対 IRI [[!RFC3987]] でなければならない（MUST）。NMTOKEN 値の用途は、[[!RoleRegistry]] でメンテナンスされるところの、EPUB で定義していない役割で予約されている。レジストリで定義されていない NMTOKEN 値は、妥当ではない。役割のないものはこのセクションでは定義しない。</p>
+<p>サード パーティは、<code>collection</code> 要素に特殊な役割を定義してもよい（MAY）が、このような役割は、絶対 IRI を使用して識別されなければならない（MUST）。特殊な役割は、これらを識別する IRI のホスト コンポーネント内に文字列「<code>idpf.org</code>」を組み込んではならない（MUST NOT）。</p>
+<div class="note">
+<p>リーディング システム全体で特殊な役割の相互互換性を容易にするために、実装は、[[RoleExtensions]] にある <code>collection</code> 要素の使用をドキュメント化することが強く推奨される。</p>
+</div>
+<p id="elemdef-collection-metadata"><code>collection</code> の省略可能（OPTIONAL）な <code>metadata</code> 要素の子は、構文とセマンティクスに次の差異があるパッケージの <a href="#elemdef-opf-metadata"><code>metadata</code></a> 要素を適合したものである。</p>
+<ul>
+<li>
+<p>メタデータは、デフォルトでは必須でない。</p>
+</li>
+<li>
+<p>メタデータ要素の使用におけるパッケージレベルの制限は、上書きしてもよい（MAY）。</p>
+</li>
+<li>
+<p>全ての <a href="#primary-expression">primary metadata expressions</a> は、<code>collection</code> に適用される。</p>
+</li>
+<li>
+<p><a href="#attrdef-refines"><code>refines</code> 属性</a>は、含んでいる <code>collection</code> の外部にある要素を参照してはならない（MUST NOT）。</p>
+</li>
+<li>
+<p><a href="#sec-opf2-meta">OPF2 <code>meta</code> 要素</a>は、包含されてはならない（MUST NOT）。</p>
+</li>
+</ul>
+<p><code>collection</code> は、ひとつ以上の子 <code>collection</code> 要素を包含することによってサブコレクションを定義してもよい（MAY）。</p>
+<p id="elemdef-collection-link"><code>collection</code> の <code>link</code> 要素の子は、構文とセマンティクスに次の差異があるメタデータの <a href="#elemdef-opf-link"><code>link</code></a> 要素を適合したものである。</p>
+<ul>
+<li>
+<p><code>rel</code> 属性は省略可能（OPTIONAL）である。</p>
+</li>
+<li>
+<p><p><code>properties</code> 属性はまた、（例えば、コレクションは、独自にナビゲーション ドキュメントやカバー画像を宣言できるように）プリフィックスのない <a href="#app-item-properties-vocab">マニフェスト <code>item</code> プロパティ</a> を受け入れる。</p>
+</li>
+<li>
+<p><code>refines</code> 属性は、紐づけられてはならない（MUST NOT）。</p>
+</li>
+</ul>
+<p>それぞれの <code>link</code> 要素は、グループのメンバーであるリソースを参照しなければならない（MUST）。<code>link</code> 要素の順序は、重要ではない。</p>
+<p><code>collection</code> 要素の特性は、よりよくこれらの要求（例えば、メタデータを要求したり、要素と属性の利用にさらなる制限を課したり、<code>link</code> 要素の順序を重視）を反映するために上記で定義されている要求を調整してもよい（MAY）。しかしながら、結果として生じたコンテンツモデルは、このセクション（例えば、特性は、新しい要素や属性を取り入れたり、上記で明確に禁止されているそれらを再度取り入れることはできない）で定義されたひとつの妥当なサブセットを表現しなければならない（MUST）。特性は、<a href="#elemdef-opf-manifest"><code>manifest</code></a> と <a href="#elemdef-opf-spine"><code>spine</code></a> の要件を上書きする方法でコレクションを定義してはならない（MUST NOT）。</p>
+<p>この仕様のコンテクスト内では、リーディング システムのコレクションのサポートは、省略可能（OPTIONAL）である。リーディング システムは、認識できない役割を定義した <code>collection</code> 要素を無視しなければならない（MUST）。</p>
+<p>レンディションのレンダリングは、<code>collection</code> 要素の認識に依存してはならない（MUST NOT）。コンテンツは、全ての情報の損失や他の重大な劣化をすることなくユーザーによって消費できなければならない（MUST）。</p>
+<h4>例</h4>
+<aside class="example" id="example-collection">
+<p>次の例は、単一の構成を表す二つの <a>XHTML コンテンツ ドキュメント</a>の組み立て方を示している。</p>
+<pre>&lt;package …&gt;
+    …
+    &lt;collection role="http://example.org/roles/unit"&gt;
+        &lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+            &lt;dc:title&gt;Foo Bar&lt;/dc:title&gt;
+        &lt;/metadata&gt;
+        &lt;link href="EPUB/xhtml/foo-1.xhtml"/&gt;
+        &lt;link href="EPUB/xhtml/foo-2.xhtml"/&gt;
+    &lt;/collection&gt;
+    …
+&lt;/package&gt;</pre>
+</aside>
+</section>
+</section>
+<section id="sec-pkg-legacy">
+<h3>レガシー</h3>
+<section id="sec-opf2-meta">
+<h4><code>meta</code> 要素</h4>
+<p><a href="http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.2"><code>meta</code> 要素</a> [[!OPF2]] は、従来、包括的なメタデータを包含する手段を提供した<a href="epub-spec.html#legacy">レガシー</a>の機能である。異なる属性を使用し、テキスト コンテンツが必要になる更新された <a href="#sec-meta-elem"><code>meta</code> 要素</a>によって EPUB 3 で置き換えられた。</p>
+<p><code>meta</code> 要素に関する詳細情報については、[[!OPF2]] の定義を参照されたい。</p>
+</section>
+<section id="sec-opf2-guide">
+<h4><code>guide</code> 要素</h4>
+<p><a href="http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.6"><code>guide</code> 要素</a> [[!OPF2]] は、従来、<a>EPUB 出版物</a>の極めて重要な構造として機械処理可能なナビゲーションを提供した<a href="epub-spec.html#legacy">レガシー</a>の機能である。<a>EPUB ナビゲーション ドキュメント</a>の <a href="#sec-nav-landmarks">landmarks</a> によって EPUB 3 で置き換えられた。</p>
+<p><code>guide</code> 要素に関する詳細情報については、[[!OPF2]] の定義を参照されたい。</p>
+</section>
+<section id="sec-opf2-ncx">
+<h4>NCX</h4>
+<p><a href="http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.4.1">NCX</a> [[!OPF2]] は、従来、<a>EPUB 出版物</a>の目次を提供した<a href="epub-spec.html#legacy">レガシー</a>の機能である。<a href="#sec-package-nav">EPUB ナビゲーション ドキュメント</a>によって EPUB 3 で置き換えられた。</p>
+<p>NCX に関する詳細情報については、[[!OPF2]] の定義を参照されたい。</p>
+</section>
+</section>
+</section>
+</section>
+<section id="sec-package-metadata">
+<h1>パッケージ メタデータ</h1>
+<section id="sec-package-metadata-identifiers">
+<h2>出版物識別子</h2>
+<section id="sec-metadata-elem-identifiers-uid">
+<h3>一意識別子</h3>
+<p><a>製作者</a>は、唯一の <a>EPUB 出版物</a>に一意である<a>パッケージ ドキュメント</a>のメタデータに主要な識別子を包含する責任がある。<a>一意識別子</a>は選択または割り当てられているかどうかに関わらず、<a href="#sec-opf-dcidentifier"><code>dc:identifier</code></a> 要素に格納する必要があり、<a href="#elemdef-opf-package"><code>package</code></a> 要素の <a href="#attrdef-package-unique-identifier"><code>unique-identifier</code></a> 属性の一意識別子として参照されなければならない（MUST）。</p>
+<p>静的（固定）ではないが EPUB 出版物の一意識別子の変更はできる限り、めったに行わないようにするべきである（SHOULD）。メタデータを更新するときや誤植を直すとき、EPUB 出版物に他のマイナーな変更をするときは、新しい識別子を付与するべきではない（SHOULD NOT）。</p>
+<p>リーディング システムは、唯一の EPUB 出版物をユニークとするため、一意識別子に依存してはならない（MUST NOT）。同じ一意識別子を持つ二つの EPUB 出版物が、同じ出版物の異なるバージョンを表しているのか（<a href="#sec-metadata-elem-identifiers-pid">リリース識別子</a>を見よ）、それとも異なる出版物かどうかを決定するために、例えばタイトルや製作者のような、他のメタデータを調査する必要があるだろう。</p>
+</section>
+<section id="sec-metadata-elem-identifiers-pid">
+<h3>リリース識別子</h3>
+<p>通常、<a>EPUB 出版物</a>の<a class="glossterm" href="#gloss-unique-identifier" title="Unique Identifier">一意識別子</a>は、一意識別子が参照と配布目的のために両方の最大の永続性を持つように意図されているので、パッケージまたはその内容にそれぞれのマイナーリビジョンで変更するべきではない（SHOULD NOT）。通常、EPUB 出版物の各リリースは新しいバージョンを一意に識別できる必要があるが、これは結果として変更可能であり、かつ信頼性の高い一意識別子という相反する要求が生じる。</p>
+<p>一意識別子を変更せずにマイナーな修正とリリースを識別する課題を是正するために、この仕様は<em>リリース識別子</em>のセマンティクスを定義して、または同じ一意識別子を持つ出版物を識別し、連続した順序を示す手段を定める。</p>
+<p>リリース識別子は、パッケージの <code>metadata</code> セクションの実際のプロパティではなく、メタデータの二つの他の必須の部分である。一意識別子とレンディションの最終更新日から得られる値である。一緒になる合計値は EPUB 出版物の任意の特定のバージョンを区別するために使用できる一意の識別子を表している。</p>
+<p id="last-modified-date">リリース識別子が構築されることを保証するために各<a>レンディション</a>は最終更新日を含む [[!DCTERMS]] <code>modified</code> プロパティを正確にひとつ含まれなければならない（MUST）。このプロパティの値は、[[!XMLSCHEMA-2]] 最終更新日に準拠する日付の形でなければならない（MUST）。</p>
+<pre>CCYY-MM-DDThh:mm:ssZ</pre>
+<p>変更日は協定世界時（UTC）で表現されなければならなず（MUST）、「<code>Z</code>」（Zulu）タイム ゾーン インジケータで終了しなければならない（MUST）。</p>
+<p>追加の変更日のプロパティは、パッケージ メタデータに包含してもよいが（MAY）、それらは異なるサブジェクトを持たなければならない（MUST）（すなわち、それらは、要素やリソースを参照する <code>refines</code> 属性を要求する）。</p>
+<p>パッケージ メタデータの一部でないが、識別子の全ての文字列表現は参照と他の目的のために、区切り文字としてアットマーク（<code>@</code>）を使用して（すなわち id<code>@</code>date の形）構成されなければならない（MUST）。文字列を連結するときに空白が含まれてはならない（MUST NOT）。</p>
+<aside class="example">
+<p>次の例は、一意識別子と変更日がリリース識別子を形成するために組み合わされる方法を示している。</p>
+<pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/"&gt;
+    &lt;dc:identifier id="pub-id"&gt;urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809&lt;/dc:identifier&gt;
+    &lt;meta property="dcterms:modified"&gt;2011-01-01T12:00:00Z&lt;/meta&gt;
+    …
+&lt;/metadata&gt;
+
+パッケージ ID の結果：
+
+urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809@2011-01-01T12:00:00Z
+</pre>
+</aside>
+<p>これらの識別子は任意の文字列の値でもよく（MAY）、区切り文字が一意識別子の中に生じてもよい（MAY）可能性があることに注意されたい。その故にリリース識別子はその構成部分に分解するときに最後の @ 記号の箇所で分割しなければならない（MUST）。</p>
+<p>リリース識別子は一意識別子を優先しないが、同じ EPUB 出版物の異なるバージョンを区別し、流通チャネルやリーディング システムによって識別することができる手段を意味する。タイムスタンプの形式を受け継ぐことで、識別子の正確な知識なしに EPUB 出版物を連続する年代順に配置することもできる。</p>
+<p>従って EPUB 出版物のセットはリリース識別子によって、それらが同じ EPUB 出版物の同じバージョンか、ひとつの出版物の異なるバージョンか、異なっていて類似した EPUB 出版物の組合せをかどうかを判断する為に調べられることができる。</p>
+<div class="note">
+<p><a>EPUB コンテナ</a>が、EPUB 出版物の<a>レンディション</a>をひとつ以上包含するとき、リーディング システムが<a href="epub-ocf.html#dfn-default-rendition">初期設定のレンディション</a>のみ処理する必要があり、それらが更新されていない場合でも、各リリースの初期設定のレンディションの最終更新日をアップデートすると、EPUB 出版物は、以前のリリースと同じバーションが表示されないことを担保するのを助けるであろう。</p>
+</div>
+</section>
+</section>
+<section id="sec-metadata-assoc">
+<h2>語彙の関連付けメカニズム</h2>
+<section id="sec-metadata-assoc-intro" class="informative">
+<h3>まえがき</h3>
+<p><code>property</code>、<code>properties</code>、<code>rel</code> と <code>scheme</code> 属性はメタデータ語彙の用語を表すために<a href="#sec-property-datatype">プロパティ データ タイプ</a>を使用する。CURIE [[RDFA-CORE]] と同様に、プロパティ データ タイプはコンパクトなフォームで IRI [[RFC3987]] を表し、標準化された語彙のメタデータ作成を簡略化する。</p>
+<p>プロパティ値はプリフィックスと参照の組み合わせにより表現される。プリフィックスとは、（リテラルまたは暗黙的かを問わず）一般的にある用語の語彙に解決される IRI の簡略マッピングである。プリフィックスをその IRI 表現に変換し参照と組み合わせると、結果として IRI は通常、用語についての人間および/または機械可読な情報を含んでいる語彙内のフラグメントに解決される。</p>
+<p>プロパティ値の処理においてリーディング システムを支援するために、この仕様は、プリフィックスをマップする IRI を確立する3つのメカニズムを定義している。</p>
+<ul>
+<li><p><a href="#sec-metadata-default-vocab">デフォルトの語彙</a> — がプリフィックスを含んでいないときのマッピングを定義し、</p></li>
+<li><p><a href="#sec-metadata-reserved-prefixes">予約済みプリフィックス</a> — これらのマッピングはあらかじめ定義されており（すなわち全てのリーディング システムがそれらを認識する）、宣言することなく使用することができ、そして、</p></li>
+<li><p><a href="#sec-prefix-attr"><code>prefix</code></a> 属性 — ルート <a href="#sec-package-elem"><code>package</code></a> 要素にプリフィックスのマッピングを作成することで宣言できる。</p></li>
+</ul>
+</section>
+<section id="sec-metadata-default-vocab">
+<h3>デフォルトの語彙</h3>
+<p>デフォルトの語彙はその用語を使用するために宣言する必要がない語彙であり、その用語は常にプリフィックスが付かないようにしなければならない（MUST）。</p>
+<p>パッケージ ドキュメントは、メタデータの用語に対し複数の関連性のない使い方があるように、単一のデフォルトの語彙は、全ての属性のために定義されていない。その代わりに、異なるデフォルトの語彙は、次のように<a href="#sec-property-datatype">プロパティ データ タイプ</a>を受け入れる属性の使い方が定義されている。</p>
+<ul>
+<li><p><a href="#app-meta-property-vocab">Meta Properties Vocabulary</a> は、<a href="#elemdef-meta"><code>meta</code></a> <code>property</code> 属性のためのデフォルトの語彙として定義される。</p>
+<p>属性値にプリフィックスが包含されていない場合、次の IRI [[!RFC3987]] ステムは、結果として生じる IRI：<code>http://idpf.org/epub/vocab/package/meta/#</code> を生成するために使用されなければならない（MUST）。</p>
+</li>
+<li><p><a href="#app-link-vocab">Metadata Link Vocabulary</a> は、<a href="#elemdef-opf-link"><code>link</code></a> <code>rel</code> と <code>properties</code> 属性のためのデフォルトの語彙として定義される。</p>
+<p>属性値の何れかにプリフィックスが包含されていない場合、次の IRI [[!RFC3987]] ステムは、それらの結果として生じる IRI：<code>http://idpf.org/epub/vocab/package/link/#</code> を生成するために使用されなければならない（MUST）。</p>
+</li>
+<li><p><a href="#app-item-properties-vocab">Manifest Properties Vocabulary</a> は、<a href="#elemdef-package-item"><code>item</code></a> <code>properties</code> 属性のためのデフォルトの語彙として定義される。</p>
+<p>属性値の何れかにプリフィックスが包含されていない場合、次の IRI [[!RFC3987]] ステムは、それらの結果として生じる IRI：<code>http://idpf.org/epub/vocab/package/item/#</code> を生成するために使用されなければならない（MUST）。</p>
+</li>
+<li>
+<p><a href="#app-itemref-properties-vocab">Spine Properties Vocabulary</a> は、<a href="#elemdef-spine-itemref"><code>itemref</code></a> <code>properties</code> 属性のためのデフォルトの語彙として定義される。</p>
+<p>属性値の何れかにプリフィックスが包含されていない場合、次の IRI [[!RFC3987]] ステムは、それらの結果として生じる IRI：<code>http://idpf.org/epub/vocab/package/itemref/#</code> を生成するために使用されなければならない（MUST）。</p>
+</li>
+</ul>
+<p>それらの語彙に関連付けられた IRI は、<a href="#sec-prefix-attr"><code>prefix</code></a> 属性を使用してプリフィックスを割り当ててはならない（MUST NOT）。</p>
+</section>
+<section id="sec-metadata-reserved-prefixes">
+<h3>予約済みのプリフィックス</h3>
+<p>この仕様は、製作者が宣言することなくパッケージ メタデータに使用してもよい（MAY）次のプリフィックスのセットを予約する。</p>
+<p class="warning">予約済みのプリフィックスは、オーサリング時において便利ですが、それらに依存することは、相互互換性の問題に繋がる。例えば、適合性ツールは、しばしば、ツールが更新されるまで新しいプリフィックスを拒否する。製作者は、そのような問題を避けるために、使用する全てのプリフィックスの宣言を強く推奨する。</p>
+<table id="tbl-reserved-prefixes" class="prefix">
+<thead>
+<tr>
+<th>Prefix</th>
+<th>IRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a11y</td>
+<td>http://www.idpf.org/epub/vocab/package/a11y/#</td>
+</tr>
+<tr>
+<td>dcterms</td>
+<td>http://purl.org/dc/terms/</td>
+</tr>
+<tr>
+<td>marc</td>
+<td>http://id.loc.gov/vocabulary/</td>
+</tr>
+<tr>
+<td>media</td>
+<td>http://www.idpf.org/epub/vocab/overlays/#</td>
+</tr>
+<tr>
+<td>onix</td>
+<td>http://www.editeur.org/ONIX/book/codelists/current.html#</td>
+</tr>
+<tr>
+<td>rendition</td>
+<td>http://www.idpf.org/vocab/rendition/#</td>
+</tr>
+<tr>
+<td>schema</td>
+<td>http://schema.org/</td>
+</tr>
+<tr>
+<td>xsd</td>
+<td>http://www.w3.org/2001/XMLSchema#</td>
+</tr>
+</tbody>
+</table>
+<p>リーディング システムは、ローカルの<a href="#sec-prefix-attr">プリフィックス</a>が宣言されていない限り、定義済み URI を使用してパッケージ ドキュメントに使用されている全ての予約済みのプリフィックスを解決しなければならない（MUST）。予約済みのプリフィックスは、<a href="#sec-prefix-attr"><code>prefix</code> 属性</a>を上書きするべきではない（SHOULD NOT）が、リーディング システムは、遭遇したときにローカルでの上書きを使用しなければならない（MUST）。</p>
+<p>予約済みのプリフィックスとリーディング システムの更新は常に同期して起こるわけではなく、リーディング システムは、認識されていないプリフィックス（つまり、<code>prefix</code> 属性を使用して予約も宣言もしていない）に遭遇したとき失敗してはならない（MUST NOT）。</p>
+</section>
+<section id="sec-prefix-attr">
+<h3><code>prefix</code> 属性</h3>
+<p><code>prefix</code> 属性は、この仕様で<a href="#sec-metadata-reserved-prefixes">予約</a>されていない追加のプリフィックスのマッピングを定義する。</p>
+<p><code>prefix</code> 属性の値は、ひとつまたは複数のプリフィックスから IRI へのマッピングの空白で区切ったリストの形である。</p>
+<table class="productionset">
+<caption>(EBNF 記法 <a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=26153">ISO/IEC 14977</a>)<br />全ての終端記号は、Unicode ブロック'基本ラテン文字'（U+0000 から U+007Fまで）である。</caption>
+<tr>
+<td id="prefix.ebnf.def"><a href="#prefix.ebnf.def">prefixes</a></td>
+<td><code>=</code></td>
+<td><a href="#prefix.ebnf.mapping">mapping</a> , { <a href="#prefix.ebnf.whitespace">whitespace</a>, { <a href="#prefix.ebnf.space">whitespace</a> } , <a href="#prefix.ebnf.mapping">mapping</a> } ;</td>
+<td> </td>
+</tr>
+<tr>
+<td id="prefix.ebnf.mapping"><a href="#prefix.ebnf.mapping">mapping</a></td>
+<td><code>=</code></td>
+<td><a href="#prefix.ebnf.prefix">prefix</a> , ":" , <a href="#prefix.ebnf.space">space</a> , { <a href="#prefix.ebnf.space">space</a> } , ? xsd:anyURI ? ;</td>
+<td> </td>
+</tr>
+<tr>
+<td id="prefix.ebnf.prefix"><a href="#prefix.ebnf.prefix">prefix</a></td>
+<td><code>=</code></td>
+<td>? xsd:NCName ? ;</td>
+<td> </td>
+</tr>
+<tr>
+<td id="prefix.ebnf.space"><a href="#prefix.ebnf.space">space</a></td>
+<td><code>=</code></td>
+<td>#x20 ;</td>
+<td> </td>
+</tr>
+<tr>
+<td id="prefix.ebnf.whitespace"><a href="#prefix.ebnf.whitespace">whitespace</a></td>
+<td><code>=</code></td>
+<td>(#x20 | #x9 | #xD | #xA) ;</td>
+<td> </td>
+</tr>
+</table>
+<aside class="example">
+<p>次の例は、フレンドのフレンド（<code>foaf</code>）と <code>prefix</code> 属性を使用して宣言されている DBPedia (<code>dbp</code>) 語彙の <code>prefix</code> 属性を示している。</p>
+<pre>&lt;package … 
+	prefix="foaf: http://xmlns.com/foaf/spec/
+		 dbp: http://dbpedia.org/ontology/"&gt;
+	…
+&lt;/package&gt;</pre>
+</aside>
+<p>衝突を回避するために、<code>prefix</code> 属性は、<a href="#sec-metadata-default-vocab">デフォルトの語彙</a>にマップされるプリフィックスを宣言するために使用してはならない（MUST NOT）。<code>prefix</code> 属性が<a href="#sec-metadata-reserved-prefixes">定義済みプリフィックス</a>のための宣言を包含する場合、リーディング システムは、定義済みプリフィックスとして同じ URI にマップされているかどうかに関わらず、<code>prefix</code> 属性を定義する URI マッピングを使用しなければならない（MUST）。</p>
+<p>プリフィックス '_' は、RDFa [[!RDFA-CORE]] の処理に伴う将来的な互換性のために予約済みなので、宣言してはならない（MUST NOT）。</p>
+<p>パッケージ ドキュメントの代替シリアライゼーションとの将来の互換性のために、ダブリン コア <em>/elements/1.1/</em> 名前空間 [[!DCTERMS]] のプリフィックスは、<code>prefix</code> 属性で宣言してはならない（MUST NOT）。<a>製作者</a>は、<a href="#sec-pkg-metadata">パッケージ ドキュメント メタデータで許可された</a> [[!DC11]] 要素のみ使用しなければならない（MUST）。</p>
+</section>
+<section id="sec-property-datatype">
+<h3><code>property</code> データ タイプ</h3>
+<section id="sec-property-syntax">
+<h4>構文</h4>
+<p>プロパティ データ タイプは、IRI [[!RFC3987]] を表現するコンパクトな手段であり、コロンで参照から分離された省略可能（OPTIONAL）なプリフィックスで構成されている。</p>
+<table class="productionset">
+<caption>（EBNF 記法 <a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=26153">ISO/IEC 14977</a>）<br />全ての終端記号は、Unicode ブロック'基本ラテン文字'（U+0000 から U+007Fまで）である。</caption>
+<tr>
+<td id="property.ebnf.property"><a href="#property.ebnf.property">property</a></td>
+<td><code>=</code></td>
+<td>[ <a href="#property.ebnf.prefix">prefix</a> , ":" ] , <a href="#property.ebnf.reference">reference</a>;</td>
+<td> </td>
+</tr>
+<tr>
+<td id="property.ebnf.prefix"><a href="#property.ebnf.prefix">prefix</a></td>
+<td><code>=</code></td>
+<td>? xsd:NCName ? ;</td>
+<td> </td>
+</tr>
+<tr>
+<td id="property.ebnf.reference"><a href="#property.ebnf.reference">reference</a></td>
+<td><code>=</code></td>
+<td>? irelative-ref ? ;</td>
+<td>/* as defined in [[!RFC3987]] */<br /></td>
+</tr>
+</table>
+<p>プロパティ データ タイプは、[[!RDFA-CORE]] で定義されている CURIE のデータ型から派生し、CURIE のサブセットを表している。</p>
+<aside class="example">
+<p>次の例は、プリフィックスの <code>dcterms</code> とリファレンスの <code>modified</code> で構成されるプロパティの値を示している。</p>
+<pre>&lt;meta property="dcterms:modified"&gt;2011-01-01T12:00:00Z&lt;/meta&gt;</pre>
+</aside>
+<p><a href="#sec-property-processing">処理</a>後のプロパティは次の IRI のように展開される。</p>
+<pre>http://purl.org/dc/terms/modified</pre>
+<p><code>dcterms:</code> プリフィックスは、IRI 「<code>http://purl.org/dc/terms/</code>」にマップしている<a href="#sec-metadata-reserved-prefixes">予約済みのプリフィックス</a>である。</p>
+<p>プリフィックスがプロパティの値から省略された場合、表現される基準は、この属性のための<a href="#sec-metadata-default-vocab">デフォルトの語彙</a>の用語を表している。</p>
+<aside class="example">
+<p>次の例は、マニフェストの <a href="#elemdef-package-item"><code>item</code></a> 要素にある <a href="#mathml"><code>mathml</code> プロパティ</a>を示している。</p>
+<pre>&lt;item … properties="mathml"/&gt;</pre>
+<p>このプロパティは以下のように展開される。</p>
+<pre>http://idpf.org/epub/vocab/package/item/#mathml</pre>
+<p>これは語彙の IRI が参照と連結されている場合である。</p>
+</aside>
+<p>上記の定義が妥当であっても、空の文字列は妥当なプロパティの値ではない。</p>
+</section>
+<section id="sec-property-processing">
+<h4>処理</h4>
+<p>リーディング システムは、プロパティから IRI [[!RFC3987]] を作成するために、次の規則を使用しなければならない（MUST）。</p>
+<ul>
+<li><p>プロパティが参照のみで構成されている場合、IRI は<a href="#sec-metadata-default-vocab">デフォルトの語彙</a>に関連する IRI の語幹を参照に連結することによって得られる。</p></li>
+<li><p>プロパティがプリフィックスと参照から構成されている場合は、IRI がプリフィックスに関連付けられた IRI の語幹を参照に連結することによって得られる。一致するプリフィックスが定義されていない場合、プロパティは無効であり、無視しなければならない（MUST）。</p></li>
+</ul>
+<p>結果の IRI は [[!RFC3987]] に妥当でなければならない（MUST）。しかしながら、リーディング システムは、この IRI を解決する必要はない。</p>
+</section>
+</section>
+</section>
+<section id="sec-package-metadata-rendering">
+<h2>パッケージのレンダリング用メタデータ</h2>
+<section id="sec-package-metadata-layout-general-intro" class="informative">
+<h3>まえがき</h3>
+<p>全てのレンダリング情報を、EPUB 上で構築されている基本的な技術を通じて表現できるわけではない。例えば、CSS を持つ HTML は強力なレイアウト機能を提供するけれども、これらの機能は、レンダリングされているドキュメントの範囲に制限されている。</p>
+<p>このセクションは、製作者にパッケージレベルのレンダリング意図の表現を許可する汎用的なプロパティを定義する（すなわち、<a>EPUB リーディング システム</a>によってのみ実行することができる機能）。リーディング システムが要求したレンダリングをサポートするとき、これらのプロパティは、ユーザーへ製作者が最適にデザインしたままのコンテンツの提示を可能にする。</p>
+</section>
+<section id="rendition-vocab-ref">
+<h4>参照</h4>
+<p>これらのプロパティを参照するためのベースとなる IRI は、<code>http://www.idpf.org/vocab/rendition/#</code> である。</p>
+<p>「<code>rendition:</code>」プロパティは、パッケージのレンダリング プロパティで<a href="#sec-metadata-reserved-prefixes">使用するために予約されており</a>、パッケージ ドキュメントで宣言する必要はない。</p>
+</section>
+<section id="sec-package-metadata-general">
+<h3>一般的なプロパティ</h3>
+<section id="flow">
+<h4><code>rendition:flow</code> プロパティ</h4>
+<p><code>rendition:flow</code> プロパティは、リーディング システムが、オーバーフロー コンテンツを処理する方法の製作者による優先順位を指定する。</p>
+<section id="layout-property-flow-usage">
+<h5>使用方法</h5>
+<p id="property-flow-global"><a href="#flow"><code>rendition:flow</code> プロパティ</a> が <code>meta</code> 要素に指定されているとき、それは、オーバーフローしたコンテンツを処理するための製作者による全体の設定（すなわち、全てのスパイン項目）を示している。製作者は、動的なページ分割またはスクロールための設定を示してもよい（MAY）。スクロールするコンテンツのために、それは、連続した <a>EPUB コンテンツ ドキュメント</a>は、連続したスクロール表示としてレンダリングされるか、それともそれぞれが、別々に（すなわち、それぞれの間が動的な改ページとして）レンダリングされるかどうかの指定もまた可能にする。</p>
+<p>リーディング システムが指定されたレンダリングをサポートするとき、それは、オーバーフローしたコンテンツの処理方法を使用するべきである（SHOULD）が、要求されたレンダリングを上書きするユーザーのためのオプションを提供してもよい（MAY）。</p>
+<p><code>meta</code> 要素が、<a href="#elemdef-opf-metadata"><code>metadata</code></a> セクションに発生するこのプロパティを運ばないならば、初期設定値 <code>auto</code> は、グローバル値としてリーディング システムによって想定されなければならない（MUST）。リーディング システムは、この初期設定値のみサポートしてもよい（MAY）。</p>
+<p>リーディング システムが <a href="#layout"><code>rendition:layout</code></a> プロパティをサポートするならば、<a href="#layout"><code>rendition:layout</code></a> 値の <code>pre-paginated</code> の指定もまたスパインの項目にセットされているとき、<code>rendition:flow</code> プロパティを無視しなければならない（MUST）。</p>
+<p id="html-body-page-break-before">二つのリフロー可能な EPUB コンテンツ ドキュメントが、スパインに連続して発生する場合、これら [[!HTML]] <a href="https://www.w3.org/TR/html/sections.html#the-body-element"><code>body</code></a> 要素のデフォルトのレンダリングは、<a href="https://www.w3.org/TR/CSS2/page.html#propdef-page-break-before"><code>page-break-before</code> プロパティ</a> [[!CSSSnapshot]] に、<code>always</code> が設定されていることと一致していることに注意されたい。<code>rendition:flow</code> プロパティを使うことに加えて、リーディング システムがこのような上書きをサポートする場合、製作者は、適切なスタイル シートの宣言を介して振る舞いを上書きしてもよい（MAY）。</p>
+<p><code>rendition:flow</code> プロパティは、複数回宣言してはならない（MUST NOT）。</p>
+</section>
+<section id="layout-property-flow-values">
+<h5>許可された値</h5>
+<p>次の値は、<code>rendition:flow</code> プロパティで使用するために定義されている。</p>
+<dl class="variablelist">
+<dt id="paginated">paginated</dt>
+<dd>
+<p>リーディング システムは、全てのオーバーフロー コンテンツを動的にページ分割するべきである（SHOULD）。</p>
+</dd>
+<dt id="scrolled-continuous">scrolled-continuous</dt>
+<dd>
+<p>リーディング システムは、オーバーフロー コンテンツはスクロール可能であるようにコンテンツ ドキュメントをレンダリングするべきであり（SHOULD）、指定された<a>レンディション</a>によって表現された EPUB 出版物は、（ただし<a href="#layout-property-flow-overrides">局所的に上書き</a>することを除いて）スパイン項目からスパイン項目へと、ひとつの連続したスクロールとして示すべきである（SHOULD）。</p>
+<div class="note">
+<p>この仕様の将来のバージョンでは、<code>scrolled-continuous</code> のためのリーディング システムの振る舞いに関する詳細情報を提供することが期待される。</p>
+</div>
+</dd>
+<dt id="scrolled-doc">scrolled-doc</dt>
+<dd>
+<p>リーディング システムは、オーバーフローしたコンテンツはスクロール可能であるようにコンテンツ ドキュメントを表現するべきであり（SHOULD）、それぞれのスパイン項目は、別々にスクロール可能なドキュメントとして示すべきである（SHOULD）。</p>
+</dd>
+<dt id="auto">auto</dt>
+<dd>
+<p>製作者は、オーバーフロー処理の設定をしない。リーディング システムは、初期設定の方法または適用可能なユーザーの設定を使用してオーバーフローしたコンテンツのレンダリングしてもよい（MAY）。</p>
+</dd>
+</dl>
+</section>
+<section id="layout-property-flow-overrides">
+<h5>スパインによる上書き</h5>
+<p id="layout-property-flow-local">製作者は、指定されたスパイン項目のための<a href="#property-flow-global">グローバル値</a>を上書きするため、スパイン <a href="#elemdef-spine-itemref"><code>itemref</code></a> 要素に次のプロパティを局所的に指定してもよい（MAY）。</p>
+<dl>
+<dt id="flow-auto">flow-auto</dt>
+<dd>製作者によってオーバーフロー コンテンツの処理に対する優先順位がないことを示す。</dd>
+<dt id="flow-paginated">flow-paginated</dt>
+<dd>製作者の優先順位が、コンテンツのオーバーフローを動的に改ページすることを示す。</dd>
+<dt id="flow-scrolled-continuous">flow-scrolled-continuous</dt>
+<dd>製作者の優先順位が、オーバーフローしたコンテンツに対してスクロールするビューを提供し、このプロパティを持つ連続したスパイン項目が、連続したスクロールのようにレンダリングされることを示す。</dd>
+<dt id="flow-scrolled-doc">flow-scrolled-doc</dt>
+<dd>製作者の優先順位が、オーバーフローしたコンテンツに対してスクロールするビューを提供し、このプロパティを持つ各スパイン項目が、別々のスクロール可能なドキュメントとしてレンダリングされることを示す。</dd>
+</dl>
+<p>これらの上書きのうちひとつのみが、全ての特定されたスパイン項目に適用される。</p>
+<p><code>rendition:flow-scrolled-continuous</code> プロパティの場合、スクロール方向は、<a href="#elemdef-spine-itemref"><code>itemref</code> 要素</a>によって参照される XHTML コンテンツ ドキュメントのルート要素におけるブロック フロー方向に関連して定義される。ブロック フロー方向が下向き（上から下）の場合、スクロール方向は縦である。ルート要素のブロック フロー方向が右向き（左から右）または左向き（右から左）の場合、水平である。</p>
+</section>
+<section id="layout-property-flow-examples">
+<h5>例</h5>
+<aside class="example" id="property-flow-ex1">
+<p>次の例は、スクロール可能な目次のあるページ分割されたレンディションを持つ製作者の意図を示してる。</p>
+<pre>&lt;metadata&gt;
+    &lt;meta property="rendition:flow"&gt;paginated&lt;/meta&gt;
+&lt;/metadata&gt;
+&lt;spine&gt;
+    &lt;itemref idref="toc" properties="rendition:flow-scrolled-doc"/&gt;
+    &lt;itemref idref="c01"/&gt;
+&lt;/spine&gt;</pre>
+</aside>
+</section>
+</section>
+<section id="align-x-center">
+<h4><code>rendition:align-x-center</code> プロパティ</h4>
+<p><code>rendition:align-x-center</code> プロパティは、指定されたスパイン項目が、ビューポート又は見開きで上下中央揃えであることを指定する。</p>
+<p><a href="#align-x-center"><code>rendition:align-x-center</code> プロパティ</a> がスパイン項目にセットされているとき、それはレンダリングされたコンテンツが、必要に応じて、<a>ビューポート</a>又は見開き内で上下中央揃えにするべき（SHOULD）ことを示している。このプロパティは、結果として生じたコンテンツ ボックスの配置のみで、スパイン項目のレンダリングには影響を与えない。</p>
+<p>リフロー可能なコンテンツの場合、各仮想ページは、中央でなければならない（MUST）。</p>
+<p>この仕様のバージョンでは、このプロパティをサポートまたは指定しないときの、初期設定のレンダリングの挙動を定義しない。リーディング システムは、独自のデザインでスパイン項目をレンダリングしてもよい（MAY）。</p>
+<div class="note">
+<p>このプロパティは主に、コンテンツのレンダリングで信頼性の高いセンタリングのコントロールが存在しない場合に、"Naka-Tobira (中扉)"（章タイトルページ）を処理するために開発された。ページメディアのサポートが、CSS で進化するにつれて、このプロパティは、廃止予定になることが予想される。製作者は、有効な CSS ソリューションの使用を勧める。</p>
+</div>
+</section>
+</section>
+<section id="sec-package-metadata-fxl">
+<h3>固定レイアウト プロパティ</h3>
+<section id="fxl-intro" class="informative">
+<h4>まえがき</h4>
+<p>EPUB ドキュメントは、印刷書籍や PDF ファイルとは異なり、変化するように設計されている。コンテンツは画面やユーザーの要求に合わせてフローまたはリフローをする。<a href="epub-overview.html#sec-rendering">レンディションと CSS</a> [[EPUB3Overview]] は、「コンテンツの表現は、ユーザーがコンテンツの特定の表現に合わせるのではなく、ユーザーに合わせる」と述べている。</p>
+<p>しかしこの原則は全ての形式のドキュメントに適用されるわけではない。コンテンツとデザインは切り離すことができず、結び付けられている時がある。ささいな見た目の変更で意味が変化し、意味を失う危険がある。<a>固定レイアウト ドキュメント</a>は、リフロー可能な EPUB がコンテンツに適していないとき、<a>製作者</a>が表現をより詳細に制御できるようにする。</p>
+<p>このセクションは、EPUB 3 のコンテキスト内で固定レイアウト ドキュメントが意図しているレンダリング動作の宣言の語句を許可しているメタデータ要素の組を定義する。</p>
+<div class="note" id="note-mechanisms">
+<p>EPUB 3 は、固定レイアウトのコンテンツを表現する複数のメカニズムを提供する。固定レイアウトのコンテンツが必要な場合、著者が選択するメカニズムは、望む精度、ファイル サイズ、アクセシビリティなどを含む複数の要因に依存するだろう。このセクションは、著者らが選択するメカニズムを指示することを意図するものではない。</p>
+</div>
+</section>
+<section id="layout">
+<h4><code>rendition:layout</code> プロパティ</h4>
+<p><code>rendition:layout</code> プロパティは、指定したレンディションが、リフロー可能又はページ分割されるかを指定する。</p>
+<section id="layout-usage">
+<h5>使用方法</h5>
+<p id="property-layout-global"><a href="#layout"><code>rendition:layout</code> プロパティ</a> が <code>meta</code> 要素に指定されている時、ページ分割またはリフロー可能なレイアウト形式が、それが指定された<a>レンディション</a>（例えば全てのスパイン項目）に包括的に適用されることを示している。</p>
+<p><a href="#elemdef-opf-metadata"><code>metadata</code></a> セクション内に、このプロパティを含んでいる <code>meta</code> 要素が現れない場合は、初期設定値の <code>reflowable</code> がグローバル値として <a>EPUB リーディング システム</a>によって想定されなければならない（MUST）。</p>
+<p><code>rendition:layout</code> プロパティに <code>pre-paginated</code> が設定されているとき、リーディング システムは、レンダリングしている<a>合成見開き</a>の隣接したコンテンツの隙間に間隔を包含してはならない（MUST NOT）。</p>
+<p>プロパティが、スパイン項目に <code>pre-paginated</code> がセットされているとき、そのコンテンツの寸法は、<a href="epub-contentdocs.html#sec-fixed-layouts">固定レイアウト</a> [[!ContentDocs32]] に定義されているように設定されなければならない（MUST）。</p>
+<p><code>rendition:layout</code> プロパティは、複数回宣言してはならない（MUST NOT）。</p>
+</section>
+<section id="layout-values">
+<h5>許可された値</h5>
+<p>次の値は <code>rendition:layout</code> プロパティの用途で定義されている。</p>
+<dl class="variablelist">
+<dt id="def-layout-reflowable">reflowable</dt>
+<dd>
+<p>指定されたレンディションはあらかじめページ分割されない。リーディング システムは、レンダリングするときは動的な改ページを適用してもよい（MAY）。</p>
+</dd>
+<dt id="def-layout-pre-paginated">pre-paginated</dt>
+<dd>
+<p>指定されたレンディションはあらかじめページ分割されている。リーディング システムはレンダリングする時は、厳密にスパイン <a href="#elemdef-spine-itemref"><code>itemref</code></a> 毎にひとつのページを生成しなければならない（MUST）。</p>
+</dd>
+</dl>
+<div class="note" id="uaag">
+<p>リーディング システムは一般的に、動的なスタイルの変化は意図しない結果をもたらす可能性が高いので、そうしたドキュメントの固有のプロパティがもたらす結果として、あらかじめページ分割されたドキュメントにユーザースタイルシートやユーザーエージェントスタイルシートの適用を制限または拒否する。製作者は、リフロー可能なコンテンツの代わりにあらかじめページ分割を使用を選択したときに、こうした制約があることや、ユーザビリティやアクセシビリティに良くない影響があることを説明する必要がある。関連する情報は、<a href="https://www.w3.org/TR/2015/NOTE-UAAG20-20151215/#gl-text-config">Guideline 1.4 - Provide text configuration</a> [[UAAG20]] を参照されたい。</p>
+</div>
+</section>
+<section id="layout-overrides">
+<h5>スパインによる上書き</h5>
+<p id="property-layout-local">製作者は、指定されたスパイン項目のための<a href="#property-flow-global">グローバル値</a>を上書きするため、スパイン <a href="#elemdef-spine-itemref"><code>itemref</code></a> 要素に次のプロパティを局所的に指定してもよい（MAY）。</p>
+<dl>
+<dt id="layout-pre-paginated">layout-pre-paginated</dt>
+<dd>指定されたスパイン項目がページ分割されることを示す。</dd>
+<dt id="layout-reflowable">layout-reflowable</dt>
+<dd>指定されたスパイン項目がリフロー可能であることを示す。</dd>
+</dl>
+<p>これらの上書きのうちひとつのみが、全ての特定されたスパイン項目に適用される。</p>
+</section>
+<section id="layout-examples">
+<h5>例</h5>
+<aside class="example" id="fxl-ex1">
+<p>次の例は、[[CSS3-MediaQueries]] を使用して、三種類の異なるデバイスのカテゴリのために、異なるスタイルシートを適用する、完全な固定レイアウトコンテンツを示している。メディア オーバーレイは、ドキュメントに適用されるスタイルシートのみ影響を与えることに注意されたい。<code>viewport</code> <code>meta</code> タグで設定されたコンテンツ領域のサイズは、静的である。</p>
+<h5>パッケージ ドキュメント</h5>
+<pre>&lt;meta property="rendition:layout"&gt;pre-paginated&lt;/meta&gt;</pre>
+<h5>XHTML</h5>
+<pre>&lt;head&gt;
+    &lt;meta name="viewport" content="width=1200, height=900"/&gt;
+	
+    &lt;link rel="stylesheet" href="eink-style.css" media="(max-monochrome: 3)"/&gt;
+    &lt;link rel="stylesheet" href="skinnytablet-style.css" media="((color) and
+        (max-height:600px) and (orientation:landscape), (color) and (max-width:600px)
+        and (orientation:portrait))"/&gt;
+    &lt;link rel="stylesheet" href="fattablet-style.css" media="((color) and
+        (min-height:601px) and (orientation:landscape), (color) and (min-width:601px)
+        and (orientation:portrait)"/&gt;	
+&lt;/head&gt;
+</pre>
+</aside>
+</section>
+</section>
+<section id="orientation">
+<h4><code>rendition:orientation</code> プロパティ</h4>
+<p><code>rendition:orientation</code> プロパティは、製作者が、指定されたレンディションをレンダリングする予定の方向を指定する。</p>
+<section id="orientation-usage">
+<h5>使用方法</h5>
+<p id="property-orientation-global"><a href="#orientation"><code>rendition:orientation</code> プロパティ</a> が <code>meta</code> 要素に指定されている時、意図された回転方向が、指定されたレンディション（例えば全てのスパイン項目）に包括的に適用されることを示している。</p>
+<p><code>metadata</code> セクション内に、このプロパティを含んでいる <code>meta</code> 要素が現れない場合は、初期設定値 <code>auto</code> がグローバル値としてリーディング システムによって想定されなければならない（MUST）。</p>
+<p><code>rendition:orientation</code> プロパティは、複数回宣言してはならない（MUST NOT）。</p>
+</section>
+<section id="orientation-values">
+<h5>許可された値</h5>
+<p>次の値は、<code>rendition:orientation</code> プロパティの用途で定義されている。</p>
+<dl class="variablelist">
+<dt>landscape</dt>
+<dd>
+<p>指定されたレンディションは横長（ランドスケープ）に表示されるのを意図している。</p>
+</dd>
+<dt>portrait</dt>
+<dd>
+<p>指定されたレンディションは縦長（ポートレート）に表示されるのを意図している。</p>
+</dd>
+<dt>auto</dt>
+<dd>
+<p>指定されたレンディションの向きは制限されていない。</p>
+</dd>
+</dl>
+<p>複数の回転方向をサポートしているリーディング システムは、指定された値が <code>auto</code> でない限り、ユーザーに指定された回転方向を伝えるべきである（SHOULD）。意図を伝える手段は実装固有である。</p>
+</section>
+<section id="orientation-overrides">
+<h5>スパインによる上書き</h5>
+<p id="property-orientation-local">製作者は、指定されたスパイン項目のための<a href="#property-flow-global">グローバル値</a>を上書きするため、スパイン <a href="#elemdef-spine-itemref"><code>itemref</code></a> 要素に次のプロパティを局所的に指定してもよい（MAY）。</p>
+<dl>
+<dt id="orientation-auto">orientation-auto</dt>
+<dd>リーディング システムが、スパイン項目をレンダリングする方向を決定することを示す。</dd>
+<dt id="orientation-landscape">orientation-landscape</dt>
+<dd>指定されたスパイン項目が、横長（ランドスケープ）方向にレンダリングされることを示す。</dd>
+<dt id="orientation-portrait">orientation-portrait</dt>
+<dd>指定されたスパイン項目が、縦長（ポートレート）方向にレンダリングされることを示す。</dd>
+</dl>
+<p>これらの上書きのうちひとつのみが、全ての特定されたスパイン項目に適用される。</p>
+</section>
+<section id="orientation-examples">
+<h5>例</h5>
+<aside class="example" id="fxl-ex2">
+<p>次の例は、完全な固定レイアウトのコンテンツは、合成見開きなしでレンダリングされ、横向きに固定されることを意図を示している。</p>
+<pre>&lt;metadata&gt;
+    &lt;meta property="rendition:layout"&gt;pre-paginated&lt;/meta&gt;
+    &lt;meta property="rendition:spread"&gt;none&lt;/meta&gt;
+    
+    &lt;meta property="rendition:orientation"&gt;landscape&lt;/meta&gt;
+&lt;/metadata&gt;</pre>
+</aside>
+</section>
+</section>
+<section id="spread">
+<h4><code>rendition:spread</code> プロパティ</h4>
+<p><code>rendition:spread</code> プロパティは、指定されたレンディションに対して、意図されたリーディング システムの合成見開きの挙動を指定する。</p>
+<section id="spread-usage">
+<h5>使用方法</h5>
+<p id="property-spread-global"><code>rendition:spread</code> プロパティが <code>meta</code> 要素に指定されている時、意図した<a>合成見開き</a>の動作は、指定されたレンディション（例えば全てのスパイン項目）に包括的に適用されることを示している。</p>
+<p><code>metadata</code> セクション内に、プロパティを含む <code>meta</code> 要素が現れない場合は、初期設定値 <code>auto</code> がグローバル値としてリーディング システムによって想定されなければならない（MUST）。</p>
+<p><code>rendition:spread</code> プロパティは、複数回宣言してはならない（MUST NOT）。</p>
+</section>
+<section id="spread-values">
+<h5>許可された値</h5>
+<p>次の値は、<code>rendition:spread</code> プロパティの用途で定義されている。</p>
+<dl class="variablelist">
+<dt>none</dt>
+<dd>
+<p>リーディング システムは、合成さした見開きに、スパイン項目を取り入れてはならない（MUST NOT）。</p>
+</dd>
+<dt>landscape</dt>
+<dd>
+<p>リーディング システムは、デバイスが横長（ランドスケープ）の方向の場合にのみ、スパイン項目のために合成見開きをレンダリングするべきである（SHOULD）。</p>
+</dd>
+<dt>portrait (deprecated)</dt>
+<dd>
+<p>縦長（ポートレート）方向のみに見開きを使うことは、非推奨（<a href="epub-spec.html#deprecated">deprecated</a>）である。</p>
+<p>製作者は、縦長で読むことが可能な見開きは、横長でも読むことが可能なので、代わりに値「<code>both</code>」の使用を勧める。リーディング システムは、「<code>both</code>」の同義語として、値「<code>portrait</code>」を処理し、方向に関係なく見開きを生成するべきである（SHOULD）。</p>
+</dd>
+<dt>both</dt>
+<dd>
+<p>リーディング システムは、デバイスの回転方向に関わらず合成見開きをレンダリングするべきである（SHOULD）。</p>
+</dd>
+<dt>auto</dt>
+<dd>
+<p>明確な合成見開きの動作は定義していない。リーディング システムは、<a>コンテンツ表示領域</a>の利用最適化プロセスの一部として、特定または全てのデバイスの回転方向に合成見開きを使用してもよい（MAY）。</p>
+</dd>
+</dl>
+<div class="note">
+<p>合成見開きが HTML コンテンツ ドキュメントと SVG コンテンツ ドキュメントのコンテキストの中で使用された時、<a href="epub-contentdocs.html#sec-fxl-icb-html"><code>viewport</code> <code>meta</code> 要素</a> [[ContentDocs32]] と <a href="epub-contentdocs.html#sec-fxl-icb-svg"><code>viewBox</code> 属性</a> [[ContentDocs32]] を介して与えられた寸法は、それぞれの見開きの1ページのサイズを表現する。</p>
+</div>
+<div class="note">
+<p><code>page-progression-direction</code> 属性を使用して全体の流れの方向性の宣言と、コンテンツ ドキュメントに含まれている局所的な page-progression-direction についての情報は<a href="#sec-spine-elem">スパイン</a>を参照されたい。</p>
+</div>
+</section>
+<section id="spread-overrides">
+<h5>スパインによる上書き</h5>
+<p id="property-spread-local">製作者は、指定されたスパイン項目のための<a href="#property-flow-global">グローバル値</a>を上書きするため、スパイン <a href="#elemdef-spine-itemref"><code>itemref</code></a> 要素に次のプロパティを局所的に指定してもよい（MAY）。</p>
+<dl>
+<dt id="spread-auto">spread-auto</dt>
+<dd>リーディング システムが、スパイン項目の合成見開きをレンダリングするタイミングを決定する際に指定する。</dd>
+<dt id="spread-both">spread-both</dt>
+<dd>リーディング システムが、縦長と横長方向の両方のスパイン項目で合成見開きをレンダリングする際に指定する。</dd>
+<dt id="spread-landscape">spread-landscape</dt>
+<dd>リーディング システムが、横長方向の時のみスパイン項目の合成見開きをレンダリングする際に指定する。</dd>
+<dt id="spread-none">spread-none</dt>
+<dd>リーディング システムが、スパイン項目の合成見開きをレンダリングしない際に指定する。</dd>
+<dt id="spread-portrait">spread-portrait</dt>
+<dd><code>spread-portrait</code> プロパティは、非推奨（<a href="epub-spec.html#deprecated">deprecated</a>）である。詳細の情報は、[[!Publications301]] の定義を参照されたい。</dd>
+</dl>
+<p>これらの上書きのうちひとつのみが、全ての特定されたスパイン項目に適用される。</p>
+</section>
+<section id="spread-examples">
+<h5>例</h5>
+<aside class="example" id="fxl-ex3">
+<p>次の例は、完全な固定レイアウトのコンテンツは、横長の方向で合成見開きを使用してレンダリングされ、縦長の方向で見開きにならないことを示している。</p>
+<pre>&lt;metadata&gt;
+    &lt;meta property="rendition:layout"&gt;pre-paginated&lt;/meta&gt;
+    &lt;meta property="rendition:spread"&gt;landscape&lt;/meta&gt;
+&lt;/metadata&gt;</pre>
+</aside>
+<aside class="example" id="fxl-ex4">
+<p>単一の固定レイアウトのタイトルページを持つリフロー可能なコンテンツで、固定レイアウトページは、デバイスが合成したた見開きを表示するとき、右手の位置に配置されるのを意図している。</p>
+<pre>&lt;metadata&gt;
+    &lt;meta property="rendition:layout"&gt;reflowable&lt;/meta&gt;
+    &lt;meta property="rendition:spread"&gt;auto&lt;/meta&gt;
+&lt;/metadata&gt;
+
+&lt;spine&gt;
+    &lt;itemref idref="titlepage" properties="page-spread-right rendition:layout-pre-paginated"/&gt;
+&lt;/spine&gt;</pre>
+</aside>
+</section>
+</section>
+<section id="page-spread">
+<h4><code>rendition:page-spread-*</code> プロパティ</h4>
+<section id="page-spread-usage">
+<h5>使用方法</h5>
+<p>リーディング システムが<a>合成見開き</a>をレンダリングするとき、初期設定の挙動は、指定された<a href="#sec-spine-elem">ページ進行方向</a>もしくはコンテンツ ドキュメント内の局所的な宣言によって決定された以降の何も存在しないビューポートに、次の <a>EPUB コンテンツ ドキュメント</a>をレンダリングすることによって見開きを追加することである。製作者は、自動的な集団挙動を無効にして、スパイン <code>itemref</code> 要素に次のプロパティのひとつを指定することによって、個々のビューポートに配置されたドキュメントを強制しても良い（MAY）。</p>
+<dl>
+<dt id="page-spread-center"><code>rendition:page-spread-center</code></dt>
+<dd><code>rendition:page-spread-center</code> プロパティは、<a href="epub-spec.html#dfn-synthetic-spread">合成見開き</a>内のコンテンツ ドキュメントの強制的な配置を指定する。</dd>
+<dt id="fxl-page-spread-left"><code>rendition:page-spread-left</code></dt>
+<dd><code>rendition:page-spread-left</code> プロパティは、<code><a href="#page-spread-left">page-spread-left</a></code> プロパティのエイリアスである。</dd>
+<dt id="fxl-page-spread-right"><code>rendition:page-spread-right</code></dt>
+<dd><code>rendition:page-spread-right</code> プロパティは、<code><a href="#page-spread-right">page-spread-right</a></code> プロパティのエイリアスである。</dd>
+</dl>
+<p><code>rendition:page-spread-left</code> プロパティは、指定されたスパイン項目が見開きの左手側のスロットでレンダリングされるべきであり（SHOULD）、<code>rendition:page-spread-right</code> は、右手側のスロットでレンダリングされるべきである（SHOULD）ことを示している。<code>rendition:page-spread-center</code> プロパティは、合成見開きモードは、上書きされると、単一のビューポートは、画面の中央でレンダリングされ、配置されるべきである（SHOULD）ことを示している。</p>
+<p><code>rendition:page-spread-left</code> と <code>rendition:page-spread-right</code>、<code>rendition:page-spread-center</code> プロパティはページ区切りコンテンツとリフロー可能なコンテンツの両方に適用され、それらはリーディング システムが合成見開きを生成するときのみ適用する。</p>
+<p><code>rendition:page-spread-*</code> プロパティは、<a>XHTML コンテンツ ドキュメント</a>のために設定された <a href="https://www.w3.org/TR/CSS2/page.html#propdef-page-break-before"><code>page-break-before</code> プロパティ</a> [[!CSSSnapshot]] のどの値よりも優先的する。</p>
+<div class="note">
+<p><code>rendition:page-spread-center</code> の存在はビューポートの寸法を変更しないことに注意されたい。特に、それは全体の見開きの大きさを持つビューポートを作成する必要があることを示すものではない。重要なのは倍率が通常のページと中央見開きページの間で一致し続けることである。</p>
+</div>
+<p><a href="#def-layout-reflowable">リフロー可能な</a>スパイン項目が、<a href="#def-layout-pre-paginated">ページ区切り</a>に続くとき、リフロー可能なそのスパイン項目は、<code>rendition:page-spread-*</code> プロパティ値が欠けているとき、（<a href="#attrdef-spine-page-progression-direction"><code>page-progression-direction</code></a> によって定義されている）次のページから開始するべきである（SHOULD）。リフロー可能なスパイン項目が <code>rendition:page-spread-*</code> 仕様を含んでいるなら、それは（空白ページを挿入するなどして）尊重しなれなければならない（MUST）。</p>
+<p>同様に、ページ区切りのスパイン項目が、リフロー可能なスパイン項目に続くとき、ページ区切りのスパイン項目は、<code>rendition:page-spread-*</code> プロパティ値が欠けているとき、（<code>page-progression-direction</code> によって定義されている）次のページから開始するべきである（SHOULD）。ページ区切りのスパイン項目が <code>rendition:page-spread-*</code> 仕様を含んでいるなら、それは（空白ページを挿入するなどして）尊重しなれなければならない（MUST）。</p>
+<p>製作者はしばしば、（すなわち、2ページ構成の地図のような、読みやすくするために並んでレンダリングされている二つの連続するページなど）特定のデバイスの向きにおいて見開きを使用するために示すとはいえ、コンテンツ自身は、真に見開きを表現するものではない。二つの隣接するページが、真に見開きを表現することを示すために、製作者は、二つの隣接する EPUB コンテンツ ドキュメントのため、スパイン項目にある <code>rendition:page-spread-left</code> と <code>rendition:page-spread-right</code> プロパティを使用するべきであり（SHOULD）、そして、1ページだけまたは2ページの見開きが等しい条件を満たしている場合には、スパイン項目にあるプロパティを省略する。リーディング システムが、真に見開きを表す二つのスパイン項目と遭遇したとき、それは、隣接するページ間のスペースを入れずに見開きを作成するべきである（SHOULD）。</p>
+<p>ひとつの <code>page-spread-*</code> プロパティのみが、任意の特定されたスパイン項目に宣言することができる。</p>
+<div class="note" id="note-page-spread-aliases">
+<p><code>rendition:page-spread-left</code> と <code>rendition:page-spread-right</code> プロパティは、<a href="#page-spread-left"><code>page-spread-left</code></a> と <a href="#page-spread-right"><code>spread-right</code></a> プロパティの別名である。それらは、全ての固定レイアウト プロパティのために単一の語彙で使用することができる。製作者はいずれかのプロパティ セットを使用できるが、古いリーディング システムは、プリフィックスのないバージョンのみ認識するかもしれない。<a href="#app-itemref-properties-vocab">EPUB Spine Properties Vocabulary</a> はもはや、パッケージをレンダリングするメタデータとして拡張されていないため、プリフィックスの無い <code>page-spread-center</code> は、利用できない。</p>
+</div>
+</section>
+<section id="page-spread-examples">
+<h5>例</h5>
+<aside class="example" id="fxl-ex5">
+<p>次の例は、2ページの固定レイアウトのセンタープレートを持つリフロー可能なコンテンツが、任意のデバイスの向きで合成見開きを使用してレンダリングされることを意図している。<code>rendition:spread</code> のグローバル値は、初期設定の <code>auto</code> に初期化されるので、製作者は、<a>レンディション</a>が未定義の他の（リフロー可能な）部分の動作は見開きのままになることに注意されたい。</p>
+<pre>&lt;spine page-progression-direction="ltr"&gt;
+    …
+    &lt;itemref idref="center-plate-left"
+             properties="rendition:spread-both rendition:page-spread-left"/&gt;
+    &lt;itemref idref="center-plate-right"
+             properties="rendition:spread-both rendition:page-spread-right"/&gt;
+    …
+&lt;/spine&gt;</pre>
+</aside>
+<aside class="example" id="fxl-ex6">
+<p>次の例は、合成見開きは、使用するとき、センタープレートのために無効にする完全な固定レイアウトのコンテンツを示している。<code>rendition:page-spread-center</code> プロパティが、既に合成見開きを無効することを指示するセマンティクスを指定しているように、<code>rendition:spread</code> 宣言の <code>none</code> 表現は、センタープレート項目に必要でないことに注意されたい。</p>
+<pre>&lt;metadata&gt;
+    &lt;meta property="rendition:layout"&gt;pre-paginated&lt;/meta&gt;
+    &lt;meta property="rendition:spread"&gt;auto&lt;/meta&gt;
+&lt;/metadata&gt;
+&lt;spine&gt;
+    &lt;itemref idref="center-plate" properties="rendition:page-spread-center"/&gt;
+&lt;/spine&gt;</pre>
+</aside>
+</section>
+</section>
+<section id="viewport">
+<h4><code>rendition:viewport</code> プロパティ（非推奨）</h4>
+<p><code>rendition:viewport</code> プロパティは、<code>rendition:layout</code> プロパティに、<code>pre-paginated</code> が設定されている XHTML 及び SVG コンテンツ ドキュメントのCSS 初期包含ブロック（ICB）[[!CSS21]] を表現することを<a>製作者</a>に許可する。</p>
+<p>プロパティの使用は、非推奨（<a href="epub-spec.html#deprecated">deprecated</a>）である。詳細の情報は、[[!Publications301]] の定義を参照されたい。</p>
+</section>
+</section>
+</section>
+</section>
+<section id="sec-package-nav">
+<h1>EPUB ナビゲーション ドキュメント</h1>
+<section id="sec-package-nav-intro" class="informative">
+<h2>まえがき</h2>
+<p>EPUB ナビゲーション ドキュメントは、<a>EPUB パッケージ</a>の<a href="#sec-package-conformance-nav">必須の構成要素</a> である。それは、人間と機械が可読可能なグロバール ナビゲーション レイヤーを包含するメカニズムを<a>製作者</a>に提供し、それによりユーザーへユーザビリティとアクセシビリティの増大を確保する。</p>
+<p>EPUB ナビゲーション ドキュメントは、<a>XHTML コンテンツ ドキュメント</a>の適合で、<a href="#confreq-cd-nav-docprops-parent">定義上</a>、妥当な XHTML コンテンツ ドキュメントのインスタンスである。XHTML コンテンツ ドキュメントに適用する全てのコンテンツとリーディング システムの適合性要件は、EPUB ナビゲーション ドキュメントもまた適用される。</p>
+<p>この適応のナビゲーション機能は、[[HTML]] <a href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code></a> 要素の特殊性を通じて表現されている。EPUB ナビゲーション ドキュメント内の各 <code>nav</code> 要素は、リーディング システムがナビゲーションの情報を取り出すことができるデータアイランド（一般的なマークアップ内の専門化した情報を埋め込んだソース）を意味する。一般的な XML データアイランドとは異なるが、<code>nav</code> 要素内の情報は [[HTML]] 文書のように人間が可読可能なままである。</p>
+<p>機械可読を容易にするために、EPUB ナビゲーション ドキュメント内の <code>nav</code> 要素のコンテンツモデルは、一般的な XHTML コンテンツ ドキュメントで許可される基準に制限される。</p>
+<p>EPUB ナビゲーション ドキュメントは、機械処理専用でないことに注意されたい。XHTML コンテンツ ドキュメントなどのドキュメントを策定することは、追加の目次を作成することを回避し、直線的な読書の順番に再利用可能である（すなわち、<a href="#elemdef-opf-spine">スパイン</a>に追加することも可能である）。EPUB ナビゲーション ドキュメント内で定義されたコンポーネントの視覚的な表示は、<a href="#sec-package-nav-def-hidden">hidden</a> 属性を使用することでコントロールでき、スパインのレンダリングの外部に影響を与えない（すなわち、スパインのレンダリングから非表示にされたコンポーネントは、独自コントロールにおけるリーディング システムの表示からそれが隠されることはない）。</p>
+<p>このような二重の利用のために EPUB ナビゲーション ドキュメントを設計する際は、また一方で、コンテンツの機械抽出は、書式の制御が失われる結果になることに注意されたい。スクリプトやスタイリング、他の HTML 書式は、マークアップから、目次などの独自コントロールの生成するとき、リーディング システムによって取り除かれることができる。このような書式や機能を使用するなら、そのとき、EPUB ナビゲーション ドキュメントもまた、直線的な読書の順番に包含される必要がある。他の設計上の考慮事項は、ブラウザ以外のコンテクストで表示された時に、コンテンツが完全性を保つように、ナビゲーション ドキュメントのスクリプトやスタイリングのために<a href="epub-contentdocs.html#confreq-cd-scripted-spine">プログレッシブ エンハンスメント</a> [[ContentDocs32]] の技術を使用することである。</p>
+</section>
+<section id="sec-package-nav-content-conf">
+<h2>コンテンツの適合性</h2>
+<p>適合する <a>EPUB ナビゲーション ドキュメント</a>は、次の基準を全て満たさなければならない（MUST）。</p>
+<dl class="conformance-list">
+<dt id="confreq-cd-nav-docprops">ドキュメントのプロパティ</dt>
+<dd>
+<p id="confreq-cd-nav-docprops-parent"><a href="epub-contentdocs.html#sec-xhtml-conf-content">XHTML コンテンツ ドキュメント — コンテンツの適合性</a> [[!ContentDocs32]] に定義された <a>XHTML コンテンツ ドキュメント</a>のコンテンツの適合性の制約に従わなければならない（MUST）。</p>
+<p id="confreq-cd-nav-docprops-schema"><a href="#sec-package-nav-def">EPUB ナビゲーション ドキュメントの定義</a>で定義されている EPUB ナビゲーション ドキュメントのために、固有のコンテンツの適合性の制約に適合しなければならない（MUST）。</p>
+<p id="confreq-cd-nav-docprops-spine">適合している XHTML コンテンツ ドキュメントとして、それは<a href="#sec-spine-elem">スパイン</a>に包含してもよい（MAY）。</p>
+</dd>
+</dl>
+</section>
+<section id="sec-package-nav-rs-conf">
+<h2>リーディング システムの適合性</h2>
+<p>適合する <a>EPUB リーディング システム</a>は、<a>EPUB ナビゲーション ドキュメント</a>の処理のための次の基準を全て満たさなければならない（MUST）。</p>
+<ul class="conformance-list">
+<li>
+<p id="confreq-nav-access">ユーザーが要求したとき、リンクの有効化をユーザーに許可する方法で、EPUB ナビゲーション ドキュメントの <a href="#sec-package-nav-def-types">nav 要素</a>内のリンクとリンクラベルのアクセスを提供しなければならない（MUST）。</p>
+</li>
+<li>
+<p id="confreq-nav-activation">リンクが有効なとき、リンクによって識別された目的地へ、アプリケーションの現在の読み取り位置を再配置しなければならない（MUST）。</p>
+</li>
+<li>
+<p id="confreq-nav-spine">EPUB ナビゲーション ドキュメントが<a href="#sec-spine-elem">スパイン</a>の一部かどうかに関係なく上記の必要条件を守らなければならない（MUST）。</p>
+</li>
+</ul>
+</section>
+<section id="sec-package-nav-def">
+<h2>EPUB ナビゲーション ドキュメントの定義</h2>
+<section id="sec-package-nav-def-model">
+<h3><code>nav</code> 要素：制限</h3>
+<p><code>nav</code> 要素が、<a>EPUB ナビゲーション ドキュメント</a>に <a href="epub-contentdocs.html#sec-epub-type-attribute"><code>epub:type</code> 属性</a> [[!ContentDocs32]] を含むとき、この仕様は、要素のコンテンツ モデルの制約と次のような子孫を持つ。</p>
+<dl class="elemdef">
+<dt>コンテンツ モデル</dt>
+<dd>
+<dl class="variablelist">
+<dt><a href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code></a></dt>
+<dd>
+<p>この順で：</p>
+<ul class="nomark">
+<li>
+<p><a href="https://www.w3.org/TR/html/dom.html#heading-content"><code>HTML Heading content</code></a> <code>[0または1]</code></p>
+</li>
+<li>
+<p><code>ol</code> <code>[正確にひとつ]</code></p>
+</li>
+</ul>
+</dd>
+<dt><a href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"><code>ol</code></a></dt>
+<dd>
+<p>この順で：</p>
+<ul class="nomark">
+<li>
+<p><code>li</code> <code>[ひとつ以上]</code></p>
+</li>
+</ul>
+</dd>
+<dt><a href="https://www.w3.org/TR/html/grouping-content.html#the-li-element"><code>li</code></a></dt>
+<dd>
+<p>この順で：</p>
+<ul class="nomark">
+<li>
+<p> (<code>span</code> または <code>a</code>) <code>[正確にひとつ]</code></p>
+</li>
+<li>
+<p><code>ol</code> <code>[条件付きで必須]</code></p>
+</li>
+</ul>
+</dd>
+<dt><a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-span-element"><code>span</code></a> と <a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"><code>a</code></a></dt>
+<dd>
+<p>任意の順で：</p>
+<ul class="nomark">
+<li>
+<p><a href="https://www.w3.org/TR/html/dom.html#phrasing-content"><code>HTML Phrasing content</code></a> <code>[ひとつ以上]</code></p>
+</li>
+</ul>
+</dd>
+</dl>
+<p>これらの要素に許可された属性には制限がないことに注意されたい。</p>
+<p>追加要件については、以下の定義を参照されたい。</p>
+</dd>
+</dl>
+<p><code>nav</code> 要素のコンテンツ モデルは、次のように解釈される。</p>
+<ul class="conformance-list">
+<li>
+<p id="confreq-nav-ol"><code>nav</code> 要素の子 <code>ol</code> は、コンテンツ ナビゲーションの主要なレベルを表現する。</p>
+</li>
+<li>
+<p id="confreq-nav-a">各順序付きリストのリスト項目は、見出しや構造、関心のある他の一覧を表現する。<code>a</code> 要素は、リンクの位置へのターゲットを表現すし、<code>span</code> 要素は、（例えば、イラストの大きなリストは、それぞれの章ためにひとつなど、いくつかのリストに分割できる）異なるグループの分類リストのための見出しとして機能する。</p>
+</li>
+<li>
+<p id="confreq-nav-a-cnt"><code>a</code> または <code>span</code> 要素は、空白化規則の全ての子コンテンツとアプリケーションの連結した後に非ゼロ長のテキスト ラベルを提供しなければならない（MUST）。非テキストの子孫要素は、ユーザーに階層をレンダリングされてもよいが（MAY）、<code>title</code> または <code>alt</code> 属性を含むテキスト コンテンツは、この要件への準拠を決定するときに使用されなければならない（MUST）。</p>
+</li>
+<li>
+<p id="confreq-nav-a-title"><code>a</code> 要素を固有のテキスト代替手段が提供されない <a href="https://www.w3.org/TR/html/dom.html#embedded-content">HTML 埋め込みコンテンツ</a>のインスタンスに含む場合、その要素はリンク ラベルの代替のテキスト レンダリングを持った <code>title</code> 属性をも包含しなければならない（MUST）。</p>
+</li>
+<li>
+<p id="confreq-nav-a-href"><code>a</code> 要素の <code>href</code> 属性で提供される IRI の参照は、次の要件を確実に実行しなければならない（MUST）。</p>
+<ul>
+<li>
+<p id="confreq-nav-a-href-default"><a href="#sec-nav-toc"><code>toc nav</code></a> と <a href="#sec-nav-landmarks"><code>landmarks nav</code></a>、<a href="#sec-nav-pagelist"><code>page-list nav</code></a> については、その中で<a>トップレベル コンテンツ ドキュメント</a>またはフラグメントの解決しなければならない（MUST）。</p>
+</li>
+<li>
+<p id="confreq-nav-a-href-other">他の全ての <code>nav</code> タイプのために、出版物リソースや、<a data-lt="Local Resource">ローカル</a>または<a>リモート リソース</a>であるかにかかわらず、任意のリソースを参照してもよい（MAY）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="confreq-nav-a-nest"><code>a</code> 要素は、見出しの以下に補助的なコンテンツ レベル（例えば、全ての章の小区分の見出し）を表現する <code>ol</code> 順番付きリストが続いてもよい（MAY）。</p>
+</li>
+<li>
+<p id="confreq-nav-span-nest"><code>span</code> 要素は、<code>ol</code> 順番付きリストが続かなければならず（MUST）、それは、“葉”の <code>li</code> 要素に使用することはできない。</p>
+</li>
+<li>
+<p id="confreq-nav-sublist"><code>a</code> または <code>span</code> 要素をその前に置くするかどうかにかかわらず、全てのサブリストは、主要なナビゲーションリスト構成するためにこの章で定義されているコンテンツの必要条件を準拠しなければならない（MUST）。</p>
+</li>
+</ul>
+<p>EPUB 仕様は、EPUB ナビゲーション ドキュメント内の <code>nav</code> 要素に上記で定義されたコンテンツ モデル上のさらなる制限を示してもよい（MAY）。</p>
+<aside class="example">
+<p>次の例は、ナビゲーション要素の基本的なパターンを示している。</p>
+<pre>&lt;nav epub:type="…"&gt;
+  &lt;h1&gt;…&lt;/h1&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      &lt;a href="chap1.xhtml"&gt;A basic leaf node&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="chap2.xhtml"&gt;A linked heading&lt;/a&gt;
+      &lt;ol&gt;
+        …
+      &lt;/ol&gt;
+    &lt;li&gt;
+      &lt;span&gt;An unlinked heading&lt;/span&gt;
+      &lt;ol&gt;
+        …
+      &lt;/ol&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+</pre>
+</aside>
+<p id="confreq-nav-ol-style">この仕様のコンテクストでは、<code>nav</code> 要素内にあるリスト項目の標準の表示スタイルは、<a href="https://www.w3.org/TR/CSS2/generate.html#propdef-list-style"><code>list-style: none</code> プロパティ</a> [[!CSSSnapshot]] と同等でなければならない（MUST）。リーディング システムは、CSS のサポートに関わらず、スパインの外側にあるナビゲーション ドキュメントを表現するとき、これらのリストに、リスト項目の番号を表示してはならない（MUST NOT）。<a>製作者</a>は、<a href="#sec-spine-elem"><code>spine</code></a> のドキュメントを表示するために、CSS を使用して代替のリストのスタイルを指定してもよい（MAY）。</p>
+</section>
+<section id="sec-package-nav-def-types">
+<h3><code>nav</code> 要素：種類</h3>
+<section id="sec-package-nav-def-types-intro" class="informative">
+<h4>まえがき</h4>
+<p>EPUB ナビゲーション ドキュメントで定義されている <code>nav</code> 要素は、それらの <a href="epub-contentdocs.html#sec-epub-type-attribute"><code>epub:type</code> 属性</a> [[ContentDocs32]] の値によって意味的に識別される。</p>
+<p>この仕様は、ナビゲーションを補助する三つの型を定義する。</p>
+<dl class="variablelist">
+<dt><a href="#sec-nav-toc"><code>toc</code></a></dt>
+<dd>
+<p>目次を含む <code>nav</code> 要素を識別する。<code>toc</code> <code>nav</code> は、EPUB ナビゲーション ドキュメントに包含される必要がある、最良のナビゲーション支援である。</p>
+</dd>
+<dt><a href="#sec-nav-pagelist"><code>page-list</code></a></dt>
+<dd>
+<p>印刷物や <a>EPUB 出版物</a>の他の静的にページ分割されたソースのページの一覧を含む <code>nav</code> 要素を識別する。</p>
+</dd>
+<dt><a href="#sec-nav-landmarks"><code>landmarks</code></a></dt>
+<dd>
+<p>POI の一覧を含む <code>nav</code> 要素を識別する。</p>
+</dd>
+</dl>
+<p>追加のナビゲーション型は、EPUB ナビゲーション ドキュメントに包含することができる。詳細は、<a href="#sec-package-nav-def-types-other">他 <code>nav</code> 要素</a>を見よ。</p>
+</section>
+<section id="sec-nav-toc">
+<h4><code>toc nav</code> 要素</h4>
+<p><code>toc</code> <code>nav</code> 要素は、特定の<a>レンディション</a>の主要なナビゲーションの階層を定義している。それは概念的に印刷物の目次に相当する（すなわち、それは出版物の主要な構造セクションへのナビゲーションを提供する）。</p>
+<p><code>toc</code> <code>nav</code> 要素内の参照は、両方を反映するような順序でなければならない（MUST）。</p>
+<ul>
+<li>
+<p><a>スパイン</a>内の<a href="#confreq-nav-a-href">参照された EPUB コンテンツ ドキュメント</a>の順序で、</p>
+</li>
+<li>
+<p>それぞれの EPUB コンテンツ ドキュメント内のターゲットとされた要素の順序。</p>
+</li>
+</ul>
+<p><code>toc</code> <code>nav</code> 要素は、EPUB ナビゲーション ドキュメント内に必ずひとつは発生しなければならない（MUST）。</p>
+</section>
+<section id="sec-nav-pagelist">
+<h4>><code>page-list nav</code> 要素</h4>
+<p><code>page-list</code> <code>nav</code> 要素は、<a>EPUB 出版物</a>により表現される印刷物ソース内に存在するページの境界の位置に相当するコンテンツの位置へのナビゲーションを提供する。</p>
+<p><code>page-list</code> <code>nav</code> 要素は、EPUB ナビゲーション ドキュメント内で省略可能（OPTIONAL）であり、複数発生してはならない（MUST NOT）。</p>
+<p><code>page-list</code> <code>nav</code> 内を参照するページは、<a href="#sec-spine-elem">スパイン</a>の<a href="#confreq-nav-a-href">対象となっている EPUB コンテンツ ドキュメント</a>の順番とそれぞれの EPUB コンテンツ ドキュメント内の各ページの順番の両方に一致するように順序付けられねばならない（MUST）。</p>
+<p><code>page-list</code> <code>nav</code> 要素は、単一の <code>ol</code> 子孫のみに含むべきである（SHOULD）。つまり、ネストされていないリストである。</p>
+<p><code>page-list</code> 参照の目的地は、<a href="http://www.idpf.org/epub/vocab/structure#pagebreak"><code>pagebreak</code> 語彙</a> [[!EPUB-SSV]] を使用して、それぞれの EPUB コンテンツ ドキュメント内で識別されてもよい（MAY）。</p>
+</section>
+<section id="sec-nav-landmarks">
+<h4><code>landmarks nav</code> 要素</h4>
+<p><code class="property">landmarks</code> <code>nav</code> 要素は、ユーザーの効率的なアクセスの提供をリーディング システムが可能にするため、特定の<a>レンディション</a>内の基本的な構造のコンポーネントを識別する。</p>
+<p><a href="epub-contentdocs.html#sec-epub-type-attribute"><code>epub:type</code> 属性</a> [[!ContentDocs32]] は、<code class="property">landmarks</code> <code>nav</code> 要素の子孫 <code>a</code> 要素が必須（REQUIRED）である。<code>landmarks</code> <code>nav</code> 要素内の各リンク対象の構造上の意味論は、この属性の値によって決定される。</p>
+<aside class="example">
+<p>次の例では、[[EPUB-SSV]] から引用された構造上の意味論を持つ <code>landmarks</code> <code>nav</code> 要素を示している。</p>
+<pre>&lt;nav epub:type="landmarks"&gt;
+    &lt;h2&gt;Guide&lt;/h2&gt;
+    &lt;ol&gt;
+        &lt;li&gt;&lt;a epub:type="toc" href="#toc"&gt;Table of Contents&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a epub:type="loi" href="content.html#loi"&gt;List of Illustrations&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a epub:type="bodymatter" href="content.html#bodymatter"&gt;Start of Content&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</pre>
+</aside>
+<p><code>landmarks</code> <code>nav</code> は、同じリソースまたはそのフラグメントを参照する同じ <code>epub:type</code> 値を持つ複数のエントリを包含してはならない（MUST NOT）。</p>
+<p><code>landmarks</code> <code>nav</code> 要素は、EPUB ナビゲーション ドキュメント内で省略可能（OPTIONAL）であり、複数回発生してはならない（MUST NOT）。</p>
+</section>
+<section id="sec-package-nav-def-types-other">
+<h4>他の <code>nav</code> 要素</h4>
+<p>EPUB ナビゲーション ドキュメントは、前のセクションで定義されている <code class="property">toc</code> や <code class="property">page-list</code> 、<code>landmarks</code> <code>nav</code> 要素に加えてひとつ以上の <code>nav</code> 要素を包含してもよい（MAY）。追加の <code>nav</code> 要素は、機械可読可能なセマンティクスを提供する <code>epub:type</code> 属性を持つべきであり（SHOULD）、これらの最初の子として人間が可読可能な見出しを持たなければならない（MUST）。</p>
+<p>この仕様は、任意の追加の <code>nav</code> 要素のセマンティクスに制約を課さない。任意の情報ドメインのためのナビゲーションセマンティクスの表現を使用してもよく（MAY）、同種または異種のセマンティクスでリンク対象を含んでもよい（MAY）。</p>
+<aside class="example">
+<p>次の例は、カスタムの表一覧のナビゲーション要素を示している。</p>
+<pre>&lt;nav aria-labelledby="lot"&gt;
+    &lt;h2 id="lot"&gt;List of tables&lt;/h2&gt;
+    &lt;ol&gt;
+        &lt;li&gt;&lt;span&gt;Tables in Chapter 1&lt;/span&gt;
+            &lt;ol&gt;
+                &lt;li&gt;&lt;a href="chap1.xhtml#table-1.1"&gt;Table 1.1&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href="chap1.xhtml#table-1.2"&gt;Table 1.2&lt;/a&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+    	…
+    &lt;/ol&gt;
+&lt;/nav&gt;</pre>
+</aside>
+</section>
+</section>
+<section id="sec-package-nav-def-hidden">
+<h3><code>hidden</code> 属性</h3>
+<p>いくつかのケースでは、<a>製作者</a>は、コンテンツ フロー（すなわち、<a>スパイン</a> コンテンツのリーディング システムの主要なレンダリング）内のナビゲーションデータの一部を非表示にすることを望むかもしれない。典型的な例は、通常はコンテンツ フローの一部としてレンダリングされるのではなく、その代わりに、ナビゲーション専用のユーザーインターフェースで個別に ユーザーに見えるようにする<a href="#sec-nav-pagelist">改ページのリスト</a>である。</p>
+<p><a href="https://www.w3.org/TR/CSS2/visuren.html#propdef-display"><code>display</code> プロパティ</a> [[!CSSSnapshot]] は、<a>ビューポート</a>を持ったリーディング システムで EPUB ナビゲーション ドキュメントの視覚レンダリングの制御に使用することができるが、全てのリーディング システムが、そのようなインターフェースを提供できるわけではない。全てのリーディング システムを全体でレンダリングの制御をするために、製作者は、（もしあるなら）ナビゲーションデータの一部はコンテンツ フローのレンダリングから排除されていることを示す [[!HTML]] <a href="https://www.w3.org/TR/html/editing.html#the-hidden-attribute"><code>hidden</code></a> 属性を使用しなければならない（MUST）。<code>hidden</code> 属性は、ナビゲーション データがコンテンツ フローの外側（たとえば、リーディング システムによって提供されるナビゲーション専用のユーザー インターフェースなど）でどのようにレンダリングされるかに影響を及ぼさない。</p>
+<aside class="example">
+<p>次の例は、部分的な <code>page-list</code> <code>nav</code> 要素を示す。ルート上に <code>hidden</code> 属性の存在は、全体のリストがコンテンツ フローのレンダリングから除外されることを示している。</p>
+<pre>&lt;nav epub:type="page-list" hidden=""&gt;
+    &lt;h2&gt;Pagebreaks of the print version, third edition&lt;/h2&gt;
+    &lt;ol&gt;
+        &lt;li&gt;&lt;a href="frontmatter.xhtml#pi"&gt;I&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="frontmatter.xhtml#pii"&gt;II&lt;/a&gt;&lt;/li&gt; … &lt;li&gt;&lt;a href="chap1.xhtml#p1"&gt;1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="chap1.xhtml#p2"&gt;2&lt;/a&gt;&lt;/li&gt; … &lt;/ol&gt;
+&lt;/nav&gt;
+</pre>
+</aside>
+<aside class="example">
+<p>次の例は、<code>hidden</code> 属性が二つの最上位の階層レベルをレンダリングするコンテンツ フローの制限をするために使用される部分的な <code>toc</code> <code>nav</code> 要素を示している。</p>
+<pre>&lt;nav epub:type="toc" id="toc"&gt;
+  &lt;h1&gt;Table of contents&lt;/h1&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      &lt;a href="chap1.xhtml"&gt;Chapter 1&lt;/a&gt;
+      &lt;ol&gt;
+        &lt;li&gt;
+          &lt;a href="chap1.xhtml#sec-1.1"&gt;Chapter 1.1&lt;/a&gt;
+          &lt;ol hidden=""&gt;
+            &lt;li&gt;
+              &lt;a href="chap1.xhtml#sec-1.1.1"&gt;Section 1.1.1&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+              &lt;a href="chap1.xhtml#sec-1.1.2"&gt;Section 1.1.2&lt;/a&gt;
+            &lt;/li&gt;
+          &lt;/ol&gt;
+         &lt;/li&gt;
+         &lt;li&gt;
+           &lt;a href="chap1.xhtml#sec-1.2"&gt;Chapter 1.2&lt;/a&gt;
+         &lt;/li&gt;
+       &lt;/ol&gt;
+     &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="chap2.xhtml"&gt;Chapter 2&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+</pre>
+</aside>
+</section>
+</section>
+</section>
+<section class="appendix" id="app-package-schema">
+<h1>パッケージ ドキュメント スキーマ</h1>
+<p>パッケージ ドキュメントのスキーマは <a href="https://w3c.github.io/publ-epub-revision/epub32/schema/package-32.nvdl">https://w3c.github.io/publ-epub-revision/epub32/schema/package-32.nvdl</a> で入手できる。</p>
+<p>このスキーマを使用する検証は [[!NVDL]]、[[!RelaxNG-Schema]]、[[!ISOSchematron]] と [[!XMLSCHEMA-2]] をサポートするプロセッサが必要になる。</p>
+<div class="note">
+<p>単独で埋め込まれた RELAX NG とISO Schematron スキーマを使用しているマルチ・パス検証によって NVDL スキーマ層が代えられることができる点に注意されたい。</p>
+</div>
+</section>
+<section class="appendix informative" id="app-media-type-app-oebps-package">
+<h1><code>application/oebps-package+xml</code> メディア タイプ</h1>
+<p>この付録では EPUB パッケージ ドキュメントのメディア タイプ <code>application/oebps-package+xml</code> を登録する。この登録は [[!RFC4839]] を置き換える。</p>
+<p>パッケージ ドキュメントは EPUB 出版物のレンディションを記述する XML ファイルである。それはレンディション内のリソースを識別し、メタデータの情報を提供する。パッケージ ドキュメントとその関連規格を維持し、W3C’s EPUB 3 Community Group (EPUB3CG) によって定義される。</p>
+<dl class="variablelist">
+<dt>MIME メディア タイプ名:</dt>
+<dd><p><code>application</code></p></dd>
+<dt>MIME サブタイプ名:</dt>
+<dd><p><code>oebps-package+xml</code></p></dd>
+<dt>必須のパラメータ:</dt>
+<dd><p>なし。</p></dd>
+<dt>省略可能なパラメータ:</dt>
+<dd><p>なし。</p></dd>
+<dt>エンコーディングに関する留意事項:</dt>
+<dd><p>パッケージ ドキュメントは UTF-8 または UTF-16 でエンコードされた XML。</p></dd>
+<dt>セキュリティに関する留意事項:</dt>
+<dd><p>パッケージ ドキュメントは、XML1.0 仕様に準拠した整形式の XML が含まれている。</p>
+<p>明らかに、たとえば不正な形式のデータを含む悪意のあるファイルを作ることができる。大部分の XML パーサーは、適合を厳しく実施することによって、そのような発生発作を予防する。</p>
+<p>パッケージ ドキュメントを読む全てのプロセッサは厳密に取得されたデータのサイズと有効性を確認すべきである。</p>
+<p>パッケージ ドキュメントの形式で使用可能な暗号化や署名、認証は EPUB Packages 3.2 規格おいて現在は提供されていない。</p>
+</dd>
+<dt>相互運用性に関する留意事項:</dt>
+<dd><p>なし。</p></dd>
+<dt>発行済の仕様:</dt>
+<dd><p>このメディアタイプの登録は <a href="http://w3c.github.io/publ-epub-revision/epub32/spec/epub-packages.html">http://w3c.github.io/publ-epub-revision/epub32/spec/epub-packages.html</a> にある EPUB Packages 3.2 仕様で記述された EPUB パッケージ ドキュメントのためのものである。</p>
+<p>EPUB Packages 3.2 仕様は <a href="http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm">http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm</a> にある <code class="media-type">application/oepbs-package+xml</code> メディアタイプを使用している Open Packaging Format 2.0.1 を置き換える。</p>
+</dd>
+<dt>このメディア タイプを使用するアプリケーション:</dt>
+<dd><p>このメディアタイプは EPUB フォーマットの電子ブックの配布に広く使用されている。以下のアプリケーションのリストは全てを網羅していない。</p>
+<ul>
+<li><p>Adobe Digital Editions</p></li>
+<li><p>Aldiko</p></li>
+<li><p>Azardi</p></li>
+<li><p>Apple iBooks</p></li>
+<li><p>Barnes &amp; Noble Nook</p></li>
+<li><p>Bluefire Reader</p></li>
+<li><p>Calibre</p></li>
+<li><p>Google Play Books</p></li>
+<li><p>Kobo</p></li>
+<li><p>Microsoft Edge</p></li>
+<li><p>Readium</p></li>
+</ul>
+</dd>
+<dt>追加情報:</dt>
+<dd>
+<dl class="variablelist">
+<dt>マジックナンバー:</dt>
+<dd><p>なし。</p></dd>
+<dt>ファイル拡張子:</dt>
+<dd><p><code>.opf</code></p></dd>
+<dt>Macintosh ファイル タイプ コード:</dt>
+<dd><p>TEXT</p></dd>
+<dt>フラグメント識別子:</dt>
+<dd><p> リンクのスキームのレジストリは、<a class="uri" href="http://www.idpf.org/epub/linking/"><code>http://www.idpf.org/epub/linking/</code></a> で維持される。これらのスキームの一部は <code>application/oebps-package+xml</code> ドキュメントに解決されるカスタム フラグメント識別子を定義する。</p></dd>
+</dl>
+</dd>
+<dt>詳細についての連絡先とメールアドレス:</dt>
+<dd><p>public-epub3@w3.org</p></dd>
+<dt>用途：</dt>
+<dd><p>COMMON</p></dd>
+<dt>著者/改訂管理:</dt>
+<dd><p>発行された仕様は、World Wide Web Consortium の EPUB 3 コミュニティ グループの作業成果物である。 W3C は、この仕様を変更ができる。</p></dd>
+</dl>
+</section>
+<div data-include="vocab/meta-property.html" data-oninclude="fixIncludes" data-include-replace="true"></div>
+<div data-include="vocab/link.html" data-oninclude="fixIncludes" data-include-replace="true"></div>
+<div data-include="vocab/item-properties" data-oninclude="fixIncludes" data-include-replace="true"></div>
+<div data-include="vocab/itemref-properties.html" data-oninclude="fixIncludes" data-include-replace="true"></div>
+<div data-include="acknowledgements.html" data-oninclude="fixIncludes" data-include-replace="true"></div>
+</body>
+</html>
