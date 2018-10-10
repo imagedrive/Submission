@@ -194,7 +194,7 @@
 <p>[[!HTML]] <a href="https://www.w3.org/TR/html/document-metadata.html#the-head-element"><code>head</code></a> 要素がドキュメントのメタデータを含むように、構造的なセマンティクスは、この要素上または意味を持たない任意の子孫に表れる。リーディング システムは、これらのセマンティクスを無視しなければならない（MUST）。</p>
 <h4>例</h4>
 <aside class="example" id="ex.epubtype.note">
-<p>次の例は、序文が、[[!HTML]] <code>section</code> 要素に含まれていることを <code>epub:type</code> 属性でマークアップできる方法を示している。</p>
+<p>次の例は、序文が、[[HTML]] <code>section</code> 要素に含まれていることを <code>epub:type</code> 属性でマークアップできる方法を示している。</p>
 <pre>
 &lt;html … xmlns:epub="http://www.idpf.org/2007/ops"&gt;
     …
@@ -205,7 +205,7 @@
 &lt;/html&gt;</pre>
 </aside>
 <aside class="example" id="ex.epubtype.gloss">
-<p>次の例は、[[!HTML]] の定義リストに用語集のセマンティクスを追加するために用いられる <code>epub:type</code> 属性を示している。</p>
+<p>次の例は、[[HTML]] の定義リストに用語集のセマンティクスを追加するために用いられる <code>epub:type</code> 属性を示している。</p>
 <pre>
 &lt;html … xmlns:epub="http://www.idpf.org/2007/ops"&gt;
     …
@@ -447,7 +447,7 @@
 </section>
 <section id="sec-xhtml-deviations-embed">
 <h4><code>embed</code> 要素</h4>
-<p id="confreq-html-vocab-embed">[[!HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-embed-element"><code>embed</code></a> 要素は、スクリプトをサポートしないリーディング システムのために、フォールバック コンテンツンツを提供するための固有の設備を提供しないので、<a>製作者</a>は、参照されたリソースにスクリプトが包含されているときは、要素の使用が推奨されない。[[!HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-object-element"><code>object</code> 要素</a>は、固有のフォールバック機能を包含するため、代わりに使用できる。</p>
+<p id="confreq-html-vocab-embed">[[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-embed-element"><code>embed</code></a> 要素は、スクリプトをサポートしないリーディング システムのために、フォールバック コンテンツンツを提供するための固有の設備を提供しないので、<a>製作者</a>は、参照されたリソースにスクリプトが包含されているときは、要素の使用が推奨されない。[[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-object-element"><code>object</code> 要素</a>は、固有のフォールバック機能を包含するため、代わりに使用できる。</p>
 </section>
 </section>
 <section id="sec-xhtml-fallbacks">
@@ -929,7 +929,7 @@
 <section id="sec-fxl-overview" class="informative">
 <h2>まえがき</h2>
 <p>このセクションは、<a>パッケージ ドキュメント</a>に <code>pre-paginated</code> として示された <a>EPUB コンテンツ ドキュメント</a>の大きさのプロパティの表現と解釈のための規則を定義する。</p>
-<p>この仕様は、<a href="https://www.w3.org/TR/CSS2/visudet.html#containing-block-details">初期包含ブロック</a> [[!CSS2]] がどのようにリーディング システムの<a>コンテンツ表示領域</a>内に配置されるかを定義しない。</p>
+<p>この仕様は、<a href="https://www.w3.org/TR/CSS2/visudet.html#containing-block-details">初期包含ブロック</a> [[CSS2]] がどのようにリーディング システムの<a>コンテンツ表示領域</a>内に配置されるかを定義しない。</p>
 <div class="note">
 <p>ページ分割された様式（つまり、固定の幅や高さの大きさを持つ）でレンダリングされる<a>レンディション</a>または個々のスパイン項目を指定する方法についての情報は<a href="epub-packages.html#sec-package-metadata-fxl">固定レイアウト プロパティ</a> [[Packages32]] を参照されたい。</p>
 </div>
@@ -1063,7 +1063,7 @@
 <h1>JavaScript <dfn>epubReadingSystem</dfn> オブジェクト</h1>
 <section id="app-ers-idl">
 <h2>インターフェースの定義</h2>
-<p>この仕様は、次のように、[[!HTML]] <dfn>ナビゲーション</dfn> オブジェクトを拡張する。</p>
+<p>この仕様は、次のように、[[!HTML]] <dfn>Navigator</dfn> オブジェクトを拡張する。</p>
 <pre class="idl">[Exposed=(Window)]
 interface EpubReadingSystem {
     [Unforgeable] readonly attribute DOMString name;
