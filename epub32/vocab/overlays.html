@@ -1,0 +1,169 @@
+<section id="app-overlays-vocab" class="vocab">
+<h1>メディア オーバーレイのメタデータ語彙</h1>
+
+<section id="elemdef-opf-meta-overview">
+<h2>概要</h2>
+
+<section id="overlays-vocab-about" class="informative">
+<h3>この語彙について</h3>
+
+<p>この語彙のプロパティは、<a href="epub-packages.html#sec-meta-elem"><code>meta</code> 要素</a>の <code>property</code> 属性 [[Packages32]] で使用できる。</p>
+</section>
+
+<section id="overlays-vocab-ref">
+<h3>参照</h3>
+
+<p>この語彙を参照するためのベース IRI は、<code>http://www.idpf.org/epub/vocab/overlays/#</code> である。</p>
+
+<p>プリフィックス「<code>media:</code>」は、この語彙にあるプロパティを持つ [[!Packages]] で<a href="epub-packages.html#sec-metadata-reserved-prefixes">使用するために予約済み</a>であり、パッケージ ドキュメントで宣言する必要はない。</p>
+</section>
+</section>
+<section id="sec-meta-property-values">
+<h2>メディア オーバーレイ プロパティ</h2>
+
+<section id="sec-active-class">
+<h3>active-class</h3>
+
+<table id="active-class">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>active-class</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>現在再生中の EPUB コンテンツ ドキュメントの要素に適用する製作者定義の CSS クラス名。</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;meta property="media:active-class"&gt;-epub-media-overlay-active&lt;/meta&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-duration">
+<h3>duration</h3>
+
+<table id="duration">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>duration</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>プレゼンテーション全体又は特定のメディア オーバーレイの持続時間。指定の持続時間は、オーサリング時に知られている音声クリップを考慮し、外部リソース又は合成音声のライブ ストリーミングは除く。</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>クロック値。<p>[[!SMIL3]] <a href="http://www.w3.org/TR/SMIL/smil-timing.html#q22">clock value</a> でなければならない（MUST）。</p>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>既知の<span class="phrase"><a href="epub-spec.html#dfn-rendition" >レンディション</a></span>及び各メディア オーバーレイに対して厳密にひとつ。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;meta property="media:duration"&gt;1:36:20&lt;/meta&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-narrator">
+<h3>narrator</h3>
+
+<table id="narrator">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>narrator</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>ナレーターの名前。</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0個以上</code>
+</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;meta property="media:narrator"&gt;Joe Speaker&lt;/meta&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="sec-playback-active-class">
+<h3>playback-active-class</h3>
+
+<table id="playback-active-class">
+<tbody>
+<tr>
+<th>名前：</th>
+<td>
+<code>playback-active-class</code>
+</td>
+</tr>
+<tr>
+<th>概要：</th>
+<td>再生中に、EPUB コンテンツ ドキュメントのドキュメント要素に適用する製作者定義の CSS クラス名。</td>
+</tr>
+<tr>
+<th>許可された値：</th>
+<td>
+<code>xsd:string</code>
+</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td>
+<code>0 又は 1</code>
+</td>
+</tr>
+<tr>
+<th>例：</th>
+<td>
+<code>&lt;meta property="media:playback-active-class"&gt;-epub-media-overlay-playing&lt;/meta&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
