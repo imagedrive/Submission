@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>EPUB Media Overlays 3.2（日本語訳）（2018年9月25日版）</title>
+<script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/confreq-permalinks.js" class="remove"></script>
+<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/copyright.js" class="remove"></script>
+<link href="https://w3c.github.io/publ-epub-revision/epub32/spec/common/css/common.css" rel="stylesheet" type="text/css" />
+<script class="remove">
+          var respecConfig = {
+              wg: "EPUB 3 Community Group",
+              wgURI: "https://www.w3.org/community/epub3/",
+              wgPublicList: "public-epub3",
+              specStatus: "CG-DRAFT",
+              noRecTrack: true,
+              shortName: "epub-mediaoverlays",
+              prevRecURI: "https://www.idpf.org/epub/31/spec/mediaoverlays-20170105.html",
+              edDraftURI: "https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html",
+              copyrightStart: "1999",
+              editors: [
+                  {
+                      name: "Marisa DeMeglio",
+                      company: "DAISY Consortium",
+                      companyURL: "https://www.daisy.org"
+                  },
+                  {
+                      name: "Daniel Weck",
+                      company: "DAISY Consortium",
+                      companyURL: "https://www.daisy.org"
+                  }
+              ],
+              processVersion: 2017,
+              includePermalinks: true,
+              permalinkEdge:     true,
+              permalinkHide:     false,
+              diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+			  github:			 {
+				  repoURL: "https://github.com/w3c/publ-epub-revision",
+				  branch: "master"
+			  },
+              localBiblio: biblio,
+              preProcess: [fixDefinitionCrossrefs, addConformanceLinks],
+              postProcess: [fixCopyright]
+          };
+</script>
+</head>
+<body>
+<section id="abstract">
+<p>この仕様は、EPUB コンテンツ ドキュメントと同期した音声の表現のために、[[SMIL3]] (Synchronized Multimedia Integration Language)、<a>パッケージ ドキュメント</a>、CSS スタイル シート及び <a data-lt="EPUB Content Documents">EPUB® コンテンツ ドキュメント</a>の使用法を定義する。</p>
+<p>メディア オーバーレイによって可能となるテキストとオーディオの同期により、伝統的な本のテキストを辿るのが困難な全てのユーザーへ、強化されたアクセシビリティを提供する。メディア オーバーレイはまた、伝統的なオーディオ埋め込み技術では不可能な、何らかの理由でテキストを読み取ることができない読者に対して、継続的なリスニング体験を提供する。これらは、（例えば、語学学習や商用オーディオブックの読解など）伝統的にアクセシビリティの問題を考慮されていない目的のためにも有用である。</p>
+<p>この仕様は、XML や Web 標準に基づいたデジタル出版物の交換や配信形式であり、EPUB 3 [[EPUB32]] を構成する<a href="epub-spec.html#sec-intro-epub-specs">仕様群</a>のひとつである。 この仕様は EPUB 3 を構成する以下の他の仕様と共に読み、理解することになっている：</p>
+<p>この仕様と前身の多くの相違については [[EPUB32Changes]] を参照されたい。</p>
+</section>
+<section id="sotd"></section>
+<section id="sec-introduction">
+<h1>前置き</h1>
+<section id="sec-overview-relationship" class="informative">
+<h2>他の使用との関連性</h2>
+<section id="d46451e218">
+<h3>SMIL との関連性</h3>
+<p>この仕様は、<a href="#sec-overlays-def">メディア オーバーレイ ドキュメントの定義</a>で定義された EPUB メディア オーバーレイの要素と属性の派生元である [[SMIL3]] のサブセットに依存する。</p>
+</section>
+</section>
+<section id="sec-terminology">
+<h2>用語</h2>
+<p>EPUB 3 固有の意味を持つ用語は、このドキュメント（例えば、「製作者」、「リーディング システム」）に利用できる。これらの<a href="epub-spec.html#sec-terminology">用語と定義</a>の完全なリストは、[[!EPUB32]] で提供されている。</p>
+<p>セクションにある用語の最初のインスタンスのみが、その定義にリンクされる。</p>
+</section>
+<section id="conformance"></section>
+<section id="sec-overview-nspfx">
+<h2>名前空間プレフィックスのマッピング</h2>
+<p>便宜上、明示的に宣言することなく、次の名前空間プレフィックス [[!XML-NAMES]] はこの仕様で使用される。これらのプレフィックスのいずれかを使用するには、宣言が必須（REQUIRED）である。</p>
+<table class="mapping">
+<tr>
+<th>prefix</th>
+<th>URI</th>
+</tr>
+<tr>
+<td>
+<code>epub</code>
+</td>
+<td>
+<code>http://www.idpf.org/2007/ops</code>
+</td>
+</tr>
+</table>
+</section>
+</section>
+<section id="sec-media-overlays-document-definition">
+<h1>メディア オーバーレイ ドキュメントの定義</h1>
+<section id="sec-overlays-introduction" class="informative">
+<h2>前置き</h2>
+<p>同期された音声ナレーションは、主要な電子書籍、教材、印刷物を読むことのできない人向けにフォーマットされた電子書籍が含まれる。EPUB 3 では、これらの種類の本は録音済み音声ナレーションのタイミングや、それを EPUB コンテンツ ドキュメントのマークアップにどう関係付けるかを記述するためにメディア オーバーレイ ドキュメントを用いて作成される。メディア オーバーレイのファイル形式は、XML でマルチメディア情報を同期表現する W3C 勧告の [[SMIL3]] のサブセットで定義される。</p>
+<p>メディア オーバーレイの機能は、機能をサポートしていない <a>EPUB リーディング システム</a>に対して無視するよう設計されている。EPUB 出版物にメディア オーバーレイを包含することは、あたかもメディア オーバーレイが存在しないかのように EPUB 出版物を表示するメディア オーバーレイに非対応のリーディング システムの能力に影響を与えない。</p>
+<p>この仕様の将来のバージョンは動画メディアをサポート（例えばテキストと手話を同期する本）するかもしれないが、現バージョンは EPUB コンテンツ ドキュメントに含まれる音声メディアの同期のみサポートする。</p>
+</section>
+<section id="sec-overlays-content-conf">
+<h2>コンテンツの適合性</h2>
+<p><a>メディア オーバーレイ ドキュメント</a>は次の条件を全て満たしていなければならない（MUST）：</p>
+<dl class="conformance-list">
+<dt id="confreq-mo-docprops">ドキュメントのプロパティ</dt>
+<dd>
+<p id="confreq-mo-xml"><a href="epub-spec.html#sec-xml-constraints">XML 適合性</a> [[EPUB32]] で定義された XML 文書の適合性の制約を満たしていなければならない（MUST）。</p>
+<p id="confreq-mo-docprops-schema"><a href="#app-overlays-schema">付録 A, <em>メディア オーバーレイのスキーマ</em></a>で定義されているメディア オーバーレイのスキーマに対して妥当であること、および<a href="#sec-overlays-def">メディア オーバーレイ ドキュメントの定義</a>で表現される全てのコンテンツの適合性の制約に準拠しなければならない（MUST）。</p>
+<p id="confreq-mo-docprops-structure"><a href="#sec-media-overlays-structure">構造</a>で提示されたように、関連付けられている <a>EPUB コンテンツ ドキュメント</a>の構造を反映しなければならない（MUST）。</p>
+<p id="confreq-mo-docprops-references">ひとつ以上の EPUB コンテンツ ドキュメントを参照してもよい（MAY）が、EPUB コンテンツ ドキュメントは、ひとつ以上のメディア オーバーレイ ドキュメントによって参照されてはならない（MUST NOT）。</p>
+<p id="confreq-mo-docprops-embed"><a href="epub-spec.html#dfn-author">製作者</a>は、<a href="#sec-audio-video">埋め込まれたメディア</a>で述べられているとおり、EPUB コンテンツ ドキュメントに埋め込まれた音声とビデオをコントロールする記述の使用を避けるべきである（SHOULD）。</p>
+<p id="confreq-mo-docprops-semantics"><a href="#sec-docs-semantic-inflection">意味の変化</a>に記載されているとおり、適切なセマンティック マークアップを使うべきである（SHOULD）。</p>
+<p id="confreq-mo-docprops-package"><a>EPUB 出版物</a>は、<a href="#sec-docs-package">パッケージング</a>に示されるようにパッケージしなければならない（MUST）。</p>
+</dd>
+<dt id="confreq-mo-fileprops">ファイル プロパティ</dt>
+<dd>
+<p id="confreq-mo-fileprops-name">メディア オーバーレイ ドキュメントのファイル名はファイル拡張子 <code class="filename">.smil</code> を使用すべきである（SHOULD）。</p>
+</dd>
+</dl>
+</section>
+<section id="sec-overlays-rs-conf">
+<h2>リーディング システムの適合性</h2>
+<p><a>EPUB リーディング システム</a>のメディア オーバーレイのサポートは省略可能（OPTIONAL）である。メディア オーバーレイをサポートしているリーディング システムは次の条件を全て満たしていなければならない（MUST）</p>
+<ul class="conformance-list">
+<li>
+<p id="confreq-rs-package-def">メディア オーバーレイ ドキュメントは、<a href="#sec-overlays-def">メディア オーバーレイ ドキュメントの定義</a>で表現される全てのリーディング システムの適合性の制約に準拠して処理しなければならない（MUST）。</p>
+<p id="confreq-rs-xhtml-svg"><a>XHTML コンテンツ ドキュメント</a>をサポートしなければならず（MUST）、<a>SVG コンテンツ ドキュメント</a>をサポートしてもよい（MAY）。</p>
+<p id="confreq-rs-render">メディア オーバーレイの要素は、<a href="#sec-behaviors-playback">基本的な再生</a>に記載されているようにレンダリングしなければならない（MUST）。</p>
+<p id="confreq-rs-navigation">メディア オーバーレイは、<a href="#sec-rsconf-navigation">ナビゲーション</a>に記載されているように再生中は、ユーザーの操作を許可しなければならない（MUST）。</p>
+<p id="confreq-rs-embed"><a>EPUB コンテンツ ドキュメント</a>に参照される埋め込まれた音声と動画は、<a href="#sec-embedded-media">埋め込まれた音声と動画</a>に記載されていることに留意し、規則に従わなければならない（MUST）。</p>
+<p id="confreq-rs-tts"><a href="epub-spec.html#dfn-text-to-speech">テキスト読み上げ</a>機能を持つリーディング システムは、[[!EPUB32]] <a href="epub-spec.html#confreq-rs-epub3-tts">リーディング システムのテキスト読み上げの適合要件</a>に従うべきである（SHOULD）。</p>
+<p id="confreq-rs-skip-escape"><a href="#sec-behaviors-skip-escape">読み飛ばし機能と回避機能</a>に記載されてる、読み飛ばしと回避の機能を提供すべきである（SHOULD）。</p>
+</li>
+</ul>
+<p>メディア オーバーレイをサポートしていないリーディング システムは以下の基準に対処しなければならない（MUST）。</p>
+<ul class="conformance-list">
+<li>
+<p id="confreq-rs-mo-ignore"><a>マニフェスト</a> <a href="epub-packages.html#elemdef-package-item"><code>item</code> 要素</a>の <code>media-overlay</code> 属性と <code>media-type</code> 属性値が <code>application/smil+xml</code> のマニフェスト <code>item</code> 要素の両方を無視しなければならない（MUST）。</p>
+</li>
+</ul>
+</section>
+<section id="sec-overlays-def">
+<h2>メディア オーバーレイ ドキュメントの定義</h2>
+<p>特に指定のない限り、このセクションで定義されている全ての要素 [[!XML]] は名前空間  <code>https://www.w3.org/ns/SMIL</code> [[!XML-NAMES]] である。</p>
+<section id="sec-smil-smil-elem">
+<h3><code>smil</code> 要素</h3>
+<p><code>smil</code> 要素は全てのメディア オーバーレイ ドキュメントのルート要素である。</p>
+<dl class="elemdef" id="elemdef-smil">
+<dt>要素名</dt>
+<dd>
+<p>
+<code>smil</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p><code>smil</code> 要素はメディア オーバーレイ ドキュメントのルート要素である。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<dl>
+<dt>
+<code>version</code> <code>[必須]</code>
+</dt>
+<dd>
+<p>メディア オーバーレイに準拠する [[!SMIL3]] 仕様書のバージョン番号を指定する。</p>
+<p>属性は、値「<code>3.0</code>」を持たねばならない（MUST）。</p>
+</dd>
+<dt>
+<code>id</code> <code>[省略可]</code>
+</dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+</dd>
+<dt id="attrdef-smil-prefix">
+<code>epub:prefix</code> <code>[省略可]</code>
+</dt>
+<dd>
+<p>追加のメタデータ語彙プリフィックスを宣言する。</p>
+<p>詳細については<a href="#sec-docs-semantic-inflection">意味の変化</a>を参照されたい。</p>
+</dd>
+</dl>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>記述順序：</p>
+<ul class="nomark">
+<li>
+<p><code><a href="#elemdef-smil-head">head</a></code> <code>[0または1]</code></p>
+</li>
+<li>
+<p><code><a href="#elemdef-smil-body">body</a></code> <code>[正確にひとつ]</code></p>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="sec-smil-head-elem">
+<h3><code>head</code> 要素</h3>
+<p><code>head</code> 要素は、メディア オーバーレイ ドキュメント内のメタデータのコンテナである。</p>
+<dl class="elemdef" id="elemdef-smil-head">
+<dt>要素名</dt>
+<dd>
+<p><code>head</code>
+</p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p><code>head</code> 要素は <code><a href="#elemdef-smil">smil</a></code> 要素の省略可能（OPTIONAL）な最初の子要素。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<p>なし</p>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p><code><a href="#elemdef-smil-metadata">metadata</a></code> <code>[0またはひとつ]</code></p>
+</dd>
+</dl>
+<p>この仕様では、メディア オーバーレイ ドキュメントで発生する必要があるメタデータのプロパティは定義されていないため、<code>head</code> 要素は省略可能（OPTIONAL）である。</p>
+</section>
+<section id="sec-smil-metadata-elem">
+<h3><code>metadata</code> 要素</h3>
+<p><code>metadata</code> 要素はメディア オーバーレイ ドキュメントのメタデータを表す。<code>metadata</code> 要素は任意のメタ情報の構造化言語で記述されたメタデータを含めることができる拡張ポイントである。</p>
+<dl class="elemdef" id="elemdef-smil-metadata">
+<dt>要素名</dt>
+<dd>
+<p><code>metadata</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p><code><a href="#elemdef-smil-head">head</a></code> 要素の子。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<p>なし</p>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>任意の名前空間からの <code>[0個以上]</code> の要素</p>
+</dd>
+</dl>
+<p>この仕様はメディア オーバーレイ ドキュメントに発生しなければならず（MUST）、メタデータのプロパティを定義しない。<code>metadata</code> 要素は特別なメタデータの要件により提供される。</p>
+</section>
+<section id="sec-smil-body-elem">
+<h3><code>body</code> 要素</h3>
+<p><code>body</code> 要素はメディア オーバーレイ ドキュメントに含まれているプレゼンテーションのための開始地点である。それは <code>par</code> と <code>seq</code> 要素の主要なシーケンスを含んでいる。</p>
+<dl class="elemdef" id="elemdef-smil-body">
+<dt>要素名</dt>
+<dd>
+<p><code>body</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p><code>body</code> 要素は <code><a href="#elemdef-smil">smil</a></code> 要素に必須（REQUIRED）な二番目の子要素。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<dl>
+<dt id="addrdef-smil-body-type">
+<code>epub:type</code> <code>[省略可]</code></dt>
+<dd>
+<p><a>EPUB コンテンツ ドキュメント</a>内の対応する要素の構造的な意味の語句。</p>
+<p>値は<a href="epub-packages.html#sec-property-datatype">プロパティ</a> [[!Packages32]] の種類が空白で区切られたリストでである。詳細については<a href="#sec-docs-semantic-inflection">意味の変化</a>を参照されたい。</p>
+</dd>
+<dt><code>id</code> <code>[省略可]</code></dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+</dd>
+<dt id="attrdef-body-textref"><code>epub:textref</code> <code>[省略可]</code></dt>
+<dd>
+<p>対応する EPUB コンテンツ ドキュメントの相対的な IRI 参照 [[!RFC3987]] は、[[!XPTRSH]] のように明確な要素を参照するフラグメント識別子を含んでいる。</p>
+</dd>
+</dl>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>記述順序：</p>
+<ul class="nomark">
+<li>
+<p><code><a href="#elemdef-smil-seq">seq</a></code> <code>[0個以上]</code></p>
+</li>
+<li>
+<p><code><a href="#elemdef-smil-par">par</a></code> <code>[0個以上]</code></p>
+</li>
+</ul>
+<p>少なくともひとつの <code>par</code> または <code>seq</code> が必須（REQUIRED）である。</p>
+</dd>
+</dl>
+</section>
+<section class="section"  id="sec-smil-seq-elem">
+<h3><code>seq</code> 要素</h3>
+<p><code>seq</code> 要素は順番にレンダリングされるメディアオブジェクトが含まれている。</p>
+<dl class="elemdef" id="elemdef-smil-seq">
+<dt>要素名</dt>
+<dd>
+<p><code>seq</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p>ひとつ以上の <code>seq</code> 要素は <code><a href="#elemdef-smil-body">body</a></code> と <code><a href="#elemdef-smil-seq">seq</a></code> 要素の子に出現してもよい（MAY）</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<dl>
+<dt>
+<code>epub:type</code> <code>[省略可]</code></dt>
+<dd>
+<p><a>EPUB コンテンツ ドキュメント</a>内の対応する要素の構造的な意味の語句。</p>
+<p>値は<a href="epub-packages.html#sec-property-datatype">プロパティ</a> [[!Packages32]] の種類が空白で区切られたリストである。詳細については<a href="#sec-docs-semantic-inflection">意味の変化</a>を参照されたい。</p>
+</dd>
+<dt><code>id</code> <code>[省略可]</code> </dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+</dd>
+<dt id="attrdef-seq-textref"><code>epub:textref</code> <code>[必須]</code></dt>
+<dd>
+<p>対応する EPUB コンテンツ ドキュメントの相対的な IRI 参照 [[!RFC3987]] は、[[!XPTRSH]] のように明確な要素を参照するフラグメント識別子を含んでいる。</p>
+<p>詳細情報は、<a href="#sec-media-overlays-structure">構造</a>を参照されたい。</p>
+</dd>
+</dl>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>記述順序：</p>
+<ul class="nomark">
+<li>
+<p><code><a href="#elemdef-smil-seq">seq</a></code> <code>[0個以上]</code></p>
+</li>
+<li>
+<p><code><a href="#elemdef-smil-par">par</a></code> <code>[0個以上]</code></p>
+</li>
+</ul>
+<p>少なくともひとつの <code>par</code> または <code>seq</code> が必須（REQUIRED）である。</p>
+</dd>
+</dl>
+</section>
+<section id="sec-smil-par-elem">
+<h3><code>par</code> 要素</h3>
+<p><code>par</code> 要素は並列にレンダリングされるメディアオブジェクトが含まれている。</p>
+<dl class="elemdef" id="elemdef-smil-par">
+<dt>要素名</dt>
+<dd>
+<p><code>par</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p>0個以上の <code>par</code> 要素は <code><a href="#elemdef-smil-body">body</a></code> と <code><a href="#elemdef-smil-seq">seq</a></code> 要素の子に出現してもよい（MAY）</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<dl>
+<dt><code>epub:type</code> <code>[省略可]</code></dt>
+<dd>
+<p><a>EPUB コンテンツ ドキュメント</a>内の対応する要素の構造的な意味の語句。</p>
+<p>値は<a href="epub-packages.html#sec-property-datatype">プロパティ</a> [[!Packages32]] の種類が空白で区切られたリストである。詳細については<a href="#sec-docs-semantic-inflection">意味の変化</a>を参照されたい。</p>
+</dd>
+<dt><code>id</code> <code>[省略可]</code></dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+</dd>
+</dl>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>記述順序：</p>
+<ul class="nomark">
+<li>
+<p><code><a href="#elemdef-smil-text">text</a></code> <code>[正確にひとつ]</code></p>
+</li>
+<li>
+<p><code><a href="#elemdef-smil-audio">audio</a></code> <code>[0または1]</code></p>
+</li>
+</ul>
+<p><code><a href="#elemdef-smil-audio">audio</a></code> 要素は音声や動画メディア（<a href="#sec-audio-video">埋め込まれたメディア</a>を参照）または<a>テキスト読み上げ</a> (TTS) 経由でレンダリングされた対象となる原文のコンテンツを参照している兄弟 <code><a href="#elemdef-smil-text">text</a></code> 要素がある場合に限り省略可能（OPTIONAL）である。</p>
+</dd>
+</dl>
+</section>
+<section id="sec-smil-text-elem">
+<h3><code>text</code> 要素</h3>
+<p><code>text</code> 要素は <a>EPUB コンテンツ ドキュメント</a>内を参照する要素。<code>text</code> 要素は通常、テキスト要素を参照するだけでなく、他の EPUB コンテンツ ドキュメントのメディア要素（<a href="#sec-audio-video">埋め込まれたメディア</a>を参照）を参照できる。</p>
+<dl class="elemdef" id="elemdef-smil-text">
+<dt>要素名</dt>
+<dd>
+<p><code>text</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p><code><a href="#elemdef-smil-par">par</a></code> 要素の必須（REQUIRED）の子。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<dl>
+<dt><code>src</code> <code>[必須]</code></dt>
+<dd>
+<p>対応する EPUB コンテンツ ドキュメントの相対的な IRI 参照 [[!RFC3987]] は、[[!XPTRSH]] のように明確な要素を参照するフラグメント識別子を含んでいる。</p>
+</dd>
+<dt><code>id</code> <code>[省略可]</code></dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+</dd>
+</dl>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>空</p>
+</dd>
+</dl>
+</section>
+<section id="sec-smil-audio-elem">
+<h3><code>audio</code> 要素</h3>
+<p><code>audio</code> 要素はオーディオメディアのクリップを表している。</p>
+<dl class="elemdef" id="elemdef-smil-audio">
+<dt>要素名</dt>
+<dd>
+<p><code>audio</code></p>
+</dd>
+<dt>使用方法</dt>
+<dd>
+<p>音声又は映像メディアを参照している兄弟 <code><a href="#elemdef-smil-text">text</a></code> 要素や<a>テキスト読み上げ</a>（TTS）を介してレンダリングすることを意図したテキスト コンテンツである場合を除き、<code><a href="#elemdef-smil-par">par</a></code> 要素の必須（REQUIRED）の子は、省略可能（OPTIONAL）である（<a href="#sec-audio-video">埋め込まれたメディア</a>を見よ）。</p>
+</dd>
+<dt>属性</dt>
+<dd>
+<dl>
+<dt><code>id</code> <code>[省略可]</code></dt>
+<dd>
+<p>要素の ID [[!XML]] はドキュメントのスコープ内で一意でなければならない（MUST）。</p>
+</dd>
+<dt><code>src</code> <code>[必須]</code></dt>
+<dd>
+<p>音声ファイルの相対的または絶対的 IRI 参照 [[!RFC3987]]。音声ファイルは、<a href="epub-spec.html#sec-core-media-types">コア メディア タイプ リソース</a> [[!EPUB32]] 表に記載されている音声フォーマットのいずれかでなければならない（MUST）。</p>
+</dd>
+<dt id="attrdef-smil-clipBegin"><code>clipBegin</code> <code>[省略可]</code></dt>
+<dd>
+<p>音声クリップの開始地点に一致する物理的メディアへのオフセットを記述するクロック値。</p>
+<p>[[!SMIL3]] <a href="https://www.w3.org/TR/SMIL/smil-timing.html#q22">クロック値</a>でなければならない（MUST）</p>
+<p><a href="#app-clock-examples">付録 B <em>クロック値の例</em></a>を見よ。</p>
+</dd>
+<dt id="attrdef-smil-clipEnd"><code>clipEnd</code> <code>[省略可]</code></dt>
+<dd>
+<p>音声クリップの終了地点に一致する物理的メディアへのオフセットを記述するクロック値。</p>
+<p>[[!SMIL3]] <a href="https://www.w3.org/TR/SMIL/smil-timing.html#q22">クロック値</a>でなければならない（MUST）</p>
+<p><a href="#app-clock-examples">付録 B <em>クロック値の例</em></a>を見よ。</p>
+<p>終了位置の時系列オフセットは <code>clipBegin</code> 属性で指定された開始オフセットの後でなければならない（MUST）。</p>
+</dd>
+</dl>
+</dd>
+<dt>コンテンツモデル</dt>
+<dd>
+<p>空</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="sec-overlay-docs">
+<h1>メディア オーバーレイの制作</h1>
+<section id="sec-docs-intro" class="informative">
+<h2>導入</h2>
+<p>出版物の録音済みナレーションは <a href="epub-spec.html#dfn-epub-content-document">EPUB コンテンツ ドキュメント</a>の一部のそれぞれに対応する音声クリップの連続として表すことができる。単一の音声クリップは、例えば、一般的に単一のフレーズや段落を表現するが、他のクリップや文書のテキストに対する相対的な順番を推測しない。メディア オーバーレイは [[SMIL3]] マークアップを使用し、EPUB コンテンツ ドキュメント内の対応するテキスト（または他のメディア）に構造化された音声ナレーションを紐付けることにより、同期のこの問題を解決する。メディア オーバーレイは、実際には、これらのクリップの再生順序を定義することを許可する SMIL 3.0 の単純化したサブセットである。</p>
+<p>メディア オーバーレイを構成するために使用される主要な SMIL 要素は <code><a href="#elemdef-smil-body">body</a></code> （主な再生順序のために使用される）、<code><a href="#elemdef-smil-seq">seq</a></code> （再生順序）と <code><a href="#elemdef-smil-par">par</a></code> （並列再生）である。（これらと他の SMIL 要素のより詳細な情報は <a href="#sec-overlays-def">メディア オーバーレイ ドキュメントの定義</a>を参照されたい。）</p>
+<p><code>par</code> 要素はオーバーレイの基本構成単位であり、EPUB コンテンツ ドキュメントのフレーズに対応している。要素は 1) フレーズのためのナレーションを含んだ音声クリップと 2) EPUB コンテンツ ドキュメント フラグメントに結びつけられたポインターという同期コンテンツの二つの重要な要素を提供する。<code>par</code> 要素はこの情報を表現する <code><a href="#elemdef-smil-audio">audio</a></code> 要素と <code><a href="#elemdef-smil-text">text</a></code> 要素という2つのメディア子要素を使用する。<code>par</code> 要素は並列にこれら子要素を表現するので、音声クリップと EPUB コンテンツ ドキュメント フラグメントは同期プレゼンテーションの結果、同時に再生される。</p>
+<p><code>text</code> 要素の <code>src</code> 属性は IRI 参照によって EPUB コンテンツ ドキュメントの関連したフレーズやセンテンス、または他のセグメントを参照する。<code>audio</code> 要素の <code>src</code> 属性は一致する音声クリップの位置を同様に参照し、省略可能（OPTIONAL）な <code><a href="#attrdef-smil-clipBegin">clipBegin</a></code> と <code><a href="#attrdef-smil-clipEnd">clipEnd</a></code> 属性はクリップ内の特定のオフセットを示すために追加する。</p>
+<aside class="example">
+<p>次の例では、単一のフレーズまたはセンテンスのメディア オーバーレイのマークアップを示している。</p>
+<pre>&lt;par&gt;                        
+    &lt;text src="chapter1.xhtml#sentence1"/&gt;
+    &lt;audio src="chapter1_audio.mp3" clipBegin="23s" clipEnd="30s"/&gt;
+&lt;/par&gt;</pre>
+</aside>
+<p><code>par</code> 要素はフレーズまたはセンテンスの連続を形成するために順番に一緒に配置される。全ての EPUB コンテンツ ドキュメントの要素が、音声ナレーションに関連するだけのメディア オーバーレイの <code>par</code> 要素に対応するとは限らない。</p>
+<aside class="example">
+<p>次の例では、フレーズの再生順序を含む基本的なメディア オーバーレイ ドキュメントを示している。<code>body</code> 要素は文書全体の主な再生順序として機能する。</p>
+<pre>&lt;smil xmlns="http://www.w3.org/ns/SMIL" 
+      version="3.0"&gt;
+    &lt;body&gt;
+        &lt;par id="par1"&gt;
+            &lt;text src="chapter1.xhtml#sentence1"/&gt;
+            &lt;audio src="chapter1_audio.mp3" clipBegin="0s" clipEnd="10s"/&gt;
+        &lt;/par&gt;
+        &lt;par id="par2"&gt;
+            &lt;text src="chapter1.xhtml#sentence2"/&gt;
+            &lt;audio src="chapter1_audio.mp3" clipBegin="10s" clipEnd="20s"/&gt;
+        &lt;/par&gt;
+        &lt;par id="par3"&gt;
+            &lt;text src="chapter1.xhtml#sentence3"/&gt;
+            &lt;audio src="chapter1_audio.mp3" clipBegin="20s" clipEnd="30s"/&gt;
+        &lt;/par&gt;
+    &lt;/body&gt;
+&lt;/smil&gt;</pre>
+</aside>
+<p><code>par</code> 要素は部や章など、より複雑な構造を定義する <code>seq</code> 要素に追加することもできる（<a href="#sec-media-overlays-structure">構造</a>を見よ）。</p>
+</section>
+<section id="sec-docs-relations">
+<h2>EPUB コンテンツ ドキュメントとの関係</h2>
+<div class="note">
+<p>このセクションでは、<a>EPUB コンテンツ ドキュメント</a>は <a>XHTML コンテンツ ドキュメント</a>と仮定する。メディア オーバーレイは <a href="epub-spec.html#dfn-svg-content-document">SVG コンテンツ ドキュメント</a>で利用できるが、再生の動作は一貫性のないものかもしれず、そのために相互運用性も保証されない。</p>
+</div>
+<section id="sec-media-overlays-structure">
+<h3>構造 </h3>
+<p>メディア オーバーレイ ドキュメントの <code><a href="#elemdef-smil-body">body</a></code> は、<code><a href="#elemdef-smil-par">par</a></code> 要素と <code><a href="#elemdef-smil-seq">seq</a></code> 要素の、二つの要素から成る。これら要素の順番は、EPUB コンテンツ ドキュメントのデフォルトの読み上げ順と一致しなければならない（MUST）。</p>
+<p><code>par</code> 要素は、フレーズを表す。各要素は、再生中に同期させるテキストとオーディオのコンポーネントを識別する。</p>
+<p><code>seq</code> 要素は、シークエンスを表す。セクション、アサイド、ヘッダー、脚注（footnote）などの、ネストされたコンテナを表すために使用される。これらコンテナに固有の構造は、メディア オーバーレイ ドキュメント内に保持できる。</p>
+<p><code>seq</code> 要素は、<code><a href="#attrdef-body-textref">epub:textref</a></code> 属性を含まなければならない（MUST）。この属性の IRI [[!RFC3987]] 値は、EPUB コンテンツ ドキュメント内の対応する構造要素を参照しなければならない（MUST）。<code>seq</code> 要素は、同期指示を提供しないので、この属性は、リーディング システムに、テキスト内の位置へ要素を一致させることができる。</p>
+<div class="example" id="example-mo-nesting">
+<p>次の例では、セクションのヘッダーと図の両方を持つ章を表現したネスト化された <code>seq</code> 要素を含むメディア オーバーレイ ドキュメントを示している。</p>
+<pre>&lt;smil xmlns="http://www.w3.org/ns/SMIL" xmlns:epub="http://www.idpf.org/2007/ops" version="3.0"&gt;
+    &lt;body&gt;
+
+        &lt;!-- a chapter --&gt;
+        &lt;seq id="id1" epub:textref="chapter1.xhtml#sectionstart" epub:type="chapter"&gt;
+
+            &lt;!-- the section title --&gt;
+            &lt;par id="id2"&gt;
+                &lt;text src="chapter1.xhtml#section1_title"/&gt;
+                &lt;audio src="chapter1_audio.mp3"
+                       clipBegin="0:23:23.84"
+                       clipEnd="0:23:34.221"/&gt;
+            &lt;/par&gt;
+
+            &lt;!-- some sentences in the chapter --&gt;
+            &lt;par id="id3"&gt;
+                &lt;text src="chapter1.xhtml#text1"/&gt;
+                &lt;audio src="chapter1_audio.mp3"
+                       clipBegin="0:23:34.221"
+                       clipEnd="0:23:59.003"/&gt;
+            &lt;/par&gt;
+            &lt;par id="id4"&gt;
+                &lt;text src="chapter1.xhtml#text2"/&gt;
+                &lt;audio src="chapter1_audio.mp3"
+                       clipBegin="0:23:59.003"
+                       clipEnd="0:24:15.000"/&gt;
+            &lt;/par&gt;
+
+            &lt;!-- a figure --&gt;
+            &lt;seq id="id7" epub:textref="chapter1.xhtml#figure"&gt;
+                &lt;par id="id8"&gt;
+                    &lt;text src="chapter1.xhtml#photo"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:24:18.123"
+                           clipEnd="0:24:28.764"/&gt;
+                &lt;/par&gt;
+                &lt;par id="id9"&gt;
+                    &lt;text src="chapter1.xhtml#caption"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:24:28.764"
+                           clipEnd="0:24:50.010"/&gt;
+                &lt;/par&gt;
+            &lt;/seq&gt;
+
+            &lt;!-- more sentences in the chapter (outside the figure) --&gt;
+            &lt;par id="id12"&gt;
+                &lt;text src="chapter1.xhtml#text3"/&gt;
+                &lt;audio src="chapter1_audio.mp3"
+                       clipBegin="0:25:45.515"
+                       clipEnd="0:26:30.203"/&gt;
+            &lt;/par&gt;
+            &lt;par id="id13"&gt;
+                &lt;text src="chapter1.xhtml#text4"/&gt;
+                &lt;audio src="chapter1_audio.mp3"
+                       clipBegin="0:26:30.203"
+                       clipEnd="0:27:15.000"/&gt;
+            &lt;/par&gt;
+
+        &lt;/seq&gt;
+    &lt;/body&gt;
+&lt;/smil&gt;
+</pre>
+</div>
+<div class="note">
+<p><code>seq</code> 要素内のセクション、図、表組や注釈のようなグループ化した構造にする理由は、それらの開始位置と終了位置を再生する時に識別できるようにするためである。リーディング システムは、例えば長い図を読み飛ばしたり、改ページのアナウンスの解釈を停止させたり（<a href="#sec-behaviors-skip-escape">読み飛ばし機能と回避機能</a>を参照）、または例えば表組など一揃いの構造に合わせて読み取りのモードをカスタマイズするように、特定の<a>レンディション</a>のレイアウトにあわせて再生のオプションを提供できる。</p>
+</div>
+<aside class="example">
+<p>次の例では、<a href="#example-mo-nesting">前述のメディア オーバーレイの例</a>に対応する EPUB コンテンツ ドキュメントを示している。</p>
+<pre>&lt;html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:epub="http://www.idpf.org/2007/ops" 
+      xml:lang="en" 
+     &gt;
+    &lt;head&gt;
+        &lt;title&gt;Media Overlays Example of EPUB Content Document&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body id="sec1"&gt;
+        &lt;section id="sectionstart" epub:type="chapter"&gt;
+            &lt;h1 id="section1_title"&gt;The Section Title&lt;/h1&gt;
+            &lt;p id="text1"&gt;The first phrase of the main text body.&lt;/p&gt;
+            &lt;p id="text2"&gt;The second phrase of the main text body.&lt;/p&gt;
+            &lt;figure id="figure"&gt;
+                &lt;img id="photo" 
+                     src="photo.png" 
+                     alt="a photograph for which there is a caption" /&gt;
+                &lt;figcaption id="caption"&gt;The photo caption&lt;/figcaption&gt;
+            &lt;/figure&gt;
+            &lt;p id="text3"&gt;The third phrase of the main text body.&lt;/p&gt;
+            &lt;p id="text4"&gt;The fourth phrase of the main text body.&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+</aside>
+</section>
+<section id="sec-media-overlays-granularity" class="informative">
+<h3>粒度</h3>
+<p>メディア オーバーレイ <code><a href="#elemdef-smil-text">text</a></code> 要素 の <code>src</code> 属性は ID [[XML]] によって <a>EPUB コンテンツ ドキュメント</a>の要素を参照する。メディア オーバーレイの粒度レベルは、どのように EPUB コンテンツ ドキュメントをマークアップしているかによって異なる。マークアップの最高のレベルが段落レベルであるならば、それはメディア オーバーレイの同期が生み出すことのできる最も良いレベルである。同様に、小段落のマークアップに、例えば [[HTML]] の <code><a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-span-element">span</a></code> 要素で表現されるフレーズやセンテンスなどが利用できるならば、それはメディア オーバーレイ内で可能なより良い粒度である。より良い粒度はユーザーに、単語またはフレーズによるナビゲーションやテキストの検索、同期再生のための正確な結果を与えるが、メディア オーバーレイ ドキュメントのファイルサイズは増加する。</p>
+</section>
+<section id="sec-audio-video">
+<h3>埋め込まれたメディア</h3>
+<p>メディア オーバーレイに関連付けられた全ての <a>EPUB コンテンツ ドキュメント</a>は、動画、音声、画像などの埋め込みメディアを含んでもよい（MAY）。メディア オーバーレイ <code><a href="#elemdef-smil-text">text</a></code> 要素は ID [[!XML]] 値によって埋め込みメディアを参照する場合に使用してもよい（MAY）。</p>
+<p><code>text</code> 要素が音声を含む埋め込みメディアを参照する時、<code><a href="#elemdef-smil-audio">audio</a></code> 兄弟要素は省略可能（OPTIONAL）である。</p>
+<p><a>製作者</a>は、メディア オーバーレイの再生動作と衝突するかもしれないので、参照される埋め込まれた EPUB コンテンツ ドキュメント メディアの再生を制御するスクリプトを使用することは避けるべきである（SHOULD）。</p>
+</section>
+<section id="sec-tts">
+<h3>テキスト読み上げ</h3>
+<p>この仕様は録音済み音声クリップに加えて<a href="epub-spec.html#dfn-text-to-speech">テキスト読み上げ（TTS）</a> の使用を許可している。<code><a href="#elemdef-smil-audio">audio</a></code> 兄弟要素を含まないメディア オーバーレイの <code><a href="#elemdef-smil-text">text</a></code> 要素が対象となる <a>EPUB コンテンツ ドキュメント</a>内部の要素を参照する時、参照された要素のコンテンツは TTS を経由してレンダリングできなければならない（MUST）。たとえば、テキストの EPUB コンテンツ ドキュメント要素もしくはテキストのフォールバックを含めることができる。</p>
+</section>
+</section>
+<section id="sec-docs-semantic-inflection">
+<h2>意味の変化</h2>
+<p>意味の変化を表現するために <a href="epub-contentdocs.html#attrdef-epub-type"><code>epub:type</code> 属性</a> [[!ContentDocs32]] を、メディア オーバーレイの <code><a href="#elemdef-smil-par">par</a></code>、<code><a href="#elemdef-smil-seq">seq</a></code> と <code><a href="#elemdef-smil-body">body</a></code> 要素に付与してもよい（MAY）。</p>
+<p>メディア オーバーレイの <code>epub:type</code> 属性値は <a>EPUB コンテンツ ドキュメント</a>内の <code>epub:type</code> 属性と同じように制限される。詳細については <a href="epub-contentdocs.html#sec-xhtml-semantic-inflection">意味の変化</a> [[!ContentDocs32]] を参照されたい。</p>
+<p><code>epub:type</code> 属性は、セマンティック型が示すリーディング システムの適した動作を手助けする。これらの動作の例としては<a href="#sec-behaviors-skip-escape">読み飛ばし機能と回避機能</a>と<a href="#note-table-reading-mode">Note</a>である。</p>
+<aside class="example">
+<p>次の例では、図を含むメディア オーバーレイのセマンティックなマークアップを示している。</p>
+<pre>&lt;smil xmlns="http://www.w3.org/ns/SMIL" 
+      xmlns:epub="http://www.idpf.org/2007/ops"
+      version="3.0"&gt;
+    &lt;body&gt;
+        &lt;seq id="id1" epub:textref="chapter1.xhtml#figure" epub:type="figure"&gt;
+            &lt;par id="id2"&gt;
+                &lt;text src="chapter1.xhtml#figuretitle"/&gt;
+                &lt;audio src="chapter1_audio.mp3" clipBegin="0:24:15.000" clipEnd="0:24:18.123"/&gt;
+            &lt;/par&gt;
+            &lt;par id="id3"&gt;
+                &lt;text src="chapter1.xhtml#figurecaption"/&gt;
+                &lt;audio src="chapter1_audio.mp3" clipBegin="0:24:18.123" clipEnd="0:24:38.530"/&gt;
+            &lt;/par&gt;
+            &lt;par id="id4"&gt;
+                &lt;text src="chapter1.xhtml#figuretext1"/&gt;
+                &lt;audio src="chapter1_audio.mp3" clipBegin="0:24:38.530" clipEnd="0:25:00.515"/&gt;
+            &lt;/par&gt;
+        &lt;/seq&gt;
+    &lt;/body&gt;
+&lt;/smil&gt;</pre>
+</aside>
+<p>この仕様は変更されていない<a href="http://w3c.github.io/publ-epub-revision/epub32/spec/epub-contentdocs.html#sec-contentdocs-vocab-association">語彙の関連付け</a> [[!ContentDocs32]] で定義された語彙の関連付けメカニズムを採用する。<a href="http://w3c.github.io/publ-epub-revision/epub32/spec/epub-contentdocs.html#sec-contentdocs-default-vocab">初期設定の語彙</a> の用語は、オーバーレイ ドキュメント内で接頭辞を付けずに使用しなければならない（MUST）。</p>
+<p>メディア オーバーレイは、ルート <code>smil</code> 要素の <code><a href="#attrdef-smil-prefix">epub:prefix</a></code> 属性でそれらを定義することによって、追加の語彙を使用してもよい（MAY）。</p>
+</section>
+<section id="sec-docs-assoc-style">
+<h2>スタイル情報の関連付け</h2>
+<p>現在再生している <a>EPUB コンテンツ ドキュメント</a>要素の視覚的なレンダリング情報は、製作者が定義したクラスを使用して CSS スタイル シートで表現してもよい（MAY）。著者が定義したクラス名はメタデータプロパティの <a href="#active-class"><code>active-class</code></a> と <a href="#playback-active-class"><code>playback-active-class</code></a> <a class="biblioref" href="#refEPUBOverlaysVocab">[<abbr class="abbrev">Overlays Vocab</abbr>]</a> を使用している <a>パッケージ ドキュメント</a>のメタデータ内に宣言すべきである（SHOULD）。それによりクラス名が、リーディング システムによって発見可能となる。</p>
+<p><code>active-class</code> 及び <code>playback-active-class</code> プロパティは、常に<a>レンディション</a>全体に適用されるとみなされるので、<a href="epub-packages.html#attrdef-refines"><code>refines</code> 属性</a> [[!Packages32]] と一緒に使用してはならない（MUST NOT）。</p>
+<p>この例では著者が現在再生している EPUB コンテンツ ドキュメントにスタイルの情報を関連付けることができる方法を示している。</p>
+<div class="note">
+<p>この例では <code>-epub-media-overlay-active</code> と <code>-epub-media-overlay-playing</code> を使用しているが、任意のクラス名が許可されている。クラス名の選択は、任意にサポートされている CSS の機能と共に使用できる。</p>
+</div>
+<aside class="example">
+<p>パッケージ ドキュメントのメタデータプロパティ <a href="#active-class"><code>active-class</code></a> と <a href="#playback-active-class"><code>playback-active-class</code></a> を使用して宣言された著者が定義した CSS のクラス名：</p>
+<pre>&lt;meta property="media:active-class"&gt;-epub-media-overlay-active&lt;/meta&gt;
+&lt;meta property="media:playback-active-class"&gt;-epub-media-overlay-playing&lt;/meta&gt;
+</pre>
+<p>著者が定義したクラス名を含んでいる CSS スタイル シート。</p>
+<pre>/* emphasize the active element */
+.-epub-media-overlay-active {
+    background-color: yellow;
+    color: black !important;
+}
+
+/* fade out the inactive text */
+html.-epub-media-overlay-playing * {
+    color: gray;
+}
+</pre>
+<p>関連性のある EPUB コンテンツ ドキュメントの抜粋。</p>
+<pre>&lt;html&gt;
+    …
+    &lt;span id="txt1"&gt;This is the first phrase.&lt;/span&gt;
+    &lt;span id="txt2"&gt;This is the second phrase.&lt;/span&gt;
+    &lt;span id="txt3"&gt;This is the third phrase.&lt;/span&gt;
+    …
+&lt;/html&gt;</pre>
+</aside>
+<p>この例では、リーディング システムが、それが再生時にアクティブになった時、EPUB コンテンツ ドキュメントの各テキスト要素に著者が定義した <code>-epub-media-overlay-active</code> クラスを適用する。つまり、クラス名は要素がアクティブでない時は取り除かれる。読者はその要素が再生中は黄色の背景でスタイル付された各 EPUB コンテンツ ドキュメント要素を見ることができる。</p>
+<p>リーディング システムはまた、メディア オーバーレイの再生を開始するとき、EPUB コンテンツ ドキュメントのドキュメントの要素に製作者が定義した <code>-epub-media-overlay-playing</code> クラスも適用する。クラス名は、再生を止めたとき、削除される。XHTML コンテンツ ドキュメントの場合、クラス名は、<code>html</code> 要素に適用されるであろう。SVG コンテンツ ドキュメントの場合、それは、<code>svg</code> 要素に適用されるであろう。読者は、メディア オーバーレイを再生する間、非アクティブな全てのテキスト要素は灰色に反転して見えるであろう。再生を止めたとき、要素の色は、初期設定に戻るであろう。</p>
+</section>
+<section id="sec-docs-package">
+<h2>パッケージング</h2>
+<section id="sec-package-including">
+<h3>メディア オーバーレイを含める</h3>
+<p><a>EPUB コンテンツ ドキュメント</a>が、メディア オーバーレイによって全体または一部分が参照されている場合、その<a>マニフェスト</a> <a href="epub-packages.html#elemdef-package-item"><code>item</code> 要素</a> [[!Packages32]] は、<code>media-overlay</code> 属性を包含しなければならない（MUST）。属性は、対応するメディア オーバーレイ ドキュメントのマニフェスト <code>item</code> の ID [[!XML]] を参照しなければならない（MUST）。
+<p><code>media-overlay</code> 属性は、<a>EPUB コンテンツ ドキュメント</a>を参照していないマニフェスト <code>item</code> 要素に付けてはならない（MUST NOT）</p>
+<p>メディア オーバーレイ ドキュメントのためのマニフェスト項目は、メディア タイプ <code>application/smil+xml</code> を持たなければならない（MUST）。</p>
+<aside class="example">
+<p>次の例では、パッケージ ドキュメントのマニフェストに、EPUB コンテンツ ドキュメントのエントリー及び関連するメディア オーバーレイを示している。</p>
+<pre>&lt;manifest&gt;
+   &lt;item id="ch1" 
+         href="chapter1.xhtml" 
+         media-type="application/xhtml+xml" 
+         media-overlay="ch1_audio"/&gt;
+   
+   &lt;item id="ch1_audio" 
+         href="chapter1_audio.smil" 
+         media-type="application/smil+xml"/&gt;
+   …
+&lt;/manifest&gt;</pre>
+</aside>
+</section>
+<section id="sec-package-metadata">
+<h3>パッケージ メタデータ</h3>
+<p><a>パッケージ ドキュメント</a>は、<a href="#duration"><code>duration</code> プロパティ</a>を持つ <a href="epub-packages.html#elemdef-package-item"><code>meta</code> 要素</a>内に<a>レンディション</a>全体の時間を包含しなければならない（MUST）。</p>
+<p>加えて、関連するメディア オーバーレイを持つ各 EPUB コンテンツ ドキュメントの持続時間を提供しなければならない（MUST）。<a href="epub-packages.html#attrdef-refines"><code>refines</code> 属性</a> [[!Packages32]] は、対応する<a>マニフェスト</a> <a href="epub-packages.html#elemdef-package-item"><code>item</code></a> [[!Packages32]] へ、各持続時間の宣言を関連付けるために使用される。</p>
+<p><a>製作者</a>はまた、現在再生している EPUB コンテンツ ドキュメントの要素に適用する、<a href="#sec-docs-assoc-style">製作者が定義した CSS のクラス名</a>だけでなく、パッケージ ドキュメントに <a href="#narrator"><code>narrator</code></a> 情報を包含してもよい（MAY）。</p>
+<aside class="example">
+<p>次の例では、メディア オーバーレイに関するメタデータを含むパッケージ ドキュメントを示している。</p>
+<pre>&lt;metadata&gt;
+   …
+   &lt;meta property="media:duration" refines="#ch1_audio">0:32:29&lt;/meta>
+   &lt;meta property="media:duration" refines="#ch2_audio">0:34:02&lt;/meta>
+   &lt;meta property="media:duration" refines="#ch3_audio">0:29:49&lt;/meta>
+   &lt;meta property="media:duration"&gt;1:36:20&lt;/meta&gt;
+   &lt;meta property="media:narrator"&gt;Joe Speaker&lt;/meta&gt;
+   &lt;meta property="media:active-class"&gt;-epub-media-overlay-active&lt;/meta&gt;
+   &lt;meta property="media:playback-active-class"&gt;-epub-media-overlay-playing&lt;/meta&gt;
+   …
+&lt;/metadata&gt;</pre>
+</aside>
+<div class="note">
+<p>プリフィックス <a href="epub-packages.html#sec-metadata-reserved-prefixes"><code>media:</code></a> は、パッケージ メタデータ内にあるこれらプロパティを内包するため、[[Packages32]] で予約済みである。</p>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-overlay-behaviors">
+<h1>再生の動作</h1>
+<section id="sec-behaviors-loading">
+<h2>メディア オーバーレイの読み込み</h2>
+<p><a>EPUB リーディング システム</a>が <a>パッケージ ドキュメント</a>を読み込む時、それは <a>EPUB コンテンツ ドキュメント</a>に対応するメディア オーバーレイを見出するために <a>マニフェスト</a> <a href="epub-packages.html#elemdef-package-item"><code>item</code> 要素</a>の <code>media-overlay</code> 属性を参照しなければならない（MUST）。再生は目的の EPUB コンテンツ ドキュメントの開始地点に対応するメディア オーバーレイの要素から開始しなければならない（MUST）。EPUB コンテンツ ドキュメントの開始は開始時もしくはメディア オーバーレイの真ん中にある要素に対応してもよい（MAY）ことに注意されたい。メディア オーバーレイ ドキュメントが再生を終了する時、リーディング システムは（パッケージ ドキュメントの<a>スパイン</a>に指定してある）次の EPUB コンテンツ ドキュメントを読み込むべきであり（SHOULD）、そして同様にそれに対応するメディア オーバーレイ ドキュメントのいずれかを提供し、読み込む。</p>
+</section>
+<section id="sec-behaviors-playback">
+<h2>基本的な再生</h2>
+<section id="sec-rsconf-timing-synch">
+<h3>タイミングと同期</h3>
+<p>リーディング システムは順番に <code><a href="#elemdef-smil-body">body</a></code> 要素の直下の子をレンダリングしなければならない（MUST）。<code><a href="#elemdef-smil-seq">seq</a></code> 要素の子は順番にレンダリングされなければならず（MUST）、そして最後の子の再生が終了した時に再生は完了する。<code><a href="#elemdef-smil-par">par</a></code> 要素の子は（それぞれが同時に開始して）並列にレンダリングされなければならなず（MUST）、そして全ての子の再生が終了した時に再生は完了する。<code>body</code> 要素の最後の子の再生を完了する時、メディア オーバーレイ ドキュメントの再生は完了する。</p>
+</section>
+<section id="sec-rsconf-rendering-audio">
+<h3>音声のレンダリング</h3>
+<p>メディア オーバーレイの <code><a href="#elemdef-smil-audio">audio</a></code> 要素を示された時、リーディング システムは <code><a href="#attrdef-smil-clipBegin">clipBegin</a></code> 属性によって与えられるクリップのオフセットタイム（時間偏差）から開始し、<code><a href="#attrdef-smil-clipEnd">clipEnd</a></code> 属性によって与えられるクリップのオフセットタイム（時間偏差）で終了する <code>src</code> 属性によって参照される音声リソースを再生しなければならない（MUST）。以下の規則は守らなければならない（MUST）：</p>
+<ul>
+<li>
+<p><code>clipBegin</code> が指定されていないとき、その値は "<code>0</code>" みなされる。</p>
+</li>
+<li>
+<p><code>clipEnd</code> が指定されていないとき、その値は物理メディアの全体の長さとみなされる。</p>
+</li>
+<li>
+<p><code>clipEnd</code> が物理メディアの全体の長さを超えるとき、その値は物理メディアの全体の長さとみなされる。</p>
+</li>
+</ul>
+<p>ユーザーがコントロール可能な音声の再生オプションは、再生速度がピッチにより歪まないタイムスケールの変更を含めるべきである（SHOULD）。推奨範囲は半分から倍の速度である。</p>
+</section>
+<section id="sec-rsconf-rendering-text">
+<h3>EPUB コンテンツ ドキュメント要素のレンダリング</h3>
+<p>メディア オーバーレイの <code><a href="#elemdef-smil-text">text</a></code> 要素が示されたら、リーディング システムは<a>ビューポート</a>内に出現する <code>src</code> 属性によって参照される EPUB コンテンツ ドキュメント要素を確保するべきである（SHOULD）。メディア オーバーレイを再生している間、ビューポートを持つリーディング システムは EPUB コンテンツ ドキュメントの適切な要素に、メタデータの <a href="#active-class"><code>active-class</code></a> と <a href="#playback-active-class"><code>playback-active-class</code></a> プロパティによって与えられるクラス名を付与するべきである（SHOULD）。逆に言えば、クラス名は<a href="#sec-docs-assoc-style">スタイル情報の関連付け</a>に記載されているとおり、再生状態が変化した時に、削除するべきである（SHOULD）。</p>
+<p>メタデータの <code>active-class</code> と <code>playback-active-class</code> プロパティは省略可能（OPTIONAL）で、省略した場合、リーディング システムの動作は実装依存である。</p>
+</section>
+</section>
+<section id="sec-behaviors-interaction">
+<h2>EPUB コンテンツ ドキュメントとの相互作用</h2>
+<section id="sec-rsconf-navigation">
+<h3>ナビゲーション</h3>
+<p>メディア オーバーレイは <a>EPUB コンテンツ ドキュメント</a>と密接に結合されているので、メディア オーバーレイが再生している現在位置に基づき EPUB コンテンツ ドキュメント内の位置を見つけるのはリーディング システムにはとても容易である。ユーザーが同期再生を中止し、<a>EPUB 出版物</a>の別の場所に移動したら、同期再生はそのポイントで再生を再開しなければならない（MUST）。例えば、EPUB コンテンツ ドキュメントの特定のページ番号が適切な場所なら、そのとき、メディア オーバーレイでの同じ場所へ移動して再生が開始される。</p>
+<p>これと同様のアプローチとして、<a href="epub-spec.html#dfn-epub-navigation-document">EPUB ナビゲーション ドキュメント</a>内のナビゲーションポイントを読者が選択し、メディア オーバーレイの再生を同期することも考慮しておく。リーディング システムはそのファイルをメディア オーバーレイを読み込み、ナビゲーションポイントのターゲットの ID [[!XML]] に基づいて再生を開始するために正しい位置を見つける。</p>
+<div class="note">
+<p>メディア オーバーレイ ドキュメントは <a>XHTML コンテンツ ドキュメント</a>が<a>スパイン</a>内に含まれているかどうかに関わらず、そのコンテンツの同期再生を提供するためにナビゲーション ドキュメントと直接結びつけることができる。詳細の情報は、<a href="#sec-nav-doc"><em>EPUB ナビゲーション ドキュメント</em></a>を見よ。</p>
+</div>
+<div class="note" id="note-table-reading-mode">
+<p>メディア オーバーレイ ドキュメント要素は、例えば表組など、EPUB コンテンツ ドキュメントの構造物と結びつけることができる。リーディング システムは、メディア オーバーレイの再生は表組の列やセルのユーザーによるナビゲーションと同期した状態を確保する必要がある。リーディング システムはまた、セルのコンテンツに先立って、対応する表組の見出しを再生するかもしれない。</p>
+</div>
+</section>
+<section id="sec-embedded-media">
+<h3>埋め込まれた音声と動画</h3>
+<p>メディア オーバーレイが結びついている <a>EPUB コンテンツ ドキュメント</a>は、それ自身に埋め込まれた動画や音声メディアを含んでもよく（MAY）、それはメディア オーバーレイ要素で指示されてもよい（MAY）。テキストや画像とは異なり、動画や音声メディアは本質的に時間を持っている。それ故に、リーディング システムがメディア オーバーレイの記述により同期のレンダリングをするとき、関連付けられている EPUB コンテンツ ドキュメントは埋め込まれている音声や動画メディアの初期設定の再生の動作を上書きしなければならない（MUST）。</p>
+<p>以下の規則は関連付けられている EPUB コンテンツ ドキュメントが<em>参照</em>している [[!HTML]] の <code><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-video-element">video</a></code> または <code><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-audio-element">audio</a></code> 要素のみ適用されることに注意されたい。つまり、規則はメディア オーバーレイ（例えば、<code>src</code> 属性を介して）内の <code><a href="#elemdef-smil-text">text</a></code> 要素によって指示されるそれらの要素のみ適用する。メディア オーバーレイ要素によって参照されない埋め込まれたメディアはこれらの規則の対象ではない。</p>
+<ul>
+<li>
+<p>EPUB コンテンツ ドキュメントに埋め込まれた全ての参照されている音声と動画メディアは、そのパブリックな再生インターフェース（一般的に再生／一時停止、タイムスライダ、音量など）が無効になっていなければならない（MUST）。この動作は、メディア オーバーレイによって定義され予定されている再生シークエンスとユーザーのインタラクションやスクリプトの実行による任意の再生動作との干渉を避けるために必要である。結果として、リーディング システムが再生モードにあるとき、これらを行うべきである（SHOULD）：</p>
+<ul>
+<li>
+<p>[[!HTML]] の <code><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#element-attrdef-mediaelements-controls">controls</a></code> 属性によって定義された初期設定の動作を上書きする個々の動画/音声の UI コントロールを非表示にする。</p>
+</li>
+<li>
+<p>JavaScript の音声/動画再生 API（すなわち、初期設定の動作の一部として記述されている）を起動することにより EPUB コンテンツ ドキュメントに埋め込まれているスクリプトが実行されるのを防ぐ。コンテンツの制作者は埋め込まれた音声／動画メディアの再生をコントロールするために専用のスクリプトを埋め込んで出版することを避けることを推奨する（RECOMMENDED）。発行されたメディア オーバーレイはスクリプトが可能にするカスタム動作からの干渉のいかなるリスクもなしに同期した表示の全てのコントロールを保持できる。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>EPUB コンテンツ ドキュメントに埋め込まれた全ての参照されている音声と動画メディアは、それらの"停止"状態に初期化され、それらのコンテンツの流れの中で0位置（おそらく [[!HTML]] の <code><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-video-element">poster</a></code> 属性を使用して指定する画像）からいつでも再生されなければならない（MUST）。この要件は [[!HTML]] の <code><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-video-element">autoplay</a></code> 属性で定義されている初期設定の動作を上書きする。</p>
+</li>
+<li>
+<p>EPUB コンテンツ ドキュメントがアクティブになる時、CSS スタイル シートの視覚を強調するルールは、その要素の <code>src</code> 属性によって参照されるコンテンツ タイプにかかわらず適用する（例えば、メタデータの <a href="#active-class"><code>active-class</code></a> プロパティによって定義された CSS クラス名は、ホストの EPUB コンテンツ ドキュメントの中で可視化されている動画と音声のプレーヤーのコントロールに適用されるべきである（SHOULD））。</p>
+</li>
+<li>
+<p>テキストの断片や画像によるメディア オーバーレイの起動の初期設定の動作加えて、音声や動画の再生は（標準の [[!SMIL3]] のタイミングモデルに従い）記述されているメディア オーバーレイの同期によって暗示される時間と一致して起動や停止をしなければならない（MUST）。2つの可能なシナリオがある：</p>
+<ul>
+<li>
+<p>メディア オーバーレイの <code>text</code> 要素が <code><a href="#elemdef-smil-par">par</a></code> の親コンテナ内に <code><a href="#elemdef-smil-audio">audio</a></code> の兄弟を持たないとき、参照される EPUB コンテンツ ドキュメントの音声や動画メディアは（<code>text</code> 要素のライフスパンの末端の場所）終わりまで再生しなければならない（MUST）。この場合、<code>text</code> 要素、すなわち親の <code>par</code> コンテナの潜在的な時間は、参照された音声もしくは動画クリップの時間である。</p>
+</li>
+<li>
+<p>メディア オーバーレイの <code>text</code> 要素が <code>par</code> の親コンテナ内に <code>audio</code> の兄弟を持っているとき、参照される EPUB コンテンツ ドキュメントの音声や動画メディアの再生の時間は <code>audio</code> の兄弟の時間によって制限されなければならない（MUST）。この場合、親の <code>par</code> コンテナの実際の時間は、<code>text</code> 要素によって指し示された動画もしくは音声メディアの時間にかかかわらず子の音声クリップの時間である。この動作は（全時間に到達する前より）早く終点の再生が埋め込まれた動画もしくは音声メディアに生じることができ、また、並列なメディア オーバーレイ <code>audio</code> の再生以前の終点は完了する（この際、最後に再生される動画のフレームが、親の <code>par</code> コンテナの末端を表示したままにするべきである（SHOULD））。この動作は、[[!SMIL3]] の <code><a href="https://www.w3.org/TR/SMIL/smil-timing.html#adef-endsync">endsync</a></code> 属性の動作を暗黙に引き継ぐメディア オーバーレイの <code>audio</code> 要素に相当する。</p>
+<p>さらに、リーディング システムは、音声出力が聴き手の要求と合致するよう調整できるように、それぞれ独立した音声トラック（すなわち、メディア オーバーレイの <code>audio</code> 要素や EPUB コンテンツ ドキュメント内に埋め込まれている音声もしくは動画メディアから）の音量のための読者のコントロールを公開するべきである（SHOULD）。音声トラックを重複して持つのは、一般的にオーサリング時に関係しているのに注意されたい。コンテンツ制作者は通常、説明の目的のため動画トラック上に音声情報のレイヤーを加える。リーディング システムは任意の特定の方法で同時に音量レベルを処理することは必須ではなく（NOT REQUIRED）、重複した音声の状態は制作段階で慎重に検討し取り扱うことを推奨する（RECOMMENDED）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>text</code> 要素がメディア オーバーレイ内でアクティブでなくなったとき、そして埋め込まれている動画や音声メディアを指しているとき、参照されているメディアは、それらの「停止」状態に初期化され、それらのコンテンツの流れの中でゼロ位置（おそらく [[!HTML]] マークアップ を使用して指定する画像）からいつでも再生されなければならない（MUST）。</p>
+</li>
+</ul>
+</section>
+<section id="sec-text-to-speech">
+<h3>テキスト読み上げ</h3>
+<p><code><a href="#elemdef-smil-audio">audio</a></code> 兄弟要素を含まないメディア オーバーレイ <a href="#elemdef-smil-text"><code>text</code></a> 要素が対象となる <a>EPUB コンテンツ ドキュメント</a>内部のテキストを参照する時、<a href="epub-spec.html#dfn-text-to-speech">テキスト読み上げ（TTS）</a> を利用できるリーディング システムは TTS を使用して参照したテキストをレンダリングするべきである（SHOULD）。</p>
+<p>リーディング システムの適合性要件のように、対象となる EPUB コンテンツ ドキュメントの中に準備されたスピーチを関連付ける情報はメディア オーバーレイ レンダリングの一部として音声ストリームの再生に使用されるべきである（SHOULD）。<a href="epub-spec.html#confreq-rs-epub3-tts">リーディング システムのテキスト読み上げの適合性要件</a> [[!EPUB32]] を参照。</p>
+<p>メディア オーバーレイの <code>text</code> 要素のライフスパンは、結びついている音声合成のレンダリング時間に一致する。<code>text</code> 要素、すなわち親の <code>par</code> 要素の潜在的な時間は、テキスト読み上げエンジンの遂行によって決定され、音声出力に影響するスピーチ速度、停止や他の韻律パラメータのような要因をオーサリング時に知ることできない。</p>
+</section>
+</section>
+<section id="sec-behaviors-skip-escape">
+<h2>読み飛ばし機能と回避機能</h2>
+<section id="sec-skippability">
+<h3>読み飛ばし機能</h3>
+<p>読書する間に、ユーザーは、脚注（footnote）、ページ番号（page number）または他の二次的な種類のコンテンツのようなコンテンツの特定の機能をオンまたはオフにすることかもしれない。この機能は読み飛ばし機能と呼ばれている。リーディング システムはユーザーがスキップ可能な機能のオプションを提供するかを決定するためのメディア オーバーレイ要素の <code><a href="#sec-docs-semantic-inflection">epub:type</a></code> 属性によって提供される意味情報を使用するべきである（SHOULD）。</p>
+<aside class="example">
+<p>次の例では、改ページを持つメディア オーバーレイ ドキュメントを示している。リーディング システムは、ユーザーに対ししばしば聞かされる煩わしい改ページ/ページ番号の通知のオンオフのオプションを提供できる。</p>
+<pre>&lt;smil xmlns="http://www.w3.org/ns/SMIL" 
+      xmlns:epub="http://www.idpf.org/2007/ops"
+      version="3.0"&gt;
+    &lt;body&gt;
+        &lt;!-- a paragraph --&gt;
+        &lt;par id="id1"&gt;
+            &lt;text src="chapter1.xhtml#para1"/&gt;
+            &lt;audio src="chapter1_audio.mp3"
+                   clipBegin="0:23:22.000"
+                   clipEnd="0:24:15.000"/&gt;
+        &lt;/par&gt;
+
+        &lt;!-- a page number --&gt;
+        &lt;par id="id2" epub:type="pagebreak"&gt;
+            &lt;text src="chapter1.xhtml#pgbreak1"/&gt;
+            &lt;audio src="chapter1_audio.mp3"
+                   clipBegin="0:24:15.000"
+                   clipEnd="0:24:18.123"/&gt;
+        &lt;/par&gt;
+
+        &lt;!-- another paragraph --&gt;
+        &lt;par id="id3"&gt;
+            &lt;text src="chapter1.xhtml#para2"/&gt;
+            &lt;audio src="chapter1_audio.mp3"
+                   clipBegin="0:24:18.123"
+                   clipEnd="0:25:28.530"/&gt;
+        &lt;/par&gt;
+    &lt;/body&gt;
+&lt;/smil&gt;
+</pre>
+</aside>
+<aside class="example">
+<p>次の例では、改ページを持つ EPUB コンテンツ ドキュメントを示している。</p>
+<pre>&lt;html … &gt;
+    …
+    &lt;body&gt;
+        &lt;p id="para1"&gt;This is the paragraph before the pagebreak … &lt;/p&gt;
+        
+        &lt;span id="pgbreak1" epub:type="pagebreak"/&gt;
+        
+        &lt;p id="para2"&gt;This is the paragraph after the pagebreak …&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+</aside>
+<p>次の非網羅的なリストは、リーディング システムがスキップ可能のオプションを提供する [[!EPUB-SSV]] から用語を説明している。</p>
+<ul>
+<li>
+<p>footnote</p>
+</li>
+<li>
+<p>endnote</p>
+</li>
+<li>
+<p>pagebreak</p>
+</li>
+</ul>
+<p><code>epub:type</code> 値に基づいた読み飛ばし機能のためのリーディング システムのサポートは、想定するべきではない（SHOULD NOT）。</p>
+</section>
+<section id="sec-escabaility">
+<h3>回避機能</h3>
+<p>回避可能な項目は、ユーザーがスキップし、ネストされた構造の直後のポイントから読みの継続を望むかもしれない、例えば表やリストなどのネストされた構造である。回避機能は全ての種類の項目を使用可能または無効にするわけではないので読み飛ばし機能とは異なるが、（たとえばユーザーが回避する前にコンテンツの一部を聞くことができるなど）そこからの出口を提供する。</p>
+<p>リーディング システムは入れ子構造の回避を許可するべきである（SHOULD）。リーディング システムは <code><a href="#sec-docs-semantic-inflection">epub:type</a></code> 属性の値によって入れ子構造の開始位置を決定しなければならず（MUST）、そして構造をスキップ再生し、その後にあるコンテンツの再生を再開するオプションをユーザーに提供するべきである（SHOULD）。</p>
+<aside class="example">
+<p>次の例では、段落、表、別の段落を含む EPUB コンテンツ ドキュメントのメディア オーバーレイ ドキュメントを示している。回避機能をサポートするリーディング システムは、次の段落の再生を継続するために表の再生を中断するオプションをユーザーに提供する。</p>
+<pre>&lt;smil xmlns="http://www.w3.org/ns/SMIL" 
+      xmlns:epub="http://www.idpf.org/2007/ops"
+      version="3.0"&gt;
+    &lt;body&gt;
+        &lt;!-- a paragraph, part of the regular document text --&gt;
+        &lt;par id="id1"&gt;
+            &lt;text src="c01.xhtml#para1"/&gt;
+            &lt;audio src="chapter1_audio.mp3"
+                   clipBegin="0:23:22.000"
+                   clipEnd="0:24:15.000"/&gt;
+        &lt;/par&gt;
+
+        &lt;!-- a table with two nested rows --&gt;
+        &lt;seq id="id2" epub:textref="c01.xhtml#t1" epub:type="table"&gt;
+            &lt;seq id="id3" epub:textref="c01.xhtml#tr1" epub:type="table-row"&gt;
+                &lt;par id="id4" epub:type="table-cell"&gt;
+                    &lt;text src="c01.xhtml#td1"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:24:15.000"
+                           clipEnd="0:24:18.123"/&gt;
+                &lt;/par&gt;
+                &lt;par id="id5" epub:type="table-cell"&gt;
+                    &lt;text src="c01.xhtml#td2"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:24:18.123"
+                           clipEnd="0:25:28.530"/&gt;
+                &lt;/par&gt;
+                &lt;par id="id6" epub:type="table-cell"&gt;
+                    &lt;text src="c01.xhtml#td3"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:25:28.530"
+                           clipEnd="0:25:45.515"/&gt;
+                &lt;/par&gt;
+            &lt;/seq&gt;
+            &lt;seq id="id7" epub:textref="c01.xhtml#tr2" epub:type="table-row"&gt;
+                &lt;par id="id8" epub:type="table-cell"&gt;
+                    &lt;text src="c01.xhtml#td4"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:25:45.515"
+                           clipEnd="0:26:45.700"/&gt;
+                &lt;/par&gt;
+                &lt;par id="id9" epub:type="table-cell"&gt;
+                    &lt;text src="chapter1.xhtml#td5"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:26:45.700"
+                           clipEnd="0:28:02.033"/&gt;
+                &lt;/par&gt;
+                &lt;par id="id10" epub:type="table-cell"&gt;
+                    &lt;text src="chapter1.xhtml#td6"/&gt;
+                    &lt;audio src="chapter1_audio.mp3"
+                           clipBegin="0:28:02.033"
+                           clipEnd="0:28:52.207"/&gt;
+                &lt;/par&gt;
+            &lt;/seq&gt;
+        &lt;/seq&gt;
+
+        &lt;!-- another paragraph --&gt;
+        &lt;par id="id11"&gt;
+            &lt;text src="c01.xhtml#para2"/&gt;
+            &lt;audio src="chapter1_audio.mp3"
+                   clipBegin="0:28:52.207"
+                   clipEnd="0:30:01.000"/&gt;
+        &lt;/par&gt;
+    &lt;/body&gt;
+&lt;/smil&gt;</pre>
+</aside>
+<p>次の非網羅的なリストは、リーディング システムが回避可能なオプションを提供する [[!EPUB-SSV]] から用語を説明している。</p>
+<ul>
+<li>
+<p>table</p>
+</li>
+<li>
+<p>table-row</p>
+</li>
+<li>
+<p>table-cell</p>
+</li>
+<li>
+<p>list</p>
+</li>
+<li>
+<p>list-item</p>
+</li>
+<li>
+<p>figure</p>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="sec-nav-doc">
+<h1>EPUB ナビゲーション ドキュメント</h1>
+<p><a>EPUB ナビゲーション ドキュメント</a>は、<a>XHTML コンテンツ ドキュメント</a>であり、それ故に、オーディオのメディア オーバーレイと関連付けることができる。しかしながら、従来の XHTML コンテンツ ドキュメントとは異なり、<a>リーディング システム</a>は、それが<a>スパイン</a>に包含されていなくても、ユーザーに EPUB ナビゲーション ドキュメントを表示する必要がある（<a href="epub-packages.html#sec-package-nav-rs-conf">EPUB Navigation Documents — リーディング システムの適合性</a> [[!Packages32]] を見よ）。結果として、関連付けられたメディア オーバーレイが動作する方法は、コンテクストに応じて変化する可能性がある。</p>
+<ul>
+<li>
+<p>スパインに包含されるとき、EPUB ナビゲーション ドキュメントのメディア オーバーレイの再生は、他の XHTML コンテンツ ドキュメントと同じ適合性要件に従う。</p>
+</li>
+<li>
+<p>ユーザーがリンクのアクセスとアクティベートすることを許可するプレゼンテーション コンテクスト内に顕在化させた場合、リーディング システムは、ナビゲーションのリンクにアクセスしたとき、オーディオ フィードバックを顕在化するための追加のプレゼンテーション動作を実装してもよい（MAY）。</p>
+</li>
+</ul>
+<div class="note">
+<p>特定の実装の詳細は、この仕様の範囲を超えている。<a href="http://www.daisy.org/guidelines/epub/media-overlays-playback-requirements">DAISY Media Overlays Playback Requirements</a> ドキュメントは、製作者のためのベストプラクティスを説明し、リーディング システム開発者のための推奨を提供している。</p>
+</div>
+</section>
+<section class="appendix" id="app-overlays-schema">
+<h1>メディア オーバーレイのスキーマ</h1>
+<p>メディア オーバーレイのスキーマは <a href="http://www.idpf.org/epub/31/schema/media-overlay-31.nvdl">http://www.idpf.org/epub/31/schema/media-overlay-31.nvdl</a> である。</p>
+<p>このスキーマを使用する検証は [[!NVDL]]、[[!RelaxNG-Schema]]、[[!ISOSchematron]] と [[!XMLSCHEMA-2]] をサポートするプロセッサが必要になる。</p>
+<div class="note">
+<p>NVDL スキーマレイヤーは単独で埋め込まれた RELAX NG と ISO Schematron スキーマを使用して、マルチパスの検証することで代用できることに注意されたい。</p>
+</div>
+</section>
+<section class="appendix informative" id="app-clock-examples">
+<h1>クロック値の例</h1>
+<p>以下は許可されたクロック値の例を示している：</p>
+<ul>
+<li>
+<p><code>5:34:31.396</code> = 5 時 34 分 31 秒 396 ミリ秒</p>
+</li>
+<li>
+<p><code>124:59:36</code> = 124 時間 59 分 36 秒</p>
+</li>
+<li>
+<p><code>0:05:01.2</code> = 5 分 1 秒 200 ミリ秒</p>
+</li>
+<li>
+<p><code>0:00:04</code> = 4 秒</p>
+</li>
+<li>
+<p><code>09:58</code> = 9 分 58 秒</p>
+</li>
+<li>
+<p><code>00:56.78</code> = 56 秒 780 ミリ秒</p>
+</li>
+<li>
+<p><code>76.2s</code> = 76.2 秒 = 76 秒 200 ミリ秒</p>
+</li>
+<li>
+<p><code>7.75h</code> = 7.75 時間 = 7 時間 45 分</p>
+</li>
+<li>
+<p><code>13min</code> = 13 分</p>
+</li>
+<li>
+<p><code>2345ms</code> = 2345 ミリ秒</p>
+</li>
+<li>
+<p><code>12.345</code> = 12 秒 345 ミリ秒</p>
+</li>
+</ul>
+</section>
+<div data-include="vocab/overlays.html" data-oninclude="fixIncludes" data-include-replace="true"></div>
+<div data-include="acknowledgements.html" data-oninclude="fixIncludes" data-include-replace="true"></div>
+</body>
+</html>
