@@ -131,11 +131,11 @@
 <section id="sec-multimedia">
 <h2>マルチメディア</h2>
 <p>EPUB 3 は、それらの要素が提供する全ての機能と特長を継承した、[[HTML]] の <code>audio</code> と <code>video</code> 要素を介して <a>XHTML コンテンツ ドキュメント</a>に音声と動画の埋め込みをサポートする。音声や動画フォーマットの詳細情報は、[[EPUB32]] を参照されたい。</p>
-<p>EPUB 3 のもうひとつの主なマルチメディア機能は、<a>メディア オーバーレイ ドキュメント</a> [[MediaOverlays32]] の包含である。EPUB 出版物のレンディション のために録音済みナレーションが利用できるとき、メディア オーバーレイは、コンテンツ ドキュメントのテキストにその音声を同期させる機能を提供する（<a href="#sec-access-overlays">聴覚レンダリングとメディア オーバーレイ</a>も見よ）。</p>
+<p>EPUB 3 のもうひとつの主なマルチメディア機能は、<a>メディア オーバーレイ ドキュメント</a> [[MediaOverlays32]] の包含である。EPUB 出版物のレンディションのために録音済みナレーションが利用できるとき、メディア オーバーレイは、コンテンツ ドキュメントのテキストに音声を同期させる機能を提供する（<a href="#sec-access-overlays">聴覚レンダリングとメディア オーバーレイ</a>も見よ）。</p>
 </section>
 <section id="sec-fonts">
 <h2>フォント</h2>
-<p>EPUB 3 は、従来の出版ワークフローと新たな web ベースのワークフローに対応する二つの密接に関連するフォントフォーマット（OpenType [[OpenType]] と WOFF [[WOFF]] [[WOFF2]]）をサポートする。例えば、EPUB 出版物を生成するのに使用されるワードプロセッサプログラムは、インストール済みの OpenType フォントのコレクションのみにアクセスするだろうし、Web ページをまとめて EPUB を生成する EPUB ジェネレーターは、WOFF リソースのみアクセスできるようにするだろう（望ましくなく、潜在的にライセンスされておらず、WOFF のメタデータを削除することなく、WOFF を OpenType に変換することはできない）。</p>
+<p>EPUB 3 は、従来の出版ワークフローと新たな Web ベースのワークフローに対応する二つの密接に関連するフォントフォーマット（OpenType [[OpenType]] と WOFF [[WOFF]] [[WOFF2]]）をサポートする。例えば、EPUB 出版物を生成するのに使用されるワードプロセッサプログラムは、インストール済みの OpenType フォントのコレクションのみにアクセスするだろうし、Web ページをまとめて EPUB を生成する EPUB ジェネレーターは、WOFF リソースのみアクセスできるようにするだろう（望ましくなく、潜在的にライセンスされておらず、WOFF のメタデータを削除することなく、WOFF を OpenType に変換することはできない）。</p>
 <p>EPUB 3 はまた、OpenType と WOFF フォントフォーマット両方の難読化と通常のフォントリソースの両方をサポートしている。難読化されたフォントリソースのサポートは、多くの商用フォントのためのフォントライセンスの制限に対応するために求められる。</p>
 </section>
 <section id="sec-scripting">
@@ -147,7 +147,7 @@
 </section>
 <section id="sec-tts">
 <h2>テキスト読み上げ</h2>
-<p>EPUB 3 は、音声同期の制御的側面、例えば発音、韻律、音質などの以下のようなテキスト読み上げ (tts) 機能を提供する。</p>
+<p>EPUB 3 は、音声同期の制御的側面、例えば発音、韻律、音質などの以下のようなテキスト読み上げ (TTS) 機能を提供する。</p>
 <dl class="labels">
 <dt>発音辞書</dt>
 <dd>
@@ -225,13 +225,13 @@
 <section id="sec-access-layout">
 <h2>動的レイアウト</h2>
 <p>EPUB の設計の中心は動的なレイアウトであり、コンテンツは一般的に、前もってページ区切りの方法（すなわち、特定の寸法の"ページ"を期待する）よりはむしろ、その場で体裁を整えられることを意図している。この中核の機能は、例えば、異なるサイズのデバイスの画面やウィンドウサイズのレンダリングを最適化するために有用であり、コンテンツのアクセシビリティを容易かつ簡素化する。</p>
-<p>（たとえば、ビットマップ画像や SVG グラフィック、または特定の視覚的なレイアウトを実現する CSS の明示的なポジショニングおよび/または表組要素の使用を介して）EPUB に完璧にフォーマット化されたコンテンツを組み込むことが可能とはいえ、製作者は、そのような技術を利用することは強く推奨されない。多くのリーディング システムは、単一スクロールの<a>ビューポート</a>を作成するよりむしろ、ページ区切りされた寸法でコンテンツをレンダリングしたり、それぞれのリーディング システムは、独自のページ付けのアルゴリズムを定義しているかもしれないので、これらの技術は EPUB では信頼できない。これらの技術が、出版物のコンテンツを伝えるために必要なとき、（例えば、グラフィック ノベルのために）<a href="epub-spec.html#sec-foreign-restrictions">フォールバック</a> [[EPUB32]] を包含することを考慮されたい。</p>
+<p>（例えば、ビットマップ画像や SVG グラフィック、または特定の視覚的なレイアウトを実現する CSS の明示的なポジショニングおよび/または表組要素の使用を介して）EPUB に完璧にフォーマット化されたコンテンツを組み込むことが可能とはいえ、製作者は、そのような技術を利用することは強く推奨されない。多くのリーディング システムは、単一スクロールの<a>ビューポート</a>を作成するよりむしろ、ページ区切りされた寸法でコンテンツをレンダリングしたり、それぞれのリーディング システムは、独自のページ付けのアルゴリズムを定義しているかもしれないので、これらの技術は EPUB では信頼できない。これらの技術が、出版物のコンテンツを伝えるために必要なとき、（例えば、グラフィック ノベルのために）<a href="epub-spec.html#sec-foreign-restrictions">フォールバック</a> [[EPUB32]] を包含することを考慮されたい。</p>
 <p>一般に、絶対的なサイジングやポジショニングをせずに CSS スタイル シートを使用することで、視覚的な豊かさを実現するのが望ましい。</p>
 </section>
 <section id="sec-access-overlays">
 <h2>聴覚レンダリングとメディア オーバーレイ</h2>
 <p>コンテンツの聴覚レンダリングは、アクセシビリティのために重要であり、他の多くのユーザーための機能としても価値がある。聴覚レンダリングを促進するためのベースラインは、動的なレイアウトのために設計されたセマンティックな HTML の利用である。EPUB XHTML ドキュメントに含んでいるネイティブの機能を使用する方法の詳細な情報は、<a href="#sec-tts">テキスト読み上げ</a>を参照されたい。</p>
-<p>[[MediaOverlays32]] は、EPUB 出版物のテキストと音声コンテンツを同期する機能を提供する。この機能はすでに、DAISY Digital Talking Books のユーザーに親しまれている。オーバーレイは、多くの状況で有益であり、たとえば、読むことを学習するためのツールとして、テキストと音声の同期の実用性はアクセシビリティの範囲を超える。</p>
+<p>[[MediaOverlays32]] は、EPUB 出版物のテキストと音声コンテンツを同期する機能を提供する。この機能はすでに、DAISY Digital Talking Books のユーザーに親しまれている。オーバーレイは、多くの状況で有益であり、例えば、読むことを学習するためのツールとして、テキストと音声の同期の実用性はアクセシビリティの範囲を超える。</p>
 </section>
 <section id="sec-access-fallbacks">
 <h2>フォールバック</h2>
@@ -246,29 +246,28 @@
 </section>
 </section>
 <section id="sec-revision-history">
-<h2>EPUB Revision History</h2>
+<h2>EPUB の改訂履歴</h2>
 <section id="epub2">
-<h3>OEB, OCF and EPUB 2: 1999—2010</h3>
-<p>EPUB has its roots in the interchange format known as the Open EBook Publication Structure (OEBPS). OEBPS 1.0 was approved in 1999 by the Open eBook Forum, an organization that later became the International Digital Publishing Forum (IDPF). Subsequent revisions 1.1 and 1.2 were approved by the IDPF in 2001 and 2002 respectively.</p>
-<p>It was realized that a need existed for a format standard that could be used for delivery as well as interchange, and work began in late 2005 on a single-file container format for OEPBS, which was approved by the IDPF as the OEBPS Container Format (OCF) in 2006. Work on a 2.0 revision of OEBPS began in parallel which was approved as the renamed EPUB 2.0 in October, 2007, consisting of a triumvirate of specifications: Open Package Format (OPF), Open Publication Format (OPF) together with OCF. EPUB 2.0.1, a maintenance update to the 2.0 specification set primarily intended clarify and correct errata in the specifications, was approved in September, 2010. [[OPF2]] [[OPS2]] [[OCF2]]</p>
+<h3>OEB、OCF と EPUB 2：1999—2010</h3>
+<p>EPUB は、Open EBook Publication Structure（OEBPS）として知られる交換形式をルーツにしている。OEBPS 1.0 は、後に国際デジタル出版フォーラム（IDPF）として組織化された Open eBook Forum によって、1999年に承認された。その後の改正である 1.1 及び 1.2 は、2001年と 2002年に、IDPF によって承認された。</p>
+<p>交換だけでなく配信にも使用できるフォーマット標準が必要であることが認識され、OEPBSの単一ファイル コンテナ形式として 2005年後半に作業が開始され、2006年に OEBPS Container Format (OCF) として IDPF によって発表された。OEBPS の 2.0 の改定作業は、OCF と一緒に、Open Package Format (OPF)、Open Publication Format (OPF) の、三つ組みの仕様で構成され、2007年10月に名前を変更した EPUB 2.0 として承認され、並行して開始された。EPUB 2.0.1 は、仕様の明確化と正誤を主目的とした 2.0 仕様のメンテナンス アップデートで、2010年9月に承認された。[[OPF2]] [[OPS2]] [[OCF2]]</p>
 </section>
 <section id="epub30">
-<h3>EPUB 3.0: 2010</h3>
-<p>Work on a major revision of the EPUB specifications began in 2010, with the goal of aligning EPUB more closely with HTML, and in the process bringing new, native multimedia features, sophisticated CSS layout rendering and font embedding, scripted interactivity, enhanced global language support, and improved accessibility. A new specification, EPUB Media Overlays was also introduced, enabling text and audio synchronization in EPUB Publications. To better align the specification names with the standard, the Open Package Format specification was renamed EPUB Publications and the Open Publication Format specification was renamed EPUB Content Documents. The EPUB 3.0 specifications were approved in October, 2011. [[Publications30]] [[ContentDocs30]] [[OCF30]] [[MediaOverlays30]] [[EPUB3Changes]]</p>
+<h3>EPUB 3.0：2010</h3>
+<p>EPUB 仕様の主要な改訂作業は、HTML をより密接に EPUB と連携させ、新しいネイティブのマルチメディア機能、洗練された CSS レイアウト表示とフォント埋め込み、スクリプトによるインタラクティブ機能、強化されたグローバル言語サポート、アクセシビリティが向上した。新しい仕様である EPUB メディア オーバーレイ も導入され、EPUB 出版物でテキストと音声の同期が可能になった。規格に仕様名をよりよく一致させるために、Open Package Format 仕様は EPUB Publications に改名され、Open Publication Format 仕様は EPUB Content Documents に改名された。EPUB 3.0 仕様は、2011年10月に承認された。[[Publications30]] [[ContentDocs30]] [[OCF30]] [[MediaOverlays30]] [[EPUB3Changes]]</p>
 </section>
 <section id="epub301">
-<h3>EPUB 3.0.1: 2014</h3>
-<p>The EPUB 3.0.1 revision was undertaken in 2013-14. Although introducing mostly minor fixes and updates, it did see the integration of Fixed Layout Documents, which give Authors greater control over presentation when a reflowable EPUB is not suitable for the content. [[Publications301]] [[ContentDocs301]] [[OCF301]] [[MediaOverlays301]] [[EPUB301Changes]]</p>
+<h3>EPUB 3.0.1：2014</h3>
+<p>EPUB 3.0.1 の改訂は、2013〜14年に実施された。主に小さな修正や更新を導入だけれども、リフロー EPUBが、コンテンツに適していない場合、製作者がプレゼンテーションをより詳細に制御できる固定レイアウト ドキュメントの統合が見られた。[[Publications301]] [[ContentDocs301]] [[OCF301]] [[MediaOverlays301]] [[EPUB301Changes]]</p>
 </section>
 <section id="epub31">
-<h3>EPUB 3.1: 2017</h3>
-<p>EPUB 3.1 was the first minor revision of EPUB 3. The goal of this revision was to better align EPUB 3 with current Web standards. References to important standards were made undated, meaning that whenever they are updated they are legal to use in EPUB 3 content (e.g., the latest version of HTML is always valid to use; a revision of EPUB is not needed). The use of CSS was also clarified, and the use of EPUB-specific properties reduced.</p>
-<p>Many EPUB-specific features were also removed from the standard, in particular content switching, triggers, and bindings. This change necessitated a new Package Document version number.[[EPUB31]] [[Packages31]] [[ContentDocs31]] [[OCF31]] [[MediaOverlays31]] [[EPUB31Changes]]</p>
+<h3>EPUB 3.1：2017</h3>
+<p>EPUB 3.1 は、EPUB 3 の最初のマイナーリビジョンだった。この改訂のゴールは、現在の Web 標準に EPUB 3 をよりよく合わせることだった。重要な標準への参照は、更新されたときはいつでも、EPUB 3 コンテンツで使用することが合法であることを意味する、日付なしとされた。（例えば、HTML の最新バージョンは、使用において常に妥当であり、EPUB のリビジョンは不要である）。CSS の使用もまた明確になり、EPUB 固有のプロパティの使用が減少した。</p>
+<p>多くの EPUB 固有の機能、特にコンテンツの切り替え、トリガー及びバインディングも規格から削除された。この変更は、新しいパッケージ ドキュメントのバージョン番号を強制させた。[[EPUB31]] [[Packages31]] [[ContentDocs31]] [[OCF31]] [[MediaOverlays31]] [[EPUB31Changes]]</p>
 </section>
-
 <section id="epub32">
-<h3>EPUB 3.2: 2018</h3>
-<p>EPUB 3.2 was undertaken shortly after EPUB 3.1 in order to restore compatibility of content to EPUB 3. The change of version number introduced in EPUB 3.1 meant that authors, vendors and reading system developers would have to produce, distribute and consume two versions of EPUB content, but the costs of this change outweighed the benefits of the new version. EPUB 3.2 instead keeps all the best parts of EPUB 3.1, but returns and deprecates the removed elements so that a new version number is not necessary in the Package Document. [[EPUB32]] [[Packages32]] [[ContentDocs32]] [[OCF32]] [[MediaOverlays32]] [[EPUB32Changes]]</p>
+<h3>EPUB 3.2：2018</h3>
+<p>EPUB3.2 は、EPUB 3 とのコンテンツの互換性を回復するために、EPUB 3.1 の直後に行われた。EPUB 3.1 に導入されたバージョン番号の変更は、製作者、ベンダー及びリーディング システムの開発者が、EPUB コンテンツの二つのバージョンを制作、配布、消費する必要があることを意味したが、この変更のコストは、新しいバージョンの利点を上回った。EPUB 3.2 は代わりに、EPUB 3.1 の全ての最良の部分が保持されるが、削除された要素が復帰及び返廃止され、パッケージ ドキュメントの新しいバージョン番号が不要になった。[[EPUB32]] [[Packages32]] [[ContentDocs32]] [[OCF32]] [[MediaOverlays32]] [[EPUB32Changes]]</p>
 </section>
 </section>
 </body>
