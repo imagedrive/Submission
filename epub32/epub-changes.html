@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB 3.2 Changes 日本語訳（2018年9月25日版）</title>
+<title>EPUB 3.2 Changes 日本語訳（2018年11月15日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -112,11 +112,14 @@
 <h2>パッケージ メタデータの変更</h2>
 <p>EPUB 3.2 は、パッケージ メタデータを次のように変更する。</p>
 <ul>
-<li><code>epubsc</code> は、もはや予約済みの接頭辞ではない。</li>
-<li>メタデータの語彙は、外部のレジストリから仕様自身に移された。</li>
-<li><code>display-seq</code> 属性は、非推奨（deprecated）となった。優先順位は、ドキュメントの順序に従うべきである。</li>
-<li><code>rendition:spread</code> 属性の <code>portrait</code> 値は、非推奨（deprecated）となった。</li>
-<li>ひとつ以上の <code>alternate-script</code> プロパティは、他の <code>meta</code> 要素に紐付けることができる。</li>
+<li><code>rendition:spread</code> の <a href="epub-packages.html#spread-values"><code>portrait</code> 値</a>は、非推奨（deprecated）となった。</li>
+<li><a href="epub-packages.html#viewport"><code>rendition:viewport</code></a> プロパティは、非推奨（deprecated）となった。</li>
+<li><a href="epub-packages.html#sec-display-seq"><code>display-seq</code></a> と <a href="epub-packages.html#sec-meta-auth"><code>meta-auth</code></a> プロパティは、非推奨（deprecated）となった。表示の順序は、ドキュメントの順序に従う。</li>
+<li><a href="epub-packages.html#sec-authority"><code>authority</code></a> 及び<a href="epub-packages.html#sec-term"><code>term</code></a> プロパティは、<code>dc:subject</code> 要素で使用するために追加された。</li>
+<li>現在、全ての特定のメタデータ レコードにおける<a href="epub-packages.html#sec-link-rel">リンク要素の関連性</a>は、非推奨（deprecated）である（<code>marc21xml-record</code>、<code>mods-record</code>、<code>onix-record</code> 及び <code>xmp-signature</code>）。今は、一般的な <code>record</code> の関連性はの使用が、推奨される。<code>properties</code> 属性は、<a href="epub-packages.html#sec-link-properties">固有のメディアタイプを持たないレコード タイプ</a>を識別するのに役立つように、link 要素に追加された。</li>
+<li><a href="epub-packages.html#sec-alternate"><code>alternate</code></a> 及び <a href="epub-packages.html#sec-acquire"><code>acquire</code></a> のリンクの関係性が追加された。</li>
+<li>外部メタデータ語彙は、付録として仕様に復帰した。</li>
+<li>（スクリプトによって操作できるコンポーネントの）<code>epubsc</code> は、もはや予約済みの接頭辞ではない。</li>
 </ul>
 </section>
 <section id="sec-pkg-linked-records">
@@ -141,6 +144,7 @@
 <h2>HTML と SVG への日付なし参照</h2>
 <p>EPUB 3.0.1 は、それらの特定のバージョンに仕様を結びつけるため、HTML 5.0 と SVG 1.1 のために日付付きの参照を使用していた。このモデルでは、新しいリビジョンが、HTML や SVG のバージョンを導入するのにそれぞれの時間を必要とした。</p>
 <p>EPUB 3.2 が、これら仕様における最新の推奨バージョンと共に最新に保たれていることを保証するために、日付付きの参照は、EPUB 3.2 において日付なし参照に置き換えられた。この変更は、HTML と SVG の新しい推奨バージョンが公開されると、それらがすぐに EPUB 出版物での使用に有効であることを意味する。</p>
+<p>この変更の結果として、SVG のアニメーション要素とイベントの使用に対する制限は取り除かれたが、製作者は、SVG のこれらの機能やその他の機能は、まだ十分にサポートされていないので注意して使用するべきである。</p>
 <p>詳細の情報は、<a href="epub-contentdocs.html#sec-overview-relations-html">HTML との関連性</a>と <a href="epub-contentdocs.html#sec-overview-relations-svg">SVG との関連性</a>を見よ。</p>
 </section>
 <section id="sec-cdoc-css">
@@ -235,8 +239,13 @@
 <p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-OCF+is%3Aclosed">3.2 リビジョン</a>で取り上げられた OCF 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
 <section id="sec-ocf-enc">
-<h2>暗号化</h2>
-<p><a href="epub-ocf.html#sec-enc-compression">暗号化と圧縮の順序</a>が明確化された。新しいルールは、リソースのサイズを減少させることが適切でないとき、圧縮が必要でないことを明確にする。新しい <code>Compression</code> 要素は、リソースが圧縮後かそれともオリジナルのバイトサイズかを示すために <code>encryption.xml</code> スキーマのために追加された。</p>
+<h2>暗号化と圧縮順序</h2>
+<p><a href="epub-ocf.html#sec-enc-compression">暗号化と圧縮の順序</a>が明確化された。新しいルールは、リソースのサイズを減少させることが適切でないとき、圧縮が必要でないことを明確にする。</p>
+</section>
+
+<section id="sec-ocf-comp">
+<h2>新しい <code>Compression</code> 要素</h2>
+<p>新しい <code>Compression</code> 要素は、リソースがすでに圧縮済みなのかそれともそれがオリジナルのバイトサイズを提供しているのかを示すために <code>encryption.xml</code> スキーマのために追加された。</p>
 </section>
 </section>
 <section id="sec-mo">
@@ -244,10 +253,7 @@
 <div class="note">
 <p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.2 リビジョン</a>で取り上げられたメディア オーバレイ 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
-<section>
-<h2><code>duration</code> 属性の廃止</h2>
-<p>@refines を非推奨にしたために、3.1 で追加された <code>duration</code> 属性を廃止した。しかし、3.2 は @refines を復元し、3.1 は実装されなかったので、<code>duration</code> は必要ない。</p>
-</section>
+<p>このリビジョンでは、Media Overlays仕様に大きな変更はなかった。</p>
 </section>
 <section id="sec-a11y">
 <h1>EPUB Accessibility</h1>
@@ -256,11 +262,11 @@
 </section>
 <section id="sec-cfi">
 <h1>EPUB Canonical Fragment Identifiers</h1>
-<p>EPUB 3.0.1 から取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-CFI+is%3Aclosed">EPUB Canonical Fragment Identifiers 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+<p>EPUB Canonical Identifiers 仕様は、もはや EPUB 3.2 から参照されない。現在、リーディング システムにおけるサポートは、省略可能である。</p>
 </section>
 <section id="sec-altss">
 <h1>Alternate Style Tags</h1>
-<p>Alternate Style Tags 仕様は、もはや EPUB 3.2 から参照されない。</p>
+<p>Alternate Style Tags 仕様は、もはや EPUB 3.2 から参照されない。現在、リーディング システムにおけるサポートは、省略可能である。</p>
 </section>
 </body>
 </html>
