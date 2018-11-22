@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB 3.2 日本語訳（2018年9月25日版）</title>
+<title>EPUB 3.2 日本語訳（2018年11月15日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -23,11 +23,6 @@
               copyrightStart: "1999",
               editors: [
                   {
-                      name: "Tzviya Siegman",
-                      company: "John Wiley & Sons",
-                      companyURL: "https://www.wiley.com"
-                  },
-                  {
                       name: "Matt Garrish",
                       company: "DAISY Consortium",
                       companyURL: "https://www.daisy.org"
@@ -43,6 +38,11 @@
                       name: "Markus Gylling",
                       company: "International Digital Publishing Forum (IDPF)",
                       companyURL: "https://www.idpf.org"
+                  },
+                  {
+                      name: "Tzviya Siegman",
+                      company: "John Wiley & Sons",
+                      companyURL: "https://www.wiley.com"
                   }
               ],
               processVersion: 2017,
@@ -98,10 +98,10 @@
 <section id="sec-intro-spec-org" class="informative">
 <h2>組織</h2>
 <p>このセクションでは、<a>EPUB 出版物</a>として定義する中心的な成果物を通じて EPUB 仕様の組織をレビューする。</p>
-<p>EPUB 出版物は、<a>EPUB パッケージ</a>と呼ばれるものによって表示されるそれぞれのコンテンツのひとつ以上の<a>レンディション</a>で構成されている。EPUB パッケージは、コンテンツを読むために必要な全てのリソースで構成されている。これらの間で重要なファイルは、（例えば、本棚に表示するタイトルと著者名、コンテンツが固定レイアウトなのか、あるいはリフローすることが可能かどうかなどのレンダリングのメタデータも同様に）読者に EPUB 出版物を提示する<a>リーディング システム</a>によって使用される全てのメタデータを包含する<a>パッケージ ドキュメント</a>である。リソースの完全なマニフェストもまた提供し、読者がコンテンツを介して進むにつれてドキュメントをレンダリングするための配列を記載する<a>スパイン</a>を包含する。</p>
+<p>EPUB 出版物は、<a>EPUB パッケージ</a>と呼ばれるものによって表示されるそれぞれのコンテンツのひとつ以上の<a>レンディション</a>で構成されている。EPUB パッケージは、コンテンツを読むために必要な全てのリソースで構成されている。これらの間で重要なファイルは、（例えば、本棚に表示するタイトルと著者名、コンテンツが固定レイアウトなのか、あるいはリフローすることが可能かどうかなどのレンダリングのメタデータも同様に）読者に EPUB 出版物を提示する<a>リーディング システム</a>によって使用される全てのメタデータを包含する<a>パッケージ ドキュメント</a>である。リソースの完全なマニフェストもまた提供し、読者がコンテンツを介して進むにつれてドキュメントをレンダリングする配列を記載する<a>スパイン</a>を包含する。</p>
 <p>EPUB パッケージは、<a>EPUB ナビゲーション ドキュメント</a>と呼ばれる他の主要なファイルも包含する。このドキュメントは、読者が迅速かつ容易にコンテンツを移動できる、例えば目次のような、重要なナビゲーション機能を提供する。</p>
 <p>EPUB パッケージの要件は、[[Packages32]] で定義されている。</p>
-<p>EPUB 出版物のリソースは、ファイル拡張子 <code>.epub</code> の ZIP ベースのアーカイブ内で配布のためにひとまとめにされる。ZIP アーカイブ準拠なので、EPUB 出版物は多くのソフトウェアプログラムによって解凍でき、生産と消費の両方を単純にすることができる。</p>
+<p>EPUB 出版物のリソースは、ファイル拡張子 <code>.epub</code> の ZIP ベースのアーカイブ内で配布のためにひとまとめにされる。ZIP アーカイブ準拠なので、EPUB 出版物は多くのソフトウェアプログラムによって解凍でき、生産と消費の両方を単純にできる。</p>
 <p>コンテナ フォーマットは、ZIP 圧縮されたコンテンツが EPUB 出版物であることを決定する手段（<code>mimetype</code> ファイル）だけでなく、有益なリソースの普遍的な名前のディレクトリも提供する（<code>/META-INF</code>）。これらリソース間のキーになるのは、利用可能なパッケージ ドキュメントをリーディング システムに指示する <code>container.xml</code> である。</p>
 <p>コンテナ フォーマットは、[[OCF32]] で定義されている。</p>
 <figure>
@@ -449,14 +449,13 @@
 <td>WOFF2 フォント</td>
 </tr>
 <tr>
-<th colspan="3" id="cmt-grp-content-documents" class="tbl-group">その他</th>
+<th colspan="3" id="cmt-grp-other" class="tbl-group">その他</th>
 </tr>
 <tr>
 <td id="cmt-xhtml">
 <code>application/xhtml+xml</code>
 </td>
-<td>
-<a href="epub-contentdocs.html#sec-xhtml">XHTML コンテンツ ドキュメント</a> [[!ContentDocs32]] </td>
+<td><a href="epub-contentdocs.html#sec-xhtml">XHTML コンテンツ ドキュメント</a> [[!ContentDocs32]] </td>
 <td><a href="https://www.w3.org/TR/html/xhtml.html#xhtml">XHTML 構文</a> [[!HTML]] を使用する <a href="#dfn-xhtml-content-document">XHTML コンテンツ ドキュメント</a>。</td>
 </tr>
 <tr>
