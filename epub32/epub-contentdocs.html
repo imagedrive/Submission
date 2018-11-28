@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Content Documents 3.2 日本語訳（2018年9月25日版）</title>
+<title>EPUB Content Documents 3.2 日本語訳（2018年11月15日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -72,36 +72,47 @@
 <section id="sotd"></section>
 <section id="sec-introduction">
 <h1>まえがき</h1>
+
 <section id="sec-overview-relations" class="informative">
 <h2>他の仕様との関連性</h2>
+
 <section id="sec-overview-relations-html">
 <h3>HTML との関連性</h3>
 <p>この仕様は、W3C [[HTML]] の特定のバージョンを参照しないが、その代わり、常に最新の勧告を指す日付なしの参照を使用する。このアプローチは、EPUB が常に HTML 規格の変更のペースを維持することを保証する。製作者とリーディング システムの開発者は、HTML の変更を追跡し続け、それらのプロセスやシステムが常に最新の状態に保たれていることを保証する必要があるだろう。</p>
+
 <div class="caution">
 <p>HTML の進化によって、以前のバージョンでは有効だった機能が、非推奨（Obsolete）や取り除かれる可能性がある。製作者のために最小限の混乱を保証するため、そのような変更を慎重に行うことを W3C に期待しているが、後方互換性のない版の場合は、日付のない参照の使用は見直されるかもしれない。</p>
 </div>
+
+
 <p><a href="#sec-xhtml">この仕様によって定義された XHTML プロファイル</a>は、他の仕様がない限り、[[HTML]] が提供するセマンティクスや構造、処理動作の全ての定義を継承する。</p>
 <p>さらに、この仕様は、<a>製作者</a>によって <a>XHTML コンテンツ ドキュメント</a>に包含できる W3C HTML 文書モデルの<a href="#sec-xhtml-extensions">拡張セットを定義</a>をする。</p>
 <p>この仕様は、スクリプトや HTML フォームもしくは HTML DOM のサポートを <a>EPUB リーディング システム</a>に要求しない。この仕様に準拠した リーディング システムは、適合した <a>EPUB コンテンツ ドキュメント</a>を処理することのみ期待される。<a href="#sec-scripted-content-rs-reqs">スクリプトや HTML フォームのサポート</a>が強制ではないように、適合したリーディング システムは、完全に準拠した HTML のユーザー エージェントでないかもしれない。</p>
 </section>
+
 <section id="sec-overview-relations-svg">
 <h3>SVG との関連性</h3>
 <p>この仕様は、W3C [[SVG]] の特定のバージョンを参照しないが、その代わり、常に最新の勧告を指す日付なしの参照を使用する。このアプローチは、EPUB が常に SVG 規格の変更のペースを維持することを保証する。製作者とリーディング システムの開発者は、SVG の変更を追跡し続け、それらのプロセスやシステムが常に最新の状態に保たれていることを保証する必要があるだろう。</p>
+
 <div class="caution">
 <p>SVG の進化によって、以前のバージョンでは有効だった機能が、非推奨（Obsolete）や取り除かれる可能性がある。製作者のために最小限の混乱を保証するために、そのような変更を慎重に行うことを W3C に期待しているが、後方互換性のない版の場合は、日付のない参照の使用は見直されるかもしれない。</p>
 </div>
 </section>
+
 <section id="sec-overview-relations-css">
 <h3>CSS との関連性</h3>
 <p>EPUB 3 は、CSS ワーキング グループ スナップショット [[CSSSnapshot]] によって定義される CSS をサポートする。EPUB 3 はまた、グローバルな言語の一貫したサポートを確実にするために、いくつかのプリフィックス付き CSS プロパティを保持する。</p>
 </section>
 </section>
+
 <section id="sec-terminology">
 <h2>用語</h2>
 <p>EPUB 3 固有の意味を持つ用語は、このドキュメント（例えば、「製作者」、「リーディング システム」）に利用できる。これらの<a href="epub-spec.html#sec-terminology">用語と定義</a>の完全なリストは、[[!EPUB32]] で提供されている。</p>
 <p>セクションにある用語の最初のインスタンスのみが、その定義にリンクされる。</p>
 </section>
+
 <section id="conformance"></section>
+
 <section id="sec-overview-pfx">
 <h2>名前空間プリフィックスのマッピング</h2>
 <p>便宜上、次の名前空間プリフィックス [[!XML-NAMES]] は、明示的に宣言されることなく、この仕様で使用される。<a>EPUB コンテンツ ドキュメント</a>でこれらのプリフィックスを使用するに、宣言は必須である（REQUIRED）。</p>
@@ -115,10 +126,6 @@
 <td><code>http://www.idpf.org/2007/ops</code></td>
 </tr>
 <tr>
-<td><code>pls</code></td>
-<td><code>https://www.w3.org/2005/01/pronunciation-lexicon</code></td>
-</tr>
-<tr>
 <td><code>ssml</code></td>
 <td><code>https://www.w3.org/2001/10/synthesis</code></td>
 </tr>
@@ -127,14 +134,20 @@
 </section>
 <section id="sec-xhtml">
 <h1>XHTMLコンテンツ ドキュメント</h1>
+
 <section id="sec-xhtml-intro">
 <h2>まえがき</h2>
+
 <p>この仕様は、XHTML コンテンツ ドキュメント制作のために [[!HTML]] のプロファイルを定義する。このプロファイルに準拠する XML ドキュメントのインスタンスは<a>コア メディア タイプ リソース</a>であり、<a>XHTML コンテンツ ドキュメント</a>としてこの仕様で言及される。</p>
+
 <p>他の指定のない限り、この仕様は、[[!HTML]] 仕様からセマンティクスと構造、処理動作の全ての定義を継承する。</p>
 </section>
+
 <section id="sec-xhtml-conf-content">
 <h2>コンテンツの適合性</h2>
+
 <p><a>XHTML コンテンツ ドキュメント</a>は、次の基準を全て満たさなければならない（MUST）。</p>
+
 <dl class="conformance-list">
 <dt id="confreq-cd-html-docprops">ドキュメントのプロパティ</dt>
 <dd><p id="confreq-cd-html-docprops-syntax"><a href="https://www.w3.org/TR/html/xhtml.html#xhtml">XHTML</a> 構文に従った [[!HTML]] ドキュメントでなければならない（MUST）。</p>
@@ -149,6 +162,7 @@
 <dd><p id="confreq-cd-xhtml-fileprops-name">XHTML コンテンツ ドキュメントのファイル名は、ファイル拡張子 <code>.xhtml</code> を使用するべきである（SHOULD）。</p></dd>
 </dl>
 </section>
+
 <section id="sec-xhtml-conf-rs">
 <h2>リーディング システムの適合性</h2>
 <p>適合した <a>EPUB リーディング システム</a>は、<a>XHTML コンテンツ ドキュメント</a>の処理のために、次の基準を全て満たさなければならない（MUST）：</p>
@@ -161,14 +175,19 @@
 <li><p id="confreq-html-rs-a11y">埋め込まれた ARIA マークアップを認識し、アクセシビリティ APIs [[!WAI-ARIA]] の任意の ARIA ロール（role）やステート（state）、プロパティ（property）がプラットフォームに出現するのをサポートするべきである（SHOULD）。</p></li>
 </ul>
 </section>
+
 <section id="sec-xhtml-extensions">
 <h2>HTML の拡張</h2>
+
 <p>このセクションは、[[!HTML]] ドキュメント モデルを基礎にして、EPUB 3 の <a>XHTML コンテンツ ドキュメント</a>の拡張を定義する。</p>
+
 <div class="note">
 <p>このような拡張がこのセクションに掲載されていない限り、[[HTML]] は、<a href="https://www.w3.org/TR/html5/infrastructure.html#conformance-requirements-extensibility">ベンダーの中立的な拡張</a>のサポートをユーザーエージェントに許可しているが、それらは、EPUB 3 でサポートされた機能ではない。</p>
 </div>
+
 <section id="sec-xhtml-semantic-inflection">
 <h3>意味の変化</h3>
+
 <section id="sec-xhtml-semantic-inflection-intro" class="informative">
 <h4>まえがき</h4>
 <p>意味の変化は <a>XHTML コンテンツ ドキュメント</a>内で使用している要素に特定の意味と、または性質に関するさらなる意味を付与する行為である。<a href="#sec-epub-type-attribute"><code>epub:type</code> 属性</a>は、[[HTML]] の語彙を補足する変化をもたらし、XHTML コンテンツ ドキュメント内のドメイン固有の意味を表現するのに使用される。</p>
@@ -176,8 +195,10 @@
 <p>セマンティック メタデータは直接人間に提供されることを目的にしておらず、その代わりにドキュメントの構造とコンテンツについてのより詳細にリーディング システムのために制御方法を提供し、読者のために読書体験を向上させる良い機会を提供する。</p>
 <p>この仕様は、新しい要素を追加する代わりに、<em>axis 属性</em>を使用して意味の変化のための方法を定義し、<code>epub:type</code> 属性で求められる意味の変化を既存の要素に付与できる。属性の制御値を提供する外部のボキャブラリを識別するためのメカニズムもまた定義されている。</p>
 </section>
+
 <section id="sec-epub-type-attribute">
 <h4><code>epub:type</code> 属性</h4>
+
 <dl class="elemdef" id="attrdef-epub-type">
 <dt>属性名</dt>
 <dd><p><code>type</code></p></dd>
@@ -192,7 +213,9 @@
 <p><code>epub:type</code> 属性は、それが出現する要素の意味を変化させる。その値は、<a href="#sec-contentdocs-vocab-association">語彙の関連性</a>で定義された文書のインスタンスに関連付けられた外部の語彙から抽出される空白で区切られたひとつ以上の用語である。</p>
 <p>変化された意味は、含んでいる要素の意味のサブクラスを表現しなければならない（MUST）。例えば [[!HTML]] の <a href="https://www.w3.org/TR/html/grouping-content.html#the-div-element"><code>div</code></a> や <a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-span-element"><code>span</code></a> 要素など、意味的に中立な要素の場合、変化された意味は、（例えば、<code>div</code> は段落や節を表現している）既存の要素によってすでに含まれている意味を加えてはならない（MUST NOT）。リーディング システムは含んでいる要素と矛盾する<a href="#confreq-rs-epubtype-prec">変化された意味を無視</a>しなければならない（MUST）。</p>
 <p>[[!HTML]] <a href="https://www.w3.org/TR/html/document-metadata.html#the-head-element"><code>head</code></a> 要素がドキュメントのメタデータを含むように、構造的なセマンティクスは、この要素上または意味を持たない任意の子孫に表れる。リーディング システムは、これらのセマンティクスを無視しなければならない（MUST）。</p>
+
 <h4>例</h4>
+
 <aside class="example" id="ex.epubtype.note">
 <p>次の例は、序文が、[[HTML]] <code>section</code> 要素に含まれていることを <code>epub:type</code> 属性でマークアップできる方法を示している。</p>
 <pre>
@@ -204,6 +227,9 @@
     …
 &lt;/html&gt;</pre>
 </aside>
+
+
+
 <aside class="example" id="ex.epubtype.gloss">
 <p>次の例は、[[HTML]] の定義リストに用語集のセマンティクスを追加するために用いられる <code>epub:type</code> 属性を示している。</p>
 <pre>
@@ -215,6 +241,9 @@
     …
 &lt;/html&gt;</pre>
 </aside>
+
+
+
 <aside class="example" id="ex.epubtype.pg">
 <p>次の例は、改ページのセマンティクスを追加するために使用する <code>epub:type</code> 属性を示している。</p>
 <pre>
@@ -224,18 +253,27 @@
    … 
 &lt;/html&gt;</pre>
 </aside>
+
 </section>
+
 <section id="sec-contentdocs-vocab-association">
 <h4>語彙の関連性</h4>
+
 <p>この仕様は、次の変更を伴う<a href="epub-packages.html#sec-metadata-assoc">語彙の関連付けメカニズム</a> [[!Packages32]] で定義された語彙の関連性メカニズムを採用する。</p>
+
 <section id="sec-contentdocs-default-vocab">
 <h5>標準の語彙</h5>
+
 <p>コンテンツ ドキュメントの標準の語彙は、[[!EPUB-SSV]] で定義される。[[!EPUB-SSV]] の一部でないプリフィックスがつかない用語を使用してもよいが（MAY）、リーディング システムは、それらのサポートをする義務はない。</p>
 </section>
+
 <section id="sec-contentdocs-reserved-prefixes">
 <h5>予約済みのプリフィックス</h5>
+
 <p>製作者は、宣言をすることなく、<code>epub:type</code> 属性に次の予約済みのプリフィックスを使用してもよい（MAY）。</p>
+
 <p class="warning">予約済みのプリフィックスは、オーサリング時に便利だけれども、それらの依存は、相互互換性の問題に繋がる。適合性ツールは、ツールが更新されるまで、新しいプリフィックスを拒否するだろう。製作者は、このような問題を避けるために、使用する全てのプリフィックスを宣言することを強く推奨する。</p>
+
 <table id="tbl-reserved-prefixes" class="prefix">
 <thead>
 <tr>
@@ -255,57 +293,86 @@
 </tbody>
 </table>
 </section>
+
 <section id="sec-contentdocs-prefix-attr">
 <h5>prefix 属性</h5>
+
 <p><code>prefix</code> 属性の定義は変わらないが、属性は EPUB コンテンツ ドキュメント内で使用されるとき、名前空間 <code>http://www.idpf.org/2007/ops</code> で定義される。</p>
+
 <p><code>prefix</code> 属性は、[[!HTML]] のルート <code>html</code> 要素のみ有効である。</p>
 </section>
 </section>
+
 <section id="sec-contentdocs-semantic-inflection-processing-reqs">
 <h4>処理の要件</h4>
+
 <p>リーディング システムは、次のように <code>epub:type</code> 属性を処理しなければならない（MUST）。</p>
+
 <ul class="conformance-list">
 <li><p id="confreq-rs-epubtype-beh"><a href="#sec-contentdocs-default-vocab">標準の語彙</a>で定義されている用語のいくつかまたは全てに、動作を結びつけなくてもよい（MAY）。</p></li>
 <li><p id="confreq-rs-epubtype-oth">他の語彙からの用語に、動作を結びつけてもよい（MAY）。</p></li>
 <li><p id="confreq-rs-epubtype-ign">認識できない用語を無視しなければならない（MUST）。</p></li>
 </ul>
+
 <p id="confreq-rs-epubtype-prec">指定した <code>epub:type</code> 値に関連付けられているリーディング システムの動作がネイティブの動作と衝突するとき、要素に関連付けられている動作の優先順位を指定しなければならない（MUST）。</p>
 </section>
 </section>
+
 <section id="sec-xhtml-semantic-enrichment">
 <h3>意味の強化</h3>
+
 <section id="sec-xhtml-semantic-enrichment-intro" class="informative">
 <h4>まえがき</h4>
+
 <p>マークアップした構造を改良することに関して、<a href="#sec-xhtml-semantic-inflection">意味の変化</a>とは異なり、意味の強化は、機械の処理を容易にするためにコンテンツ内の意味の階層化を可能にする。</p>
+
 <p>[[Microdata]] と [[RDFA-CORE]] 仕様の両方は、コンテンツを意味論的に強化する <a>XHTML コンテンツ ドキュメント</a>で使用できる属性のセットを定義する。</p>
 </section>
+
 <section id="sec-xhtml-sementic-enrichment-rdfa">
 <h4>RDFa</h4>
+
 <p>[[!RDFA-CORE]] 属性の使用は、<a>XHTML コンテンツ ドキュメント</a>で許可されているが、全ての使用方法は、[[!HTML+RDFA]] に定義されている要件に適合しなければならない（MUST）。</p>
+
 <p>[[!RDFA-CORE]] 仕様は、RDFa 属性を使用したときの [[!HTML]] コンテンツ モデルの変更を定義している。この修正されたコンテンツ モデルは、XHTML コンテンツ ドキュメントに妥当である。</p>
+
 <p><a href="https://www.w3.org/TR/2015/REC-rdfa-core-20150317/#s_model">属性処理モデル</a> [[!RDFA-CORE]] の <a>EPUB リーディング システム</a>のサポートは、省略可能（OPTIONAL）である。</p>
 </section>
+
 <section id="sec-xhtml-sementic-enrichment-microdata">
 <h4>Microdata</h4>
+
 <p>[[!Microdata]] 属性の使用は、<a>XHTML コンテンツ ドキュメント</a>で許可されているが、全ての使用方法は、[HTML+RDFa11] に定義されている要件に適合しなければならない（MUST）。</p>
+
 <p>[[!Microdata]] 仕様は、マイクロデータの属性を使用したときの [[!HTML]] コンテンツ モデルの変更を定義している。この修正されたコンテンツ モデルは、XHTML コンテンツ ドキュメントに妥当である。</p>
+
 <p><a href="https://www.w3.org/TR/microdata/#json">JSON への変換</a> [[!Microdata]] と同様に、<a href="https://www.w3.org/TR/microdata/#encoding-microdata">属性処理モデル</a>に対する <a>EPUB リーディング システム</a>のサポートは省略可能（OPTIONAL）である。</p>
 </section>
 </section>
+
 <section id="sec-xhtml-ssml-attrib">
 <h3>SSML 属性</h3>
+
 <section id="sec-cd-ssml-intro">
 <h4>まえがき</h4>
+
 <p>W3C Speech Synthesis Markup Language [[!SSML]] は、同期スピーチを生成する<a>テキスト読み上げ</a>（TTS）エンジンを支援するために使われる言語である。SSML は独立したドキュメント形式として設計されているが、他のマークアップ言語内で使用するのにも適した意味も定義している。</p>
+
 <p>この仕様は、[[!SSML]] <a href="https://www.w3.org/TR/2010/REC-speech-synthesis11-20100907/#S3.1.10"><code>phoneme</code> 要素</a>の二つの属性（<code>ssml:ph</code> と <code>ssml:alphabet</code>）について見直し、XHTML コンテンツ ドキュメント内で利用可能にする。</p>
+
 <p><a>テキスト読み上げ</a>（TTS）機能のあるリーディング システムは上記で定義されている SSML 属性をサポートするべきである（SHOULD）。</p>
+
 <div class="note">
 <p>同期スピーチに関連する EPUB 3 の機能に関するより詳細な情報は、<a href="epub-overview.html#sec-tts">テキスト読み上げ</a> [[EPUB3Overview]] を参照されたい。</p>
 </div>
+
 </section>
+
 <section id="sec-cd-ssml-ph-attrib">
 <h4><code>ssml:ph</code> 属性</h4>
+
 <p><code>ssml:ph</code> 属性は、属性を加えられた要素によって表現されるテキストとしての発話音素や発音記号表記を規定している。</p>
+
 <dl class="elemdef" id="attrdef-ssml-ph">
 <dt>属性名</dt>
 <dd><p><code>ph</code></p></dd>
@@ -317,15 +384,21 @@
 <dt>値</dt>
 <dd><p><a href="#sec-cd-ssml-alphabet-attrib">使用されている音韻字母/音声記号</a>に関する構文的に妥当な音素表現/表音。</p></dd>
 </dl>
+
 <p>この属性は、次を追加した <a href="#refSSML">[<abbr class="abbrev">SSML</abbr>]</a> <code>phoneme</code> 要素 <a class="markup" href="https://www.w3.org/TR/2010/REC-speech-synthesis11-20100907/#S3.1.10"><code>ph</code></a> 属性の全てのセマンティクスを継承する。</p>
+
 <ul class="conformance-list">
 <li><p id="ssml-ph-concat"><code>ssml:ph</code> 属性がテキスト ノードの子孫要素に出現するとき、発音を適用するのに対応するドキュメントのテキストは、ドキュメントの順で、対応する子孫のテキスト ノードの結果を一続きにする。指定された発音記号表記は、（すなわち、その内容の孤立した部分だけではなく）全体の中のテキスト データの要素と論理的に一致しなければならない（MUST）。</p></li>
 </ul>
+
 <p>SSML の属性と <a href="#sec-pls">PLS ドキュメント</a>をサポートするリーディング システムは、これらの二つの構造のために定義された<a href="#confreq-pls-rs-casc">優先順位の規則</a>を履行しなければならない（MUST）。</p></section>
 </section>
+
 <section id="sec-cd-ssml-alphabet-attrib">
 <h4><code>ssml:alphabet</code> 属性</h4>
+
 <p><code>ssml:alphabet</code> 属性は、発話音素や発音記号表記のアルファベットが <a href="#attrdef-ssml-ph"><code>ssml:ph</code></a> 属性の値で使用されることを規定している。</p>
+
 <dl class="elemdef" id="attrdef-ssml-alphabet">
 <dt>属性名</dt>
 <dd><p><code>alphabet</code></p></dd>
@@ -336,58 +409,85 @@
 <dt>値</dt>
 <dd><p>（継承した）<a href="#attrdef-ssml-ph"><code>ssml:ph</code></a> の値で使用される発音アルファベットの名前。</p></dd>
 </dl>
+
 <p>この属性は、次の追加を伴った、<a href="#refSSML">[<abbr class="abbrev">SSML</abbr>]</a> <code>phoneme</code> 要素 <a class="markup" href="https://www.w3.org/TR/2010/REC-speech-synthesis11-20100907/#S3.1.10"><code>alphabet</code></a> 属性の全てのセマンティクスを継承する：</p>
+
 <ul class="conformance-list">
 <li><p id="ssml-alphabet-inherit"><code>ssml:alphabet</code> 属性の値はドキュメントツリーに継承される。指定された <code>ssml:ph</code> 属性値に使用される発話アルファベットは、最も近い親要素に続く、<code>ssml:ph</code> 属性が出現する要素から始まる <code>ssml:alphabet</code> 属性の最初に発生する位置によって決定される。</p></li>
 </ul>
+
 <div class="note">
 <p>[[SSML]] 仕様は、アルファベットのレジストリを参照していますが、公開されていない。W3C Voice Browser ワーキング グループの憲章は有効期限が切れているため、このようなレジストリの公開は期待されない。したがって、製作者は、サポートされているアルファベット値を決定するために、リーディング システムのサポートドキュメントを参照する必要がある。x-JEITA（x-JEITA-IT-4002 と x-JEITA-IT-4006）および x-sampa などの一般的なアルファベットも包含する。</p>
 </div>
+
 <p>この仕様の <a href="#sec-xhtml-ssml-attrib">SSML 属性</a>の機能をサポートするリーディング システムは、値「<code>ipa</code>」で表現される IPA アルファベット [[!IPA]] をサポートするべきである（SHOULD）。</p>
 </section>
 </section>
+
 <section id="sec-xhtml-content-switch">
 <h3>コンテンツの切り替え（非推奨）</h3>
+
 <p><code>switch</code> 要素は、<a>EPUB リーディング システム</a>のスクリプト機能に依存せず、<a>製作者</a>が、読者へ表示するコンテンツを調整できる単純なメカニズムを提供する。</p>
+
 <p><code>switch</code> 要素の使用は、非推奨（<a href="epub-spec.html#deprecated">deprecated</a>）である。使用法の情報は、[[!ContentDocs301]] の定義を参照されたい。</p>
 </section>
+
 <section id="sec-xhtml-epub-trigger">
 <h3><code>epub:trigger</code> 要素（非推奨）</h3>
+
 <p><code>trigger</code> 要素は、スクリプト化及び非スクリプト化のコンテキストの両方において、例えば、音声や動画の再生など、マルチメディア オブジェクトを制御するマークアップ定義のユーザー インターフェースの作成を可能にする。</p>
+
 <p><code>trigger</code> 要素の使用は、非推奨（<a href="epub-spec.html#deprecated">deprecated</a>）である。使用法の情報は、[[!ContentDocs301]] の定義を参照されたい。</p>
 </section>
+
 <section id="sec-xhtml-custom-attributes">
 <h3>カスタム属性</h3>
+
 <p><a>リーディング システム</a>は、<a>EPUB 出版物</a>のレンダリングを強化するために、この仕様で定義されていない機能を導入してもよい（MAY）。この実験を容易にするために、ベンダーは、<a>XHTML コンテンツ ドキュメント</a>で使用するためにカスタム属性を定義してもよい（MAY）。</p>
+
 <p>カスタム属性は、次の URI のいずれにも一致しない名前空間 [[!XML-NAMES]] として定義されている外部の名前空間から、そのような属性が提供されている XHTML コンテンツ ドキュメント内の任意の要素に包含されてもよい（MAY）。</p>
+
 <ul>
 <li>
 <p><code>http://www.w3.org/1999/xhtml</code></p></li>
 <li>
 <p><code>http://www.idpf.org/2007/ops</code></p></li>
 </ul>
+
 <p>カスタム属性と、それに結びついた挙動は、EPUB 出版物の整合性を変更してはならない（MUST NOT）。コンテンツは、リーディング システムのレンダリングに関わらず、任意の情報の損失や他の重要な劣化なしに、読者によって消費できるままにしなければならない（MUST）。</p>
+
 <div class="note">
 <p>リーディング システムを横断するカスタム属性の相互互換性を容易にするために、ベンダーは、[[AttributeExtensions]] で実装される任意の拡張をドキュメント化することを強く推奨する。</p>
 </div>
 </section>
 </section>
+
 <section id="sec-xhtml-deviations">
 <h2>HTML の許容性と制約</h2>
+
 <p>このセクションは、EPUB 3 の <a>XHTML コンテンツ ドキュメント</a>で許可されている基本的な [[!HTML]] ドキュメントモデルから許容性と制約を定義する。</p>
+
 <section id="sec-xhtml-mathml">
 <h3>埋め込み MathML</h3>
+
 <section id="sec-xhtml-mathml-intro" class="informative">
 <h4>まえがき</h4>
+
 <p>XHTML コンテンツ ドキュメントは、埋め込み [[MATHML3]] をサポートするが、完全な MathML マークアップ言語の制限されたサブセットの使用法に限定をする。</p>
+
 <p>このサブセットは、[[HTML]] ユーザー エージェントとの互換性を保持しながら、リーディング システムの実装負荷の軽減とアクセシビリティを促進するよう設計されている。</p>
+
 <div class="note">
 <p><a>マニフェスト</a> <code>item</code> 要素の <a href="epub-packages.html#mathml"><code>mathml</code> プロパティ</a> は、XHTML コンテンツ ドキュメントが埋め込み MathML を含んでいることを示している。</p>
 </div>
+
 </section>
+
 <section id="sec-xhtml-mathml-conf-content">
 <h4>コンテンツの適合性</h4>
+
 <p>XHTML コンテンツ ドキュメント内の MathML マークアップのいずれかの発生には、次にある追加の制約付きで、MathML 仕様 [[!MATHML3]] 内に述べられている制約に準拠しなければならない（MUST）。</p>
+
 <dl class="conformance-list">
 <dt id="math-pres">Presentation MathML</dt>
 <dd><p id="confreq-mathml-pres"><code>math</code> 要素は、下で定義しているような <code>annotation-xml</code> 要素を除外して、<a href="https://www.w3.org/TR/MathML3/chapter3.html">Presentation MathML</a> のみ含まなければならない（MUST）。</p></dd>
@@ -403,6 +503,7 @@
 <p id="confreq-mathml-annot-xht-model">全ての包含された XHTML コンテンツ ドキュメント フラグメントは、<code>math</code> 要素が、特定の XHTML コンテンツ ドキュメント フラグメントによって置き換えられた場合、ドキュメントは妥当なまま、祖先の <code>math</code> 要素が発生するコンテンツ モデルに適合しなければならない（MUST）、</p></dd>
 </dl>
 </section>
+
 <section id="sec-xhtml-mathml-rs-conf">
 <h4>リーディング システムの適合性</h4>
 <p>適合した <a>EPUB リーディング システム</a>は、XHTML コンテンツ ドキュメントに埋め込まれた MathML をサポートするために次の基準を全て満たさなければならない（MUST）。</p>
@@ -413,81 +514,119 @@
 </ul>
 <p class="note">EPUB リーディング システムは、例えば MathML のレンダリングを提供する MathJax など、サードパーティのライブラリの使用を選択してもよい（MAY）。</p>
 </section>
+
+
+
+
+
+
 </section>
+
 <section id="sec-xhtml-svg">
 <h3>埋め込み SVG</h3>
 <p><a>XHTML コンテンツ ドキュメント</a>は、（参照を介しての埋め込み、たとえば、<code>img</code> や <code>object</code> 要素による） <em>参照</em>と、（XHTML コンテンツ ドキュメント内の <code>svg</code> 要素の直接な包含を介しての埋め込みによる）<em>包含</em>による <a href="https://www.w3.org/TR/SVG/intro.html#TermSVGDocumentFragment">SVG ドキュメント フラグメント</a> [[!SVG]] の埋め込みをサポートする。</p>
 <p>XHTML コンテンツ ドキュメントに埋め込まれた SVG のコンテンツの適合性の制約は、<a href="#sec-svg-restrictions">SVG の制約</a>の <a>SVG コンテンツ ドキュメント</a>ために定義されたものと同じである。</p>
 <p>リーディング システムは、<a href="#sec-svg-rs-conf">SVG コンテンツ ドキュメント - リーディング システムの適合性</a> に定義された XHTML コンテンツ ドキュメントに埋め込まれた SVG を処理しなければならない（MUST）。</p>
+
 <div class="note">
 <p><a>マニフェスト</a> <a href="epub-packages.html#sec-item-elem"><code>item</code> 要素</a> [[Packages32]] の <a href="epub-packages.html#svg"><code>svg</code> プロパティ</a>は、XHTML コンテンツ ドキュメントに埋め込み SVG を含んでいることを示している。</p>
 </div>
+
+
+
 <section id="sec-xhtml-svg-css">
 <h4>埋め込み SVG と CSS</h4>
 <p id="confreq-svg-rs-css-embed-ref"><em>参照</em>によって XHTML コンテンツ ドキュメントに埋め込まれた SVG のスタイリングのために、リーディング システムは、参照先の SVG ドキュメントに含まれるドキュメントの CSS スタイル ルールを適用してはならない（MUST NOT）。</p>
 <p id="confreq-svg-rs-css-embed-inc"><em>包含</em>によって XHTML コンテンツ ドキュメントに埋め込まれた SVG のスタイリングのために、リーディング システムは、包含された SVG 要素に含まれているドキュメントの CSS ルールを適用しなければならない（MUST）。</p>
+
 <div class="note">
-<p><em>参照</em>によって包含された SVG は、別のドキュメントのように処理され、<a>SVG コンテンツ ドキュメント</a>と同様に独自の CSS スタイル ルールを包含できる。これは、外部の [[HTML]] 要素を参照する [[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#elementdef-object"><code>object</code></a> 要素の状況と一致していると注意されたい。</p>
+<p><em>参照によって</em>包含された SVG は、別のドキュメントのように処理され、<a>SVG コンテンツ ドキュメント</a>と同様に独自の CSS スタイル ルールを包含できる。これは、外部の [[HTML]] 要素を参照する [[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#elementdef-object"><code>object</code></a> 要素の状況と一致していると注意されたい。</p>
 </div>
+
 </section>
 </section>
+
 <section id="sec-xhtml-deviations-unicode">
 <h3>Unicode の制限</h3>
 <p>本セクションは、Unicode 文字のレパートリーの制約を記載する。</p>
+
 <dl class="variablelist">
 <dt>外字文字と埋め込みフォント</dt>
-<dd><p id="confreq-html-unicode-pua">[[!Unicode]] に定義された通りに私用領域（PUA）範囲のひとつの中の符号位置にマッピングされた任意の包含された文字は、その符号位置のために適したグリフを含む埋め込みフォント [!CSS-Fonts-3]] を参照し包含する方法で、設定または起因し、文字列内に発生しなければならない（MUST）。</p></dd>
+<dd><p id="confreq-html-unicode-pua">[[!Unicode]] に定義された通りに私用領域（PUA）範囲のひとつの中の符号位置にマッピングされた任意の包含された文字は、その符号位置のために適したグリフを含む埋め込みフォント [[!CSS-Fonts-3]] を参照し包含する方法で、設定または起因し、文字列内に発生しなければならない（MUST）。</p></dd>
 </dl>
 </section>
+
 <section id="sec-xhtml-deviations-discouraged" class="informative">
 <h3>推奨されない構造</h3>
+
 <section id="sec-xhtml-deviations-rp">
 <h4><code>rp</code> 要素</h4>
 <p id="confreq-html-vocab-rp">[[HTML]] <a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-rp-element"><code>rp</code></a> 要素は、（例えば、丸括弧表示で囲む <code>ruby</code> マークアップなど）ルビのマークアップを見分けられない古い<a>リーディング システム</a>のためのフォールバックの提供を意図している。EPUB 3 リーディング システムがルビを認識し、またフォールバックを提供できるなら、<code>rp</code> 要素の使用は推奨されない。</p>
 </section>
+
 <section id="sec-xhtml-deviations-embed">
 <h4><code>embed</code> 要素</h4>
 <p id="confreq-html-vocab-embed">[[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-embed-element"><code>embed</code></a> 要素は、スクリプトをサポートしないリーディング システムのために、フォールバック コンテンツンツを提供するための固有の設備を提供しないので、<a>製作者</a>は、参照されたリソースにスクリプトが包含されているときは、要素の使用が推奨されない。[[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-object-element"><code>object</code> 要素</a>は、固有のフォールバック機能を包含するため、代わりに使用できる。</p>
 </section>
 </section>
+
 <section id="sec-xhtml-fallbacks">
 <h3>管理外リソースの制約</h3>
+
 <p id="confreq-resources-cd-fallback">管理外リソースは、管理外リソースがサポートされていないとき、固有のフォールバック手法で代替表現を提供することが可能である場合には、固有のフォールバック メカニズムを持つ要素から参照されてもよい（MAY）。例えば、多くの [[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#embedded-content">埋め込まれたコンテンツ要素</a>は、複数のソースを指定できるようにするか、リソースがレンダリングできないときのために埋め込みの HTML コンテンツを許可するなど、代替レンダリングをオプションを提供する。<a>コア メディア タイプ リソース</a>または埋め込まれた HTML コンテンツは、管理外リソースを参照するとき、特定の要素固有のフォールバック メカニズムを介して提供されなければならない（MUST）。</p>
+
 <p id="confreq-resources-cd-fallback-media">[[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#flow-content">フロー コンテンツ</a>は、（例えば、EPUB 2 リーディング システムなど）これらの要素が認められていない古いリーディング システムでレンダリングするために、<a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-audio-element"><code>audio</code></a> 及び <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-video-element"><code>video</code></a> 要素内に埋め込まれてもよいが（MAY）、フォールバックのコア メディア タイプ リソースを表すものではない。</p>
+
 <p>次の [[!HTML]] 要素は、フォールバックのコア メディア タイプ リソースを提供することなく、<a href="epub-spec.html#sec-core-media-types">管理外リソース</a> [[!EPUB32]] を参照できる。</p>
+
 <ul>
 <li><p id="confreq-resources-cd-fallback-link"><a href="https://www.w3.org/TR/html/document-metadata.html#the-link-element"><code>link</code></a> — <code>rel</code> 属性が、<a href="#confreq-cd-pls-assoc">値「<code>pronunciation</code>」</a> を持つ場合</p></li>
 <li><p id="confreq-resources-cd-fallback-track"><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-track-element"><code>track</code></a></p></li>
 <li><p id="confreq-resources-cd-fallback-video"><a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-video-element"><code>video</code></a> — 任意の子 <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-source-element"><code>source</code></a> 要素を包含している</p></li>
 </ul>
+
 <p>管理外リソースは、フォールバックのコア メディア タイプ リソースの提供なしに、前述の三つの要素から参照されてもよい（MAY）。</p>
+
 <div class="note">
 <p>このような [[HTML]] <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#the-iframe-element"><code>iframe</code></a> と <a href="https://www.w3.org/TR/html/semantics-embedded-content"><code>img</code></a> 要素など、固有のメカニズムのない要素のフォールバックを提供するために<a href="epub-packages.html#sec-foreign-restrictions-manifest">マニフェスト フォールバック</a> [[Packages32]] を参照されたい。</p>
 </div>
 </section>
+
 <section id="sec-xhtml-forms">
 <h3>フォーム送信</h3>
+
 <p>[[!HTML]] フォームの送信に対する<a>リーディング システム</a>のサポートは、省略可能である（OPTIONAL）。例えば、リーディング システムは、ネットワークへのアクセスを制限することで、フォーム送信を防ぐかもしれない。</p>
 </section>
 </section>
 </section>
 <section id="sec-svg">
 <h1>SVG コンテンツ ドキュメント</h1>
+
 <div class="caution">
 <p>[[!SVG]] の一部の機能は、<a>リーディング システム</a>において完全にサポートされていないか、リーディング システムが動作する全てのプラットフォームを横断してサポートされていない。そのような機能を利用する場合、<a>製作者</a>は、相互運用性とドキュメントの寿命への潜在的な影響の面で、固有のリスクを考慮する必要がある。</p>
 </div>
+
+
+
 <section id="sec-svg-intro" class="informative">
 <h2>まえがき</h2>
+
 <p>Scalable Vector Graphics (SVG) 仕様 [[SVG]] は、最終型のベクターグラフィックとテキストを表現するためのフォーマットを定義する。</p>
+
 <p>EPUB 出版物は、典型的に、<a data-lt="Top-level Content Document">トップレベル</a>の文書型に <a href="#sec-xhtml">XHTML コンテンツ ドキュメント</a>を使用するが、<a>SVG コンテンツ ドキュメント</a>の使用も許可されている。SVG は、典型的に、最終型のページ画像がコンテンツの唯一な適切な表現である場合など、（例えば、カバー アート及びマンガやコミックブックのコンテクスト内など）特殊な状況でのみ使用する</p>
+
 <p>本セクションは、[[SVG]] ドキュメントのプロファイルを定義する。この仕様に準拠した XML ドキュメントのインスタンスは<a>コア メディア タイプ リソース</a>であり、<a>SVG コンテンツ ドキュメント</a>としてこの仕様を参照している。</p>
+
 <div class="note">
 <p>本セクションは <a>SVG コンテンツ ドキュメント</a>のための適合性の制約を定義している。XHTML コンテンツ ドキュメントに埋め込まれた SVG のための適合性の制約は<a href="#sec-xhtml-svg">埋め込み SVG</a> を参照されたい。</p>
 </div>
+
 </section>
+
 <section id="sec-svg-content-conf">
 <h2>コンテンツの適合性</h2>
 <p><a>SVG コンテンツ ドキュメント</a>は、次の基準を全て満たさなければならない（MUST）。</p>
+
 <dl class="conformance-list">
 <dt id="confreq-svg-docprops">ドキュメントのプロパティ</dt>
 <dd><p id="confreq-cd-svg-xml"><a href="epub-spec.html#sec-xml-constraints">XML 適合性</a> [[!EPUB32]] で定義されている XML ドキュメントのための適合性の制約を満たさなければならない（MUST）。</p>
@@ -497,27 +636,33 @@
 <p>[[EPUBAccessibility]] のアクセシビリティ要件に従う EPUB 出版物の推奨は、SVG コンテンツ ドキュメントに適用する。<a href="epub-spec.html#sec-epub-a11y">アクセシビリティ</a> [[EPUB32]] を見よ。</p>
 </div>
 </dd>
+
 <dt id="confreq-svg-fileprops">ファイルのプロパティ</dt>
 <dd><p id="confreq-svg-fileprops-name">SVG コンテンツ ドキュメントのファイル名は、ファイル拡張子 <code>.svg</code> を使用するべきである（SHOULD）。</p></dd>
 </dl>
 </section>
+
 <section id="sec-svg-restrictions">
 <h2>SVG の制限</h2>
+
 <p>この仕様は、次のように <a>SVG コンテンツ ドキュメント</a>のコンテンツモデルと <a href="#sec-xhtml-svg">XHTML コンテンツ ドキュメントに埋め込む SVG</a>を制限する。</p>
+
 <ul class="conformance-list">
 <li><p id="confreq-svg-foreignObject">[[!SVG]] <a href="https://www.w3.org/TR/SVG/extend.html#ForeignObjectElement"><code>foreignObject</code></a> 要素は、次の条件を順守しなければならない（MUST）。</p>
 <ul class="conformance-list">
 <li><p id="confreq-svg-foreignObject-xhtml-content">[[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#flow-content">フロー コンテンツ</a>かひとつの [[!HTML]] <a href="https://www.w3.org/TR/html/sections.html#the-body-element"><code>body</code> 要素</a>のいずれかを含めなければならない（MUST）。</p></li>
 <li><p id="confreq-svg-foreignObject-xhtml-frag">コンテンツは、<a href="#sec-xhtml-conf-content">XHTML コンテンツ ドキュメント — コンテンツの適合性</a>に定義された XHTML コンテンツ ドキュメント モデルに適合する、妥当なドキュメント フラグメントでなければならない（MUST）。</p></li>
 <li><p id="confreq-svg-foreignObject-reqext">もし指定されているなら、<code>requiredExtensions</code> 属性は、「<code>http://www.idpf.org/2007/ops</code>」を設定しなければならない（MUST）。</p></li>
-</ul>
-</li>
+</ul></li>
 <li><p id="confreq-svg-title">[[!SVG]] <a href="https://www.w3.org/TR/SVG/struct.html#TitleElement"><code>title</code></a> 要素は、妥当な <a href="#confreq-cd-html-docprops">XHTML コンテンツ ドキュメントのフレージング コンテンツ</a>のみを含めなければならない（MUST）。</p></li>
 </ul>
 </section>
+
 <section id="sec-svg-rs-conf">
 <h2>リーディング システムの適合性</h2>
+
 <p>適合した <a>EPUB リーディング システム</a>は、SVG コンテンツ ドキュメントと <a href="#sec-xhtml-svg">XHTML コンテンツ ドキュメントに埋め込む SVG</a> の処理のための次の基準を全て満たさなければならない（MUST）。</p>
+
 <ul class="conformance-list">
 <li><p id="confreq-svg-rs-behavior">上書きとしてこの仕様によって明確に定義されない限り、[[!SVG]] 仕様によって定義されたセマンティクスを使用して、SVG コンテンツ ドキュメントを処理し、その中で述べられる全ての利用可能なユーザー エージェントの適合性の制約を尊重しなければならない（MUST）。</p></li>
 <li><p id="confreq-svg-rs-scrpt"><a href="#sec-scripted-content-rs-reqs">スクリプト コンテンツ ドキュメント — リーディング システムの適合性</a>で定義されているリーディング システムの適合性の基準を満たさなければならない（MUST）。</p></li>
@@ -526,6 +671,7 @@
 <li><p id="confreq-svg-rs-reqdExt">（例えば属性が、<code>foreignObject</code> 要素または <code>switch</code> 要素の子に包含されるとき）XHTML コンテンツ ドキュメント フラグメントの存在を表現する <code>requiredExtensions</code> 属性の値 「<code>http://www.idpf.org/2007/ops</code>」 を認識しなければならない（MUST）。</p></li>
 </ul>
 </section>
+
 <section id="sec-svg-semantic-inflection">
 <h2>意味の変化</h2>
 <p><a href="#sec-xhtml-semantic-inflection">XHTML の意味の変化</a>で定義された構文とセマンティクスは、<a>SVG コンテンツ ドキュメント</a>で <a href="#attrdef-epub-type"><code>epub:type</code></a> と <a href="#sec-contentdocs-prefix-attr"><code>epub:prefix</code></a> 属性を使用するために継承される。</p>
@@ -534,11 +680,13 @@
 </section>
 <section id="sec-css">
 <h1>CSS スタイル シート</h1>
+
 <section id="sec-css-intro" class="informative">
 <h2>まえがき</h2>
-<p>CSS は、20年近くオープン Web プラットフォームの不可欠な一部となっており、読者や出版社、ドキュメントの製作者は、HTML がうまく動作するように、CSS が「うまく動作する」と期待している。</p>
+<p>CSS は、オープン Web プラットフォームの不可欠な一部である。読者や出版社、ドキュメントの製作者は、HTML がうまく動作するように、CSS が「うまく動作する」と期待している。</p>
 <p>過去に、EPUB は、特定のプロパティのサポートを義務付け、他の多数のプロパティにおいてプレフィックス付きバージョンを提供する CSS のプロファイルを定義した。CSS ワーキング グループはプリフィックス付きプロパティの使用をもはや推奨されていないけれども、この仕様は、既存コンテンツとの断絶を避けるためにいくつかのプリフィックス付きプロパティを保持する。しかし、このセクションで定義されているマイナーな例外を除き、EPUB は、CSS を定義する W3C に従う。</p>
 </section>
+
 <section id="sec-css-content-conf">
 <h2>コンテンツの適合性</h2>
 <p>適合している CSS スタイル シートは、次の基準を全て満たさなければならない（MUST）。</p>
@@ -547,11 +695,11 @@
 <ul class="conformance-list">
 <li><p id="confreq-css-props-exc-direction"><a href="https://www.w3.org/TR/css3-writing-modes/#direction"><code>direction</code> プロパティ</a> [[!CSS-Writing-Modes-3]] を使用してはならない（MUST NOT）。インラインの基本方向を設定するには [[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#the-dir-attribute"><code>dir</code> 属性</a>を使用する。</p></li>
 <li><p id="confreq-css-props-exc-unicode-bidi"><a href="https://www.w3.org/TR/css3-writing-modes/#unicode-bidi"><code>unicode-bidi</code> プロパティ</a> [[!CSS-Writing-Modes-3]] を使用してはならない（MUST NOT）。双方向性をコントロールするには [[!HTML]] <a href="https://www.w3.org/TR/html/textlevel-semantics.html#the-bdo-element"><code>bdo</code> 要素</a>と <a href="https://www.w3.org/TR/html/dom.html#the-dir-attribute"><code>dir</code> 属性</a>を使用する。</p></li>
-</ul>
-</li>
+</ul></li>
 <li><p id="confreq-css-prefixed"><a href="#sec-css-prefixed">CSS スタイル シート — プリフィックス付きプロパティ</a>で定義されているプレフィックス付きプロパティを包含してもよい（MAY）。</p></li>
 <li><p id="confreq-css-encoding">UTF-8 または UTF-16 [[!Unicode]] でエンコードしなければならない（MUST）。</p></li>
 </ul>
+
 <div class="note">
 <p>いくつかの<a>リーディング システム</a>は、CSS の全ての要求される機能をサポートしていないことに注意されたい。具体的には、次の問題があることが知られている。</p>
 <ul>
@@ -772,7 +920,8 @@
 <h2>スクリプトのコンテクスト</h2>
 <p><a>EPUB コンテンツ ドキュメント</a>は、個別の基本的な仕様（[[!HTML]] と [[!SVG]]）でこのために定義された機能を使用してスクリプトを含んでもよい（MAY）。EPUB コンテンツ ドキュメントがスクリプトを含むとき、この仕様や<a>スクリプト コンテンツ ドキュメント</a>を参照する。このラベルは、それらが [[!HTML]] <a href="https://www.w3.org/TR/html/sec-forms.html#sec-forms">フォーム</a>のインスタンスを含む時、<a>XHTML コンテンツ ドキュメント</a>に適用する。</p>
 <p id="sec-scripted-content-models">この仕様は、スクリプトが現れてもよい（MAY）、二つのコンテクストを定義する。</p>
-<dl>
+
+<dl class="variablelist">
 <dt id="sec-scripted-content-type-spine-level">スパイン レベル</dt>
 <dd><p><a>トップレベル コンテンツ ドキュメント</a>に包含される [[!HTML]] の <a href="https://www.w3.org/TR/html/semantics-scripting.html#the-script-element"><code>script</code></a> または [[!SVG]] <a href="https://www.w3.org/TR/SVG/script.html#ScriptElement"><code>script</code></a> 要素のインスタンス。</p></dd>
 <dt id="sec-scripted-content-type-container-constrained">コンテナ制約</dt><dd>
@@ -787,6 +936,7 @@
 </dl>
 <p>上記の定義されたコンテクストの両方で、JavaScript のコードは、<code>script</code> 要素内に直接埋め込まれるか、<code>src</code> 属性経由で参照されているどうかで、実行するコンテクストに差はない。</p>
 <p>どちらのコンテクストのスクリプトも、リーディング システムがそこに設置する権利と制約を決定して利用する。（全てのリーディング システムが同じスクリプト機能を提供するであろう）順守する必要のあるいくつかの固有の要求事項については、<a href="#sec-scripted-content-content-reqs">コンテンツの適合性</a>と<a href="#sec-scripted-content-rs-reqs">リーディング システムの適合性</a>を参照されたい。</p>
+
 <h2>例</h2>
 <aside class="example">
 <p>次の例はパッケージ ドキュメントと見なす。</p>
@@ -993,6 +1143,8 @@
    …
 &lt;/svg&gt;</pre>
 </aside>
+
+
 <p>[[!SVG]] <a href="https://www.w3.org/TR/SVG/coords.html#ViewBoxAttribute"><code>viewBox</code></a> 属性が存在する場合のみ、座標系の定義は、<a>ビューポート</a>にマップされ、アスペクト比をキープし、ピクセル [[!CSS2]] 内の<a href="https://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#containing-block-details">初期包含ブロック</a>（ICB）を確立する。典型的に、このマッピングの結果は、ビューポートの境界となる。</p>
 <p><a href="https://www.w3.org/TR/SVG/struct.html#SVGElementXAttribute"><code>x</code></a> と <a href="https://www.w3.org/TR/SVG/struct.html#SVGElementYAttribute"><code>y</code></a>、<a href="https://www.w3.org/TR/SVG/struct.html#SVGElementHeightAttribute"><code>height</code></a>、<a href="https://www.w3.org/TR/SVG/struct.html#SVGElementWidthAttribute"><code>width</code></a> 属性が存在する場合のみ、（ICB を確立する）ピクセル値に定義されるべきである（SHOULD）。<code>x</code> と <code>y</code>、<code>height</code>、<code>width</code> 属性によって定義されたピクセル値が、ビューポートのピクセル値を超える場合、グラフィックは、ビューポートの境界に切り抜かれる（すなわち、グラフィックは再スケーリングしない）であろうことに注意されたい。</p>
 <p>座標系が、<code>viewBox</code> と <code>width</code>/<code>height</code> 値によって定義される場合、<code>viewBox</code> によって定義される座標系は、前の項目によって説明されているように境界で切り抜かれる。</p>
@@ -1006,7 +1158,7 @@
 <h1>発音辞書</h1>
 <section id="sec-pls-intro" class="informative">
 <h2>まえがき</h2>
-<p>W3C 発音辞書仕様 [[PRONUNCIATION-LEXICON]] は、自動音声認識と<a>テキスト読み上げ</a>（TTS）エンジンの使用による XML ベースの発音辞書のための構文とセマンティクスを定義している。</p>
+<p>W3C 発音辞書仕様 (PLS) [[PRONUNCIATION-LEXICON]] は、自動音声認識と<a>テキスト読み上げ</a>（TTS）エンジンの使用による XML ベースの発音辞書のための構文とセマンティクスを定義している。</p>
 <p>次のセクションは、<a>EPUB 出版物</a>を包含している PLS ドキュメントのための基準と、<a>XHTML コンテンツ ドキュメント</a>に PLS ドキュメントを結びつけるためのルールの適合性を定義している。</p>
 <div class="note">
 <p>合成音声に関連する EPUB 3 の機能の詳細な情報は、<a href="epub-overview.html#sec-tts">テキスト読み上げ</a> [[EPUB3Overview]] を参照されたい。</p>
@@ -1014,17 +1166,18 @@
 </section>
 <section id="sec-pls-conf-pub">
 <h2>EPUB 出版物の適合性</h2>
-<p>適合した <a>EPUB 出版物</a>の<a>レンディション</a>は、PLS ドキュメントに含むために次の基準を全て満たさなければならない（MUST）。</p>
+<p>適合した <a>EPUB 出版物</a>の<a>レンディション</a>は、<abbr title="Pronunciation Lexicon Specification">PLS</abbr> ドキュメントに含むために次の基準を全て満たさなければならない（MUST）。</p>
 <ul class="conformance-list">
 <li><p id="confreq-cd-pls-xht">PLS ドキュメントは、<a>XHTML コンテンツ ドキュメント</a>に関連付けてよい（MAY）。それぞれの XHTML コンテンツ ドキュメントは、0以上の PLS ドキュメントを関連付けて含んでもよい（MAY）。</p></li>
-<li><p id="confreq-cd-pls-assoc">PLS ドキュメントは、「<code>pronunciation</code>」に設定される <code>rel</code> 属性を持った [[!HTML]] の <a href="https://www.w3.org/TR/html/document-metadata.html#the-link-element"><code>link</code></a> 要素と PLS メディア タイプ「<code>application/pls+xml</code>」に設定される <code>type</code> 属性を使用して、それを適用した <a>XHTML コンテンツ ドキュメント</a>に関連付けられねばならない（MUST）。</p>
-<p id="confreq-cd-pls-assoc-lang"><code>link</code> 要素 <code>hreflang</code> 属性 それぞれの PLS <code>link</code> に指定するべきであり（SHOULD）、その値が指定されたとき、<a href="https://www.w3.org/TR/2008/REC-pronunciation-lexicon-20081014/#S4.1">発音辞書が関連している言語</a> [[!PRONUNCIATION-LEXICON]] に一致しなければならない（MUST）。</p></li>
+<li><p id="confreq-cd-pls-assoc">PLS ドキュメントは、「<code>pronunciation</code>」に設定される <code>rel</code> 属性を持った [[!HTML]] の <a href="https://www.w3.org/TR/html/document-metadata.html#the-link-element"><code>link</code></a> 要素とメディア タイプ「<code>application/pls+xml</code>」に設定される <code>type</code> 属性を使用して、それを適用した <a>XHTML コンテンツ ドキュメント</a>に関連付けられねばならない（MUST）。</p>
+<p id="confreq-cd-pls-assoc-lang"><code>link</code> 要素 <code>hreflang</code> 属性 それぞれの <code>link</code> に指定するべきであり（SHOULD）、その値が指定されたとき、<a href="https://www.w3.org/TR/2008/REC-pronunciation-lexicon-20081014/#S4.1">発音辞書が関連している言語</a> [[!PRONUNCIATION-LEXICON]] に一致しなければならない（MUST）。</p></li>
 <li><p id="confreq-pls-pub-cont">PLS ドキュメントは、<a href="#sec-pls-conf-content">PLS ドキュメント — コンテンツの適合性</a> で定義されたコンテンツの適合性の基準に満たさなければならない（MUST）。</p></li>
 <li><p id="confreq-pls-pub-manif">PLS ドキュメントは、<a href="epub-packages.html#sec-package-conformance">EPUB パッケージ — 適合性</a> [[!Packages32]] で定義されているような表現と配置にしなければならない（MUST）。</p></li>
 </ul>
-<h2>例</h2>
+<section id="pls-examples">
+<h3>例</h3>
 <aside class="example">
-<p>次の例は、XHTML コンテンツ ドキュメントに関連付けられた二つの PLS ドキュメント（中国語とモンゴル語のためのもの）を示している。</p>
+<p>次の例は、XHTML コンテンツ ドキュメントに関連付けられた二つの <abbr title="Pronunciation Lexicon Specification">PLS</abbr> ドキュメント（中国語とモンゴル語のためのもの）を示している。</p>
 <pre>
 &lt;html … &gt;    
     &lt;head&gt;
@@ -1036,9 +1189,11 @@
 &lt;/html&gt;</pre>
 </aside>
 </section>
+</section>
+
 <section id="sec-pls-conf-content">
 <h2>コンテンツの適合性</h2>
-<p>PLS ドキュメントは次の基準を全て満たさなければならない（MUST）。</p>
+<p><abbr title="Pronunciation Lexicon Specification">PLS</abbr> ドキュメントは次の基準を全て満たさなければならない（MUST）。</p>
 <dl class="conformance-list">
 <dt id="confreq-cd-pls-docprops">ドキュメントのプロパティ</dt>
 <dd><p id="confreq-cd-pls-xml"><a href="epub-spec.html#sec-xml-constraints">XML 適合性</a> [[!EPUB32]] で定義された XML ドキュメントための適合性の制約を満たさなければならない（MUST）。</p>
@@ -1049,13 +1204,14 @@
 </section>
 <section id="sec-pls-conf-rs">
 <h2>リーディング システムの適合性</h2>
+<p>Reading Systems with Text-to-Speech (TTS) capabilities SHOULD support <abbr title="Pronunciation Lexicon Specification">PLS</abbr> documents.</p>
 <p>適合した <a>EPUB リーディング システム</a>は、PLS ドキュメントの処理のための次の基準を全て満たさなければならない（MUST）。</p>
 <ul class="conformance-list">
-<li><p id="confreq-pls-rs-sptts"><a>テキスト読み上げ</a>（TTS）機能を持ったリーディング システムは、PLS をサポートするべきである（SHOULD）。</p>
-<p id="confreq-pls-rs-proc">PLS をサポートするリーディング システムは、[[!PRONUNCIATION-LEXICON]] で定義されているように PLS ドキュメントを処理しなければならない（MUST）。</p>
-<p id="confreq-pls-rs-scope">PLS をサポートするリーディング システムは、<a href="https://www.w3.org/TR/2008/REC-pronunciation-lexicon-20081014/#S4.1">発音辞書が関連している言語</a> [[!PRONUNCIATION-LEXICON]] に一致する <a href="https://www.w3.org/TR/html/dom.html#the-lang-and-xmllang-attributes">language</a> [[!HTML]] は現在の XHTML コンテンツ ドキュメント内の全てのテキストノードに供給された発音命令を適用しなければならない（MUST）。言語タグを一致させるためのアルゴリズムは [[!BCP47]] で定義されている。</p>
-<p id="confreq-pls-rs-multi">発音ルールが、特定の言語に特定の文字列の対象に対して複数指定されているとき、ルールの最後の発生は、任意の事前に定義された発音ルールが上書きするこのような方法で、優先される。</p>
-<p id="confreq-pls-rs-casc">PLS と <a href="#sec-xhtml-ssml-attrib">SSML 属性</a>をサポートするリーディング システムは、<a href="#sec-cd-ssml-ph-attrib"><code>ssml:ph</code></a> 属性経由で提供される任意の発音命令が <code>ssml:ph</code> 属性を含んでいる要素のテキストノードに一致する <code>pls:grapheme</code> に優先することを許可しなければならない（MUST）。</p></li>
+<li><p id="confreq-pls-rs-sptts"><a>テキスト読み上げ</a>（TTS）機能を持ったリーディング システムは、[[!PRONUNCIATION-LEXICON]] をサポートするべきである（SHOULD）。</p>
+<p id="confreq-pls-rs-proc">[[!PRONUNCIATION-LEXICON]] で定義されているように PLS ドキュメントを処理しなければならない（MUST）。</p>
+<p id="confreq-pls-rs-scope"><a href="https://www.w3.org/TR/2008/REC-pronunciation-lexicon-20081014/#S4.1">発音辞書が関連している言語</a> [[!PRONUNCIATION-LEXICON]] に一致する <a href="https://www.w3.org/TR/html/dom.html#the-lang-and-xmllang-attributes">language</a> [[!HTML]] は現在の XHTML コンテンツ ドキュメント内の全てのテキストノードに供給された発音命令を適用しなければならない（MUST）。言語タグを一致させるためのアルゴリズムは [[!BCP47]] で定義されている。</p>
+<p id="confreq-pls-rs-multi">発音ルールが、特定の言語に特定の文字列の対象に対して複数指定されているとき、任意の事前に定義された発音ルールが上書きされるように、ルールの最後の発生を優先しなければならない（MUST）。</p>
+<p id="confreq-pls-rs-casc"><a href="#sec-xhtml-ssml-attrib">SSML 属性</a>をサポートする場合、<a href="#sec-cd-ssml-ph-attrib"><code>ssml:ph</code></a> 属性経由で提供される任意の発音命令が <code>ssml:ph</code> 属性 [[!SSML]] を含んでいる要素のテキストノードに一致する <code>grapheme</code> 要素 [[!PRONUNCIATION-LEXICON]] に優先することを許可しなければならない（MUST）。</p></li>
 </ul>
 </section>
 </section>
@@ -1063,6 +1219,7 @@
 <h1>JavaScript <dfn>epubReadingSystem</dfn> オブジェクト</h1>
 <section id="app-ers-idl">
 <h2>インターフェースの定義</h2>
+
 <p>この仕様は、次のように、[[!HTML]] <dfn>Navigator</dfn> オブジェクトを拡張する。</p>
 <pre class="idl">[Exposed=(Window)]
 interface EpubReadingSystem {
@@ -1081,12 +1238,15 @@ partial interface Navigator {
 </section>
 <section id="app-ers-desc">
 <h2>概要</h2>
+
 <p><code><dfn>Navigator.epubReadingSystem</dfn></code> オブジェクトは、<a>スクリプト コンテンツ ドキュメント</a>が、ユーザーの<a>リーディング システム</a>に関する情報を照会できるインターフェースを提供する。</p>
+
 <p>オブジェクトは、リーディング システムの<a href="#app-ers-properties">プロパティ</a>（名前とバージョン）を表示し、そのサポートする機能を決定するために呼び出すことができる <a href="#app-ers-hasFeature"><code>hasFeature</code> メソッド</a>を提供する。</p>
 <aside class="example">
 <p>現在のリーディング システムの名前を表示させる JavaScript の関数の例。</p>
 <pre>alert("Reading System name: " + navigator.epubReadingSystem.name);</pre>
 </aside>
+
 <p>リーディング システムは、ネストされた<a href="#sec-scripted-content-type-container-constrained">コンテナ制約</a>のスクリプト コンテクストを包含する、ロードされた全てのスクリプト コンテント ドキュメントの <code>navigator</code> オブジェクト上に <code>epubReadingSystem</code> オブジェクトを公開しなければならない（MUST）。リーディング システムは、<a href="https://www.w3.org/TR/html/syntax.html#the-end"><code>DOMContentLoaded</code> イベントがトリガー</a> [[!HTML]] されたときよりも遅延することなく、<code>epubReadingSystem</code> オブジェクトを利用できることを担保しなければならない（MUST）。</p>
 <div class="note">
 <p>リーディング システムの実装は、技術的な実現可能性の理由から、スクリプト コンテンツ ドキュメント内に <code>epubReadingSystem</code> オブジェクトの複製されたインスタンスを作るかもしれない。このような場合に、リーディング システムは、（そのプロパティとメソッドの値によって反映されるように）オブジェクトの状態が一貫してコピーされた全てのインスタンス間で維持されることを保証する必要がある。</p>
@@ -1094,6 +1254,7 @@ partial interface Navigator {
 </section>
 <section id="app-ers-properties">
 <h2>プロパティ</h2>
+
 <p>次のプロパティで、リーディング システムに関する情報を読み出せるようにしなければならない（MUST）。</p>
 <table data-dfn-for="epubReadingSystem">
 <thead>
@@ -1124,8 +1285,11 @@ partial interface Navigator {
 <h3>hasFeature</h3>
 <section id="app-ers-hasFeature-desc">
 <h4>概要</h4>
+
 <p data-dfn-for="epubReadingSystem"><code><dfn>hasFeature</dfn></code> メソッドは、指定された機能のいずれかのバージョンがサポートされているかどうかを示すブーリアン値、または指定した機能が認識されない場合は <code>undefined</code> を返す。</p>
+
 <p>省略可能な（OPTIONAL) <code>version</code> パラメータは、時間とともに互換性のない方法で変更できるカスタム機能を問い合わせるために包含されている。返り値は、機能の特定のバージョンのみサポートすることを示している。</p>
+
 <p><a>製作者</a>は、<a href="#app-ers-hasFeature-features">この仕様に定義された機能</a>を問い合わせるとき、<code>version</code> パラメータを包含するべきではない（SHOULD NOT）。これらの機能は、バージョンを持たないと見なされる。リーディング システムがこの仕様に定義された機能をサポートしない場合、全ての提供された <code>version</code> パラメータと <code>true</code> 値の返りを無視しなければならない（MUST）。</p>
 <aside class="example">
 <p>現在のリーディング システムが DOM のスクリプト操作をサポートしているかどうかを表す JavaScript の関数の例。</p>
