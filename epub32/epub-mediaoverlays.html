@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Media Overlays 3.2 日本語訳（2018年9月25日版）</title>
+<title>EPUB Media Overlays 3.2 日本語訳（2018年11月15日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -107,7 +107,7 @@
 <p id="confreq-mo-docprops-schema"><a href="#app-overlays-schema">付録 A, <em>メディア オーバーレイのスキーマ</em></a>で定義されているメディア オーバーレイのスキーマに対して妥当であること、および<a href="#sec-overlays-def">メディア オーバーレイ ドキュメントの定義</a>で表現される全てのコンテンツの適合性の制約に準拠しなければならない（MUST）。</p>
 <p id="confreq-mo-docprops-structure"><a href="#sec-media-overlays-structure">構造</a>で提示されたように、関連付けられている <a>EPUB コンテンツ ドキュメント</a>の構造を反映しなければならない（MUST）。</p>
 <p id="confreq-mo-docprops-references">ひとつ以上の EPUB コンテンツ ドキュメントを参照してもよい（MAY）が、EPUB コンテンツ ドキュメントは、ひとつ以上のメディア オーバーレイ ドキュメントによって参照されてはならない（MUST NOT）。</p>
-<p id="confreq-mo-docprops-embed"><a href="epub-spec.html#dfn-author">製作者</a>は、<a href="#sec-audio-video">埋め込まれたメディア</a>で述べられているとおり、EPUB コンテンツ ドキュメントに埋め込まれた音声とビデオをコントロールする記述の使用を避けるべきである（SHOULD）。</p>
+<p id="confreq-mo-docprops-embed"><a href="#sec-audio-video">埋め込まれたメディア</a>の必須要件を確実に実行しなければならない（MUST）。</p>
 <p id="confreq-mo-docprops-semantics"><a href="#sec-docs-semantic-inflection">意味の変化</a>に記載されているとおり、適切なセマンティック マークアップを使うべきである（SHOULD）。</p>
 <p id="confreq-mo-docprops-package"><a>EPUB 出版物</a>は、<a href="#sec-docs-package">パッケージング</a>に示されるようにパッケージしなければならない（MUST）。</p>
 </dd>
@@ -996,7 +996,7 @@ html.-epub-media-overlay-playing * {
 </section>
 <section class="appendix" id="app-overlays-schema">
 <h1>メディア オーバーレイのスキーマ</h1>
-<p>メディア オーバーレイのスキーマは <a href="http://www.idpf.org/epub/31/schema/media-overlay-31.nvdl">http://www.idpf.org/epub/31/schema/media-overlay-31.nvdl</a> である。</p>
+<p>メディア オーバーレイのスキーマは <a href="https://w3c.github.io/publ-epub-revision/epub32/schema/media-overlay-32.nvdl">https://w3c.github.io/publ-epub-revision/epub32/schema/media-overlay-32.nvdl</a> である。</p>
 <p>このスキーマを使用する検証は [[!NVDL]]、[[!RelaxNG-Schema]]、[[!ISOSchematron]] と [[!XMLSCHEMA-2]] をサポートするプロセッサが必要になる。</p>
 <div class="note">
 <p>NVDL スキーマレイヤーは単独で埋め込まれた RELAX NG と ISO Schematron スキーマを使用して、マルチパスの検証することで代用できることに注意されたい。</p>
