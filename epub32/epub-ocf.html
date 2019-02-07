@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Open Container Format (OCF) 3.2（日本語訳）（2018年11月15日版）</title>
+<title>EPUB Open Container Format (OCF) 3.2（日本語訳）（2019年2月1日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -178,7 +178,6 @@
 <p>OCF 抽象コンテナは、コンテナのルート ディレクトリの直接の子である <code>META-INF</code> という名前のディレクトリを包含しなければならない（MUST）。このディレクトリのコンテンツのための要件は、<a href="#sec-container-metainf"><code>META-INF</code> ディレクトリ</a>に記載されている。</p>
 <p>ルート ディレクトリにあるファイル名の <code>mimetype</code> は、<a href="#sec-container-zip"><em>OCF ZIP コンテナ</em></a>で説明されているとおり、<a href="#dfn-zip-container">OCF ZIP コンテナ</a>によって使用するために予約済みである。</p>
 <p>OCF 抽象コンテナ内の他の全てのファイルは、<code>META-INF</code> ディレクトリ内に存在せず提供され、ルート ディレクトリから任意の場所の子孫でもよい（MAY）。</p>
-<p>EPUB 出版物のコンテンツは、ルート ディレクトリ配下の専用のディレクトリに格納されることを推奨する（RECOMMENDED）。</p>
 </section>
 <section id="sec-container-iri">
 <h2>他のコンポーネントを参照するための相対 IRI</h2>
@@ -250,6 +249,9 @@
 </li>
 <li>
 <p>バックスラッシュ: <code>\</code> (<code>U+005C</code> )</p>
+</li>
+<li>
+<p>縦線: <code>\</code> (<code>U+007C</code>)</p>
 </li>
 <li>
 <p>DEL (<code>U+007F</code>)</p>
@@ -555,7 +557,7 @@
 <p id="confreq-zip-abstr">OCF ZIPコンテナのコンテンツは、<a href="#sec-container-abstract">OCF 抽象コンテナ</a>に一致しなければならない（MUST）。</p>
 </li>
 <li>
-<p id="confreq-zip-mult">OCF ZIP コンテナは、複数のストレージメディアを横断するために ZIP ファイルの分割を許可する ZIP アプリケーションノート [[!ZIP]] の機能を使用してはならない（MUST NOT）。<a href="#dfn-ocf-processor">OCF プロセッサ</a>は、複数のストレージメディアを横断するよう分割している ZIP ファイルであることが明らかな任意の OCF ファイルをエラーとして処理しなければならない（MUST）。</p>
+<p id="confreq-zip-mult">OCF ZIP コンテナは、ZIP ファイルが複数の記憶媒体に横断又は複数のファイルに分割されることを可能にする ZIP アプリケーション ノート [[!ZIP]] の機能を使用してはならない（MUST NOT）。<a href="#dfn-ocf-processor">OCF プロセッサ</a>は、複数のストレージメディアを横断するよう分割している ZIP ファイルであることが明らかな任意の OCF ファイルをエラーとして処理しなければならない（MUST）。</p>
 </li>
 <li>
 <p id="confreq-zip-comp">OCF ZIP コンテナは、ZIP アーカイブに（未圧縮で）格納またはデフレート圧縮した ZIP エントリーのみ包含しなければならない（MUST）。OCF プロセッサは、デフレート以外の圧縮技術を使用している任意の OCF コンテナをエラーとして処理しなければならない（MUST）。</p>
@@ -564,7 +566,7 @@
 <p id="confreq-zip-64">OCF ZIP コンテナは、アプリケーションノート [[!ZIP]] のサブセクション G に、セクション V の「Version 1」として定義されている ZIP64 拡張を使用してもよく（MAY）、コンテンツがそれらを要求するとき、それらの拡張のみ使用するべきである（SHOULD）。OCF プロセッサは、「Version 1」として定義されている ZIP64 拡張をサポートしなければならない（MUST）。</p>
 </li>
 <li>
-<p id="confreq-zip-enc">OCF ZIP コンテナは、ZIP フォーマットにより定義された暗号化機能を使用してはならず（MUST NOT）、代わりに、暗号化は、<a href="#sec-container-metainf-encryption.xml">暗号化ファイル (<code>encryption.xml</code>)</a> で説明されている機能を使用しなければならない（MUST）。OCF プロセッサは、ZIP 暗号化機能を使用している任意の他の OCF ZIP コンテナをエラーとして処理しなければならない（MUST）。</p>
+<p id="confreq-zip-enc">OCF ZIP コンテナは、ZIP フォーマットにより定義された暗号化機能を使用してはならず（MUST NOT）、代わりに、暗号化は、<a href="#sec-container-metainf-encryption.xml">暗号化ファイル (<code>encryption.xml</code>)</a> で説明されている機能を使用しなければならない（MUST）。OCF プロセッサは、ZIP 暗号化機能を使用している OCF ZIP コンテナをエラーとして処理しなければならない（MUST）。</p>
 </li>
 <li>
 <p id="confreq-zip-preserve">OCF プロセッサは、OCF 抽象コンテナで定義されていない読み込みと保存の操作を通じて OCF ZIP コンテナからの情報を保つことを要求しない。具体的には、OCF プロセッサは、特定のオペレーティングシステム（例えば、<em class="firstterm">External file attributes</em> と <em class="firstterm">Extra field</em> など）に対応するファイルシステム情報を保持する CRC 値、コメントフィールド、フィールドを保存しない。</p>
@@ -679,7 +681,7 @@ store destination as source in ocf
 <h1>スキーマ</h1>
 <section id="app-schema-container">
 <h2><code>container.xml</code> のスキーマ</h2>
-<p><code>container.xml</code> ファイルのスキーマは、<a href="https://w3c.github.io/publ-epub-revision/epub32/schema/ocf-container-32.rnc"><code>https://w3c.github.io/publ-epub-revision/epub32/schema/ocf-container-32.rnc</code></a> が利用可能である。</p>
+<p><code>container.xml</code> ファイルのスキーマは、<a href="https://github.com/w3c/epubcheck/tree/master/src/main/resources/com/adobe/epubcheck/schema/30/ocf-container-30.nvdl"><code>https://github.com/w3c/epubcheck/tree/master/src/main/resources/com/adobe/epubcheck/schema/30/ocf-container-30.nvdl</code></a> が利用可能である。</p>
 <p>このスキーマを使用する検証は [[!RelaxNG-Schema]] と [[!XMLSCHEMA-2]] をサポートするプロセッサが必要になる。</p>
 </section>
 <section id="app-schema-encryption">
