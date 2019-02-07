@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB 3.2 Changes 日本語訳（2018年11月15日版）</title>
+<title>EPUB 3.2 Changes 日本語訳（2019年2月1日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -52,7 +52,7 @@
 <section id="sec-introduction">
 <h1>前置き</h1>
 <p>EPUB は XML や Web 規格に基づいたデジタル出版物の交換や配信形式である。EPUB 出版物は、電子書籍、雑誌、出版物のその他の形式を表現し、オンラインやオフラインで消費するために配布することができる Web コンテンツの信頼性の高いパッケージと考えることができる。</p>
-<p>EPUB 3.2 は、EPUB 3.0.1 と EPUB 3.1 継承を熟慮した上での、EPUB 3 仕様のマイナー リビジョンである。EPUB 3.1 は、広く採用されておらず、コミュニティ グループは、EPUB 3.1 での多くの変更を維持しながら、EPUB 3.0.1 との強力な後方互換性を持つ EPUB 3.2 を作成する決定をした（特定のバージョンの EPUB は、古いバージョンに適合している EPUB 出版物が、新しいバージョンに適合している場合にのみ、古いバージョンと強力な後方互換性があると言われている）。全ての適合している EPUB 3.0.1 ファイルは、適合した EPUB 3.2 ファイルとなるであろう。</p>
+<p>EPUB 3.2 は、EPUB 3.0.1 と EPUB 3.1 継承を熟慮した上での、EPUB 3 仕様のマイナー リビジョンである。EPUB 3.1 は、広く採用されておらず、コミュニティ グループは、EPUB 3.1 での多くの変更を維持しながら、EPUB 3.0.1 との強力な後方互換性を持つ EPUB 3.2 を作成する決定をした（特定のバージョンの EPUB は、古いバージョンに適合している EPUB 出版物が、新しいバージョンに適合している場合にのみ、古いバージョンと強力な後方互換性があると言われている）。</p>
 <p>このドキュメントは、読者が、どのように EPUB 3.0.1 をこの新しいバージョンへ更新する前に、EPUB 3.1 をレビューする必要がないように、EPUB 3.0.1 移行の EPUB における全ての変更を説明する。</p>
 <p>このドキュメントは規定ではない。EPUB 3 の正確な情報は <a href="epub-spec.html#sec-intro-epub-specs">EPUB 仕様</a>を参照されたい。</p>
 <p>特に指定のない限り、ここで使用される用語は、<a href="epub-spec.html#sec-terminology">用語</a> [[EPUB32]] で定義された意味を持つ。</p>
@@ -182,8 +182,12 @@
 <li>
 <p><span class="property">-epub-text-orientation</span> の <code>use-glyph-orientation</code> と <code>sideways-left</code> 値は削除された。</p>
 </li>
+<li>
+<p><span class="property">display</span> プロパティの <code>oeb-page-head</code> と <code>oeb-page-foot</code> 値は削除された。これらは、EPUB 3.0.1 で非推奨であった。</p>
+</li>
 </ul>
 </div>
+<p class="note">EPUB 出版物で使用されるスタイルシートに制限を課すことは、EPUB の役割ではない。CSS は、十分に定義されたエラー処理を持ち、合理的なフォールバック動作を保証しながら新しいCSS機能を利用できるように、（例えば、「@supports」やカスケードなど）多くの技術を製作者作は利用可能できる。</p>
 </section>
 <section id="sec-cdoc-css-priority">
 <h2>製作者とユーザースタイルの優先順位付け</h2>
