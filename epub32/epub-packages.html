@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Packages 3.2 日本語訳（2018年11月15日版）</title>
+<title>EPUB Packages 3.2 日本語訳（2019年2月1日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -406,7 +406,7 @@
 &lt;/metadata></pre>
 </aside>
 <p>包含するとき、<code>identifier-type</code> 値は、識別子を解析した値よりも優先するべきである（SHOULD）。この仕様は、識別子のために任意の特定のスキームの使用を要求したり推奨しない。</p>
-<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] で定義されているとおり、要素の値から先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>リーディング システムは、値を処理する前に、要素の値から先頭と末尾の<a href="https://www.w3.org/TR/xml/#white">空白</a> [[!XML]] を取り除かなければならない（MUST）。</p>
 <p>この仕様は、空白をトリムした後の長さが少なくとも1文字でなければならない（MUST）こと以外は、識別子に追加の制約もしくは要件を課していない。しかしながら、識別子が完全修飾 URI であることを強く勧める。</p>
 </section>
 <section id="sec-opf-dctitle">
@@ -460,7 +460,7 @@
 </pre>
 </aside>
 <p>各<a>レンディション</a>のタイトルは異なってもよい（MAY）。</p>
-<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] で定義されているとおり、要素の値から先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>リーディング システムは、値を処理する前に、要素の値から先頭と末尾の<a href="https://www.w3.org/TR/xml/#white">空白</a> [[!XML]] を取り除かなければならない（MUST）。</p>
 <p>この仕様は、空白をトリムした後の長さが最低でも1文字でなければならない（MUST）以外には、タイトルに追加の制約もしくは要件を課していない。</p>
 </section>
 <section id="sec-opf-dclanguage">
@@ -491,7 +491,7 @@
 <p>追加の <code>language</code> 要素が多言語の出版物のために含まれてもよいが（MAY）、各要素の値は  [[!BCP47]] に準拠しなければならない（MUST）。ドキュメント順の最初の <code>language</code> 要素は、レンディションの初期設定の言語と見なされる。
 </p>
 <p>各<a>レンディション</a>の言語は異なってもよい（MAY）。</p>
-<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] で定義されているとおり、要素の値の先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>リーディング システムは、値を処理する前に、要素の値の先頭と末尾の<a href="https://www.w3.org/TR/xml/#white">空白</a> [[!XML]] を取り除かなければならない（MUST）。</p>
 </section>
 </section>
 <section id="sec-opf-dcmes-optional">
@@ -532,7 +532,7 @@
 </dd>
 </dl>
 <p>各<a>レンディション</a>に対する省略可能（OPTIONAL）な [[!DC11]] メタデータは異なってもよい（MAY）。</p>
-<p>リーディング システムは、値を処理する前に、XML 仕様 [[!XML]] によって定義されているとおり、要素の値から先頭と末尾の全ての空白を削除しなければならない（MUST）。</p>
+<p>リーディング システムは、値を処理する前に、要素の値から先頭と末尾の全ての<a href="https://www.w3.org/TR/xml/#white">空白</a> [[!XML]] を削除しなければならない（MUST）。</p>
 <p>全ての省略可能（OPTIONAL）な [[!DC11]] 要素の値は、空白をトリムした後の長さが最低でも1文字なければならない（MUST）。</p>
 <p>この仕様は、次のセクションで注意されているようなことを除き、[[!DC11]] 要素の定義を変更しない。</p>
 </section>
@@ -667,7 +667,7 @@
 </aside>
 <p id="attrdef-scheme"><code>scheme</code> 属性は、要素の値が得られるシステムまたはスキームを識別する。属性の値は、スキームを定めるリソースへ解決する<a href="#sec-property-datatype">プロパティ</a>のデータ タイプでなければならない（MUST）。リーディング システムが、<code>scheme</code> 属性の値を認識しない場合、それは文字列として要素の値を扱うべきである（SHOULD）。</p>
 <p>リーディング システムは、認識しない表現を定義する <code>property</code> 属性を含んでいる全ての <code>meta</code> 要素を無視すべきである（SHOULD）。リーディング システムは、未知の表現に遭遇するとき、失敗してはならない（MUST NOT）。</p>
-<p>個々のプロパティが明示的に別の空白の正規化アルゴリズムを定義している場合を除き、リーディング システムは、さらにそれらを処理する前に XML 仕様 [[!XML]] で定義されているとおり、<code>meta</code> 要素の値から全ての先頭と末尾の空白を取り除かなければならない（MUST）。</p>
+<p>個々のプロパティが明示的に別の空白の正規化アルゴリズムを定義している場合を除き、リーディング システムは、さらにそれらを処理する前に、<code>meta</code> 要素の値から全ての先頭と末尾の<a href="https://www.w3.org/TR/xml/#white">空白</a> [[!XML]] を取り除かなければならない（MUST）。</p>
 <p>全ての <code>meta</code> 要素は空白の正規化後の長さが少なくともひとつ以上の文字の値を表現しなければならない（MUST）。</p>
 </section>
 <section id="sec-link-elem">
@@ -2001,7 +2001,7 @@ urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809@2011-01-01T12:00:00Z
 </section>
 <section class="appendix" id="app-package-schema">
 <h1>パッケージ ドキュメント スキーマ</h1>
-<p>規定ではないパッケージ ドキュメントのスキーマは <a href="https://w3c.github.io/publ-epub-revision/epub32/schema/package-32.nvdl">https://w3c.github.io/publ-epub-revision/epub32/schema/package-32.nvdl</a> で入手できる。</p>
+<p>規定ではないパッケージ ドキュメントのスキーマは <a href="https://github.com/w3c/epubcheck/tree/master/src/main/resources/com/adobe/epubcheck/schema/30/package-30.nvdl">https://github.com/w3c/epubcheck/tree/master/src/main/resources/com/adobe/epubcheck/schema/30/package-30.nvdl</a> で入手できる。</p>
 <p>このスキーマを使用する検証は [[NVDL]]、[[RelaxNG-Schema]]、[[ISOSchematron]] と [[XMLSCHEMA-2]] をサポートするプロセッサが必要になる。</p>
 <div class="note">
 <p>単独で埋め込まれた RELAX NG とISO Schematron スキーマを使用しているマルチ・パス検証によって NVDL スキーマ層が代えられることができる点に注意されたい。</p>
