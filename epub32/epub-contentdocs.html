@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Content Documents 3.2 日本語訳（2018年11月15日版）</title>
+<title>EPUB Content Documents 3.2 日本語訳（2019年2月1日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -264,7 +264,7 @@
 <section id="sec-contentdocs-default-vocab">
 <h5>標準の語彙</h5>
 
-<p>コンテンツ ドキュメントの標準の語彙は、[[!EPUB-SSV]] で定義される。[[!EPUB-SSV]] の一部でないプリフィックスがつかない用語を使用してもよいが（MAY）、リーディング システムは、それらのサポートをする義務はない。</p>
+<p>コンテンツ ドキュメントの標準の語彙は、[[!EPUB-SSV]] で定義される。[[!EPUB-SSV]] の一部でないプリフィックスがつかない用語を包含してもよいが（MAY）、これらの使用は、推奨されない。プリフィックスの使用は、カスタム セマンティクスを追加するための望ましい方法である。</p>
 </section>
 
 <section id="sec-contentdocs-reserved-prefixes">
@@ -650,7 +650,9 @@
 <ul class="conformance-list">
 <li><p id="confreq-svg-foreignObject">[[!SVG]] <a href="https://www.w3.org/TR/SVG/extend.html#ForeignObjectElement"><code>foreignObject</code></a> 要素は、次の条件を順守しなければならない（MUST）。</p>
 <ul class="conformance-list">
-<li><p id="confreq-svg-foreignObject-xhtml-content">[[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#flow-content">フロー コンテンツ</a>かひとつの [[!HTML]] <a href="https://www.w3.org/TR/html/sections.html#the-body-element"><code>body</code> 要素</a>のいずれかを含めなければならない（MUST）。</p></li>
+<li><p id="confreq-svg-foreignObject-xhtml-content">[[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#flow-content">フロー コンテンツ</a>かひとつの [[!HTML]] <a href="https://www.w3.org/TR/html/sections.html#the-body-element"><code>body</code> 要素</a>のいずれかを含めなければならない（MUST）。</p>
+<p class="note"><a href="#sec-xhtml-svg">埋め込まれた SVG</a> の場合、<code>body</code> 要素は、[[HTML]] で定義された <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#svg">SVG の制約</a>に従って許可されない。</p>
+</li>
 <li><p id="confreq-svg-foreignObject-xhtml-frag">コンテンツは、<a href="#sec-xhtml-conf-content">XHTML コンテンツ ドキュメント — コンテンツの適合性</a>に定義された XHTML コンテンツ ドキュメント モデルに適合する、妥当なドキュメント フラグメントでなければならない（MUST）。</p></li>
 <li><p id="confreq-svg-foreignObject-reqext">もし指定されているなら、<code>requiredExtensions</code> 属性は、「<code>http://www.idpf.org/2007/ops</code>」を設定しなければならない（MUST）。</p></li>
 </ul></li>
@@ -716,6 +718,7 @@
 <ul class="conformance-list">
 <li><p id="confreq-css-rs-support">[[!CSSSnapshot]] に記載されているような CSS の正式な定義をサポートしなければならない（MUST）。</p></li>
 <li><p id="confreq-css-rs-modules">最新の<a href="https://www.w3.org/2015/Process-20150901/#candidate-rec">勧告候補</a>ステータス [[!W3CProcess]] に達しており（また、広く実装されている） [[!CSSSnapshot]] の利用可能な全てのモジュールをサポートするべきである（SHOULD）。</p></li>
+<li><p id="confreq-css-rs-fonts"><code>@font-face</code> ルールから参照された [[!TrueType]]、[[!OpenType]]、[[!WOFF]] 及び [[!WOFF2]] フォント リソースをサポートしなければならない（MUST）。</p></li>
 <li><p id="confreq-css-rs-prefixed"><a href="#sec-css-prefixed">CSS スタイル シート — プリフィックス付きプロパティ</a>に定義されている全てのプリフィックス付きプロパティをサポートしなければならない（MUST）。</p></li>
 <li><p id="confreq-css-rs-html-default">上記で定義された CSS プロパティのサポートに加えて、そのユーザー エージェント スタイルシートは、[[!HTML]] で<a href="https://www.w3.org/TR/html/rendering.html#rendering">提案されたデフォルトのレンダリング</a>をサポートするべきである（SHOULD）。</p></li>
 <li><p id="confreq-css-rs-overrides"><a href="#sec-css-rs-overrides">リーディング システムによる上書き</a>で定義されているように、著者は、CSSと ユーザー スタイルを尊重するべきである（SHOULD）。</p></li>
