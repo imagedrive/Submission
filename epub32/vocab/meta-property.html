@@ -244,7 +244,7 @@
 </section>
 
 <section id="sec-display-seq">
-<h3>display-seq (Deprecated)</h3>
+<h3>display-seq</h3>
 
 <table id="display-seq">
 <tbody>
@@ -257,8 +257,8 @@
 <tr>
 <th>概要：</th>
 <td>
-<p><code>display-seq</code> は、（例えば、複数の <code>title</code> をレンダリングする順番を識別するためになど）同じメタデータ プロパティに関連する現在のプロパティを表示する数値的な位置を識別する。</p>
-<p><strong><code>display-seq</code> プロパティの使用は、非推奨（deprecated）である。</strong>優先順位は、EPUB パッケージ ドキュメントのドキュメント順に出現順に基づいて、セット内の要素に与えられる（すなわち、ドキュメント順の最初の要素は、最も優先度が高い）。</p>
+<p><code>display-seq</code> は、同じメタデータ プロパティに関連する現在のプロパティを表示する数値的な位置を識別する。</p>
+<p>このプロパティは、（例えば、<a href="#sec-opf-dccreator">creators</a> に与えられる優先順位は、ドキュメント順序の出現を元にされるなど）優先順位のルールがまだ定義されていない場合にのみ適用される。</p>
 </td>
 </tr>
 <tr>
@@ -373,8 +373,7 @@
 &lt;/metadata></pre>
 </aside>
 <aside class="example">
-<p>The following example uses a decimal-separated value for <code>group-position</code>,
-				in this case volume 98, issue 4 of a periodical.</p>
+<p>次の例は、<code>group-position</code> に 10 進数で区切られた値を使用しており、この場合、定期刊行物の第98巻、第4号である。</p>
 <pre>&lt;metadata&gt;
     …
     &lt;meta property="belongs-to-collection" id="cygnus-x-1">Physical Review D&lt;/meta>
@@ -425,7 +424,7 @@
 </table>
 <p class="note">アクセシブルなページ ナビゲーションを提供する方法についての情報は [[EPUBAccessibilityTechniques]] を見よ。</p>
 <aside class="example">
-<p>次の例は、識別子が、ONIX コード リスト 5 の数値を使用する ISBN 示す方法の例である。</p>
+<p>次の例は、識別子が、ONIX コード リスト 5 の数値を使用する ISBN を示す方法の例である。</p>
 <pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     …
     &lt;dc:identifier id="isbn-id">urn:isbn:9780101010101&lt;/dc:identifier>
