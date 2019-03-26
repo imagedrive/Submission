@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Packages 3.2 日本語訳（2019年2月1日版）</title>
+<title>EPUB Packages 3.2 日本語訳（2019年3月21日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -395,17 +395,15 @@
 &lt;/metadata&gt;</pre>
 </aside>
 <p>レンディションが変更されるたびに、新しい最終更新日時を包含しなければならない（MUST）。</p>
-<p><code>identifier</code> が確立されたシステムに適合しているまたは発行機関によって付与されているかどうかを判断するためにリーディング システムは要素の値を解析することを試みるべきである（SHOULD）。</p>
-<p id="attrdef-identifier-scheme">さらなる正確さを期すため、（例えば、スキームは、値から決定することができなかったり、曖昧な結果を引き起こす場合など）製作者は、リーディング システムの同定を支援するために <a href="#identifier-type"><code>identifier-type</code> プロパティ</a>を付与してもよい（MAY）。</p>
+<p><code>identifier</code> が確立されたシステムに適合している又は発行機関によって付与されているかどうかを判断するために、リーディング システムは <a href="#identifier-type"><code>identifier-type</code> プロパティ</a>をチェックするべきである（SHOULD）。</p>
 <aside class="example">
-<p>次の例は、識別子を、identifier-type プロパティを使用して DOI として追加でマークする方法を示している。</p>
+<p>次の例は、識別子を、identifier-type プロパティを使用する <a href="https://doi.org">DOI</a> として追加でマークする方法を示している。ここでは、<a href="https://ns.editeur.org/onix/en/5">ONIX codelist 5</a> を使用して製品の識別タイプを記述している。</p>
 <pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     &lt;dc:identifier id="pub-id">urn:doi:10.1016/j.iheduc.2008.03.001&lt;/dc:identifier>
     &lt;meta refines="#pub-id" property="identifier-type" scheme="onix:codelist5">06&lt;/meta>
     …
 &lt;/metadata></pre>
 </aside>
-<p>包含するとき、<code>identifier-type</code> 値は、識別子を解析した値よりも優先するべきである（SHOULD）。この仕様は、識別子のために任意の特定のスキームの使用を要求したり推奨しない。</p>
 <p>リーディング システムは、値を処理する前に、要素の値から先頭と末尾の<a href="https://www.w3.org/TR/xml/#white">空白</a> [[!XML]] を取り除かなければならない（MUST）。</p>
 <p>この仕様は、空白をトリムした後の長さが少なくとも1文字でなければならない（MUST）こと以外は、識別子に追加の制約もしくは要件を課していない。しかしながら、識別子が完全修飾 URI であることを強く勧める。</p>
 </section>
@@ -553,7 +551,7 @@
     …
 &lt;/metadata></pre>
 </aside>
-<p>リーディング システムがユーザーにそれを提示できるように、<code>creator</code> 要素に作成者の名前が含まれているべきである（SHOULD）。<a href="#file-as"><code>file-as</code> プロパティ</a>は、名前の正規化された形式を包含するために付けてもよく（MAY）、他の言語又はスクリプトで制作者の名前を表すのは <a href="#alternate-script"><code>alternate-script</code> プロパティ</a>である。</p>
+<p><code>creator</code> 要素は、製作者がユーザーに表示することを意図するために、作成者の名前を含むべきである（SHOULD）。<a href="#file-as"><code>file-as</code> プロパティ</a>は、名前の正規化された形式を包含するために付けてもよく（MAY）、他の言語又はスクリプトで制作者の名前を表すのは <a href="#alternate-script"><code>alternate-script</code> プロパティ</a>である。</p>
 <aside class="example">
 <p>次の例は、著者名のソートとレンダリングを容易にするために包含する方法を示している。</p>
 <pre>&lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -1204,7 +1202,7 @@ urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809@2011-01-01T12:00:00Z
 <section id="sec-metadata-reserved-prefixes">
 <h3>予約済みのプリフィックス</h3>
 <p>この仕様は、製作者が宣言することなくパッケージ メタデータに使用してもよい（MAY）次のプリフィックスのセットを予約する。</p>
-<p class="warning">予約済みのプリフィックスは、オーサリング時において便利ですが、それらに依存することは、相互互換性の問題に繋がる。例えば、適合性ツールは、しばしば、ツールが更新されるまで新しいプリフィックスを拒否する。製作者は、そのような問題を避けるために、使用する全てのプリフィックスの宣言を強く推奨する。</p>
+<p class="warning">予約済みのプリフィックスは、オーサリング時において便利だが、それらに依存することは、相互互換性の問題に繋がる。例えば、適合性ツールは、しばしば、ツールが更新されるまで新しいプリフィックスを拒否する。製作者は、そのような問題を避けるために、使用する全てのプリフィックスの宣言を強く推奨する。</p>
 <table id="tbl-reserved-prefixes" class="prefix">
 <thead>
 <tr>
@@ -1460,7 +1458,7 @@ urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809@2011-01-01T12:00:00Z
 <p><code>rendition:layout</code> プロパティは、指定したレンディションが、リフロー可能又はページ分割されるかを指定する。</p>
 <section id="layout-usage">
 <h5>使用方法</h5>
-<p id="property-layout-global"><a href="#layout"><code>rendition:layout</code> プロパティ</a> が <code>meta</code> 要素に指定されている時、ページ分割またはリフロー可能なレイアウト形式が、それが指定された<a>レンディション</a>（例えば全てのスパイン項目）に包括的に適用されることを示している。</p>
+<p id="property-layout-global"><a href="#layout"><code>rendition:layout</code> プロパティ</a>が <code>meta</code> 要素に指定されている時、ページ分割またはリフロー可能なレイアウト形式が、それが指定された<a>レンディション</a>（例えば全てのスパイン項目）に包括的に適用されることを示している。</p>
 <p>初期設定値の <code>reflowable</code> は、<a href="#elemdef-opf-metadata"><code>metadata</code></a> セクション内にこのプロパティを含んでいる <code>meta</code> 要素が現れない場合、グローバル値として <a>EPUB リーディング システム</a>によって想定されなければならない（MUST）。</p>
 <p><code>rendition:layout</code> プロパティに <code>pre-paginated</code> が設定されているとき、リーディング システムは、レンダリングしている<a>合成見開き</a>の隣接したコンテンツの隙間に間隔を包含してはならない（MUST NOT）。</p>
 <p>プロパティが、スパイン項目に <code>pre-paginated</code> がセットされているとき、そのコンテンツの寸法は、<a href="epub-contentdocs.html#sec-fixed-layouts">固定レイアウト</a> [[!ContentDocs32]] に定義されているように設定されなければならない（MUST）。</p>
@@ -1826,7 +1824,7 @@ urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809@2011-01-01T12:00:00Z
 <p id="confreq-nav-a-href-default"><a href="#sec-nav-toc"><code>toc nav</code></a> と <a href="#sec-nav-landmarks"><code>landmarks nav</code></a>、<a href="#sec-nav-pagelist"><code>page-list nav</code></a> については、その中で<a>トップレベル コンテンツ ドキュメント</a>またはフラグメントの解決しなければならない（MUST）。</p>
 </li>
 <li>
-<p id="confreq-nav-a-href-other">他の全ての <code>nav</code> タイプのために、出版物リソースや、<a data-lt="Local Resource">ローカル</a>または<a>リモート リソース</a>であるかにかかわらず、任意のリソースを参照してもよい（MAY）。</p>
+<p id="confreq-nav-a-href-other">他の全ての <code>nav</code> タイプのために、<a>リモート リソース</a>も参照してもよい（MAY）。</p>
 </li>
 </ul>
 </li>
