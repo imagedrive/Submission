@@ -1,5 +1,5 @@
 <section id="app-link-vocab" class="appendix vocab">
-<h1>Metadata Link Vocabulary</h1>
+<h1>メタデータ リンクの語彙</h1>
 
 <section id="link-vocab-overview">
 <h2>概要</h2>
@@ -18,7 +18,7 @@
 </section>
 
 <section id="sec-link-rel">
-<h2>Link Relationships</h2>
+<h2>リンクの関連性</h2>
 
 <p>次の値は、<a href="#attrdef-href"><code>href</code> 属性</a>で参照されたリソースの関連性を確立するために <code>link</code> 要素の <a href="#attrdef-link-rel"><code>rel</code> 属性</a>で使用できる。</p>
 
@@ -42,6 +42,10 @@
 <td>
 <code>0個以上</code>
 </td>
+</tr>
+<tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
 </tr>
 <tr>
 <th>例：</th>
@@ -84,6 +88,10 @@
 </td>
 </tr>
 <tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
+</tr>
+<tr>
 <th>例：</th>
 <td>
 <code>&lt;link rel="alternate" href="package.json"
@@ -107,6 +115,18 @@
 <th>概要：</th>
 <td><code>marc21xml-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-link-media-type"><code>media-type</code> 属性</a> [[!Packages]] の値「<code>application/marcxml+xml</code>」を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
 </tr>
+<tr>
+<th>個数：</th>
+<td><code>0 又は 1</code></td>
+</tr>
+<tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td><code>&lt;link rel="marc21xml-record" href="pub/meta/nor-wood-marc21.xml"/></code></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -124,6 +144,18 @@
 <th>概要：</th>
 <td><code>mods-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-link-media-type"><code>media-type</code> 属性</a> [[!Packages]] の値「<code>application/mods+xml</code>」を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
 </tr>
+<tr>
+<th>個数：</th>
+<td><code>0 又は 1</code></td>
+</tr>
+<tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td><code>&lt;link rel="mods-record" href="pub/meta/nor-wood-mods.xml"/></code></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -140,6 +172,18 @@
 <tr>
 <th>概要：</th>
 <td><code>onix-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-properties">プロパティの属性</a> [[!Packages]] の値 <a href="#onix"><code>onix</code></a> を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
+</tr>
+<tr>
+<th>個数：</th>
+<td><code>0 又は 1</code></td>
+</tr>
+<tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td><code>&lt;link rel="onix-record" href="pub/meta/nor-wood-onix.xml"/></code></td>
 </tr>
 </tbody>
 </table>
@@ -170,6 +214,10 @@
 </td>
 </tr>
 <tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
+</tr>
+<tr>
 <th>例：</th>
 <td>
 <code>&lt;link rel="record" href="book/52.atom"
@@ -193,6 +241,18 @@
 <th>概要：</th>
 <td><code>xml-signature</code> キーワードの使用は、非推奨（deprecated）である。これは、他のリンク方法によって置き換えられない。XML signatures の識別は、EPUB の将来のバージョンで対処されるだろう。</td>
 </tr>
+<tr>
+<th>個数：</th>
+<td><code>0個以上</code></td>
+</tr>
+<tr>
+<th>拡張：</th>
+<td>全てのプロパティ。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td><code>&lt;link refines="#meta-authority-01" rel="xml-signature" href="../META-INF/signatures.xml#MAI-Signature"/></code></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -210,13 +270,25 @@
 <th>概要：</th>
 <td><code>xmp-record</code> キーワードの使用は、非推奨（deprecated）である。これは、<a href="#attrdef-properties">プロパティ属性</a>の値 <a href="#xmp"><code>xmp</code></a> を持つ <a href="#record"><code>record</code></a> キーワードによって置き換えられた。</td>
 </tr>
+<tr>
+<th>個数：</th>
+<td><code>0 又は 1</code></td>
+</tr>
+<tr>
+<th>拡張：</th>
+<td>EPUB 出版物またはコレクションのみに適用。<a href="#attrdef-refines"><code>refines</code> 属性</a>が存在するとき、使用してはならない（MUST NOT）。</td>
+</tr>
+<tr>
+<th>例：</th>
+<td><code>&lt;link rel="xmp-record" href="pub/meta/nor-wood-xmp.xml"/></code></td>
+</tr>
 </tbody>
 </table>
 </section>
 </section>
 
 <section id="sec-link-properties">
-<h2>Link Properties</h2>
+<h2>リンクのプロパティ</h2>
 
 <p>次の値は、参照されたリソースが表すレコードの形式を確立するために、<a href="#sec-link-elem"><code>link</code> 要素</a>の <code>properties</code> 属性で使用できる。これらの値は、メディア タイプによって一意に識別できないレコードの形式のために提供される。</p>
 
@@ -264,7 +336,7 @@
 <tr>
 <th>例：</th>
 <td>
-<code>&lt;link rel="record" href="pub/meta/nor-wood-xmp.xml media-type="application/xml"
+<code>&lt;link rel="record" href="pub/meta/nor-wood-xmp.xml" media-type="application/xml"
 								properties="xmp"/&gt;</code>
 </td>
 </tr>
