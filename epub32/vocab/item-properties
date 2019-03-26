@@ -1,5 +1,5 @@
 <section id="app-item-properties-vocab" class="appendix vocab">
-<h1>Manifest Properties Vocabulary</h1>
+<h1>マニフェスト プロパティの語彙</h1>
 
 <section id="elemdef-opf-meta-overview">
 <h2>概要</h2>
@@ -17,7 +17,7 @@
 </section>
 </section>
 <section id="sec-item-property-values">
-<h2>Manifest <code>item</code> Properties</h2>
+<h2>マニフェスト <code>item</code> プロパティ</h2>
 
 <p>次の表は、<code>manifest</code> <a href="#sec-item-elem">item 要素</a>の <a href="#attrdef-item-properties">properties 属性</a>で使用するプロパティを定義する。</p>
 
@@ -236,4 +236,3 @@
 </section>
 </section>
 </section>
-
