@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Content Documents 3.2 日本語訳（2019年3月21日版）</title>
+<title>EPUB Content Documents 3.2 日本語訳（2019年4月19日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -193,7 +193,7 @@
 <h4>まえがき</h4>
 <p>意味の変化は <a>XHTML コンテンツ ドキュメント</a>内で使用している要素に特定の意味と、または性質に関するさらなる意味を付与する行為である。<a href="#sec-epub-type-attribute"><code>epub:type</code> 属性</a>は、[[HTML]] の語彙を補足する変化をもたらし、XHTML コンテンツ ドキュメント内のドメイン固有の意味を表現するのに使用される。</p>
 <p>適用されるセマンティクスは、それらを含んでいる要素の意味を取り込むことが意図されており、（例えば、属性は、<code>section</code> が作品の章を示すために使用できるが、適切なリスト構造を回避するために、リスト項目に <code>p</code> 要素を動作するもとして設計されていないように）それらの性質を上書きするために提供されていない。</p>
-<p>セマンティック メタデータは直接人間に提供されることを目的にしておらず、その代わりにドキュメントの構造とコンテンツについてのより詳細にリーディング システムのために制御方法を提供し、読者のために読書体験を向上させる良い機会を提供する。</p>
+<p>セマンティック メタデータは、出版のワークフローにおける使用および製作者が定義した目的におけるコンテンツの充実を意図している。それはまた、リーディング システムが文書の構造とコンテンツについて更に学ぶことを可能にするが、この仕様によってセマンティクスのために定義された特定の振る舞いはない。そのような振る舞いは全てリーディング システムに依存する。</p>
 <p>この仕様は、新しい要素を追加する代わりに、<em>axis 属性</em>を使用して意味の変化のための方法を定義し、<code>epub:type</code> 属性で求められる意味の変化を既存の要素に付与できる。属性の制御値を提供する外部のボキャブラリを識別するためのメカニズムもまた定義されている。</p>
 </section>
 
@@ -491,17 +491,12 @@
 
 <dl class="conformance-list">
 <dt id="math-pres">Presentation MathML</dt>
-<dd><p id="confreq-mathml-pres"><code>math</code> 要素は、下で定義しているような <code>annotation-xml</code> 要素を除外して、<a href="https://www.w3.org/TR/MathML3/chapter3.html">Presentation MathML</a> のみ含まなければならない（MUST）。</p></dd>
+<dd><p id="confreq-mathml-pres"><code>math</code> 要素は、<code>annotation-xml</code> 要素を除外して、<a href="https://www.w3.org/TR/MathML3/chapter3.html">Presentation MathML</a> のみ含まなければならない（MUST）。</p></dd>
 <dt id="math-cont">Content MathML</dt>
 <dd><p id="confreq-mathml-annot-cont"><a href="https://www.w3.org/TR/MathML3/chapter4.html">Content MathML</a> は、XHTML コンテンツ ドキュメントの MathML マークアップ内に包含してもよく（MAY）、そして、表示されるとき、<code>semantics</code> 要素の <code>annotation-xml</code> 子要素に生じなければならない（MUST）。</p>
 <p id="confreq-mathml-annot-cont-attrs">Content MathML は、上記の条件のように包含するとき、指定された <code>annotation-xml</code> 要素の <code>encoding</code> 属性は、機能的に同等な値の <code>MathML-Content</code> かそれとも <code>application/mathml-content+xml</code> を設定しなければならず（MUST）、その <code>name</code> 属性は <code>contentequiv</code> に設定されなければならない（MUST）。</p></dd>
 <dt id="math-deprecated">Deprecated MathML</dt>
 <dd><p id="confreq-mathml-deprecated">[[!MATHML3]] で非推奨にマークされた要素と属性は、XHTML コンテンツ ドキュメントの MathML マークアップ内に包含してはならない（MUST NOT）。</p></dd>
-<dt id="math-html">XHTML コンテンツ ドキュメント フラグメント</dt>
-<dd><p id="confreq-mathml-annot-xht">XHTML コンテンツ ドキュメント フラグメントは、XHTML コンテンツ ドキュメントの MathML マークアップ内に包含してもよく（MAY）、そして、表示されるとき、<code>semantics</code> 要素の <code>annotation-xml</code> 子要素内に発生しなければならない（MUST）。</p>
-<p id="confreq-mathml-annot-xht-attrs">XHTML コンテンツ ドキュメント フラグメントが上記段落経由で包含されるとき、指定された <code>annotation-xml</code> 要素の <code>encoding</code> 属性は、<code>application/xhtml+xml</code> を設定されなければならず（MUST）、<code>name</code> 属性は、<code>alternate-representation</code> に設定されなければならない（MUST）。</p>
-<p id="confreq-mathml-annot-xht-math">全ての包含された XHTML コンテンツ ドキュメント フラグメントは、MathML マークアップ自体を含んではならない（MUST NOT）。</p>
-<p id="confreq-mathml-annot-xht-model">全ての包含された XHTML コンテンツ ドキュメント フラグメントは、<code>math</code> 要素が、特定の XHTML コンテンツ ドキュメント フラグメントによって置き換えられた場合、ドキュメントは妥当なまま、祖先の <code>math</code> 要素が発生するコンテンツ モデルに適合しなければならない（MUST）、</p></dd>
 </dl>
 </section>
 
@@ -510,7 +505,7 @@
 <p>適合した <a>EPUB リーディング システム</a>は、XHTML コンテンツ ドキュメントに埋め込まれた MathML をサポートするために次の基準を全て満たさなければならない（MUST）。</p>
 <ul class="conformance-list">
 <li><p id="confreq-mathml-rs-behavior">[[!MATHML3]] 仕様で定義されているように、<a href="https://www.w3.org/TR/MathML3/chapter3.html">Presentation MathML</a> の入力に対応するレンダラーでなければならない（MUST）。</p></li>
-<li><p id="confreq-mathml-rs-anno"><code>xml-annotation</code> 要素にある <a href="https://www.w3.org/TR/MathML3/chapter4.html">Content MathML</a> のレンダリングをサポートしてもよい（MAY）。</p></li>
+<li><p id="confreq-mathml-rs-anno"><code>annotation-xml</code> 要素にある <a href="https://www.w3.org/TR/MathML3/chapter4.html">Content MathML</a> のレンダリングをサポートしてもよい（MAY）。</p></li>
 <li><p id="confreq-mathml-rs-render"><a>ビューポート</a>を持つ場合、Presentation MathML の視覚的なレンダリングをサポートしなければならない（MUST）。</p></li>
 </ul>
 <p class="note">EPUB リーディング システムは、例えば MathML のレンダリングを提供する MathJax など、サードパーティのライブラリの使用を選択してもよい（MAY）。</p>
