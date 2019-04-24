@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Open Container Format (OCF) 3.2 日本語訳（2019年3月21日版）</title>
+<title>EPUB Open Container Format (OCF) 3.2 日本語訳（2019年4月19日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -452,6 +452,7 @@
 <p><code>META-INF</code> ディレクトリの省略可能（OPTIONAL）な <code>manifest.xml</code> ファイルは、コンテナ内にあるファイルのマニフェストを提供する。</p>
 <p>OCF 仕様は、マニフェストにメタデータ形式を指定しない。</p>
 <p><a>パッケージ ドキュメント</a>に含まれる <code>manifest</code> 要素は、規定のレンディションを処理するために使用される、ただひとつのマニフェストを識別することに注意されたい。ZIP アーカイブもしくは省略可能（OPTIONAL）な <code>manifest.xml</code> に含まれている補助的なマニフェスト情報は、レンディションを処理するために使用してはならない（MUST NOT）。</p>
+<div class="note">この機能は、[[ODF]] との互換性のためだけに存在する。</div>
 </section>
 <section id="sec-container-metainf-metadata.xml">
 <h4>メタデータ ファイル (<code>metadata.xml</code>)</h4>
@@ -468,6 +469,10 @@
 </section>
 <section id="sec-container-metainf-signatures.xml">
 <h4>電子署名ファイル (<code>signatures.xml</code>)</h4>
+<div class="note">
+<p>リーディング システムは、署名をチェックは要求されないので、電子署名を追加することは EPUB が改ざんできないという保証ではない。</p>
+</div>
+
 <p><code>META-INF</code> ディレクトリ内の省略可能（OPTIONAL）な <code>signatures.xml</code> ファイルは、コンテナとコンテンツのための電子署名を保持する。このファイルのコンテンツは、<a href="#app-schema-signatures"><code>signatures.xml</code> のスキーマ</a>のスキーマに妥当でなければならない（MUST）。</p>
 <p><code>signatures.xml</code> ファイルのルート要素は、<code>signatures</code> 要素である。この要素は、[[!XMLDSIG-CORE1]] で定義されているように <code>Signature</code> 型の子要素を含んでいる。署名は、全体または部分的に、EPUB 出版物へ適用でき、（XML だけでなく）あらゆる種類のデータの署名を特定することができる。</p>
 <p><code>signatures.xml</code> ファイルが存在しないとき、コンテナのいかなる部分もコンテナ レベルで電子的に署名されていない。電子署名は、<a>EPUB 出版物</a>内に存在するかもしれない。</p>
@@ -590,8 +595,13 @@
 </section>
 <section id="sec-zip-container-mime">
 <h2>OCF ZIP コンテナのメディア タイプの識別</h2>
-<p><a>OCF ZIP コンテナ</a> の最初のファイルは、<code>mimetype</code> ファイルでなければならない（MUST）。このファイルのコンテンツは、US-ASCII [[!US-ASCII]] でエンコードされた <code>application/epub+zip</code> 文字列の MIME メディア タイプ [[!RFC2046]] でなければならない（MUST）。</p>
-<p><code>mimetype</code> ファイルのコンテンツは、どんな文字埋めや空白を含んではならず（MUST NOT）、Unicode signature (または Byte Order Mark) で開始してはならず（MUST NOT）、メディア タイプの場合は、上記の通り正確でなければならない（MUST）。さらに <code>mimetype</code> ファイルは、圧縮または暗号化をしてはならず（MUST）、そして ZIP ヘッダにエキストラ フィールドがあってはならない（MUST NOT）。</p>
+<p><a>OCF ZIP コンテナ</a> の最初のファイルは、次の要件を満たす <code>mimetype</code> ファイルでなければならない（MUST）。</p>
+<ul>
+<li><code>mimetype</code> のコンテンツは、US-ASCII [[!US-ASCII]] でエンコードされた <code>application/epub+zip</code> 文字列の MIME メディア タイプ [[!RFC2046]] でなければならない（MUST）。</li>
+<li><code>mimetype</code> ファイルは、いかなる先頭または末尾の余白および空白を含んではならない（MUST NOT）。</li>
+<li><code>mimetype</code> ファイルは、ユニコードのバイト オーダー マーク U+FEFF で開始してはならない（MUST NOT）。</li>
+<li>加えて、<code>mimetype</code> ファイルは、圧縮または暗号化をしてはならず（MUST NOT）、そして ZIP ヘッダにエキストラ フィールドがあってはならない（MUST NOT）。</li>
+</ul>
 <div class="note">
 <p><code>application/epub+zip</code> メディア タイプについてのより詳細な情報は、<a href="#app-media-type">補足 C の <em><code>application/epub+zip</code> メディア タイプ</em></a>を参照されたい。</p>
 </div>
