@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Open Container Format (OCF) 3.2 日本語訳（2019年4月19日版）</title>
+<title>EPUB Open Container Format (OCF) 3.2 日本語訳（2019年5月7日版）</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -14,7 +14,7 @@
               wg: "EPUB 3 Community Group",
               wgURI: "https://www.w3.org/community/epub3/",
               wgPublicList: "public-epub3",
-              specStatus: "CG-DRAFT",
+              specStatus: "CG-FINAL",
               noRecTrack: true,
               shortName: "epub-ocf",
               prevRecURI: "https://www.idpf.org/epub/31/spec/epub-ocf-20170105.html",
@@ -600,7 +600,7 @@
 <li><code>mimetype</code> のコンテンツは、US-ASCII [[!US-ASCII]] でエンコードされた <code>application/epub+zip</code> 文字列の MIME メディア タイプ [[!RFC2046]] でなければならない（MUST）。</li>
 <li><code>mimetype</code> ファイルは、いかなる先頭または末尾の余白および空白を含んではならない（MUST NOT）。</li>
 <li><code>mimetype</code> ファイルは、ユニコードのバイト オーダー マーク U+FEFF で開始してはならない（MUST NOT）。</li>
-<li>加えて、<code>mimetype</code> ファイルは、圧縮または暗号化をしてはならず（MUST NOT）、そして ZIP ヘッダにエキストラ フィールドがあってはならない（MUST NOT）。</li>
+<li><code>mimetype</code> ファイルは、圧縮または暗号化をしてはならず（MUST NOT）、そして ZIP ヘッダにエキストラ フィールドがあってはならない（MUST NOT）。</li>
 </ul>
 <div class="note">
 <p><code>application/epub+zip</code> メディア タイプについてのより詳細な情報は、<a href="#app-media-type">補足 C の <em><code>application/epub+zip</code> メディア タイプ</em></a>を参照されたい。</p>
