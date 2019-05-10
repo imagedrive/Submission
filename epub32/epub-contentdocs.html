@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
 <meta charset="utf-8" />
-<title>EPUB Content Documents 3.2 日本語訳（2019年5月7日版）</title>
+<title>EPUB Content Documents 3.2 日本語訳</title>
 <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
 <script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
@@ -521,7 +521,7 @@
 <section id="sec-xhtml-svg">
 <h3>埋め込み SVG</h3>
 
-<p><a>XHTML コンテンツ ドキュメント</a>は、（参照を介しての埋め込み、たとえば、<code>img</code> や <code>object</code> 要素による） <em>参照</em>と、（XHTML コンテンツ ドキュメント内の <code>svg</code> 要素の直接な包含を介しての埋め込みによる）<em>包含</em>による <a href="https://www.w3.org/TR/SVG/intro.html#TermSVGDocumentFragment">SVG ドキュメント フラグメント</a> [[!SVG]] の埋め込みをサポートする。</p>
+<p><a>XHTML コンテンツ ドキュメント</a>は、（参照を介しての埋め込み、たとえば、<code>img</code> や <code>object</code> 要素による） <em>参照</em>と、（XHTML コンテンツ ドキュメント内の <code>svg</code> 要素の直接な包含を介しての埋め込みによる）<em>包含</em>による <a href="https://www.w3.org/TR/SVG/conform.html#ConformingSVGXMLFragments">SVG ドキュメント フラグメント</a> [[!SVG]] の埋め込みをサポートする。</p>
 
 <p>XHTML コンテンツ ドキュメントに埋め込まれた SVG のコンテンツの適合性の制約は、<a href="#sec-svg-restrictions">SVG の制約</a>の <a>SVG コンテンツ ドキュメント</a>ために定義されたものと同じである。</p>
 
@@ -659,7 +659,7 @@
 <p>この仕様は、次のように <a>SVG コンテンツ ドキュメント</a>のコンテンツモデルと <a href="#sec-xhtml-svg">XHTML コンテンツ ドキュメントに埋め込む SVG</a>を制限する。</p>
 
 <ul class="conformance-list">
-<li><p id="confreq-svg-foreignObject">[[!SVG]] <a href="https://www.w3.org/TR/SVG/extend.html#ForeignObjectElement"><code>foreignObject</code></a> 要素は、次の条件を順守しなければならない（MUST）。</p>
+<li><p id="confreq-svg-foreignObject">[[!SVG]] <a href="https://www.w3.org/TR/SVG/embedded.html#ForeignObjectElement"><code>foreignObject</code></a> 要素は、次の条件を順守しなければならない（MUST）。</p>
 <ul class="conformance-list">
 <li><p id="confreq-svg-foreignObject-xhtml-content">[[!HTML]] <a href="https://www.w3.org/TR/html/dom.html#flow-content">フロー コンテンツ</a>かひとつの [[!HTML]] <a href="https://www.w3.org/TR/html/sections.html#the-body-element"><code>body</code> 要素</a>のいずれかを含めなければならない（MUST）。</p>
 <p class="note"><a href="#sec-xhtml-svg">埋め込まれた SVG</a> の場合、<code>body</code> 要素は、[[HTML]] で定義された <a href="https://www.w3.org/TR/html/semantics-embedded-content.html#svg">SVG の制約</a>に従って許可されない。</p>
@@ -948,7 +948,7 @@
 
 <dl class="variablelist">
 <dt id="sec-scripted-content-type-spine-level">スパイン レベル</dt>
-<dd><p><a>トップレベル コンテンツ ドキュメント</a>に包含される [[!HTML]] の <a href="https://www.w3.org/TR/html/semantics-scripting.html#the-script-element"><code>script</code></a> または [[!SVG]] <a href="https://www.w3.org/TR/SVG/script.html#ScriptElement"><code>script</code></a> 要素のインスタンス。</p></dd>
+<dd><p><a>トップレベル コンテンツ ドキュメント</a>に包含される [[!HTML]] の <a href="https://www.w3.org/TR/html/semantics-scripting.html#the-script-element"><code>script</code></a> または [[!SVG]] <a href="https://www.w3.org/TR/SVG/interact.html#ScriptElement"><code>script</code></a> 要素のインスタンス。</p></dd>
 <dt id="sec-scripted-content-type-container-constrained">コンテナ制約</dt>
 <dd><p>次のいずれか。</p>
 <ul>
