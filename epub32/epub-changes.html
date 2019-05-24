@@ -1,120 +1,1010 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 24.21.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>/* --- ISSUES/NOTES --- */
+.issue-label {
+    text-transform: initial;
+}
+
+.warning > p:first-child { margin-top: 0 }
+.warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+span.warning { padding: .1em .5em .15em; }
+
+.issue.closed span.issue-number {
+    text-decoration: line-through;
+}
+
+.warning {
+    border-color: #f11;
+    border-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 3em;
+    float: left;
+    height: 100%;
+    padding-right: .3em;
+    vertical-align: top;
+    margin-top: -0.5em;
+}
+
+li.task-list-item {
+    list-style: none;
+}
+
+input.task-list-item-checkbox {
+    margin: 0 0.35em 0.25em -1.6em;
+    vertical-align: middle;
+}
+
+.issue a.respec-gh-label {
+  padding: 5px;
+  margin: 0 2px 0 2px;
+  font-size: 10px;
+  text-transform: none;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  position: relative;
+  bottom: 2px;
+  border: none;
+}
+
+.issue a.respec-label-dark {
+  color: #fff;
+  background-color: #000;
+}
+
+.issue a.respec-label-light {
+  color: #000;
+  background-color: #fff;
+}
+</style>
+		
 <title>EPUB 3.2 Changes 日本語訳</title>
-<script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
-<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/biblio.js" class="remove"></script>
-<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/dfn-crossref.js" class="remove"></script>
-<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/confreq-permalinks.js" class="remove"></script>
-<script src="https://w3c.github.io/publ-epub-revision/epub32/spec/common/js/copyright.js" class="remove"></script>
-<link href="https://w3c.github.io/publ-epub-revision/epub32/spec/common/css/common.css" rel="stylesheet" type="text/css" />
-<script class="remove">
-          var respecConfig = {
-              wg: "EPUB 3 Community Group",
-              wgURI: "https://www.w3.org/community/epub3/",
-              wgPublicList: "public-epub3",
-              specStatus: "CG-FINAL",
-              noRecTrack: true,
-              shortName: "epub-ocf",
-              prevRecURI: "https://www.idpf.org/epub/31/spec/epub-changes-20170105.html",
-              edDraftURI: "https://w3c.github.io/publ-epub-revision/epub32/spec/epub-changes.html",
-              copyrightStart: "1999",
-              editors: [{
-                      name: "Matt Garrish",
-                      company: "DAISY Consortium",
-                      companyURL: "http://daisy.org"
-                  },{
-                      name: "Dave Cramer",
-                      company: "Hachette Book Group",
-                      companyURL: "http://hachettebookgroup.com"
-                  }],
-              processVersion: 2017,
-              includePermalinks: true,
-              permalinkEdge:     true,
-              permalinkHide:     false,
-              diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
-  github:			 {
-  repoURL: "https://github.com/w3c/publ-epub-revision",
-  branch: "master"
+		<style id="respec-mainstyle">/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+@keyframes pop {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.25, 1.25);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+/* Override code highlighter background */
+.hljs {
+  background: transparent !important;
+}
+
+/* --- INLINES --- */
+h1 abbr,
+h2 abbr,
+h3 abbr,
+h4 abbr,
+h5 abbr,
+h6 abbr,
+a abbr {
+  border: none;
+}
+
+dfn {
+  font-weight: bold;
+}
+
+a.internalDFN {
+  color: inherit;
+  border-bottom: 1px solid #99c;
+  text-decoration: none;
+}
+
+a.externalDFN {
+  color: inherit;
+  border-bottom: 1px dotted #ccc;
+  text-decoration: none;
+}
+
+a.bibref {
+  text-decoration: none;
+}
+
+.respec-offending-element:target {
+  animation: pop 0.25s ease-in-out 0s 1;
+}
+
+/* TODO: Remove once https://github.com/w3c/tr-design/pull/176 is merged. */
+.respec-offending-element a[href] {
+  margin: 0;
+}
+
+.respec-offending-element {
+  display: inline-block;
+  position: relative;
+  /* Red squiggly line */
+  background: url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=)
+    bottom repeat-x;
+}
+@supports (text-decoration-style: wavy) {
+  .respec-offending-element {
+    background: none;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: red;
+  }
+}
+
+#references :target {
+  background: #eaf3ff;
+  animation: pop 0.4s ease-in-out 0s 1;
+}
+
+cite .bibref {
+  font-style: normal;
+}
+
+code {
+  color: #c83500;
+}
+
+th code {
+  color: inherit;
+}
+
+a[href].orcid {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+a[href].orcid > svg {
+    margin-bottom: -2px;
+}
+
+/* --- TOC --- */
+
+.toc a,
+.tof a {
+  text-decoration: none;
+}
+
+a .secno,
+a .figno {
+  color: #000;
+}
+
+ul.tof,
+ol.tof {
+  list-style: none outside none;
+}
+
+.caption {
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+/* --- TABLE --- */
+
+table.simple {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-bottom: 3px solid #005a9c;
+}
+
+.simple th {
+  background: #005a9c;
+  color: #fff;
+  padding: 3px 5px;
+  text-align: left;
+}
+
+.simple th[scope="row"] {
+  background: inherit;
+  color: inherit;
+  border-top: 1px solid #ddd;
+}
+
+.simple td {
+  padding: 3px 10px;
+  border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+  background: #f0f6ff;
+}
+
+/* --- DL --- */
+
+.section dd > p:first-child {
+  margin-top: 0;
+}
+
+.section dd > p:last-child {
+  margin-bottom: 0;
+}
+
+.section dd {
+  margin-bottom: 1em;
+}
+
+.section dl.attrs dd,
+.section dl.eldef dd {
+  margin-bottom: 0;
+}
+
+#issue-summary > ul,
+.respec-dfn-list {
+  column-count: 2;
+}
+
+#issue-summary li,
+.respec-dfn-list li {
+  list-style: none;
+}
+
+details.respec-tests-details {
+  margin-left: 1em;
+  display: inline-block;
+  vertical-align: top;
+}
+
+details.respec-tests-details > * {
+  padding-right: 2em;
+}
+
+details.respec-tests-details[open] {
+  z-index: 999999;
+  position: absolute;
+  border: thin solid #cad3e2;
+  border-radius: 0.3em;
+  background-color: white;
+  padding-bottom: 0.5em;
+}
+
+details.respec-tests-details[open] > summary {
+  border-bottom: thin solid #cad3e2;
+  padding-left: 1em;
+  margin-bottom: 1em;
+  line-height: 2em;
+}
+
+details.respec-tests-details > ul {
+  width: 100%;
+  margin-top: -0.3em;
+}
+
+details.respec-tests-details > li {
+  padding-left: 1em;
+}
+
+a[href].self-link:hover {
+  opacity: 1;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  position: relative;
+}
+
+aside.example .marker > a.self-link {
+  color: inherit;
+}
+
+h2 > a.self-link,
+h3 > a.self-link,
+h4 > a.self-link,
+h5 > a.self-link,
+h6 > a.self-link {
+  border: none;
+  color: inherit;
+  font-size: 83%;
+  height: 2em;
+  left: -1.6em;
+  opacity: 0.5;
+  position: absolute;
+  text-align: center;
+  text-decoration: none;
+  top: 0;
+  transition: opacity 0.2s;
+  width: 2em;
+}
+
+h2 > a.self-link::before,
+h3 > a.self-link::before,
+h4 > a.self-link::before,
+h5 > a.self-link::before,
+h6 > a.self-link::before {
+  content: "§";
+  display: block;
+}
+
+@media (max-width: 767px) {
+  dd {
+    margin-left: 0;
+  }
+
+  /* Don't position self-link in headings off-screen */
+  h2 > a.self-link,
+  h3 > a.self-link,
+  h4 > a.self-link,
+  h5 > a.self-link,
+  h6 > a.self-link {
+    left: auto;
+    top: auto;
+  }
+}
+
+@media print {
+  .removeOnSave {
+    display: none;
+  }
+}
+</style>
+		
+		
+		
+		
+		<link href="common/css/common.css" rel="stylesheet" type="text/css">
+		
+	<link rel="canonical" href="https://www.w3.org/publishing/epub3/epub-changes.html"><style>var {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+var[data-type]::before,
+var[data-type]::after {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+/* the triangle or arrow or caret or whatever */
+var[data-type]::before {
+  content: "";
+  transform: translateX(-50%);
+  border-width: 4px 6px 0 6px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: #000;
+}
+
+/* actual text */
+var[data-type]::after {
+  content: attr(data-type);
+  transform: translateX(-50%) translateY(-100%);
+  background: #000;
+  text-align: center;
+  /* additional styling */
+  font-family: "Dank Mono", "Fira Code", monospace;
+  font-style: normal;
+  padding: 6px;
+  border-radius: 3px;
+  color: #daca88;
+}
+
+var[data-type]:hover::after,
+var[data-type]:hover::before {
+  opacity: 1;
+}
+</style><script id="initialUserConfig" type="application/json">{
+  "wg": "EPUB 3 Community Group",
+  "wgURI": "https://www.w3.org/community/epub3/",
+  "wgPublicList": "public-epub3",
+  "specStatus": "CG-FINAL",
+  "noRecTrack": true,
+  "shortName": "epub-ocf",
+  "prevRecURI": "https://www.idpf.org/epub/31/spec/epub-changes-20170105.html",
+  "edDraftURI": "https://w3c.github.io/publ-epub-revision/epub32/spec/epub-changes.html",
+  "copyrightStart": "1999",
+  "editors": [
+    {
+      "name": "Matt Garrish",
+      "company": "DAISY Consortium",
+      "companyURL": "http://daisy.org"
+    },
+    {
+      "name": "Dave Cramer",
+      "company": "Hachette Book Group",
+      "companyURL": "http://hachettebookgroup.com"
+    }
+  ],
+  "processVersion": 2017,
+  "includePermalinks": true,
+  "permalinkEdge": true,
+  "permalinkHide": false,
+  "diffTool": "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+  "github": {
+    "repoURL": "https://github.com/w3c/publ-epub-revision",
+    "branch": "master"
   },
-              localBiblio: biblio,
-              preProcess: [fixDefinitionCrossrefs, addConformanceLinks],
-              postProcess: [fixCopyright]
-          };
-</script>
+  "localBiblio": {
+    "A11YTestSuite": {
+      "title": "EPUB Accessibility Tests",
+      "href": "https://github.com/daisy/epub-accessibility-tests"
+    },
+    "AccessibilityFAQ": {
+      "title": "EPUB Accessibility Frequently Asked Questions",
+      "href": "http://www.idpf.org/epub/guides/a11y-faq"
+    },
+    "AccessibilityVocab": {
+      "title": "EPUB Accessibility Vocabulary",
+      "href": "http://www.idpf.org/epub/vocab/package/a11y"
+    },
+    "AltStyleTags": {
+      "title": "Alternate Style Tags",
+      "href": "http://www.idpf.org/epub/altss-tags/",
+      "authors": [
+        "Elika J. Etemad"
+      ]
+    },
+    "AttributeExtensions": {
+      "title": "EPUB Custom Attribute Extensions for Content Documents",
+      "href": "http://www.idpf.org/epub/extensions/attributes"
+    },
+    "AuthorityRegistry": {
+      "title": "EPUB Subject Authorities Registry",
+      "href": "https://www.idpf.org/epub/registries/authorities/"
+    },
+    "CollectionPackageDoc": {
+      "title": "Using collection Elements as Embedded Package Documents",
+      "href": "http://www.idpf.org/epub/guides/collection-as-package"
+    },
+    "ContentDocs": {
+      "title": "EPUB Content Documents 3",
+      "href": "http://www.idpf.org/epub3/latest/contentdocs"
+    },
+    "ContentDocs32": {
+      "title": "EPUB Content Documents 3.2",
+      "href": "epub-contentdocs.html",
+      "id": "contentdocs32"
+    },
+    "ContentDocs31": {
+      "title": "EPUB Content Documents 3.1",
+      "href": "http://www.idpf.org/epub/31/spec/epub-contentdocs.html"
+    },
+    "ContentDocs301": {
+      "title": "EPUB Content Documents 3.0.1",
+      "href": "http://www.idpf.org/epub/301/spec/epub-contentdocs.html",
+      "id": "contentdocs301"
+    },
+    "ContentDocs30": {
+      "title": "EPUB Content Documents 3.0",
+      "href": "http://www.idpf.org/epub/30/spec/epub30-contentdocs.html"
+    },
+    "ContentDocsPrefixes": {
+      "title": "EPUB Content Documents Reserved Prefixes",
+      "href": "http://www.idpf.org/epub/vocab/structure/pfx"
+    },
+    "CSSSnapshot": {
+      "title": "CSS Snapshot",
+      "href": "https://www.w3.org/TR/CSS/"
+    },
+    "CSS2": {
+      "title": "CSS 2",
+      "href": "https://www.w3.org/TR/CSS2/",
+      "status": "W3C Recommendation",
+      "publisher": "W3C"
+    },
+    "CSS-Text-3-20160119": {
+      "title": "CSS Text Level 3 (20160119)",
+      "href": "https://drafts.csswg.org/date/2016-01-19T17:23:23/css-text/",
+      "authors": [
+        "Elika J. Etemad"
+      ],
+      "etAl": true
+    },
+    "DAISYAudio": {
+      "title": "Navigable audio-only EPUB 3 Guidelines",
+      "href": "http://www.daisy.org/guidelines/epub/navigable-audio-only-epub3-guidelines"
+    },
+    "Dictionaries": {
+      "title": "EPUB Dictionaries and Glossaries",
+      "href": "http://www.idpf.org/epub/dict"
+    },
+    "DistributableObjects": {
+      "title": "EPUB Distributable Objects 1.0",
+      "href": "http://www.idpf.org/epub/do"
+    },
+    "EPUB-CFI": {
+      "title": "EPUB Canonical Fragment Identifier (epubcfi) Specification",
+      "href": "http://www.idpf.org/epub/linking/cfi/epub-cfi.html",
+      "id": "epub-cfi"
+    },
+    "EPUB32": {
+      "title": "EPUB 3.2",
+      "href": "epub-spec.html",
+      "id": "epub32"
+    },
+    "EPUB31": {
+      "title": "EPUB 3.1",
+      "href": "http://www.idpf.org/epub/31/spec/epub-spec.html"
+    },
+    "EPUB3": {
+      "title": "EPUB 3",
+      "href": "http://www.idpf.org/epub/latest"
+    },
+    "EPUB32Changes": {
+      "title": "EPUB 3.2 Changes",
+      "href": "epub-changes.html"
+    },
+    "EPUB31Changes": {
+      "title": "EPUB 3.1 Changes from 3.0.1",
+      "href": "http://www.idpf.org/epub/31/spec/epub-changes.html"
+    },
+    "EPUB301Changes": {
+      "title": "EPUB 3.0.1 Changes from 3.0",
+      "href": "http://www.idpf.org/epub/301/spec/epub-changes.html"
+    },
+    "EPUB3Changes": {
+      "title": "EPUB 3 Changes from 2.0.1",
+      "href": "http://www.idpf.org/epub/30/spec/epub30-changes.html"
+    },
+    "EPUB3Overview": {
+      "title": "EPUB 3 Overview",
+      "href": "epub-overview.html"
+    },
+    "EPUBAccessibility": {
+      "title": "EPUB Accessibility",
+      "href": "http://www.idpf.org/epub/latest/accessibility",
+      "id": "epubaccessibility"
+    },
+    "EPUBAccessibilityTechniques": {
+      "title": "EPUB Accessibility Techniques",
+      "href": "http://www.idpf.org/epub/latest/accessibility/techniques",
+      "id": "epubaccessibilitytechniques"
+    },
+    "H264": {
+      "title": "H.264 : Advanced video coding for generic audiovisual services",
+      "href": "https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=13189",
+      "date": "2017-04-13"
+    },
+    "HTML": {
+      "title": "HTML",
+      "href": "https://www.w3.org/TR/html/",
+      "status": "W3C Recommendation",
+      "publisher": "W3C",
+      "id": "html"
+    },
+    "IDRegistry": {
+      "title": "EPUB Identifiers Registry",
+      "href": "https://www.idpf.org/epub/registries/identifiers/"
+    },
+    "Indexes": {
+      "title": "EPUB Indexes",
+      "href": "http://www.idpf.org/epub/idx"
+    },
+    "IPA": {
+      "title": "IPA Chart",
+      "href": "https://www.internationalphoneticassociation.org/content/full-ipa-chart",
+      "publisher": "International Phonetic Association",
+      "date": "2005"
+    },
+    "ISO24751-3": {
+      "title": " ISO/IEC 24751-3:2008 Information technology -- Individualized adaptability and accessibility in e-learning, education and training -- Part 3: &quot;Access for all&quot; digital resource description",
+      "href": "http://www.iso.org/iso/catalogue_detail?csnumber=43604",
+      "date": "2008-10-01"
+    },
+    "ISOSchematron": {
+      "title": "ISO/IEC 19757-3: Rule-based validation — Schematron",
+      "href": "http://standards.iso.org/ittf/PubliclyAvailableStandards/c040833_ISO_IEC_19757-3_2006(E).zip",
+      "date": "2006-06-01"
+    },
+    "LinkVocab": {
+      "title": "EPUB Metadata Link Vocabulary",
+      "href": "http://www.idpf.org/epub/vocab/package/link/"
+    },
+    "ManifestRole": {
+      "title": "EPUB Manifest Role",
+      "href": "http://www.idpf.org/epub/vocab/package/roles/manifest"
+    },
+    "ManifestVocab": {
+      "title": "EPUB Manifest Properties Vocabulary",
+      "href": "http://www.idpf.org/epub/vocab/package/item"
+    },
+    "MARCRelators": {
+      "title": "MARC Code List for Relators",
+      "href": "http://www.loc.gov/marc/relators/"
+    },
+    "MediaOverlays": {
+      "title": "EPUB Media Overlays 3.1",
+      "href": "http://www.idpf.org/epub3/latest/mediaoverlays"
+    },
+    "MediaOverlays32": {
+      "title": "EPUB Media Overlays 3.2",
+      "href": "epub-mediaoverlays.html",
+      "id": "mediaoverlays32"
+    },
+    "MediaOverlays31": {
+      "title": "EPUB Media Overlays 3.1",
+      "href": "http://www.idpf.org/epub/31/spec/epub-mediaoverlays.html"
+    },
+    "MediaOverlays301": {
+      "title": "EPUB Media Overlays 3.0.1",
+      "href": "http://www.idpf.org/epub/301/spec/epub-mediaoverlays.html"
+    },
+    "MediaOverlays30": {
+      "title": "EPUB Media Overlays 3.0",
+      "href": "http://www.idpf.org/epub/30/spec/epub30-mediaoverlays.html"
+    },
+    "MetaVocab": {
+      "title": "EPUB Meta Properties Vocabulary",
+      "href": "http://www.idpf.org/epub/vocab/package/meta"
+    },
+    "MultipleRenditions": {
+      "title": "EPUB Multiple-Rendition Publications 1.0",
+      "href": "http://www.idpf.org/epub/renditions/multiple/epub-multiple-renditions-20150826.html",
+      "date": "26 August 2015"
+    },
+    "NVDL": {
+      "title": "ISO/IEC 19757-4: NVDL (Namespace-based Validation Dispatching Language)",
+      "href": "http://standards.iso.org/ittf/PubliclyAvailableStandards/c038615_ISO_IEC_19757-4_2006(E).zip",
+      "date": "2006-06-01"
+    },
+    "OCF32": {
+      "title": "Open Container Format (OCF) 3.2",
+      "href": "epub-ocf.html",
+      "id": "ocf32"
+    },
+    "OCF31": {
+      "title": "Open Container Format (OCF) 3.1",
+      "href": "http://www.idpf.org/epub/31/spec/epub-ocf.html"
+    },
+    "OCF301": {
+      "title": "EPUB Open Container Format (OCF) 3.0.1",
+      "href": "http://www.idpf.org/epub/301/spec/epub-ocf.html"
+    },
+    "OCF30": {
+      "title": "EPUB Open Container Format (OCF) 3.0",
+      "href": "http://www.idpf.org/epub/30/spec/epub30-ocf.html"
+    },
+    "OCF2": {
+      "title": "EPUB Open Container Format (OCF) 2.0.1",
+      "href": "http://www.idpf.org/epub/20/spec/OCF_2.0.1_draft.doc"
+    },
+    "ODF": {
+      "title": "Open Document Format for Office Applications (OpenDocument) v1.0",
+      "href": "https://www.oasis-open.org/committees/download.php/12572/OpenDocument-v1.0-os.pdf",
+      "date": "1 May 2005"
+    },
+    "ONIX": {
+      "title": "ONIX for Books",
+      "href": "http://www.editeur.org/"
+    },
+    "OPF2": {
+      "title": "Open Packaging Format 2.0.1",
+      "href": "http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm"
+    },
+    "OPS2": {
+      "title": "Open Publication Structure 2.0.1",
+      "href": "http://www.idpf.org/epub/20/spec/OPS_2.0.1_draft.htm"
+    },
+    "OverlaysVocab": {
+      "title": "EPUB 3.1 Media Overlays Vocabulary",
+      "href": "http://www.idpf.org/epub/vocab/overlays/#"
+    },
+    "PackageDocPrefixes": {
+      "title": "EPUB Package Document Reserved Prefixes",
+      "href": "http://www.idpf.org/epub/vocab/package/pfx"
+    },
+    "Packages": {
+      "title": "EPUB Packages 3",
+      "href": "http://www.idpf.org/epub3/latest/packages"
+    },
+    "Packages32": {
+      "title": "EPUB Packages 3.2",
+      "href": "epub-packages.html",
+      "id": "packages32"
+    },
+    "Packages31": {
+      "title": "EPUB Packages 3.1",
+      "href": "http://www.idpf.org/epub/31/spec/epub-packages.html"
+    },
+    "Previews": {
+      "title": "EPUB Previews",
+      "href": "http://www.idpf.org/epub/previews/"
+    },
+    "Publications301": {
+      "title": "EPUB Publications 3.0.1",
+      "href": "http://www.idpf.org/epub/301/spec/epub-publications.html",
+      "id": "publications301"
+    },
+    "Publications30": {
+      "title": "EPUB Publications 3.0",
+      "href": "http://www.idpf.org/epub/30/spec/epub30-publications.html"
+    },
+    "RegionNav": {
+      "title": "EPUB Region-Based Navigation",
+      "href": "http://www.idpf.org/epub/renditions/region-nav"
+    },
+    "RenditionVocab": {
+      "title": "EPUB Package Rendering Vocabulary",
+      "href": "http://www.idpf.org/vocab/rendition"
+    },
+    "RFC": {
+      "title": "Request for Comments",
+      "href": "https://www.ietf.org/standards/rfcs/"
+    },
+    "RoleExtensions": {
+      "title": "EPUB Collection Element Role Extensions",
+      "href": "http://www.idpf.org/epub/extensions/roles"
+    },
+    "RoleRegistry": {
+      "title": "EPUB Collection Roles Registry",
+      "href": "http://www.idpf.org/epub/registries/roles"
+    },
+    "schema.org": {
+      "title": "schema.org",
+      "href": "https://schema.org"
+    },
+    "SchemaGuide": {
+      "title": "Schema.org Metadata Integration Guide for EPUB 3",
+      "href": "http://www.idpf.org/epub/guides/schema-org-integration"
+    },
+    "ScriptableComponents": {
+      "title": "EPUB Scriptable Components 1.0",
+      "href": "http://www.idpf.org/epub/sc/api"
+    },
+    "ScriptableComponents-Packaging": {
+      "title": "EPUB Scriptable Components Packaging and Integration 1.0",
+      "href": "http://www.idpf.org/epub/sc/pkg"
+    },
+    "SHA-1": {
+      "title": "Federal Information Processing Standards Publication 180-3: Secure Hash Standard (SHS)",
+      "href": "http://csrc.nist.gov/publications/fips/fips180-3/fips180-3_final.pdf",
+      "date": "October 2008"
+    },
+    "SpineVocab": {
+      "title": "EPUB Spine Properties Vocabulary",
+      "href": "http://www.idpf.org/epub/vocab/package/itemref"
+    },
+    "SVG": {
+      "title": "SVG",
+      "href": "https://www.w3.org/TR/SVG/",
+      "publisher": "W3C"
+    },
+    "SWF": {
+      "title": "SWF File Format Specification</link> Version 19",
+      "href": "http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/swf/pdf/swf-file-format-spec.pdf",
+      "date": "2012"
+    },
+    "TR15": {
+      "title": "Unicode Normalization Forms",
+      "href": "http://www.unicode.org/reports/tr15/"
+    },
+    "TrueType": {
+      "title": "Apple TrueType Reference Manual",
+      "href": "https://developer.apple.com/fonts/TrueType-Reference-Manual/",
+      "publisher": "Apple",
+      "date": "2002"
+    },
+    "TypesRegistry": {
+      "title": "EPUB Publication Types Registry",
+      "href": "http://www.idpf.org/epub/vocab/package/types"
+    },
+    "US-ASCII": {
+      "title": "&quot;Coded Character Set - 7-bit American Standard Code for Information Interchange&quot;, ANSI X3.4, 1986."
+    },
+    "W3CProcess": {
+      "title": "World Wide Web Consortium Process Document",
+      "href": "https://www.w3.org/2015/Process-20150901/",
+      "authors": [
+        "Charles McCathie-Nevile"
+      ],
+      "date": "1 September 2015"
+    },
+    "XPTRSH": {
+      "title": "XPointer Shorthand Notation",
+      "href": "https://www.w3.org/TR/2003/REC-xptr-framework-20030325/",
+      "date": "25 March 2003"
+    }
+  },
+  "preProcess": [
+    null,
+    null
+  ],
+  "postProcess": [
+    null
+  ],
+  "publishISODate": "2019-05-08T00:00:00.000Z",
+  "generatedSubtitle": "Final Community Group Specification 08 May 2019"
+}</script>
+<meta name="description" content="このドキュメントは、重要な変更と追加を強調し、EPUB® 3 仕様の二番目のマイナー リビジョンで行った変更を説明する。">
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/cg-final">
+<link rel="stylesheet" type="text/css" href="../css/translation-memo-2016.css"/>
 </head>
-<body>
-<section id="abstract">
+<body class="h-entry informative toc-inline">
+<div class="translation-attention">
+<p>この文書は「<a href="https://www.w3.org/publishing/epub32/epub-changes.html">EPUB 3.2 Changes</a>」の日本語訳である。最新の文書は <a href="https://www.w3.org/publishing/epub32/epub-changes.html">https://www.w3.org/publishing/epub32/epub-changes.html</a> である。原文もしくは完全な情報は、<a href="https://www.w3.org/publishing/epub32/epub-changes.html">EPUB 3.2 Changes</a> を参照されたい。</p>
+<p>この日本語訳は参考である。公式な文書ではなく、翻訳・解釈の正確性を保証していない。</p>
+<dl>
+<dt>公開日:</dt>
+<dd>2019年5月24日</dd>
+<dt>翻訳者:</dt>
+<dd>Wataru Yoshimura</dd>
+</dl>
+</div>
+<div class="head">
+<a class="logo" href="https://www.w3.org/"><img alt="W3C" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72" height="48"></a>
+<h1 class="title p-name" id="title">EPUB 3.2 Changes</h1>
+<h2>Final Community Group Specification <time class="dt-published" datetime="2019-05-08">2019年5月8日</time></h2>
+<dl>
+<dt>最新のエディター ドラフト：</dt>
+<dd><a href="https://w3c.github.io/publ-epub-revision/epub32/spec/epub-changes.html">https://w3c.github.io/publ-epub-revision/epub32/spec/epub-changes.html</a></dd>
+<dt>Editors:</dt>
+<dd class="p-author h-card vcard"><span class="p-name fn">Matt Garrish</span> (<a class="p-org org h-org h-card" href="http://daisy.org">DAISY Consortium</a>)</dd>
+<dd class="p-author h-card vcard"><span class="p-name fn">Dave Cramer</span> (<a class="p-org org h-org h-card" href="http://hachettebookgroup.com">Hachette Book Group</a>)</dd>
+<dt>Participate:</dt>
+<dd><a href="https://github.com/w3c/publ-epub-revision/">GitHub w3c/publ-epub-revision</a></dd>
+<dd><a href="https://github.com/w3c/publ-epub-revision/issues/">File a bug</a></dd>
+<dd><a href="https://github.com/w3c/publ-epub-revision/commits/master">Commit history</a></dd>
+<dd><a href="https://github.com/w3c/publ-epub-revision/pulls/">Pull requests</a></dd>
+</dl>
+<p class="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 1999-2019 International Digital Publishing Forum™ and W3C® (MIT, ERCIM, Keio, Beihang)</p>
+<p class="copyright">EPUB is a registered trademark of the International Digital Publishing Forum.</p>
+<hr title="Separator for header">
+</div>
+<section id="abstract" class="introductory">
+<h2>要約</h2>
 <p>このドキュメントは、重要な変更と追加を強調し、EPUB® 3 仕様の二番目のマイナー リビジョンで行った変更を説明する。</p>
 </section>
-<section id="sotd"></section>
+<section id="sotd" class="introductory">
+<h2>このドキュメントのステータス</h2>
+<p>この仕様は、<a href="https://www.w3.org/community/epub3/">EPUB 3 Community Group</a> によって発行された。W3C 規格ではなく、W3C の規格化手順でもない。<a href="https://www.w3.org/community/about/agreements/final/">W3C Community Final Specification Agreement (FSA)</a> の下では、他の条件が適用されることに注意されたい。<a href="https://www.w3.org/community/">W3C Community 及び Business Groups</a> に関して学ばれたい。</p>
+<p>このドキュメントに関するコメントを投稿したい場合、<a href="mailto:public-epub3@w3.org">public-epub3@w3.org</a>（<a href="mailto:public-epub3-request@w3.org?subject=subscribe">subscribe</a>、<a href="https://lists.w3.org/Archives/Public/public-epub3/">archives</a>）に送信されたい。</p>
+</section>
+<nav id="toc">
+<h2 class="introductory" id="table-of-contents">目次</h2>
+<ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-introduction"><span class="secno">1. </span>前置き</a></li>
+<li class="tocline"><a class="tocxref" href="#overview"><span class="secno">2. </span>要約</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-reorg"><span class="secno">3. </span>仕様の再編成</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-epub32"><span class="secno">4. </span>EPUB 3.2</a>
+<ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-epub32-a11y"><span class="secno">4.1 </span>アクセシビリティ サポート</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-epub32-cmt"><span class="secno">4.2 </span>新しいコア メディア タイプ リソース</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-epub32-fallbacks"><span class="secno">4.3 </span>管理外リソース フォールバックの明確化</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-epub32-res"><span class="secno">4.4 </span>リモートでホストされるリソース</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-epub32-cfi"><span class="secno">4.5 </span>リンクのための EPUBCFI サポートの廃止</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-epub32-deprecated"><span class="secno">4.6 </span>非サポート機能の新しい表記</a></li>
+</ol>
+</li>
+<li class="tocline"><a class="tocxref" href="#sec-pkg"><span class="secno">5. </span>Packages 3.2</a>
+<ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-pkg-metadata-changes"><span class="secno">5.1 </span>パッケージ メタデータの変更</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-pkg-linked-records"><span class="secno">5.2 </span>リンクされたメタデータ レコード</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-pkg-bindings"><span class="secno">5.3 </span><code>bindings</code> 要素の非推奨（deprecation）</a></li>
+</ol>
+</li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc"><span class="secno">6. </span>Content Documents 3.2</a>
+<ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-undated"><span class="secno">6.1 </span>HTML と SVG への日付なし参照</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-css"><span class="secno">6.2 </span>CSS リファレンスに伴う EPUB スタイル シートの置き換え</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-css-priority"><span class="secno">6.3 </span>製作者とユーザースタイルの優先順位付け</a></li>
+<li class="tocline"><a class="tocxref" href="#alternate-style-tags"><span class="secno">6.4 </span>Alternate Style Tags の廃止</a></li>
+<li class="tocline"><a class="tocxref" href="#structural-semantics"><span class="secno">6.5 </span>許可された <code>epub:type</code> の値</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-scripting"><span class="secno">6.6 </span>スクリプト サポートの明確化</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-switch"><span class="secno">6.7 </span><code>switch</code> 要素の非推奨（deprecation）</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-trigger"><span class="secno">6.8 </span><code>trigger</code> 要素の非推奨（deprecation）</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cdoc-rso"><span class="secno">6.9 </span>epubReadingSystem オブジェクトの明確化</a></li>
+</ol>
+</li>
+<li class="tocline"><a class="tocxref" href="#sec-ocf"><span class="secno">7. </span>Open Container Format (OCF) 3.2</a>
+<ol class="toc">
+<li class="tocline"><a class="tocxref" href="#sec-ocf-enc"><span class="secno">7.1 </span>暗号化と圧縮順序</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-ocf-comp"><span class="secno">7.2 </span>新しい <code>Compression</code> 要素</a></li>
+</ol>
+</li>
+<li class="tocline"><a class="tocxref" href="#sec-mo"><span class="secno">8. </span>メディア オーバーレイ</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-a11y"><span class="secno">9. </span>EPUB Accessibility</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-cfi"><span class="secno">10. </span>EPUB Canonical Fragment Identifiers</a></li>
+<li class="tocline"><a class="tocxref" href="#sec-altss"><span class="secno">11. </span>Alternate Style Tags</a></li>
+<li class="tocline"><a class="tocxref" href="#references"><span class="secno">A. </span>参照・参考</a>
+<ol class="toc">
+<li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">A.1 </span>規定ではない参照</a></li>
+</ol>
+</li>
+</ol>
+</nav>
 <section id="sec-introduction">
-<h1>前置き</h1>
+<!--OddPage--><h2 id="x1-introduction"><span class="secno">1. </span>前置き<a class="self-link" aria-label="§" href="#sec-introduction"></a></h2>
 <p>EPUB は XML や Web 規格に基づいたデジタル出版物の交換や配信形式である。EPUB 出版物は、電子書籍、雑誌、出版物のその他の形式を表現し、オンラインやオフラインで消費するために配布することができる Web コンテンツの信頼性の高いパッケージと考えることができる。</p>
 <p>EPUB 3.2 は、EPUB 3.0.1 と EPUB 3.1 継承を熟慮した上での、EPUB 3 仕様のマイナー リビジョンである。EPUB 3.1 は、広く採用されておらず、コミュニティ グループは、EPUB 3.1 での多くの変更を維持しながら、EPUB 3.0.1 との強力な後方互換性を持つ EPUB 3.2 を作成する決定をした（特定のバージョンの EPUB は、古いバージョンに適合している EPUB 出版物が、新しいバージョンに適合している場合にのみ、古いバージョンと強力な後方互換性があると言われている）。</p>
 <p>このドキュメントは、読者が、どのように EPUB 3.0.1 をこの新しいバージョンへ更新する前に、EPUB 3.1 をレビューする必要がないように、EPUB 3.0.1 移行の EPUB における全ての変更を説明する。</p>
 <p>このドキュメントは規定ではない。EPUB 3 の正確な情報は <a href="epub-spec.html#sec-intro-epub-specs">EPUB 仕様</a>を参照されたい。</p>
-<p>特に指定のない限り、ここで使用される用語は、<a href="epub-spec.html#sec-terminology">用語</a> [[EPUB32]] で定義された意味を持つ。</p>
+<p>特に指定のない限り、ここで使用される用語は、<a href="epub-spec.html#sec-terminology">用語</a> [<cite><a class="bibref" href="#bib-epub32">EPUB32</a></cite>] で定義された意味を持つ。</p>
 </section>
 <section id="overview">
-<h1>要約</h1>
+<!--OddPage--><h2 id="x2-overview"><span class="secno">2. </span>要約<a class="self-link" aria-label="§" href="#overview"></a></h2>
 <p>多くの既存の EPUB 3.0.1 ファイルは変更することなく EPUB 3.2 として適合するはずなので、コンテンツ製作者は、ワークフローやプロセスを変更する必要はない。EPUB 3.2 は、いくつかのオプションが提供されており、コンテンツ製作者は、EPUB アクセシビリティ ガイドラインに従うことを正式に推奨する。</p>
 
 <div class="note">
+<div role="heading" class="note-title marker" id="h-note" aria-level="3"><span>Note</span></div>
+<div class="">
 <p>基礎となる HTML、CSS 及び SVG といったウェブ標準への変更は、<a href="https://github.com/w3c/epubcheck">EPUBCheck</a> への変更と同様に、妥当性に影響を与える可能性がある。</p>
+</div>
 </div>
 
 <p>EPUB 3.2 における最大の変更は、HTML、CSS 及び SVG のコア ウェブ仕様との関連性である。これまで EPUB は、特定の日付バージョンの HTML 又は CSS を指していた。現在、EPUB 3.2 は、W3C で定義される HTML、CSS 及び SVG の最新バージョンを正式にサポートする。これらのバージョンは、徐々に進化し、EPUB は、ウェブの最新の状態を維持する。</p>
 <p>他の注意すべき変更は、WOFF 2.0 及び SFNT フォントがコア メディア タイプ リソースになったことである。EPUB 3.2 は、例えば、<code>bindings</code>、<code>epub:trigger</code> 及び <code>epub:switch.</code> など、いくつかの古い機能を非推奨（deprecate）にした。</p>
 </section>
 <section id="sec-reorg">
-<h1>仕様の再編成</h1>
-<p>EPUB 標準の読解と参照を簡単にするために、仕様の主な再編成に着手した。最大の変更点として、新しい包括的な <a href="epub-spec.html">EPUB 仕様</a>は、エントリへの主なポイントとして導入された。[[Publications301]] で定義された以前の EPUB 出版物およびリーディング システムの要件は、<a href="epub-spec.html#sec-publication-resources">出版物リソース</a>に関するセクションがあったように、この新しいトップレベルの仕様に移動した。全ての<a href="epub-spec.html#sec-terminology">共通用語</a>は、同様に、共通の参照点を提供するために、このトップレベルの仕様に集めた。<a href="epub-spec.html#index">主要な概念のインデックス</a>と用語は、様々なサブ仕様のナビゲーションを支援するために追加さた。</p>
-<p>[[Publications301]] は、パッケージ ドキュメントを介してコンテンツのレンディションを定義していることを反映するために、より適した <a href="epub-packages.html">EPUB Packages 3.2</a> [[Packages32]] にリネームした。EPUB ナビゲーション ドキュメントの定義は、EPUB コンテンツ ドキュメントの一般的な機能ではなく、パッケージの中心的な構成要素であるとして、パッケージ仕様のために [[ContentDocs301]] から移動した。以前、この仕様で定義されていたプロパティの定義は、外部の語彙へ移動した。</p>
-<p>[[MediaOverlays32]] は、埋め込まれるプロパティの定義が別々の語彙として移動されたが、その他の点では構造的な変化はない。</p>
-<p>[[ContentDocs32]] は、EPUB ナビゲーション ドキュメントの定義の除去を別とすれば、主に表面的な変更がなされた。いくつかのセクションは、一意のドキュメント タイプではなく、（例えば、セクション「スクリプト コンテンツ ドキュメント」は、「スクリプト」に変更された）コンテンツ ドキュメントを強化する方法を反映するために改名されたが、それ以外のセクションの配置は大きく変更していない。</p>
-<p>[[OCF32]] は、同様に、いくつかのマイナーな編集と構造上のクリーンアップがなされたが、セクションの追加または削除はない。</p>
+<!--OddPage--><h2 id="x3-specification-reorganization"><span class="secno">3. </span>仕様の再編成<a class="self-link" aria-label="§" href="#sec-reorg"></a></h2>
+<p>EPUB 標準の読解と参照を簡単にするために、仕様の主な再編成に着手した。最大の変更点として、新しい包括的な <a href="epub-spec.html">EPUB 仕様</a>は、エントリへの主なポイントとして導入された。[<cite><a class="bibref" href="#bib-publications301">Publications301</a></cite>] で定義された以前の EPUB 出版物およびリーディング システムの要件は、<a href="epub-spec.html#sec-publication-resources">出版物リソース</a>に関するセクションがあったように、この新しいトップレベルの仕様に移動した。全ての<a href="epub-spec.html#sec-terminology">共通用語</a>は、同様に、共通の参照点を提供するために、このトップレベルの仕様に集めた。<a href="epub-spec.html#index">主要な概念のインデックス</a>と用語は、様々なサブ仕様のナビゲーションを支援するために追加さた。</p>
+<p>[<cite><a class="bibref" href="#bib-publications301">Publications301</a></cite>] は、パッケージ ドキュメントを介してコンテンツのレンディションを定義していることを反映するために、より適した <a href="epub-packages.html">EPUB Packages 3.2</a> [<cite><a class="bibref" href="#bib-packages32">Packages32</a></cite>] にリネームした。EPUB ナビゲーション ドキュメントの定義は、EPUB コンテンツ ドキュメントの一般的な機能ではなく、パッケージの中心的な構成要素であるとして、パッケージ仕様のために [<cite><a class="bibref" href="#bib-contentdocs301">ContentDocs301</a></cite>] から移動した。以前、この仕様で定義されていたプロパティの定義は、外部の語彙へ移動した。</p>
+<p>[<cite><a class="bibref" href="#bib-mediaoverlays32">MediaOverlays32</a></cite>] は、埋め込まれるプロパティの定義が別々の語彙として移動されたが、その他の点では構造的な変化はない。</p>
+<p>[<cite><a class="bibref" href="#bib-contentdocs32">ContentDocs32</a></cite>] は、EPUB ナビゲーション ドキュメントの定義の除去を別とすれば、主に表面的な変更がなされた。いくつかのセクションは、一意のドキュメント タイプではなく、（例えば、セクション「スクリプト コンテンツ ドキュメント」は、「スクリプト」に変更された）コンテンツ ドキュメントを強化する方法を反映するために改名されたが、それ以外のセクションの配置は大きく変更していない。</p>
+<p>[<cite><a class="bibref" href="#bib-ocf32">OCF32</a></cite>] は、同様に、いくつかのマイナーな編集と構造上のクリーンアップがなされたが、セクションの追加または削除はない。</p>
 </section>
 <section id="sec-epub32">
-<h1>EPUB 3.2</h1>
-<div class="note">
+<!--OddPage--><h2 id="x4-epub-3-2"><span class="secno">4. </span>EPUB 3.2<a class="self-link" aria-label="§" href="#sec-epub32"></a></h2>
+<div class="note" role="note" id="issue-container-generatedID-0">
+<div role="heading" class="note-title marker" id="h-note-0" aria-level="3"><span>Note</span></div>
+<div class="">
 <p>EPUB 3.2 で取り上げられた <a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3ASpec-EPUB32+is%3Aclosed">EPUB 3.0.1 仕様のイシュー</a>の説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
+</div>
 <section id="sec-epub32-a11y">
-<h2>アクセシビリティ サポート</h2>
-<p>EPUB 3.2 は、全ての EPUB 出版物が、新しい EPUB Accessibility 仕様 [[EPUBAccessibility]] に適合する勧告を包含する。アクセシビリティ仕様は、コンテンツ内の [[WCAG20]] サポートと一緒に、発見のメタデータの包含のための勧告を行う。</p>
-<p>EPUB リーディング システムはまた、[[EPUBAccessibility]] の要件を満たすことを推奨する。</p>
+<h3 id="x4-1-accessibility-support"><span class="secno">4.1 </span>アクセシビリティ サポート<a class="self-link" aria-label="§" href="#sec-epub32-a11y"></a></h3>
+<p>EPUB 3.2 は、全ての EPUB 出版物が、新しい EPUB Accessibility 仕様 [<cite><a class="bibref" href="#bib-epubaccessibility">EPUBAccessibility</a></cite>] に適合する勧告を包含する。アクセシビリティ仕様は、コンテンツ内の [<cite><a class="bibref" href="#bib-wcag20">WCAG20</a></cite>] サポートと一緒に、発見のメタデータの包含のための勧告を行う。</p>
+<p>EPUB リーディング システムはまた、[<cite><a class="bibref" href="#bib-epubaccessibility">EPUBAccessibility</a></cite>] の要件を満たすことを推奨する。</p>
 </section>
 <section id="sec-epub32-cmt">
-<h2>新しいコア メディア タイプ リソース</h2>
-<p>EPUB 3.2 は、コア メディア タイプ リソース [[EPUB32]] として <a href="epub-spec.html#cmt-woff2">WOFF 2.0</a> と <a href="epub-spec.html#cmt-sfnt">SFNT</a> フォント フォーマットを追加した。</p>
+<h3 id="x4-2-new-core-media-type-resources"><span class="secno">4.2 </span>新しいコア メディア タイプ リソース<a class="self-link" aria-label="§" href="#sec-epub32-cmt"></a></h3>
+<p>EPUB 3.2 は、コア メディア タイプ リソース [<cite><a class="bibref" href="#bib-epub32">EPUB32</a></cite>] として <a href="epub-spec.html#cmt-woff2">WOFF 2.0</a> と <a href="epub-spec.html#cmt-sfnt">SFNT</a> フォント フォーマットを追加した。</p>
 </section>
 <section id="sec-epub32-fallbacks">
-<h2>管理外リソース フォールバックの明確化</h2>
+<h3 id="x4-3-clarification-of-foreign-resource-fallbacks"><span class="secno">4.3 </span>管理外リソース フォールバックの明確化<a class="self-link" aria-label="§" href="#sec-epub32-fallbacks"></a></h3>
 <p>EPUB 3.2 は、スパインではなく、EPUB コンテンツ ドキュメントに埋め込まれていない場合は、管理外リソースが<span class="phrase"><a href="epub-spec.html#sec-foreign-restrictions">フォールバックを必要としない</a></span>という更なる明確化を追加した。</p>
 <p>この変更は、特に利点、不要なフォールバックなしにスクリプトによって使用するためのデータファイルを製作者が包含することができる。</p>
 </section>
 <section id="sec-epub32-res">
-<h2>リモートでホストされるリソース</h2>
+<h3 id="x4-4-remotely-hosted-resources"><span class="secno">4.4 </span>リモートでホストされるリソース<a class="self-link" aria-label="§" href="#sec-epub32-res"></a></h3>
 <p>EPUB 3.2 は、スクリプトによって使用されるフォントとリソースが <a href="epub-spec.html#sec-resource-locations">EPUB コンテナの外側でホストされる</a>ことを許可する。</p>
 </section>
 <section id="sec-epub32-cfi">
-<h2>リンクのための EPUBCFI サポートの廃止</h2>
-<p>EPUB 3.2 は、ハイパーリンクするために EPUB Canonical Fragment Identifiers [[EPUB-CFI]] をサポートするリーディング システムへの要求は取り除かれた（<a href="http://www.idpf.org/epub/301/spec/epub-publications.html#confreq-rs-cfi">EPUB 3.0.1 EPUBCFI の要件</a>を参照）。</p>
+<h3 id="x4-5-removed-support-for-epubcfi-for-linking"><span class="secno">4.5 </span>リンクのための EPUBCFI サポートの廃止<a class="self-link" aria-label="§" href="#sec-epub32-cfi"></a></h3>
+<p>EPUB 3.2 は、ハイパーリンクするために EPUB Canonical Fragment Identifiers [<cite><a class="bibref" href="#bib-epub-cfi">EPUB-CFI</a></cite>] をサポートするリーディング システムへの要求は取り除かれた（<a href="http://www.idpf.org/epub/301/spec/epub-publications.html#confreq-rs-cfi">EPUB 3.0.1 EPUBCFI の要件</a>を参照）。</p>
 </section>
 <section id="sec-epub32-deprecated">
-<h2>非サポート機能の新しい表記</h2>
+<h3 id="x4-6-new-designations-for-unsupported-features"><span class="secno">4.6 </span>非サポート機能の新しい表記<a class="self-link" aria-label="§" href="#sec-epub32-deprecated"></a></h3>
 <p>EPUB 3.2 は、非推奨（deprecated）の定義を<a href="epub-spec.html#sec-overview-unsupported">更新</a>し、「置き換え（superseded）」を廃止し、後方互換性のみを目的とした「レガシー」機能の概念を追加する。</p>
 </section>
 </section>
 <section id="sec-pkg">
-<h1>Packages 3.2</h1>
-<div class="note">
+<!--OddPage--><h2 id="x5-packages-3-2"><span class="secno">5. </span>Packages 3.2<a class="self-link" aria-label="§" href="#sec-pkg"></a></h2>
+<div class="note" role="note" id="issue-container-generatedID-1">
+<div role="heading" class="note-title marker" id="h-note-1" aria-level="3"><span>Note</span></div>
+<div class="">
 <p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-Packages+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Packages 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
+</div>
 <section id="sec-pkg-metadata-changes">
-<h2>パッケージ メタデータの変更</h2>
+<h3 id="x5-1-package-metadata-changes"><span class="secno">5.1 </span>パッケージ メタデータの変更<a class="self-link" aria-label="§" href="#sec-pkg-metadata-changes"></a></h3>
 <p>EPUB 3.2 は、パッケージ メタデータを次のように変更する。</p>
 <ul>
 <li><code>rendition:spread</code> の <a href="epub-packages.html#spread-values"><code>portrait</code> 値</a>は、非推奨（deprecated）となった。</li>
@@ -126,36 +1016,42 @@
 <li>現在、全ての特定のメタデータ レコードにおける<a href="epub-packages.html#sec-link-rel">リンク要素の関連性</a>は、非推奨（deprecated）である（<code>marc21xml-record</code>、<code>mods-record</code>、<code>onix-record</code> 及び <code>xmp-signature</code>）。今は、一般的な <code>record</code> の関連性はの使用が、推奨される。<code>properties</code> 属性は、<a href="epub-packages.html#sec-link-properties">固有のメディアタイプを持たないレコード タイプ</a>を識別するのに役立つように、link 要素に追加された。</li>
 <li><a href="epub-packages.html#sec-alternate"><code>alternate</code></a>、 <a href="epub-packages.html#sec-acquire"><code>acquire</code></a> 及び <a href="epub-packages.html#sec-voicing"><code>voicing</code></a> のリンクの関係性が追加された。</li>
 <li>外部メタデータ語彙は、付録として仕様に復帰した。</li>
-<li>（スクリプトによって操作できるコンポーネントの）<code>epubsc</code> は、もはや予約済みの接頭辞ではない。</li>
+<li>（スクリプトによって操作できるコンポーネントの）<code>epubsc</code> は、もはや予約済みのプリフィックスではない。</li>
 </ul>
 </section>
 <section id="sec-pkg-linked-records">
-<h2>リンクされたメタデータ レコード</h2>
+<h3 id="x5-2-linked-metadata-records"><span class="secno">5.2 </span>リンクされたメタデータ レコード<a class="self-link" aria-label="§" href="#sec-pkg-linked-records"></a></h3>
 <p>EPUB 3.2 は、パッケージ ドキュメントの <code>metadata</code> 要素に直接包含されている情報の上に<a href="epub-packages.html#sec-link-elem">リンクされたレコードに書誌情報に優先し</a>、リンクされたレコードの優先順位もまた変更する。</p>
-<div class="note">
+<div class="note" role="note" id="issue-container-generatedID-2">
+<div role="heading" class="note-title marker" id="h-note-2" aria-level="4"><span>Note</span></div>
+<div class="">
 <p>リモートのレコードを取得するためのプロトコルは、最新ドラフトの補足で開発中であった。その作業は削除され、別のドキュメントで継続されるであろう。</p>
+</div>
 </div>
 </section>
 <section id="sec-pkg-bindings">
-<h2><code>bindings</code> 要素の非推奨（deprecation）</h2>
+<h3 id="x5-3-deprecation-of-the-bindings-element"><span class="secno">5.3 </span><code>bindings</code> 要素の非推奨（deprecation）<a class="self-link" aria-label="§" href="#sec-pkg-bindings"></a></h3>
 <p>EPUB 3.2 は、object 要素（<a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-bindings-elem">EPUB 3.0.1 <code>bindings</code></a> を参照）に埋め込まれた管理外リソースのために代替のスクリプト化したフォールバックを提供するパッケージ ドキュメント内で bindings の使用を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする。</p>
-<p>[[HTML]] <code>object</code> 要素<a href="epub-contentdocs.html#sec-xhtml-fallbacks">固有のフォールバック メカニズム</a>（埋め込みコンテンツ）は、フォールバックのコア メディア タイプ リソースを提供するために使用できる。</p>
+<p>[<cite><a class="bibref" href="#bib-html">HTML</a></cite>] <code>object</code> 要素<a href="epub-contentdocs.html#sec-xhtml-fallbacks">固有のフォールバック メカニズム</a>（埋め込みコンテンツ）は、フォールバックのコア メディア タイプ リソースを提供するために使用できる。</p>
 </section>
 </section>
 <section id="sec-cdoc">
-<h1>Content Documents 3.2</h1>
-<div class="note">
+<!--OddPage--><h2 id="x6-content-documents-3-2"><span class="secno">6. </span>Content Documents 3.2<a class="self-link" aria-label="§" href="#sec-cdoc"></a></h2>
+<div class="note" role="note" id="issue-container-generatedID-3">
+<div role="heading" class="note-title marker" id="h-note-3" aria-level="3"><span>Note</span></div>
+<div class="">
 <p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-ContentDocs+is%3Aclosed">3.2 リビジョン</a>で取り上げられた EPUB Content Documents 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
+</div>
 <section id="sec-cdoc-undated">
-<h2>HTML と SVG への日付なし参照</h2>
+<h3 id="x6-1-undated-references-to-html-and-svg"><span class="secno">6.1 </span>HTML と SVG への日付なし参照<a class="self-link" aria-label="§" href="#sec-cdoc-undated"></a></h3>
 <p>EPUB 3.0.1 は、それらの特定のバージョンに仕様を結びつけるため、HTML 5.0 と SVG 1.1 のために日付付きの参照を使用していた。このモデルでは、新しいリビジョンが、HTML や SVG のバージョンを導入するのにそれぞれの時間を必要とした。</p>
 <p>EPUB 3.2 が、これら仕様における最新の推奨バージョンと共に最新に保たれていることを保証するために、日付付きの参照は、EPUB 3.2 において日付なし参照に置き換えられた。この変更は、HTML と SVG の新しい推奨バージョンが公開されると、それらがすぐに EPUB 出版物での使用に有効であることを意味する。</p>
 <p>この変更の結果として、SVG のアニメーション要素とイベントの使用に対する制限は取り除かれたが、製作者は、SVG のこれらの機能やその他の機能は、まだ十分にサポートされていないので注意して使用するべきである。</p>
 <p>詳細の情報は、<a href="epub-contentdocs.html#sec-overview-relations-html">HTML との関連性</a>と <a href="epub-contentdocs.html#sec-overview-relations-svg">SVG との関連性</a>を見よ。</p>
 </section>
 <section id="sec-cdoc-css">
-<h2>CSS リファレンスに伴う EPUB スタイル シートの置き換え</h2>
+<h3 id="x6-2-replacement-of-epub-style-sheets-with-css-references"><span class="secno">6.2 </span>CSS リファレンスに伴う EPUB スタイル シートの置き換え<a class="self-link" aria-label="§" href="#sec-cdoc-css"></a></h3>
 <p>EPUB 3.2 は、EPUB スタイル シート プロファイルを削除する。その代わりに、より一般的な <span class="phrase"><a href="epub-contentdocs.html#sec-css">CSS のサポート要件</a></span>が定義される。</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; ">
@@ -194,27 +1090,30 @@
 </li>
 </ul>
 </div>
-<p class="note">EPUB 出版物で使用されるスタイルシートに制限を課すことは、EPUB の役割ではない。CSS は、十分に定義されたエラー処理を持ち、合理的なフォールバック動作を保証しながら新しいCSS機能を利用できるように、（例えば、「@supports」やカスケードなど）多くの技術を製作者作は利用可能できる。</p>
+<div class="note" role="note" id="issue-container-generatedID-4">
+<div role="heading" class="note-title marker" id="h-note-4" aria-level="4"><span>Note</span></div>
+<p class="">EPUB 出版物で使用されるスタイルシートに制限を課すことは、EPUB の役割ではない。CSS は、十分に定義されたエラー処理を持ち、合理的なフォールバック動作を保証しながら新しいCSS機能を利用できるように、（例えば、<code>@supports</code> やカスケードなど）多くの技術を製作者作は利用可能できる。</p>
+</div>
 </section>
 <section id="sec-cdoc-css-priority">
-<h2>製作者とユーザースタイルの優先順位付け</h2>
+<h3 id="x6-3-prioritization-of-author-and-user-styles"><span class="secno">6.3 </span>製作者とユーザースタイルの優先順位付け<a class="self-link" aria-label="§" href="#sec-cdoc-css-priority"></a></h3>
 <p>EPUB 3.2 は、リーディング システムが、<a href="epub-contentdocs.html#confreq-css-rs-html-default">リーディング システムの適合性要件</a>の追加と<a href="epub-contentdocs.html#sec-css-rs-overrides">スタイルを上書きするサブセクション</a>を介して、ユーザー エージェント スタイルの上に、製作者とユーザーのスタイルの選択を優先するべきガイダンスを追加した。</p>
 </section>
 <section id="alternate-style-tags">
-<h2>Alternate Style Tags の廃止</h2>
+<h3 id="x6-4-alternate-style-tags-removed"><span class="secno">6.4 </span>Alternate Style Tags の廃止<a class="self-link" aria-label="§" href="#alternate-style-tags"></a></h3>
 <p>EPUB 3.2 は、もはや Alternate Style Tags を言及しない。このメカニズムは、class 属性を使用するため、これは、既存のコンテンツの有効性に影響を与えない。</p>
 </section>
 <section id="structural-semantics">
-<h2>許可された <code>epub:type</code> の値</h2>
-<p>EPUB 3.2 は、<code>epub:type</code> 属性で使用される EPUB Structural Semantics Vocabulary [[EPUB-SSV]] の一部ではない接頭辞のない値を許可する。</p>
+<h3 id="x6-5-any-value-for-epub-type-allowed"><span class="secno">6.5 </span>許可された <code>epub:type</code> の値<a class="self-link" aria-label="§" href="#structural-semantics"></a></h3>
+<p>EPUB 3.2 は、<code>epub:type</code> 属性で使用される EPUB Structural Semantics Vocabulary [<cite><a class="bibref" href="#bib-epub-ssv">EPUB-SSV</a></cite>] の一部ではないプリフィックスのない値を許可する。</p>
 </section>
 <section id="sec-cdoc-scripting">
-<h2>スクリプトサポートの明確化</h2>
+<h3 id="x6-6-scripting-support-clarifications"><span class="secno">6.6 </span>スクリプト サポートの明確化<a class="self-link" aria-label="§" href="#sec-cdoc-scripting"></a></h3>
 <p>EPUB 3.2 は、<a href="epub-contentdocs.html#sec-scripted-content">スクリプトのサポート</a>を次のように変更する。</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; ">
 <li>
-<p>コンテナ制約のスクリプトは、（<code>embed</code> と <code>object</code> は削除され）[[HTML]] <code>iframe</code> 要素に限られる。</p>
+<p>コンテナ制約のスクリプトは、（<code>embed</code> と <code>object</code> は削除され）[<cite><a class="bibref" href="#bib-html">HTML</a></cite>] <code>iframe</code> 要素に限られる。</p>
 </li>
 <li>
 <p>リーディング システムは、コンテナ制約のスクリプトをサポートするべきである（スクリプトまわりのセキュリティとプライバシーの懸念のために「must」から弱めた）。</p>
@@ -229,54 +1128,68 @@
 </div>
 </section>
 <section id="sec-cdoc-switch">
-<h2><code>switch</code> 要素の非推奨（deprecation）</h2>
+<h3 id="x6-7-deprecation-of-the-switch-element"><span class="secno">6.7 </span><code>switch</code> 要素の非推奨（deprecation）<a class="self-link" aria-label="§" href="#sec-cdoc-switch"></a></h3>
 <p>EPUB 3.2 は、コンテンツの条件付き表示のために <code>switch</code> 要素の使用を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする（<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-content-switch">EPUB 3.0.1 <code>switch</code> 要素</a>を参照）。</p>
 </section>
 <section id="sec-cdoc-trigger">
-<h2><code>trigger</code> 要素の非推奨（deprecation）</h2>
+<h3 id="x6-8-deprecation-of-the-trigger-element"><span class="secno">6.8 </span><code>trigger</code> 要素の非推奨（deprecation）<a class="self-link" aria-label="§" href="#sec-cdoc-trigger"></a></h3>
 <p>EPUB 3.2 は、音声と動画コンテンツのコントロールを宣言するための <code>trigger</code> 要素の包含を<a href="epub-spec.html#deprecated">非推奨</a>（deprecation）とする（<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-epub-trigger">EPUB 3.0.1 trigger 要素</a>を参照）。</p>
-<p>製作者は、[[HTML]] <code>audio</code> と <code>video</code> 要素によって提供されるネイティブなコントロールを使用することが推奨される。</p>
+<p>製作者は、[<cite><a class="bibref" href="#bib-html">HTML</a></cite>] <code>audio</code> と <code>video</code> 要素によって提供されるネイティブなコントロールを使用することが推奨される。</p>
 </section>
 <section id="sec-cdoc-rso">
-<h2>epubReadingSystem オブジェクトの明確化</h2>
+<h3 id="x6-9-epubreadingsystem-object-clarifications"><span class="secno">6.9 </span>epubReadingSystem オブジェクトの明確化<a class="self-link" aria-label="§" href="#sec-cdoc-rso"></a></h3>
 <p><a href="epub-contentdocs.html#app-ers-idl">IDL 定義</a>に、<a href="epub-contentdocs.html#app-epubReadingSystem"><code>epubReadingSystem</code> オブジェクト</a>が追加された。</p>
 <p>ネストされたコンテクストを包含している、異なるスクリプト コンテクスト内に、オブジェクトを<a href="epub-contentdocs.html#app-ers-desc">利用できるようにするための要件</a>もまた明確化された。</p>
 </section>
 </section>
 <section id="sec-ocf">
-<h1>Open Container Format (OCF) 3.2</h1>
-<div class="note">
+<!--OddPage--><h2 id="x7-open-container-format-ocf-3-2"><span class="secno">7. </span>Open Container Format (OCF) 3.2<a class="self-link" aria-label="§" href="#sec-ocf"></a></h2>
+<div class="note" role="note" id="issue-container-generatedID-5">
+<div role="heading" class="note-title marker" id="h-note-5" aria-level="3"><span>Note</span></div>
+<div class="">
 <p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-OCF+is%3Aclosed">3.2 リビジョン</a>で取り上げられた OCF 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
 </div>
+</div>
 <section id="sec-ocf-enc">
-<h2>暗号化と圧縮順序</h2>
+<h3 id="x7-1-encryption-and-compression-order"><span class="secno">7.1 </span>暗号化と圧縮順序<a class="self-link" aria-label="§" href="#sec-ocf-enc"></a></h3>
 <p><a href="epub-ocf.html#sec-enc-compression">暗号化と圧縮の順序</a>が明確化された。新しいルールは、リソースのサイズを減少させることが適切でないとき、圧縮が必要でないことを明確にする。</p>
 </section>
 
 <section id="sec-ocf-comp">
-<h2>新しい <code>Compression</code> 要素</h2>
+<h3 id="x7-2-new-compression-element"><span class="secno">7.2 </span>新しい <code>Compression</code> 要素<a class="self-link" aria-label="§" href="#sec-ocf-comp"></a></h3>
 <p>新しい <code>Compression</code> 要素は、リソースがすでに圧縮済みなのかそれともそれがオリジナルのバイトサイズを提供しているのかを示すために <code>encryption.xml</code> スキーマのために追加された。</p>
 </section>
 </section>
 <section id="sec-mo">
-<h1>メディア オーバーレイ</h1>
-<div class="note">
+<!--OddPage--><h2 id="x8-media-overlays"><span class="secno">8. </span>メディア オーバーレイ<a class="self-link" aria-label="§" href="#sec-mo"></a></h2>
+<div class="note" role="note" id="issue-container-generatedID-6">
+<div role="heading" class="note-title marker" id="h-note-6" aria-level="3"><span>Note</span></div>
+<div class="">
 <p><a href="https://github.com/w3c/publ-epub-revision/issues?q=is%3Aissue+label%3A%22EPUB32%22+label%3ASpec-MediaOverlays+is%3Aclosed">3.2 リビジョン</a>で取り上げられたメディア オーバレイ 仕様のイシューの説明とタイプミス、その他の完全なリストはイシュー トラッカーを参照されたい。</p>
+</div>
 </div>
 <p>このリビジョンでは、Media Overlays仕様に大きな変更はなかった。</p>
 </section>
 <section id="sec-a11y">
-<h1>EPUB Accessibility</h1>
-<p>EPUB 3.2 リビジョンは、EPUB 出版物をアクセシブルであり発見可能にする方法の詳細として、[[EPUBAccessibility]] 仕様を導入する。この仕様は、[[WCAG20]] の作業を活用し、EPUB 出版物のための要件もまた追加している。これは、要件を満たすためのベスト プラクティスを記述した、規定ではない <a class="biblioref" href="#refA11YTech" title="EPUB Accessibility Techniques">[<abbr class="abbrev">EPUB Accessibility Techniques</abbr>]</a> ドキュメントが添付されている。</p>
+<!--OddPage--><h2 id="x9-epub-accessibility"><span class="secno">9. </span>EPUB Accessibility<a class="self-link" aria-label="§" href="#sec-a11y"></a></h2>
+<p>EPUB 3.2 リビジョンは、EPUB 出版物をアクセシブルであり発見可能にする方法の詳細として、[<cite><a class="bibref" href="#bib-epubaccessibility">EPUBAccessibility</a></cite>] 仕様を導入する。この仕様は、[<cite><a class="bibref" href="#bib-wcag20">WCAG20</a></cite>] の作業を活用し、EPUB 出版物のための要件もまた追加している。これは、要件を満たすためのベスト プラクティスを記述した、規定ではない [<cite><a class="bibref" href="#bib-epubaccessibilitytechniques">EPUBAccessibilityTechniques</a></cite>] ドキュメントが添付されている。</p>
 <p>この仕様は、EPUB の古いバージョンに利用できるよう設計されている。EPUB 3.0.1 または 2.0.1 がアクセシブルかどうかを確認するために製作者によってすぐ使用することができる。</p>
 </section>
 <section id="sec-cfi">
-<h1>EPUB Canonical Fragment Identifiers</h1>
+<!--OddPage--><h2 id="x10-epub-canonical-fragment-identifiers"><span class="secno">10. </span>EPUB Canonical Fragment Identifiers<a class="self-link" aria-label="§" href="#sec-cfi"></a></h2>
 <p>EPUB Canonical Identifiers 仕様は、もはや EPUB 3.2 から参照されない。現在、リーディング システムにおけるサポートは、省略可能である。</p>
 </section>
 <section id="sec-altss">
-<h1>Alternate Style Tags</h1>
+<!--OddPage--><h2 id="x11-alternate-style-tags"><span class="secno">11. </span>Alternate Style Tags<a class="self-link" aria-label="§" href="#sec-altss"></a></h2>
 <p>Alternate Style Tags 仕様は、もはや EPUB 3.2 から参照されない。現在、リーディング システムにおけるサポートは、省略可能である。</p>
 </section>
+<section id="references" class="appendix">
+      <!--OddPage--><h2 id="a-references"><span class="secno">A. </span>参照・参考<a class="self-link" aria-label="§" href="#references"></a></h2>
+      
+    <section id="informative-references">
+        <h3 id="a-1-informative-references"><span class="secno">A.1 </span>規定ではない参照<a class="self-link" aria-label="§" href="#informative-references"></a></h3>
+      <dl class="bibliography">
+        <dt id="bib-contentdocs301">[ContentDocs301]</dt><dd><a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html"><cite>EPUB Content Documents 3.0.1</cite></a>. URL: <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">http://www.idpf.org/epub/301/spec/epub-contentdocs.html</a></dd><dt id="bib-contentdocs32">[ContentDocs32]</dt><dd><a href="epub-contentdocs.html"><cite>EPUB Content Documents 3.2</cite></a>. URL: <a href="epub-contentdocs.html">epub-contentdocs.html</a></dd><dt id="bib-epub-cfi">[EPUB-CFI]</dt><dd><a href="http://www.idpf.org/epub/linking/cfi/epub-cfi.html"><cite>EPUB Canonical Fragment Identifier (epubcfi) Specification</cite></a>. URL: <a href="http://www.idpf.org/epub/linking/cfi/epub-cfi.html">http://www.idpf.org/epub/linking/cfi/epub-cfi.html</a></dd><dt id="bib-epub-ssv">[EPUB-SSV]</dt><dd><a href="http://www.idpf.org/epub/vocab/structure/"><cite>EPUB Structural Semantics Vocabulary</cite></a>.  IDPF. URL: <a href="http://www.idpf.org/epub/vocab/structure/">http://www.idpf.org/epub/vocab/structure/</a></dd><dt id="bib-epub32">[EPUB32]</dt><dd><a href="epub-spec.html"><cite>EPUB 3.2</cite></a>. URL: <a href="epub-spec.html">epub-spec.html</a></dd><dt id="bib-epubaccessibility">[EPUBAccessibility]</dt><dd><a href="http://www.idpf.org/epub/latest/accessibility"><cite>EPUB Accessibility</cite></a>. URL: <a href="http://www.idpf.org/epub/latest/accessibility">http://www.idpf.org/epub/latest/accessibility</a></dd><dt id="bib-epubaccessibilitytechniques">[EPUBAccessibilityTechniques]</dt><dd><a href="http://www.idpf.org/epub/latest/accessibility/techniques"><cite>EPUB Accessibility Techniques</cite></a>. URL: <a href="http://www.idpf.org/epub/latest/accessibility/techniques">http://www.idpf.org/epub/latest/accessibility/techniques</a></dd><dt id="bib-html">[HTML]</dt><dd><a href="https://www.w3.org/TR/html/"><cite>HTML</cite></a>.  W3C. W3C Recommendation. URL: <a href="https://www.w3.org/TR/html/">https://www.w3.org/TR/html/</a></dd><dt id="bib-mediaoverlays32">[MediaOverlays32]</dt><dd><a href="epub-mediaoverlays.html"><cite>EPUB Media Overlays 3.2</cite></a>. URL: <a href="epub-mediaoverlays.html">epub-mediaoverlays.html</a></dd><dt id="bib-ocf32">[OCF32]</dt><dd><a href="epub-ocf.html"><cite>Open Container Format (OCF) 3.2</cite></a>. URL: <a href="epub-ocf.html">epub-ocf.html</a></dd><dt id="bib-packages32">[Packages32]</dt><dd><a href="epub-packages.html"><cite>EPUB Packages 3.2</cite></a>. URL: <a href="epub-packages.html">epub-packages.html</a></dd><dt id="bib-publications301">[Publications301]</dt><dd><a href="http://www.idpf.org/epub/301/spec/epub-publications.html"><cite>EPUB Publications 3.0.1</cite></a>. URL: <a href="http://www.idpf.org/epub/301/spec/epub-publications.html">http://www.idpf.org/epub/301/spec/epub-publications.html</a></dd><dt id="bib-wcag20">[WCAG20]</dt><dd><a href="https://www.w3.org/TR/WCAG20/"><cite>Web Content Accessibility Guidelines (WCAG) 2.0</cite></a>. Ben Caldwell; Michael Cooper; Loretta Guarino Reid; Gregg Vanderheiden et al. W3C. 11 December 2008. W3C Recommendation. URL: <a href="https://www.w3.org/TR/WCAG20/">https://www.w3.org/TR/WCAG20/</a></dd>
+      </dl></section></section><p role="navigation" id="back-to-top"><a href="#title"><abbr title="Back to Top">↑</abbr></a></p><script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
 </body>
 </html>
